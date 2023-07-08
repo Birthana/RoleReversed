@@ -3,16 +3,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Room startRoom;
+    public Player playerPrefab;
     public Vector2 PLAYER_OFFSET;
+    private Room startRoom;
     private Player player;
     private Room currentRoom;
 
-    private void Awake()
+    public bool DoesNotHaveStartRoom() { return startRoom == null; }
+
+    public void SetStartRoom(Room room)
     {
-        player = FindObjectOfType<Player>();
-        SetRoom(startRoom);
-        StartCoroutine(WalkThruDungeon());
+        startRoom = room;
+        player = Instantiate(playerPrefab);
+        PlayerMoveTo(room);
     }
 
     public void ResetPlayer()

@@ -9,12 +9,12 @@ public class Card : MonoBehaviour
         return cost;
     }
 
-    public bool HasTarget()
+    public virtual bool HasTarget()
     {
         return true;
     }
 
-    public void Cast()
+    public virtual void Cast()
     {
         ReduceActions();
         Destroy(gameObject);

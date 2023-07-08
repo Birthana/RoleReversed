@@ -7,6 +7,7 @@ public class Room : MonoBehaviour
     public List<Monster> monsters = new List<Monster>();
     public Room nextRoom;
     public bool isEndRoom;
+    public int capacity;
 
     public IEnumerator MakeAttack(Character character)
     {
