@@ -6,13 +6,15 @@ public class Character : MonoBehaviour
 {
     public int damage;
     public TextMeshPro damageUI;
-    private Health health;
+    protected Health health;
 
     public virtual void Awake()
     {
-        damageUI.text = $"{damage}";
+        SetMaxDamage();
         health = GetComponent<Health>();
     }
+
+    public void SetMaxDamage() { damageUI.text = $"{damage}"; }
 
     public bool IsDead() { return health.GetCurrentHealth() == 0; }
 

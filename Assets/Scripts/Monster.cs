@@ -29,6 +29,7 @@ public class Monster : Character
         if (character.IsDead())
         {
             Debug.Log($"Player is Dead.");
+            FindObjectOfType<GameManager>().ResetPlayer();
         }
 
         Engage();

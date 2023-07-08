@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Room startRoom;
+    public Vector2 PLAYER_OFFSET;
     private Player player;
     private Room currentRoom;
 
@@ -12,6 +13,14 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         SetRoom(startRoom);
         StartCoroutine(WalkThruDungeon());
+    }
+
+    public void ResetPlayer()
+    {
+        StopAllCoroutines();
+        SetRoom(startRoom);
+        PlayerMoveTo(currentRoom);
+        player.ResetStats();
     }
 
     private void SetRoom(Room room)
@@ -24,23 +33,33 @@ public class GameManager : MonoBehaviour
         bool still_running = true;
         while (still_running)
         {
-            if (currentRoom.IsEndRoom())
-            {
-                still_running = false;
-            }
-
             yield return new WaitForSeconds(0.5f);
-            var character = player.GetComponent<Character>();
-            yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster().GetComponent<Character>()));
-            yield return StartCoroutine(currentRoom.MakeAttack(character));
+            yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster()));
+            yield return StartCoroutine(currentRoom.MakeAttack(player));
+
+            if (currentRoom.IsEmpty() && currentRoom.IsEndRoom())
+            {
+                SetRoom(startRoom);
+                PlayerMoveTo(currentRoom);
+                break;
+            }
 
             if (currentRoom.IsEmpty())
             {
-                SetRoom(currentRoom.GetNextRoom());
-                player.transform.SetParent(currentRoom.transform);
-                player.transform.localPosition = Vector3.zero;
+                GoToNextRoom();
+                PlayerMoveTo(currentRoom);
             }
         }
     }
 
+    private void GoToNextRoom()
+    {
+        SetRoom(currentRoom.GetNextRoom());
+    }
+
+    private void PlayerMoveTo(Room room)
+    {
+        player.transform.SetParent(room.transform);
+        player.transform.localPosition = PLAYER_OFFSET;
+    }
 }

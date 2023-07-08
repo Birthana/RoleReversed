@@ -11,10 +11,15 @@ public class Health : MonoBehaviour
     private void Awake()
     {
         OnHealthChange += GetComponent<BasicUI>().Display;
-        SetHealth(maxHealth);
+        RestoreFullHealth();
     }
 
     public int GetCurrentHealth() { return currentHealth; }
+
+    public void RestoreFullHealth()
+    {
+        SetHealth(maxHealth);
+    }
 
     public void TakeDamage(int damage)
     {
