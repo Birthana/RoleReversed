@@ -29,10 +29,18 @@ public class GameManager : MonoBehaviour
                 still_running = false;
             }
 
-            var character = player.GetComponent<Character>();
-            yield return StartCoroutine(currentRoom.MakeAttack(character));
             yield return new WaitForSeconds(0.5f);
-            SetRoom(currentRoom.GetNextRoom());
+            var character = player.GetComponent<Character>();
+            yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster().GetComponent<Character>()));
+            yield return StartCoroutine(currentRoom.MakeAttack(character));
+
+            if (currentRoom.IsEmpty())
+            {
+                SetRoom(currentRoom.GetNextRoom());
+                player.transform.SetParent(currentRoom.transform);
+                player.transform.localPosition = Vector3.zero;
+            }
         }
     }
+
 }

@@ -1,13 +1,10 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Character))]
-public class Monster : MonoBehaviour
+public class Monster : Character
 {
-    private Character stats;
-
-    private void Awake()
+    public override void Awake()
     {
-        stats = GetComponent<Character>();
+        base.Awake();
         Entrance();
     }
 
@@ -28,7 +25,12 @@ public class Monster : MonoBehaviour
 
     public void Attack(Character character)
     {
-        character.TakeDamage(stats.GetDamage());
+        character.TakeDamage(GetDamage());
+        if (character.IsDead())
+        {
+            Debug.Log($"Player is Dead.");
+        }
+
         Engage();
     }
 }

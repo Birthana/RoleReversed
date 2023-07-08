@@ -1,12 +1,21 @@
+using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Character))]
-public class Player : MonoBehaviour
+public class Player : Character
 {
-    private Character stats;
-
-    private void Awake()
+    public override void Awake()
     {
-        stats = GetComponent<Character>();
+        base.Awake();
+    }
+
+    public IEnumerator MakeAttack(Character character)
+    {
+        character.TakeDamage(GetDamage());
+        if (character.IsDead())
+        {
+            transform.parent.GetComponent<Room>().Remove(character as Monster);
+        }
+
+        yield return new WaitForSeconds(0.5f);
     }
 }

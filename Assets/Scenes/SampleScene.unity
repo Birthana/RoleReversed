@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &25917928 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 26669088733083592, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
-  m_PrefabInstance: {fileID: 1438704156}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7781a0ffe7831744ba8074399922eac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &157031853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -143,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 26669088733083597, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 26669088733083597, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
       propertyPath: m_LocalPosition.x
@@ -191,17 +180,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
---- !u!114 &157031854 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 26669088733083592, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
-  m_PrefabInstance: {fileID: 157031853}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7781a0ffe7831744ba8074399922eac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &301128506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268,7 +246,7 @@ PrefabInstance:
     - target: {fileID: 1190293193756740653, guid: 7e8f97030608fe047bab1dccb49aa33e, type: 3}
       propertyPath: monsters.Array.data[0]
       value: 
-      objectReference: {fileID: 157031854}
+      objectReference: {fileID: 1502934856}
     - target: {fileID: 4915686858167388813, guid: 7e8f97030608fe047bab1dccb49aa33e, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -384,17 +362,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1190293193756740650, guid: 7e8f97030608fe047bab1dccb49aa33e, type: 3}
   m_PrefabInstance: {fileID: 1190293192049394910}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &732925399 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 26669088733083592, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
-  m_PrefabInstance: {fileID: 26669089191934495}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7781a0ffe7831744ba8074399922eac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1317464070 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1190293193756740653, guid: 7e8f97030608fe047bab1dccb49aa33e, type: 3}
@@ -413,6 +380,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 544176253}
     m_Modifications:
+    - target: {fileID: 26669088733083590, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
+      propertyPath: maxHealth
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 26669088733083597, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -463,6 +434,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
+--- !u!114 &1502934856 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1632550545, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
+  m_PrefabInstance: {fileID: 157031853}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7781a0ffe7831744ba8074399922eac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1632550545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1632550545, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
+  m_PrefabInstance: {fileID: 26669089191934495}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7781a0ffe7831744ba8074399922eac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1801645731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -529,7 +522,7 @@ PrefabInstance:
     - target: {fileID: 1190293193756740653, guid: 7e8f97030608fe047bab1dccb49aa33e, type: 3}
       propertyPath: monsters.Array.data[0]
       value: 
-      objectReference: {fileID: 1980749864}
+      objectReference: {fileID: 1980749872}
     - target: {fileID: 4915686858167388813, guid: 7e8f97030608fe047bab1dccb49aa33e, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -554,6 +547,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 204a23a465666174ba610a33529f9448, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1836797434 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1632550545, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
+  m_PrefabInstance: {fileID: 1438704156}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7781a0ffe7831744ba8074399922eac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1980749863
@@ -613,9 +617,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
---- !u!114 &1980749864 stripped
+--- !u!114 &1980749872 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 26669088733083592, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1632550545, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
   m_PrefabInstance: {fileID: 1980749863}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -792,11 +796,11 @@ PrefabInstance:
     - target: {fileID: 1190293193756740653, guid: 7e8f97030608fe047bab1dccb49aa33e, type: 3}
       propertyPath: monsters.Array.data[0]
       value: 
-      objectReference: {fileID: 732925399}
+      objectReference: {fileID: 1632550545}
     - target: {fileID: 1190293193756740653, guid: 7e8f97030608fe047bab1dccb49aa33e, type: 3}
       propertyPath: monsters.Array.data[1]
       value: 
-      objectReference: {fileID: 25917928}
+      objectReference: {fileID: 1836797434}
     - target: {fileID: 4915686858167388813, guid: 7e8f97030608fe047bab1dccb49aa33e, type: 3}
       propertyPath: m_Sprite
       value: 

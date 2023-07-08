@@ -17,7 +17,26 @@ public class Room : MonoBehaviour
         }
     }
 
+    public void Add(Monster monster)
+    {
+        monsters.Add(monster);
+    }
+
+    public void Remove(Monster monster)
+    {
+        monsters.Remove(monster);
+        Destroy(monster.gameObject);
+    }
+
+    public Monster GetRandomMonster()
+    {
+        var rngIndex = Random.Range(0, monsters.Count);
+        return monsters[rngIndex];
+    }
+
     public Room GetNextRoom() { return nextRoom; }
 
     public bool IsEndRoom() { return isEndRoom; }
+
+    public bool IsEmpty() { return monsters.Count == 0; }
 }

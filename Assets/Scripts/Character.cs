@@ -8,11 +8,13 @@ public class Character : MonoBehaviour
     public TextMeshPro damageUI;
     private Health health;
 
-    private void Awake()
+    public virtual void Awake()
     {
         damageUI.text = $"{damage}";
         health = GetComponent<Health>();
     }
+
+    public bool IsDead() { return health.GetCurrentHealth() == 0; }
 
     public int GetDamage() { return damage; }
 
