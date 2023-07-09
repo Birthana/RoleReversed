@@ -15,9 +15,9 @@ TagManager:
   - Room
   - Space
   - Pack
-  - 
-  - 
-  - 
+  - Player
+  - Action
+  - Reroll
   - 
   - 
   - 
@@ -40,4 +40,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 3831325761
     locked: 0

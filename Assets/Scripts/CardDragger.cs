@@ -6,13 +6,67 @@ public class CardDragger : MonoBehaviour
 {
     private Card selectedCard;
     private Vector3 previousPosition;
+    private int actionCount = 0;
 
     private void Update()
     {
         CheckToSelectCard();
         DragSelectCardToMouse();
         CheckToCastSelectCard();
+        CheckToGainAction();
+        CheckToRerollCard();
         CheckToReturnSelectCard();
+    }
+
+    private void CheckToGainAction()
+    {
+        if (selectedCard == null)
+        {
+            return;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Action"));
+            if (hit)
+            {
+                FindObjectOfType<Hand>().Remove(selectedCard);
+                Destroy(selectedCard.gameObject);
+                actionCount++;
+                if (actionCount == 3)
+                {
+                    actionCount = 0;
+                    FindObjectOfType<ActionManager>().AddActions(1);
+                }
+            }
+        }
+    }
+
+    private void CheckToRerollCard()
+    {
+        if (selectedCard == null)
+        {
+            return;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Reroll"));
+            if (hit)
+            {
+                FindObjectOfType<Hand>().Remove(selectedCard);
+                Destroy(selectedCard.gameObject);
+                actionCount++;
+                if (actionCount == 2)
+                {
+                    actionCount = 0;
+                    var card =FindObjectOfType<CardManager>().GetRandomCard();
+                    FindObjectOfType<Hand>().Add(card);
+                }
+            }
+        }
     }
 
     private void CheckToSelectCard()

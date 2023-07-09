@@ -24,7 +24,9 @@ public class Pack : MonoBehaviour
     {
         var hand = FindObjectOfType<Hand>();
         var rngCards = FindObjectOfType<CardManager>();
-        for (int i = 0; i < numberOfCards; i++)
+        hand.Add(rngCards.GetMonsterCard());
+        hand.Add(rngCards.GetRoomCard());
+        for (int i = 0; i < numberOfCards - 2; i++)
         {
             hand.Add(rngCards.GetRandomCard());
         }

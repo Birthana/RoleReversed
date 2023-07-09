@@ -21,6 +21,11 @@ public class Room : MonoBehaviour
     {
         foreach (var monster in monsters)
         {
+            if (FindObjectOfType<Player>().IsDead())
+            {
+                break;
+            }
+
             if (monster.IsDead())
             {
                 continue;
@@ -65,7 +70,16 @@ public class Room : MonoBehaviour
 
     public void Remove(Monster monster)
     {
+        if (monster.isTemporary)
+        {
+            monsters.Remove(monster);
+            Destroy(monster.gameObject);
+            DisplayMonsters();
+            return;
+        }
+
         monster.gameObject.SetActive(false);
+        monster.Exit();
     }
 
     public Monster GetRandomMonster()

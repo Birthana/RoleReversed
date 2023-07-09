@@ -30,6 +30,11 @@ public class ActionManager : MonoBehaviour
         return (currentActions != 0) && (card.GetCost() <= currentActions);
     }
 
+    public void AddActions(int actions)
+    {
+        SetActions(Mathf.Max(0, currentActions + actions));
+    }
+
     public void ReduceActions(int actions)
     {
         SetActions(Mathf.Max(0, currentActions - actions));

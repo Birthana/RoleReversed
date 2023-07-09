@@ -1,12 +1,17 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class Player : Character
 {
+    public event Action<int> OnRespawn;
     private int timesDied = 0;
 
     public override void Awake()
     {
+        OnRespawn += FindObjectOfType<GameManager>().respawnCounter.GetComponent<BasicUI>().Display;
+        OnRespawn?.Invoke(timesDied);
         base.Awake();
     }
 
@@ -24,6 +29,7 @@ public class Player : Character
     public void GetStronger()
     {
         timesDied++;
+        OnRespawn?.Invoke(timesDied);
         int numberOfBuffs = (timesDied / 2) + 1;
         for (int i = 0; i < numberOfBuffs; i++)
         {
@@ -33,7 +39,7 @@ public class Player : Character
 
     private void GainRandomStats()
     {
-        var rngIndex = Random.Range(0, 3);
+        var rngIndex = UnityEngine.Random.Range(0, 3);
         if (rngIndex == 0)
         {
             IncreaseDamage(1);

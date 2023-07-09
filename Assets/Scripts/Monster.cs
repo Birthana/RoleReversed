@@ -2,23 +2,25 @@ using UnityEngine;
 
 public class Monster : Character
 {
+    public bool isTemporary = false;
+
     public override void Awake()
     {
         base.Awake();
         Entrance();
     }
 
-    private void Entrance()
+    public virtual void Entrance()
     {
 
     }
 
-    private void Engage()
+    public virtual void Engage()
     {
 
     }
 
-    public void Exit()
+    public virtual void Exit()
     {
 
     }

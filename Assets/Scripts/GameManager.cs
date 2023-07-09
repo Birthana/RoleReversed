@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public Player playerPrefab;
     public Pack packPrefab;
     public Vector2 PLAYER_OFFSET;
+    public GameObject respawnCounter;
     private Room startRoom;
     private Player player;
     private Room currentRoom;
@@ -42,7 +43,20 @@ public class GameManager : MonoBehaviour
         player.GetStronger();
         FindObjectOfType<ActionManager>().ResetActions();
         ResetAllMonsterStats();
+        DestroyAllTempMonsters();
         SpawnPackInRandomSpot();
+    }
+
+    private void DestroyAllTempMonsters()
+    {
+        monsters = FindObjectsOfType<Monster>();
+        foreach (var monster in monsters)
+        {
+            if (monster.isTemporary)
+            {
+                monster.transform.parent.GetComponent<Room>().Remove(monster);
+            }
+        }
     }
 
     private void ResetAllMonsterStats()

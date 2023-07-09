@@ -14,7 +14,7 @@ public class MonsterCard : Card
         if (hit)
         {
             selectedRoom = hit.transform;
-            if (selectedRoom.GetComponent<Room>().HasCapacity(cost))
+            if (selectedRoom.GetComponent<Room>().HasCapacity(1))
             {
                 return true;
             }
@@ -34,6 +34,6 @@ public class MonsterCard : Card
         var monster = Instantiate(monsterPrefab, selectedRoom);
         var room = selectedRoom.GetComponent<Room>();
         room.Add(monster);
-        room.ReduceCapacity(cost);
+        room.ReduceCapacity(1);
     }
 }
