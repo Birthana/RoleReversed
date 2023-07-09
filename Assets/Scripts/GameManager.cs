@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         SetRoom(startRoom);
         PlayerMoveTo(currentRoom);
         player.ResetStats();
-        //player.GetStronger();
+        player.GetStronger();
         FindObjectOfType<ActionManager>().ResetActions();
         ResetAllMonsterStats();
         SpawnPackInRandomSpot();

@@ -95,12 +95,10 @@ public class Room : MonoBehaviour
         var adjacentRooms = new List<Room>();
         foreach (var position in GetAdjacentPositions())
         {
-            Debug.Log($"Check {position}");
             var ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(position));
             var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Room"));
             if (hit)
             {
-                Debug.Log($"Found a Room.");
                 adjacentRooms.Add(hit.transform.GetComponent<Room>());
             }
         }
@@ -129,13 +127,5 @@ public class Room : MonoBehaviour
         }
 
         return true;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireCube(transform.position + new Vector3(HORIZONTAL_SPACING, 0, 0), Vector3.one);
-        Gizmos.DrawWireCube(transform.position + new Vector3(-HORIZONTAL_SPACING, 0, 0), Vector3.one);
-        Gizmos.DrawWireCube(transform.position + new Vector3(0, VERTICAL_SPACING, 0), Vector3.one);
-        Gizmos.DrawWireCube(transform.position + new Vector3(0, -VERTICAL_SPACING, 0), Vector3.one);
     }
 }

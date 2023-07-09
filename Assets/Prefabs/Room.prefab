@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsters: []
-  maxCapacity: 1
+  maxCapacity: 2
   MONSTER_OFFSET: {x: 2, y: 0}
   SPACING: 15
   HORIZONTAL_SPACING: 5

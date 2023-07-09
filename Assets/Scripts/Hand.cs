@@ -13,6 +13,11 @@ public class Hand : MonoBehaviour
 
     public void Add(Card card)
     {
+        if (hand.Count == 8)
+        {
+            return;
+        }
+
         var newCard = Instantiate(card, transform);
         hand.Add(newCard);
         DisplayHand();
