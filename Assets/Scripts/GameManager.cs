@@ -8,18 +8,26 @@ public class GameManager : MonoBehaviour
     public Pack packPrefab;
     public Vector2 PLAYER_OFFSET;
     public GameObject respawnCounter;
+    public GameObject gameOverScreen;
     private Room startRoom;
     private Player player;
     private Room currentRoom;
     private Monster[] monsters;
+    private bool isRunning = false;
+
+    private void Awake()
+    {
+        gameOverScreen.SetActive(false);
+    }
 
     public void StartPlayerRun()
     {
-        if(startRoom == null)
+        if(startRoom == null || isRunning)
         {
             return;
         }
 
+        isRunning = true;
         monsters = FindObjectsOfType<Monster>();
         StartCoroutine(WalkThruDungeon());
     }
@@ -36,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetPlayer()
     {
+        isRunning = false;
         StopAllCoroutines();
         SetRoom(startRoom);
         PlayerMoveTo(currentRoom);
@@ -84,7 +93,7 @@ public class GameManager : MonoBehaviour
         bool still_running = true;
         while (still_running)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
             if (!currentRoom.IsEmpty())
             {
                 yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster()));
@@ -93,7 +102,7 @@ public class GameManager : MonoBehaviour
 
             if (currentRoom.IsEmpty() && NoMoreMonsters())
             {
-                ResetPlayer();
+                gameOverScreen.SetActive(true);
                 break;
             }
 

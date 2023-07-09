@@ -17,13 +17,15 @@ public class Player : Character
 
     public IEnumerator MakeAttack(Character character)
     {
+        GetComponent<Animator>().Play("Player");
         character.TakeDamage(GetDamage());
         if (character.IsDead())
         {
             transform.parent.GetComponent<Room>().Remove(character as Monster);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
+        GetComponent<Animator>().Play("Player_Idle");
     }
 
     public void GetStronger()
@@ -34,6 +36,16 @@ public class Player : Character
         for (int i = 0; i < numberOfBuffs; i++)
         {
             GainRandomStats();
+            if(timesDied > 4)
+            {
+                health.IncreaseMaxHealth(1);
+            }
+
+            if (timesDied > 9)
+            {
+                IncreaseDamage(1);
+                health.IncreaseMaxHealth(1);
+            }
         }
     }
 

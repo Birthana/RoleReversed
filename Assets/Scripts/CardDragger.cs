@@ -62,7 +62,7 @@ public class CardDragger : MonoBehaviour
                 if (actionCount == 2)
                 {
                     actionCount = 0;
-                    var card =FindObjectOfType<CardManager>().GetRandomCard();
+                    var card = FindObjectOfType<CardManager>().GetRandomCard();
                     FindObjectOfType<Hand>().Add(card);
                 }
             }

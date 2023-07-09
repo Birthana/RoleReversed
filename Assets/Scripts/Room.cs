@@ -31,7 +31,7 @@ public class Room : MonoBehaviour
                 continue;
             }
 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
             monster.Attack(character);
         }
     }

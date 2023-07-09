@@ -32,5 +32,11 @@ public class Character : MonoBehaviour
         SetMaxDamage();
     }
 
+    public void ReduceDamage(int increase)
+    {
+        damage -= increase;
+        SetMaxDamage();
+    }
+
     public void TakeDamage(int damage) { health.TakeDamage(damage); }
 }
