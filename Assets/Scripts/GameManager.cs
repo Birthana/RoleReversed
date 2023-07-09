@@ -1,20 +1,35 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public Player playerPrefab;
+    public Pack packPrefab;
     public Vector2 PLAYER_OFFSET;
     private Room startRoom;
     private Player player;
     private Room currentRoom;
+    private Monster[] monsters;
+
+    public void StartPlayerRun()
+    {
+        if(startRoom == null)
+        {
+            return;
+        }
+
+        monsters = FindObjectsOfType<Monster>();
+        StartCoroutine(WalkThruDungeon());
+    }
 
     public bool DoesNotHaveStartRoom() { return startRoom == null; }
 
     public void SetStartRoom(Room room)
     {
-        startRoom = room;
         player = Instantiate(playerPrefab);
+        startRoom = room;
+        SetRoom(startRoom);
         PlayerMoveTo(room);
     }
 
@@ -24,6 +39,25 @@ public class GameManager : MonoBehaviour
         SetRoom(startRoom);
         PlayerMoveTo(currentRoom);
         player.ResetStats();
+        //player.GetStronger();
+        FindObjectOfType<ActionManager>().ResetActions();
+        ResetAllMonsterStats();
+        SpawnPackInRandomSpot();
+    }
+
+    private void ResetAllMonsterStats()
+    {
+        foreach (var monster in monsters)
+        {
+            monster.gameObject.SetActive(true);
+            monster.ResetStats();
+        }
+    }
+
+    private void SpawnPackInRandomSpot()
+    {
+        var newPack = Instantiate(packPrefab);
+        newPack.transform.position = new Vector3(Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 0);
     }
 
     private void SetRoom(Room room)
@@ -37,13 +71,15 @@ public class GameManager : MonoBehaviour
         while (still_running)
         {
             yield return new WaitForSeconds(0.5f);
-            yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster()));
-            yield return StartCoroutine(currentRoom.MakeAttack(player));
-
-            if (currentRoom.IsEmpty() && currentRoom.IsEndRoom())
+            if (!currentRoom.IsEmpty())
             {
-                SetRoom(startRoom);
-                PlayerMoveTo(currentRoom);
+                yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster()));
+                yield return StartCoroutine(currentRoom.MakeAttack(player));
+            }
+
+            if (currentRoom.IsEmpty() && NoMoreMonsters())
+            {
+                ResetPlayer();
                 break;
             }
 
@@ -53,6 +89,19 @@ public class GameManager : MonoBehaviour
                 PlayerMoveTo(currentRoom);
             }
         }
+    }
+
+    private bool NoMoreMonsters()
+    {
+        foreach (var monster in monsters)
+        {
+            if (!monster.IsDead())
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void GoToNextRoom()

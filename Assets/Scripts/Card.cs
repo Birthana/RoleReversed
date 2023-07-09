@@ -17,6 +17,7 @@ public class Card : MonoBehaviour
     public virtual void Cast()
     {
         ReduceActions();
+        FindObjectOfType<Hand>().Remove(this);
         Destroy(gameObject);
     }
 

@@ -1,13 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
+[RequireComponent(typeof(BasicUI))]
 public class ActionManager : MonoBehaviour
 {
+    public event Action<int> OnActionChange;
     public int maxActions;
     [SerializeField] private int currentActions;
 
     private void Awake()
+    {
+        OnActionChange += GetComponent<BasicUI>().Display;
+        ResetActions();
+    }
+
+    public void ResetActions()
     {
         SetActions(maxActions);
     }
@@ -15,6 +22,7 @@ public class ActionManager : MonoBehaviour
     public void SetActions(int actions)
     {
         currentActions = actions;
+        OnActionChange?.Invoke(currentActions);
     }
 
     public bool CanCast(Card card)

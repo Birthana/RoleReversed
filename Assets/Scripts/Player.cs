@@ -8,12 +8,6 @@ public class Player : Character
         base.Awake();
     }
 
-    public void ResetStats()
-    {
-        SetMaxDamage();
-        health.RestoreFullHealth();
-    }
-
     public IEnumerator MakeAttack(Character character)
     {
         character.TakeDamage(GetDamage());

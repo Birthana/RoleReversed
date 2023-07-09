@@ -29,9 +29,10 @@ public class RoomCard : Card
         var room = Instantiate(roomPrefab);
         room.transform.position = selectedSpace.position;
         Destroy(selectedSpace.gameObject);
-        if (FindObjectOfType<GameManager>().DoesNotHaveStartRoom())
+        var gameManager = FindObjectOfType<GameManager>();
+        if (gameManager.DoesNotHaveStartRoom())
         {
-            FindObjectOfType<GameManager>().SetStartRoom(room);
+            gameManager.SetStartRoom(room);
         }
     }
 }

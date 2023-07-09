@@ -14,6 +14,12 @@ public class Character : MonoBehaviour
         health = GetComponent<Health>();
     }
 
+    public void ResetStats()
+    {
+        SetMaxDamage();
+        health.RestoreFullHealth();
+    }
+
     public void SetMaxDamage() { damageUI.text = $"{damage}"; }
 
     public bool IsDead() { return health.GetCurrentHealth() == 0; }

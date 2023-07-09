@@ -37,10 +37,8 @@ public class CardDragger : MonoBehaviour
         }
 
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        SetSelectedCard(mousePosition);
+        selectedCard.transform.position = mousePosition;
     }
-
-    private void SetSelectedCard(Vector3 position) { selectedCard.transform.localPosition = position; }
 
     private void CheckToCastSelectCard()
     {
@@ -73,7 +71,7 @@ public class CardDragger : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            SetSelectedCard(previousPosition);
+            selectedCard.transform.localPosition = previousPosition;
             selectedCard = null;
         }
     }
