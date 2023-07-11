@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7837cb1f891ff4e4c8dc7bc7ca3e934e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxCount: 3
 --- !u!114 &8875229516777803574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   damageUI: {fileID: 8896185267107534234}
+  isTemporary: 0
 --- !u!1 &8896185266324893386
 GameObject:
   m_ObjectHideFlags: 0

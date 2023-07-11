@@ -1,42 +1,10 @@
-using System;
-using UnityEngine;
-
-[RequireComponent(typeof(BasicUI))]
-public class ActionManager : MonoBehaviour
+public class ActionManager : Counter
 {
-    public event Action<int> OnActionChange;
-    public int maxActions;
-    [SerializeField] private int currentActions;
+    public void ResetActions() { ResetMaxCount(); }
 
-    private void Awake()
-    {
-        OnActionChange += GetComponent<BasicUI>().Display;
-        ResetActions();
-    }
+    public bool CanCast(Card card) { return (GetCount() != 0) && (card.GetCost() <= GetCount()); }
 
-    public void ResetActions()
-    {
-        SetActions(maxActions);
-    }
+    public void AddActions(int actions) { IncreaseCount(actions); }
 
-    public void SetActions(int actions)
-    {
-        currentActions = actions;
-        OnActionChange?.Invoke(currentActions);
-    }
-
-    public bool CanCast(Card card)
-    {
-        return (currentActions != 0) && (card.GetCost() <= currentActions);
-    }
-
-    public void AddActions(int actions)
-    {
-        SetActions(Mathf.Max(0, currentActions + actions));
-    }
-
-    public void ReduceActions(int actions)
-    {
-        SetActions(Mathf.Max(0, currentActions - actions));
-    }
+    public void ReduceActions(int actions) { DecreaseCount(actions); }
 }

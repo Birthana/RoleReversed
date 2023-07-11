@@ -2156,9 +2156,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1965248257}
+  - component: {fileID: 1965248259}
   - component: {fileID: 1965248256}
   - component: {fileID: 1965248258}
-  - component: {fileID: 1965248259}
   m_Layer: 0
   m_Name: ActionManager
   m_TagString: Untagged
@@ -2178,8 +2178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43c46773a8d3754bb223e1eecb56858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxActions: 3
-  currentActions: 0
+  maxCount: 3
 --- !u!4 &1965248257
 Transform:
   m_ObjectHideFlags: 0

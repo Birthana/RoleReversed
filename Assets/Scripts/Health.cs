@@ -1,45 +1,10 @@
-using System;
-using UnityEngine;
-
-[RequireComponent(typeof(BasicUI))]
-public class Health : MonoBehaviour
+public class Health : Counter
 {
-    public event Action<int> OnHealthChange;
-    public int maxHealth;
-    private int currentHealth;
+    public int GetCurrentHealth() { return GetCount(); }
 
-    private void Awake()
-    {
-        OnHealthChange += GetComponent<BasicUI>().Display;
-        RestoreFullHealth();
-    }
+    public void RestoreFullHealth() { ResetMaxCount(); }
 
-    public int GetCurrentHealth() { return currentHealth; }
+    public void TakeDamage(int damage) { DecreaseCount(damage); }
 
-    public void RestoreFullHealth()
-    {
-        SetHealth(maxHealth);
-    }
-
-    public void TakeDamage(int damage)
-    {
-        SetHealth(Mathf.Max(0, currentHealth - damage));
-    }
-
-    public void SetMaxHealth(int newMaxHealth)
-    {
-        maxHealth = newMaxHealth;
-        SetHealth(newMaxHealth);
-    }
-
-    public void IncreaseMaxHealth(int increase)
-    {
-        SetMaxHealth(maxHealth + increase);
-    }
-
-    private void SetHealth(int health)
-    {
-        currentHealth = health;
-        OnHealthChange?.Invoke(currentHealth);
-    }
+    public void IncreaseMaxHealth(int increase) { IncreaseMaxCount(increase); }
 }
