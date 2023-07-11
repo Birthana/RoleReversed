@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log($"");
         gameOverScreen.SetActive(false);
     }
 

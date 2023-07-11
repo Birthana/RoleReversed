@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CardDragger : MonoBehaviour
@@ -7,6 +5,18 @@ public class CardDragger : MonoBehaviour
     private Card selectedCard;
     private Vector3 previousPosition;
     private int actionCount = 0;
+    private int rerollCount = 0;
+
+    private Hand hand;
+    private ActionManager actionManager;
+    private CardManager cardManager;
+
+    private void Start()
+    {
+        hand = FindObjectOfType<Hand>();
+        actionManager = FindObjectOfType<ActionManager>();
+        cardManager = FindObjectOfType<CardManager>();
+    }
 
     private void Update()
     {
@@ -18,116 +28,153 @@ public class CardDragger : MonoBehaviour
         CheckToReturnSelectCard();
     }
 
+    private bool CardIsNotSelected() { return selectedCard == null; }
+
     private void CheckToGainAction()
     {
-        if (selectedCard == null)
+        if (CardIsNotSelected())
         {
             return;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (PlayerIsOnActionButton())
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Action"));
-            if (hit)
+            UseSelectCardToPayForGainAction();
+            if (PlayerPaidForGainAction())
             {
-                FindObjectOfType<Hand>().Remove(selectedCard);
-                Destroy(selectedCard.gameObject);
-                actionCount++;
-                if (actionCount == 3)
-                {
-                    actionCount = 0;
-                    FindObjectOfType<ActionManager>().AddActions(1);
-                }
+                GainAction();
             }
         }
+    }
+
+    private bool PlayerIsOnActionButton() { return Mouse.PlayerReleasesLeftClick() && Mouse.IsOnActionButton(); }
+
+    private void RemoveSelectedCard()
+    {
+        hand.Remove(selectedCard);
+        Destroy(selectedCard.gameObject);
+    }
+
+    private void UseSelectCardToPayForGainAction()
+    {
+        RemoveSelectedCard();
+        actionCount++;
+    }
+
+    private bool PlayerPaidForGainAction() { return actionCount == 3; }
+
+    private void GainAction()
+    {
+        actionCount = 0;
+        actionManager.AddActions(1);
     }
 
     private void CheckToRerollCard()
     {
-        if (selectedCard == null)
+        if (CardIsNotSelected())
         {
             return;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (PlayerIsOnRerollButton())
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Reroll"));
-            if (hit)
+            UseSelectedCardToPayForReroll();
+            if (PlayerPaidForReroll())
             {
-                FindObjectOfType<Hand>().Remove(selectedCard);
-                Destroy(selectedCard.gameObject);
-                actionCount++;
-                if (actionCount == 2)
-                {
-                    actionCount = 0;
-                    var card = FindObjectOfType<CardManager>().GetRandomCard();
-                    FindObjectOfType<Hand>().Add(card);
-                }
+                Reroll();
             }
         }
+    }
+
+    private bool PlayerIsOnRerollButton() { return Mouse.PlayerReleasesLeftClick() && Mouse.IsOnRerollButton(); }
+
+    private void UseSelectedCardToPayForReroll()
+    {
+        RemoveSelectedCard();
+        rerollCount++;
+    }
+
+    private bool PlayerPaidForReroll() { return rerollCount == 2; }
+
+    private void Reroll()
+    {
+        rerollCount = 0;
+        hand.Add(cardManager.GetRandomCard());
     }
 
     private void CheckToSelectCard()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (PlayerClicksOnHand())
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Hand"));
-            if (hit)
-            {
-                selectedCard = hit.transform.GetComponent<Card>();
-                previousPosition = selectedCard.transform.localPosition;
-            }
+            PickUpCard();
         }
     }
 
+    private void PickUpCard()
+    {
+        selectedCard = Mouse.GetHitComponent<Card>();
+        previousPosition = selectedCard.transform.localPosition;
+    }
+
+    private bool PlayerClicksOnHand() { return Mouse.PlayerPressesLeftClick() && Mouse.IsOnHandButton(); }
+
     private void DragSelectCardToMouse()
     {
-        if (selectedCard == null)
+        if (CardIsNotSelected())
         {
             return;
         }
 
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        MoveSelectedCardToMouse();
+    }
+
+    private void MoveSelectedCardToMouse()
+    {
+        Vector2 mousePosition = Mouse.GetPosition();
         selectedCard.transform.position = mousePosition;
     }
 
     private void CheckToCastSelectCard()
     {
-        if (selectedCard == null)
+        if (CardIsNotSelected())
         {
             return;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (PlayerCanCastSelectedCard())
         {
-            if (CanCast(selectedCard) && selectedCard.HasTarget())
-            {
-                selectedCard.Cast();
-                selectedCard = null;
-            }
+            CastSelectedCard();
         }
     }
 
-    private bool CanCast(Card card)
+    private bool PlayerCanCastSelectedCard() { return Mouse.PlayerReleasesLeftClick() && CanCastSelectedCard(); }
+
+    private bool CanCastSelectedCard() { return HaveEnoughActions(selectedCard) && selectedCard.HasTarget(); }
+
+    private void CastSelectedCard()
     {
-        return FindObjectOfType<ActionManager>().CanCast(card);
+        selectedCard.Cast();
+        selectedCard = null;
     }
+
+    private bool HaveEnoughActions(Card card) { return actionManager.CanCast(card); }
 
     private void CheckToReturnSelectCard()
     {
-        if (selectedCard == null)
+        if (CardIsNotSelected())
         {
             return;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Mouse.PlayerReleasesLeftClick())
         {
-            selectedCard.transform.localPosition = previousPosition;
-            selectedCard = null;
+            ReturnSelectedCard();
         }
     }
 
+    private void ReturnSelectedCard()
+    {
+        selectedCard.transform.localPosition = previousPosition;
+        selectedCard = null;
+    }
 }
