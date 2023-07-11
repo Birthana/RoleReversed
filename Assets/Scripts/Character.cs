@@ -1,42 +1,32 @@
 using UnityEngine;
-using TMPro;
 
+[RequireComponent(typeof(Damage))]
 [RequireComponent(typeof(Health))]
 public class Character : MonoBehaviour
 {
-    public int damage;
-    public TextMeshPro damageUI;
     protected Health health;
+    protected Damage damage;
 
     public virtual void Awake()
     {
-        SetMaxDamage();
+        damage = GetComponent<Damage>();
         health = GetComponent<Health>();
     }
 
     public void ResetStats()
     {
-        SetMaxDamage();
+        damage.ResetDamage();
         health.RestoreFullHealth();
     }
 
-    public void SetMaxDamage() { damageUI.text = $"{damage}"; }
-
     public bool IsDead() { return health.GetCurrentHealth() == 0; }
 
-    public int GetDamage() { return damage; }
-
-    public void IncreaseDamage(int increase)
-    {
-        damage += increase;
-        SetMaxDamage();
-    }
-
-    public void ReduceDamage(int increase)
-    {
-        damage -= increase;
-        SetMaxDamage();
-    }
-
     public void TakeDamage(int damage) { health.TakeDamage(damage); }
+
+    public int GetDamage() { return damage.GetDamage(); }
+
+    public void IncreaseDamage(int increase) { damage.IncreaseMaxDamage(increase); }
+
+    public void ReduceDamage(int decrease) { damage.DecreaseMaxDamage(decrease); }
+
 }

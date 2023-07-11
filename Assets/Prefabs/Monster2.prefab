@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8782374716340165926}
   - component: {fileID: 5926048172417343452}
+  - component: {fileID: 6910599671026217045}
   m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
@@ -85,6 +86,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6910599671026217045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2973252253415408726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 7027894561856345198}
 --- !u!1 &3066862383955483647
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,6 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3426894363093136724}
   - component: {fileID: 4658490904137239265}
+  - component: {fileID: 3844554648907945646}
   m_Layer: 0
   m_Name: Damage
   m_TagString: Untagged
@@ -170,6 +185,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3844554648907945646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3066862383955483647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 7027894560525201212}
 --- !u!1 &7027894560525201154
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,8 +381,8 @@ GameObject:
   - component: {fileID: 7027894561611250894}
   - component: {fileID: 7027894561611250890}
   - component: {fileID: 7050006689211839890}
+  - component: {fileID: 7422970575677711293}
   - component: {fileID: 7050006689211839889}
-  - component: {fileID: 7050006689211839888}
   m_Layer: 0
   m_Name: Monster2
   m_TagString: Untagged
@@ -443,9 +471,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7781a0ffe7831744ba8074399922eac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
-  damageUI: {fileID: 7027894560525201212}
   isTemporary: 0
+--- !u!114 &7422970575677711293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7027894561611250893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb5ee22f881d20342a969db86e64ec40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCount: 5
+  ui: {fileID: 3844554648907945646}
 --- !u!114 &7050006689211839889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,19 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxCount: 5
---- !u!114 &7050006689211839888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7027894561611250893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ui: {fileID: 7027894561856345198}
+  ui: {fileID: 6910599671026217045}
 --- !u!1 &7027894561856345196
 GameObject:
   m_ObjectHideFlags: 0

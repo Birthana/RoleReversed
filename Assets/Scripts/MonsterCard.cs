@@ -9,11 +9,9 @@ public class MonsterCard : Card
 
     public override bool HasTarget()
     {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Room"));
-        if (hit)
+        if (Mouse.IsOnRoom())
         {
-            selectedRoom = hit.transform;
+            selectedRoom = Mouse.GetHitTransform();
             if (selectedRoom.GetComponent<Room>().HasCapacity(1))
             {
                 return true;

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7885772355384124245}
   - component: {fileID: 5094461789339263407}
+  - component: {fileID: 2488510478923078972}
   m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
@@ -85,6 +86,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2488510478923078972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4453420394302634533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 8432638138216557085}
 --- !u!1 &4467861642305824140
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,6 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4251504904866335527}
   - component: {fileID: 6064360371411154066}
+  - component: {fileID: 6948118106889217614}
   m_Layer: 0
   m_Name: Damage
   m_TagString: Untagged
@@ -170,6 +185,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6948118106889217614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4467861642305824140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 8432638137390780751}
 --- !u!1 &8432638137390780785
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,9 +552,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8432638138457457341}
   - component: {fileID: 8432638138457457337}
-  - component: {fileID: 8455509193792588770}
-  - component: {fileID: 8455509193792588771}
   - component: {fileID: 2809549071013754387}
+  - component: {fileID: 569608553696224380}
+  - component: {fileID: 8455509193792588770}
   m_Layer: 0
   m_Name: Monster7
   m_TagString: Untagged
@@ -603,6 +631,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2809549071013754387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8432638138457457342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c5085447fd7fa4da9c11beec7a51d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTemporary: 0
+--- !u!114 &569608553696224380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8432638138457457342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb5ee22f881d20342a969db86e64ec40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCount: 2
+  ui: {fileID: 6948118106889217614}
 --- !u!114 &8455509193792588770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,31 +671,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxCount: 2
---- !u!114 &8455509193792588771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8432638138457457342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ui: {fileID: 8432638138216557085}
---- !u!114 &2809549071013754387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8432638138457457342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c5085447fd7fa4da9c11beec7a51d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 2
-  damageUI: {fileID: 8432638137390780751}
-  isTemporary: 0
+  ui: {fileID: 2488510478923078972}

@@ -7,35 +7,46 @@ public class RoomCard : Card
     private Transform selectedSpace;
     public float HORIZONTAL_SPACING = 5.0f;
     public float VERTICAL_SPACING = 5.0f;
+    private GameManager gameManager;
+
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     public override bool HasTarget()
     {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Space"));
-        if (hit)
+        if (Mouse.IsOnSpace())
         {
-            if (!IsAdjacentToRoom(hit.transform))
+            if (!IsAdjacentToRoom(Mouse.GetHitTransform()))
             {
                 return false;
             }
 
-            selectedSpace = hit.transform;
+            selectedSpace = Mouse.GetHitTransform();
             return true;
         }
 
         return false;
     }
 
+    public override void Cast()
+    {
+        SpawnRoom();
+        base.Cast();
+    }
+
     private bool IsAdjacentToRoom(Transform selectedTransform)
     {
-        var gameManager = FindObjectOfType<GameManager>();
         if (gameManager.DoesNotHaveStartRoom())
         {
             return true;
         }
 
-        return GetAdjacentRooms(selectedTransform).Count != 0;
+        return SelectSpaceHasAdjacentRoom(selectedTransform);
     }
+
+    private bool SelectSpaceHasAdjacentRoom(Transform selectedTransform) { return GetAdjacentRooms(selectedTransform).Count != 0; }
 
     private List<Room> GetAdjacentRooms(Transform selectedTransform)
     {
@@ -63,19 +74,11 @@ public class RoomCard : Card
         return adjacentPositions;
     }
 
-
-    public override void Cast()
-    {
-        SpawnRoom();
-        base.Cast();
-    }
-
     private void SpawnRoom()
     {
         var room = Instantiate(roomPrefab);
         room.transform.position = selectedSpace.position;
         Destroy(selectedSpace.gameObject);
-        var gameManager = FindObjectOfType<GameManager>();
         if (gameManager.DoesNotHaveStartRoom())
         {
             gameManager.SetStartRoom(room);

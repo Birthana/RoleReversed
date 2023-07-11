@@ -5,13 +5,13 @@ using TMPro;
 
 public class Player : Character
 {
-    public event Action<int> OnRespawn;
-    private int timesDied = 0;
+    public event Action OnRespawn;
+    private Respawn respawnCounter;
 
     public override void Awake()
     {
-        OnRespawn += FindObjectOfType<GameManager>().respawnCounter.GetComponent<BasicUI>().Display;
-        OnRespawn?.Invoke(timesDied);
+        respawnCounter = FindObjectOfType<Respawn>();
+        OnRespawn += respawnCounter.Increment;
         base.Awake();
     }
 
@@ -30,8 +30,8 @@ public class Player : Character
 
     public void GetStronger()
     {
-        timesDied++;
-        OnRespawn?.Invoke(timesDied);
+        OnRespawn?.Invoke();
+        int timesDied = respawnCounter.GetNumberOfTimesDied();
         int numberOfBuffs = (timesDied / 2) + 1;
         for (int i = 0; i < numberOfBuffs; i++)
         {

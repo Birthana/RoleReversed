@@ -354,9 +354,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3521848847335630290}
   - component: {fileID: 3521848847335630294}
-  - component: {fileID: 3512422573242231949}
-  - component: {fileID: 3512422573242231948}
   - component: {fileID: 5920601525287919168}
+  - component: {fileID: 9032278394058235538}
+  - component: {fileID: 3512422573242231949}
   m_Layer: 0
   m_Name: Monster6
   m_TagString: Untagged
@@ -433,6 +433,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5920601525287919168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3521848847335630289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71ad45c3092d0248ad39fe2891cbbcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTemporary: 0
+--- !u!114 &9032278394058235538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3521848847335630289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb5ee22f881d20342a969db86e64ec40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCount: 3
+  ui: {fileID: 3876095011292412940}
 --- !u!114 &3512422573242231949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,34 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxCount: 3
---- !u!114 &3512422573242231948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3521848847335630289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ui: {fileID: 3521848847098383730}
---- !u!114 &5920601525287919168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3521848847335630289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71ad45c3092d0248ad39fe2891cbbcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 3
-  damageUI: {fileID: 3521848846272624160}
-  isTemporary: 0
+  ui: {fileID: 7923285770844437814}
 --- !u!1 &8659044568735898954
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,6 +484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2920941999041283130}
   - component: {fileID: 240251442441094848}
+  - component: {fileID: 7923285770844437814}
   m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
@@ -559,6 +560,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7923285770844437814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8659044568735898954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 3521848847098383730}
 --- !u!1 &8928290695809024739
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +583,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9144207508880469064}
   - component: {fileID: 1283049565281244157}
+  - component: {fileID: 3876095011292412940}
   m_Layer: 0
   m_Name: Damage
   m_TagString: Untagged
@@ -644,3 +659,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3876095011292412940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8928290695809024739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 3521848846272624160}

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pack : MonoBehaviour
@@ -8,19 +6,16 @@ public class Pack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (PlayerClicksOnPack())
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Pack"));
-            if (hit)
-            {
-                OpenPack();
-                Destroy(gameObject);
-            }
+            OpenPack();
+            Destroy(gameObject);
         }
     }
 
-    public void OpenPack()
+    private bool PlayerClicksOnPack() { return Mouse.PlayerPressesLeftClick() && Mouse.IsOnPack(); }
+
+    private void OpenPack()
     {
         var hand = FindObjectOfType<Hand>();
         var rngCards = FindObjectOfType<CardManager>();

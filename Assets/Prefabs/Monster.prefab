@@ -183,8 +183,8 @@ GameObject:
   - component: {fileID: 26669088733083597}
   - component: {fileID: 26669088733083593}
   - component: {fileID: 1632550545}
+  - component: {fileID: 41534357537805414}
   - component: {fileID: 1632550546}
-  - component: {fileID: 1632550547}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -273,9 +273,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7781a0ffe7831744ba8074399922eac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
-  damageUI: {fileID: 26669089813881919}
   isTemporary: 0
+--- !u!114 &41534357537805414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26669088733083598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb5ee22f881d20342a969db86e64ec40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCount: 2
+  ui: {fileID: 816470414912573061}
 --- !u!114 &1632550546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,19 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxCount: 2
---- !u!114 &1632550547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26669088733083598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ui: {fileID: 26669088483778413}
+  ui: {fileID: 7368789975331030895}
 --- !u!1 &26669089813881857
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,6 +484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1745115157316769317}
   - component: {fileID: 3741130993019262175}
+  - component: {fileID: 7368789975331030895}
   m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
@@ -559,6 +560,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7368789975331030895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5230291673113907029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 26669088483778413}
 --- !u!1 &5429380367267877116
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +583,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5645369881242353239}
   - component: {fileID: 2409689069214417378}
+  - component: {fileID: 816470414912573061}
   m_Layer: 0
   m_Name: Damage
   m_TagString: Untagged
@@ -644,3 +659,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &816470414912573061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5429380367267877116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 26669089813881919}

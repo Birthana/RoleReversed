@@ -102,7 +102,7 @@ MonoBehaviour:
   monsters: []
   maxCapacity: 2
   MONSTER_OFFSET: {x: 2, y: 0}
-  SPACING: 15
+  SPACING: 10
   HORIZONTAL_SPACING: 5
   VERTICAL_SPACING: 5
 --- !u!61 &1710852337039128790
