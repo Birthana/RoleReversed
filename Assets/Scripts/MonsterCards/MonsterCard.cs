@@ -12,7 +12,7 @@ public class MonsterCard : Card
         if (Mouse.IsOnRoom())
         {
             selectedRoom = Mouse.GetHitTransform();
-            if (selectedRoom.GetComponent<Room>().HasCapacity(1))
+            if (selectedRoom.GetComponent<Room>().HasCapacity())
             {
                 return true;
             }

@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Capacity))]
 public class Room : MonoBehaviour
 {
     public List<Monster> monsters = new List<Monster>();
-    public int maxCapacity;
-    private int currentCapacity;
     public Vector2 MONSTER_OFFSET = new Vector2(2, 0);
     public float SPACING;
     public float HORIZONTAL_SPACING;
     public float VERTICAL_SPACING;
+    private Capacity capacity;
 
     private void Awake()
     {
-        currentCapacity = maxCapacity;
+        capacity = GetComponent<Capacity>();
     }
 
     public IEnumerator MakeAttack(Character character)
@@ -36,9 +36,9 @@ public class Room : MonoBehaviour
         }
     }
 
-    public bool HasCapacity(int cost) { return currentCapacity >= cost; }
+    public bool HasCapacity() { return capacity.HasCapacity(); }
 
-    public void ReduceCapacity(int cost) { currentCapacity -= cost; }
+    public void ReduceCapacity(int decrease) { capacity.DecreaseCapacity(decrease); }
 
     public void Add(Monster monster)
     {
@@ -99,35 +99,10 @@ public class Room : MonoBehaviour
 
     public Room GetNextRoom()
     {
-        var adjacentRooms = GetAdjacentRooms();
+        var roomTransform = new RoomTransform(transform);
+        var adjacentRooms = roomTransform.GetAdjacentRooms();
         var rngIndex = Random.Range(0, adjacentRooms.Count);
         return adjacentRooms[rngIndex];
-    }
-
-    private List<Room> GetAdjacentRooms()
-    {
-        var adjacentRooms = new List<Room>();
-        foreach (var position in GetAdjacentPositions())
-        {
-            var ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(position));
-            var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Room"));
-            if (hit)
-            {
-                adjacentRooms.Add(hit.transform.GetComponent<Room>());
-            }
-        }
-
-        return adjacentRooms;
-    }
-
-    private List<Vector3> GetAdjacentPositions()
-    {
-        var adjacentPositions = new List<Vector3>();
-        adjacentPositions.Add(transform.position + new Vector3(HORIZONTAL_SPACING, 0, -10));
-        adjacentPositions.Add(transform.position + new Vector3(-HORIZONTAL_SPACING, 0, -10));
-        adjacentPositions.Add(transform.position + new Vector3(0, VERTICAL_SPACING, -10));
-        adjacentPositions.Add(transform.position + new Vector3(0, -VERTICAL_SPACING, -10));
-        return adjacentPositions;
     }
 
     public bool IsEmpty()

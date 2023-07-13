@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4520230631710316753}
   - component: {fileID: 7640312453193981558}
   - component: {fileID: 4520230631710316758}
+  - component: {fileID: 1826505269117609601}
+  - component: {fileID: 7273138408485462374}
   - component: {fileID: 4430925173850741401}
   m_Layer: 7
   m_Name: Room3
@@ -100,11 +102,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsters: []
-  maxCapacity: 3
   MONSTER_OFFSET: {x: 2, y: 0}
   SPACING: 10
   HORIZONTAL_SPACING: 5
   VERTICAL_SPACING: 5
+--- !u!114 &1826505269117609601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4520230631710316759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6de57cbe01a19e40bc3eb42b41ae101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCount: 3
+  ui: {fileID: 7273138408485462374}
+--- !u!114 &7273138408485462374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4520230631710316759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91b042554862a641b6cbb857fbdbecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 2689848628057910516}
 --- !u!61 &4430925173850741401
 BoxCollider2D:
   m_ObjectHideFlags: 0
