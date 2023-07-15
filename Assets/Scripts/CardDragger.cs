@@ -4,27 +4,37 @@ public class CardDragger : MonoBehaviour
 {
     private Card selectedCard;
     private Vector3 previousPosition;
-    private int actionCount = 0;
     private int rerollCount = 0;
 
     private Hand hand;
-    private ActionManager actionManager;
-    private CardManager cardManager;
+    private GainActionManager gainActions;
+    private RerollManager reroll;
 
     private void Start()
     {
         hand = FindObjectOfType<Hand>();
-        actionManager = FindObjectOfType<ActionManager>();
-        cardManager = FindObjectOfType<CardManager>();
+        gainActions = GetComponent<GainActionManager>();
+        reroll = GetComponent<RerollManager>();
     }
 
     private void Update()
     {
         CheckToSelectCard();
+        if (CardIsNotSelected())
+        {
+            return;
+        }
+
         DragSelectCardToMouse();
         CheckToCastSelectCard();
         CheckToGainAction();
         CheckToRerollCard();
+
+        if (CardIsNotSelected())
+        {
+            return;
+        }
+
         CheckToReturnSelectCard();
     }
 
@@ -32,17 +42,13 @@ public class CardDragger : MonoBehaviour
 
     private void CheckToGainAction()
     {
-        if (CardIsNotSelected())
-        {
-            return;
-        }
-
         if (PlayerIsOnActionButton())
         {
-            UseSelectCardToPayForGainAction();
-            if (PlayerPaidForGainAction())
+            RemoveSelectedCard();
+            gainActions.UseSelectCardToPayForGainAction();
+            if (gainActions.PlayerPaidForGainAction())
             {
-                GainAction();
+                gainActions.GainAction();
             }
         }
     }
@@ -55,52 +61,20 @@ public class CardDragger : MonoBehaviour
         Destroy(selectedCard.gameObject);
     }
 
-    private void UseSelectCardToPayForGainAction()
-    {
-        RemoveSelectedCard();
-        actionCount++;
-    }
-
-    private bool PlayerPaidForGainAction() { return actionCount == 3; }
-
-    private void GainAction()
-    {
-        actionCount = 0;
-        actionManager.AddActions(1);
-    }
-
     private void CheckToRerollCard()
     {
-        if (CardIsNotSelected())
-        {
-            return;
-        }
-
         if (PlayerIsOnRerollButton())
         {
-            UseSelectedCardToPayForReroll();
-            if (PlayerPaidForReroll())
+            RemoveSelectedCard();
+            reroll.UseSelectedCardToPayForReroll();
+            if (reroll.PlayerPaidForReroll())
             {
-                Reroll();
+                reroll.Reroll();
             }
         }
     }
 
     private bool PlayerIsOnRerollButton() { return Mouse.PlayerReleasesLeftClick() && Mouse.IsOnRerollButton(); }
-
-    private void UseSelectedCardToPayForReroll()
-    {
-        RemoveSelectedCard();
-        rerollCount++;
-    }
-
-    private bool PlayerPaidForReroll() { return rerollCount == 2; }
-
-    private void Reroll()
-    {
-        rerollCount = 0;
-        hand.Add(cardManager.GetRandomCard());
-    }
 
     private void CheckToSelectCard()
     {
@@ -118,15 +92,7 @@ public class CardDragger : MonoBehaviour
 
     private bool PlayerClicksOnHand() { return Mouse.PlayerPressesLeftClick() && Mouse.IsOnHandButton(); }
 
-    private void DragSelectCardToMouse()
-    {
-        if (CardIsNotSelected())
-        {
-            return;
-        }
-
-        MoveSelectedCardToMouse();
-    }
+    private void DragSelectCardToMouse() { MoveSelectedCardToMouse(); }
 
     private void MoveSelectedCardToMouse()
     {
@@ -136,11 +102,6 @@ public class CardDragger : MonoBehaviour
 
     private void CheckToCastSelectCard()
     {
-        if (CardIsNotSelected())
-        {
-            return;
-        }
-
         if (PlayerCanCastSelectedCard())
         {
             CastSelectedCard();
@@ -149,7 +110,7 @@ public class CardDragger : MonoBehaviour
 
     private bool PlayerCanCastSelectedCard() { return Mouse.PlayerReleasesLeftClick() && CanCastSelectedCard(); }
 
-    private bool CanCastSelectedCard() { return HaveEnoughActions(selectedCard) && selectedCard.HasTarget(); }
+    private bool CanCastSelectedCard() { return gainActions.HaveEnoughActions(selectedCard) && selectedCard.HasTarget(); }
 
     private void CastSelectedCard()
     {
@@ -157,15 +118,8 @@ public class CardDragger : MonoBehaviour
         selectedCard = null;
     }
 
-    private bool HaveEnoughActions(Card card) { return actionManager.CanCast(card); }
-
     private void CheckToReturnSelectCard()
     {
-        if (CardIsNotSelected())
-        {
-            return;
-        }
-
         if (Mouse.PlayerReleasesLeftClick())
         {
             ReturnSelectedCard();

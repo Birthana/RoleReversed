@@ -3,8 +3,8 @@ using TMPro;
 
 public class DamageNumber : MonoBehaviour
 {
-    public GameObject numberPrefab;
-    public float duration = 0.5f;
+    [Range(0, 1)]public float duration = 0.5f;
+    private string numberPrefabFilePath = "Prefabs/DamageNumber";
 
     private void Awake()
     {
@@ -13,7 +13,13 @@ public class DamageNumber : MonoBehaviour
 
     public void SpawnDamageNumber(int damage)
     {
-        var damageNumber = Instantiate(numberPrefab, transform);
+        if (damage == 0)
+        {
+            return;
+        }
+
+        var prefab = Resources.Load(numberPrefabFilePath);
+        var damageNumber = Instantiate(prefab, transform) as GameObject;
         damageNumber.GetComponent<TextMeshPro>().text = $"-{damage}";
         damageNumber.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * 100);
         Destroy(damageNumber.gameObject, duration);

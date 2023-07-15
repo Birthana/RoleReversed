@@ -8,7 +8,7 @@ public class Counter : MonoBehaviour
     public BasicUI ui;
     private int currentCount;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         OnCountChange += ui.Display;
         ResetMaxCount();
