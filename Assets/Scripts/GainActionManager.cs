@@ -10,14 +10,20 @@ public class GainActionManager : Counter
 
     public bool HaveEnoughActions(Card card) { return actionManager.CanCast(card); }
 
-    public void UseSelectCardToPayForGainAction() { IncreaseCount(1); }
+    public void UseSelectCardToPayForGainAction()
+    {
+        IncreaseCount(1);
+        if (PlayerPaidForGainAction())
+        {
+            GainAction();
+        }
+    }
 
-    public bool PlayerPaidForGainAction() { return GetCount() == 3; }
+    private bool PlayerPaidForGainAction() { return GetCount() == 3; }
 
-    public void GainAction()
+    private void GainAction()
     {
         SetMaxCount(0);
         actionManager.AddActions(1);
     }
-
 }

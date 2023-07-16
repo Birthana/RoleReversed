@@ -4,7 +4,6 @@ public class CardDragger : MonoBehaviour
 {
     private Card selectedCard;
     private Vector3 previousPosition;
-    private int rerollCount = 0;
 
     private Hand hand;
     private GainActionManager gainActions;
@@ -25,11 +24,16 @@ public class CardDragger : MonoBehaviour
             return;
         }
 
+        CheckToAddCardToSelection();
+        if (CardIsNotSelected())
+        {
+            return;
+        }
+
         DragSelectCardToMouse();
         CheckToCastSelectCard();
         CheckToGainAction();
         CheckToRerollCard();
-
         if (CardIsNotSelected())
         {
             return;
@@ -46,10 +50,6 @@ public class CardDragger : MonoBehaviour
         {
             RemoveSelectedCard();
             gainActions.UseSelectCardToPayForGainAction();
-            if (gainActions.PlayerPaidForGainAction())
-            {
-                gainActions.GainAction();
-            }
         }
     }
 
@@ -116,6 +116,16 @@ public class CardDragger : MonoBehaviour
     {
         selectedCard.Cast();
         selectedCard = null;
+    }
+
+    private void CheckToAddCardToSelection()
+    {
+        var selectionScreen = FindObjectOfType<SelectionScreen>();
+        if (Mouse.PlayerReleasesLeftClick() && Mouse.IsOnSelection() && !selectionScreen.IsFull())
+        {
+            selectionScreen.AddToSelection(selectedCard);
+            selectedCard = null;
+        }
     }
 
     private void CheckToReturnSelectCard()

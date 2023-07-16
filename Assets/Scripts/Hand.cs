@@ -29,7 +29,7 @@ public class Hand : MonoBehaviour
         DisplayHand();
     }
 
-    private void DisplayHand()
+    public void DisplayHand()
     {
         for (int i = 0; i < hand.Count; i++)
         {
