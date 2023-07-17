@@ -6,6 +6,7 @@ public class SelectionScreen : MonoBehaviour
 {
     public event Action OnSelectPressed;
     public event Action OnCancelPressed;
+    public float SPACING;
     private List<Card> cards = new List<Card>();
     private int maxSelection;
 
@@ -43,6 +44,7 @@ public class SelectionScreen : MonoBehaviour
         }
 
         cards.Add(card);
+        Display();
     }
 
     public void DestroyAllSelections()
@@ -61,4 +63,27 @@ public class SelectionScreen : MonoBehaviour
         FindObjectOfType<Hand>().DisplayHand();
         cards = new List<Card>();
     }
+
+    private void Display()
+    {
+        for (int i = 0; i < cards.Count; i++)
+        {
+            cards[i].transform.position = CalcPositionAt(i);
+        }
+    }
+
+    private Vector3 CalcPositionAt(int cardIndex)
+    {
+        float positionOffset = CalcPositionOffsetAt(cardIndex);
+        return new Vector3(CalcX(positionOffset), CalcY(), CalcZ());
+    }
+
+    float CalcPositionOffsetAt(int index) { return index - ((float)cards.Count - 1) / 2; }
+
+    float CalcX(float positionOffset) { return Mathf.Sin(positionOffset * Mathf.Deg2Rad) * SPACING * 10; }
+
+    float CalcY() { return 2.5f; }
+
+    float CalcZ() { return 0; }
+
 }

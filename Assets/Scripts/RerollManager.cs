@@ -10,7 +10,14 @@ public class RerollManager : Counter
         cardManager = FindObjectOfType<CardManager>();
     }
 
-    public void UseSelectedCardToPayForReroll() { IncreaseCount(1); }
+    public void UseSelectedCardToPayForReroll()
+    {
+        IncreaseCount(1);
+        if (PlayerPaidForReroll())
+        {
+            Reroll();
+        }
+    }
 
     public bool PlayerPaidForReroll() { return GetCount() == 2; }
 

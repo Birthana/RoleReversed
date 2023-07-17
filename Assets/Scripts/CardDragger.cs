@@ -67,10 +67,6 @@ public class CardDragger : MonoBehaviour
         {
             RemoveSelectedCard();
             reroll.UseSelectedCardToPayForReroll();
-            if (reroll.PlayerPaidForReroll())
-            {
-                reroll.Reroll();
-            }
         }
     }
 
@@ -121,8 +117,13 @@ public class CardDragger : MonoBehaviour
     private void CheckToAddCardToSelection()
     {
         var selectionScreen = FindObjectOfType<SelectionScreen>();
-        if (Mouse.PlayerReleasesLeftClick() && Mouse.IsOnSelection() && !selectionScreen.IsFull())
+        if (Mouse.PlayerReleasesLeftClick() && Mouse.IsOnSelection())
         {
+            if (selectionScreen.IsFull())
+            {
+                ReturnSelectedCard();
+            }
+
             selectionScreen.AddToSelection(selectedCard);
             selectedCard = null;
         }
