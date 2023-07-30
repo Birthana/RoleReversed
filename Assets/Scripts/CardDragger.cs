@@ -42,6 +42,10 @@ public class CardDragger : MonoBehaviour
         CheckToReturnSelectCard();
     }
 
+    public virtual Card GetSelectedCard() { return selectedCard; }
+
+    public Vector3 GetPreviousPosition() { return previousPosition; }
+
     private bool CardIsNotSelected() { return selectedCard == null; }
 
     private void CheckToGainAction()
@@ -80,7 +84,7 @@ public class CardDragger : MonoBehaviour
         }
     }
 
-    private void PickUpCard()
+    public virtual void PickUpCard()
     {
         selectedCard = Mouse.GetHitComponent<Card>();
         previousPosition = selectedCard.transform.localPosition;

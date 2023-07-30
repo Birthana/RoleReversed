@@ -48,25 +48,12 @@ public class Room : MonoBehaviour
 
     private void DisplayMonsters()
     {
+        var centerPosition = new CenterPosition(new Vector2(MONSTER_OFFSET.x, 0), monsters.Count, SPACING);
         for (int i = 0; i < monsters.Count; i++)
         {
-            monsters[i].transform.localPosition = CalcPositionAt(i);
+            monsters[i].transform.localPosition = centerPosition.GetVerticalOffsetPositionAt(i);
         }
     }
-
-    private Vector3 CalcPositionAt(int cardIndex)
-    {
-        float positionOffset = CalcPositionOffsetAt(cardIndex);
-        return new Vector3(CalcX(), CalcY(positionOffset), CalcZ());
-    }
-
-    float CalcPositionOffsetAt(int index) { return index - ((float)monsters.Count - 1) / 2; }
-
-    float CalcX() { return MONSTER_OFFSET.x; }
-
-    float CalcY(float positionOffset) { return Mathf.Sin(positionOffset * Mathf.Deg2Rad) * SPACING * 10; }
-
-    float CalcZ() { return 0; }
 
     public void Remove(Monster monster)
     {

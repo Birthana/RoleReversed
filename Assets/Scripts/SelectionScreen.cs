@@ -66,24 +66,10 @@ public class SelectionScreen : MonoBehaviour
 
     private void Display()
     {
+        var centerPosition = new CenterPosition(transform.position, cards.Count, SPACING);
         for (int i = 0; i < cards.Count; i++)
         {
-            cards[i].transform.position = CalcPositionAt(i);
+            cards[i].transform.position = centerPosition.GetHorizontalOffsetPositionAt(i);
         }
     }
-
-    private Vector3 CalcPositionAt(int cardIndex)
-    {
-        float positionOffset = CalcPositionOffsetAt(cardIndex);
-        return new Vector3(CalcX(positionOffset), CalcY(), CalcZ());
-    }
-
-    float CalcPositionOffsetAt(int index) { return index - ((float)cards.Count - 1) / 2; }
-
-    float CalcX(float positionOffset) { return Mathf.Sin(positionOffset * Mathf.Deg2Rad) * SPACING * 10; }
-
-    float CalcY() { return 2.5f; }
-
-    float CalcZ() { return 0; }
-
 }

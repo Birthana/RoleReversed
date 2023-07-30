@@ -31,24 +31,10 @@ public class Hand : MonoBehaviour
 
     public void DisplayHand()
     {
+        var centerPosition = new CenterPosition(Vector3.zero, hand.Count, SPACING);
         for (int i = 0; i < hand.Count; i++)
         {
-            hand[i].transform.localPosition = CalcPositionAt(i);
+            hand[i].transform.localPosition = centerPosition.GetHorizontalOffsetPositionAt(i);
         }
     }
-
-    private Vector3 CalcPositionAt(int cardIndex)
-    {
-        float positionOffset = CalcPositionOffsetAt(cardIndex);
-        return new Vector3(CalcX(positionOffset), CalcY(), CalcZ());
-    }
-
-    float CalcPositionOffsetAt(int index) { return index - ((float)hand.Count - 1) / 2; }
-
-    float CalcX(float positionOffset) { return Mathf.Sin(positionOffset * Mathf.Deg2Rad) * SPACING * 10; }
-    
-    float CalcY() { return 0; }
-
-    float CalcZ() { return 0; }
-
 }
