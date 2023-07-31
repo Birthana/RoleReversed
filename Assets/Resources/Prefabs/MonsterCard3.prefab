@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 8865576913363211282}
   - component: {fileID: 2279019882783335553}
   - component: {fileID: 2414559674931618722}
-  - component: {fileID: 3301470073462306413}
+  - component: {fileID: -2316190961442310922}
   m_Layer: 6
   m_Name: MonsterCard3
   m_TagString: Untagged
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 1
   monsterPrefab: {fileID: -657158815897514667, guid: 872db77420529364ab5065469ae0d8a9, type: 3}
---- !u!114 &3301470073462306413
+--- !u!114 &-2316190961442310922
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

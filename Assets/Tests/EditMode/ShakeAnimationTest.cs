@@ -14,7 +14,9 @@ public class ShakeAnimationTest : MonoBehaviour
     public void GivenAnimationTime_GetAnimationTime_ExpectAnimationTimeIsEqualToGiven()
     {
         // Arrange
-        var shakeAnimation = new ShakeAnimation(ANY_ANIMATION_TIME);
+        var gameObject = new GameObject();
+        gameObject.transform.position = ANY_START_POSITION;
+        var shakeAnimation = new ShakeAnimation(gameObject.transform, ANY_VERTICAL_MOVE, ANY_ANIMATION_TIME);
 
         // Act
         var animationTime = shakeAnimation.GetAnimationTime();
@@ -27,7 +29,9 @@ public class ShakeAnimationTest : MonoBehaviour
     public IEnumerator GivenStartPosVerticalMoveAndAnimationTime_AnimateFromStartToEnd_ExpectEndPosition()
     {
         // Arrange
-        var shakeAnimation = new ShakeAnimation(ANY_START_POSITION, ANY_VERTICAL_MOVE, ANY_ANIMATION_TIME);
+        var gameObject = new GameObject();
+        gameObject.transform.position = ANY_START_POSITION;
+        var shakeAnimation = new ShakeAnimation(gameObject.transform, ANY_VERTICAL_MOVE, ANY_ANIMATION_TIME);
 
         // Act
         yield return shakeAnimation.AnimateFromStartToEnd();
@@ -66,4 +70,57 @@ public class ShakeAnimationTest : MonoBehaviour
         Vector2 actualPosition = gameObject.transform.position;
         Assert.AreEqual(ANY_START_POSITION + new Vector2(0, ANY_VERTICAL_MOVE), actualPosition);
     }
+
+    [UnityTest]
+    public IEnumerator GivenMovedTransform_AnimateFromEndToStart_ExpectTransformIsMoved()
+    {
+        // Arrange
+        var gameObject = new GameObject();
+        gameObject.transform.position = ANY_START_POSITION;
+        var shakeAnimation = new ShakeAnimation(gameObject.transform, ANY_VERTICAL_MOVE, ANY_ANIMATION_TIME);
+        var ANY_MOVE_AMOUNT = new Vector2(7, 3);
+        gameObject.transform.position += (Vector3)ANY_MOVE_AMOUNT;
+
+        // Act
+        yield return shakeAnimation.AnimateFromStartToEnd();
+
+        // Assert
+        Vector2 actualPosition = gameObject.transform.position;
+        Assert.AreEqual(ANY_START_POSITION + ANY_MOVE_AMOUNT + new Vector2(0, ANY_VERTICAL_MOVE), actualPosition);
+    }
+
+    [UnityTest]
+    public IEnumerator GivenAnimateFromStartToEnd_AnimateFromEndToStart_ExpectTransform()
+    {
+        // Arrange
+        var gameObject = new GameObject();
+        gameObject.transform.position = ANY_START_POSITION;
+        var shakeAnimation = new ShakeAnimation(gameObject.transform, ANY_VERTICAL_MOVE, ANY_ANIMATION_TIME);
+        yield return shakeAnimation.AnimateFromStartToEnd();
+
+        // Act
+        yield return shakeAnimation.AnimateFromEndToStart();
+
+        // Assert
+        Vector2 actualPosition = gameObject.transform.position;
+        Assert.AreEqual(ANY_START_POSITION, actualPosition);
+    }
+
+    //[UnityTest]
+    //public IEnumerator GivenTransformVerticalMoveAndAnimationTime_InterruptAnimation_ExpectTransformAtStart()
+    //{
+    //    // Arrange
+    //    var gameObject = new GameObject();
+    //    gameObject.transform.position = ANY_START_POSITION;
+    //    var shakeAnimation = new ShakeAnimation(gameObject.transform, ANY_VERTICAL_MOVE, ANY_ANIMATION_TIME);
+    //    var coroutine = shakeAnimation.AnimateFromStartToEnd();
+    //    yield return new WaitForSeconds(ANY_ANIMATION_TIME / 2);
+
+    //    // Act
+    //    StopCoroutine(coroutine);
+
+    //    // Assert
+    //    Vector2 actualPosition = gameObject.transform.position;
+    //    Assert.AreEqual(ANY_START_POSITION, actualPosition);
+    //}
 }

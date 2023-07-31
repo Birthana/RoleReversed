@@ -19,11 +19,11 @@ public class Pack : MonoBehaviour
     {
         var hand = FindObjectOfType<Hand>();
         var rngCards = FindObjectOfType<CardManager>();
-        hand.Add(rngCards.GetMonsterCard());
-        hand.Add(rngCards.GetRoomCard());
+        hand.AddNewCard(rngCards.GetMonsterCard());
+        hand.AddNewCard(rngCards.GetRoomCard());
         for (int i = 0; i < numberOfCards - 2; i++)
         {
-            hand.Add(rngCards.GetRandomCard());
+            hand.AddNewCard(rngCards.GetRandomCard());
         }
     }
 }

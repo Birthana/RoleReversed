@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5321829304583741739}
   - component: {fileID: 3274820854009762232}
   - component: {fileID: 1391622791351134472}
-  - component: {fileID: 8301258928189959546}
+  - component: {fileID: 2676898076620198086}
   m_Layer: 6
   m_Name: RoomCard2
   m_TagString: Untagged
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 2
   roomPrefab: {fileID: 1475192853365160601, guid: b917f3291294b124e944a0bf2021386f, type: 3}
---- !u!114 &8301258928189959546
+--- !u!114 &2676898076620198086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

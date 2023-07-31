@@ -1,9 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
 public class CardDragger : MonoBehaviour
 {
     private Card selectedCard;
-    private Vector3 previousPosition;
+    private Card hoverCard;
+    private Coroutine coroutine;
 
     private Hand hand;
     private GainActionManager gainActions;
@@ -19,6 +21,7 @@ public class CardDragger : MonoBehaviour
     private void Update()
     {
         CheckToSelectCard();
+        HoverCard();
         if (CardIsNotSelected())
         {
             return;
@@ -42,9 +45,66 @@ public class CardDragger : MonoBehaviour
         CheckToReturnSelectCard();
     }
 
-    public virtual Card GetSelectedCard() { return selectedCard; }
+    private void HoverCard()
+    {
+        if (Mouse.IsOnHand())
+        {
+            if (hoverCard == null)
+            {
+                hoverCard = Mouse.GetHitComponent<Card>();
+            }
 
-    public Vector3 GetPreviousPosition() { return previousPosition; }
+            if (CardIsNotTheSame(hoverCard))
+            {
+                hoverCard = Mouse.GetHitComponent<Card>();
+                StopCoroutine(coroutine);
+                coroutine = null;
+                hand.DisplayHand();
+            }
+
+            if (coroutine == null)
+            {
+                coroutine = StartCoroutine(Hover(hoverCard));
+            } 
+        }
+    }
+
+    private IEnumerator Hover(Card card)
+    {
+        var shakeAnimation = new ShakeAnimation(card.transform, 0.5f, 0.1f);
+        yield return StartCoroutine(shakeAnimation.AnimateFromStartToEnd());
+        bool stillRunning = true;
+        while (stillRunning)
+        {
+            if (!Mouse.IsOnHand() || CardIsNotTheSame(card))
+            {
+                yield return StartCoroutine(shakeAnimation.AnimateFromEndToStart());
+                stillRunning = false;
+            }
+
+            yield return null;
+        }
+
+        StopCoroutine(coroutine);
+        coroutine = null;
+        hoverCard = null;
+    }
+
+    private bool CardIsNotTheSame(Card card)
+    {
+        if (Mouse.IsOnHand())
+        {
+            var mouseCard = Mouse.GetHitComponent<Card>();
+            if (!card.Equals(mouseCard))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public virtual Card GetSelectedCard() { return selectedCard; }
 
     private bool CardIsNotSelected() { return selectedCard == null; }
 
@@ -87,16 +147,21 @@ public class CardDragger : MonoBehaviour
     public virtual void PickUpCard()
     {
         selectedCard = Mouse.GetHitComponent<Card>();
-        previousPosition = selectedCard.transform.localPosition;
     }
 
-    private bool PlayerClicksOnHand() { return Mouse.PlayerPressesLeftClick() && Mouse.IsOnHandButton(); }
+    private bool PlayerClicksOnHand() { return Mouse.PlayerPressesLeftClick() && Mouse.IsOnHand(); }
 
     private void DragSelectCardToMouse() { MoveSelectedCardToMouse(); }
 
     private void MoveSelectedCardToMouse()
     {
         Vector2 mousePosition = Mouse.GetPosition();
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
+
         selectedCard.transform.position = mousePosition;
     }
 
@@ -128,6 +193,7 @@ public class CardDragger : MonoBehaviour
                 ReturnSelectedCard();
             }
 
+            hand.Remove(selectedCard);
             selectionScreen.AddToSelection(selectedCard);
             selectedCard = null;
         }
@@ -143,7 +209,7 @@ public class CardDragger : MonoBehaviour
 
     private void ReturnSelectedCard()
     {
-        selectedCard.transform.localPosition = previousPosition;
+        hand.DisplayHand();
         selectedCard = null;
     }
 }

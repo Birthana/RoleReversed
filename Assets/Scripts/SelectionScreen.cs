@@ -60,7 +60,12 @@ public class SelectionScreen : MonoBehaviour
 
     public void ReturnAllSelections()
     {
-        FindObjectOfType<Hand>().DisplayHand();
+        var hand = FindObjectOfType<Hand>();
+        foreach (var card in cards)
+        {
+            hand.Add(card);
+        }
+
         cards = new List<Card>();
     }
 

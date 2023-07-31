@@ -11,6 +11,12 @@ public class Hand : MonoBehaviour
         DisplayHand();
     }
 
+    public void AddNewCard(Card card)
+    {
+        var newCard = Instantiate(card, transform);
+        Add(newCard);
+    }
+
     public void Add(Card card)
     {
         if (hand.Count == 8)
@@ -18,8 +24,7 @@ public class Hand : MonoBehaviour
             return;
         }
 
-        var newCard = Instantiate(card, transform);
-        hand.Add(newCard);
+        hand.Add(card);
         DisplayHand();
     }
 
