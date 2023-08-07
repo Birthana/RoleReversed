@@ -8,6 +8,7 @@ public class ShakeAnimation
     private float animationTime;
     private Vector2 currentPosition;
     private Vector2 startPosition;
+    private float difference;
 
     public ShakeAnimation(Transform transform, float verticalMove, float animationTime)
     {
@@ -15,6 +16,8 @@ public class ShakeAnimation
         this.verticalMove = verticalMove;
         this.animationTime = animationTime;
         startPosition = transform.position;
+        currentPosition = startPosition;
+        difference = 0.0f;
     }
 
     public float GetAnimationTime() { return animationTime; }
@@ -22,25 +25,37 @@ public class ShakeAnimation
 
     public IEnumerator AnimateFromStartToEnd()
     {
-        startPosition = transform.position;
         var startPositionLerp = new LerpPosition(transform.position, verticalMove);
         yield return Animate(startPositionLerp);
     }
 
     public IEnumerator AnimateFromEndToStart()
     {
-        var endPositionLerp = new LerpPosition(startPosition + new Vector2(0, verticalMove), -verticalMove);
+        if(startPosition == (Vector2)transform.position)
+        {
+            yield break;
+        }
+
+        var endPositionLerp = new LerpPosition(currentPosition, -difference);
         yield return Animate(endPositionLerp);
+    }
+
+    public void ReturnToStartPosition()
+    {
+        Debug.Log($"Returning: {startPosition}");
+        transform.position = startPosition;
     }
 
     private IEnumerator Animate(LerpPosition lerp)
     {
         var currentTime = 0.0f;
+        difference = 0.0f;
         while (currentTime < animationTime)
         {
             currentTime += Time.deltaTime;
             currentPosition = lerp.GetCurrentPosition(currentTime / animationTime);
             transform.position = currentPosition;
+            difference = Mathf.Abs(currentPosition.y - lerp.GetStartPosition().y);
             yield return null;
         }
     }

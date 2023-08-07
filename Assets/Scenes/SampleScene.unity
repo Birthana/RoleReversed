@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 386754319}
   - component: {fileID: 386754321}
   - component: {fileID: 386754322}
+  - component: {fileID: 386754323}
   m_Layer: 0
   m_Name: CardDragger
   m_TagString: Untagged
@@ -410,6 +411,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCount: 0
   ui: {fileID: 2046455937}
+--- !u!114 &386754323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386754318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb16416ff454e5c41a5b15e26b12d97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &395155021
 GameObject:
   m_ObjectHideFlags: 0

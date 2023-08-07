@@ -3,6 +3,9 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     public int cost;
+    private Vector2 startPosition;
+
+    public Vector2 GetStartPosition() { return startPosition; }
 
     public int GetCost()
     {

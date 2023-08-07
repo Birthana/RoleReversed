@@ -6,6 +6,7 @@ public class CardDragger : MonoBehaviour
     private Card selectedCard;
     private Card hoverCard;
     private Coroutine coroutine;
+    private HoverAnimation hoverAnimation;
 
     private Hand hand;
     private GainActionManager gainActions;
@@ -16,6 +17,7 @@ public class CardDragger : MonoBehaviour
         hand = FindObjectOfType<Hand>();
         gainActions = GetComponent<GainActionManager>();
         reroll = GetComponent<RerollManager>();
+        hoverAnimation = GetComponent<HoverAnimation>();
     }
 
     private void Update()
@@ -49,49 +51,28 @@ public class CardDragger : MonoBehaviour
     {
         if (Mouse.IsOnHand())
         {
-            if (hoverCard == null)
+            if (!CardIsNotTheSame(hoverCard))
             {
-                hoverCard = Mouse.GetHitComponent<Card>();
+                return;
             }
 
-            if (CardIsNotTheSame(hoverCard))
+            if(hoverCard != null)
             {
-                hoverCard = Mouse.GetHitComponent<Card>();
-                StopCoroutine(coroutine);
-                coroutine = null;
-                hand.DisplayHand();
+                hoverAnimation.StopHover(hoverCard);
             }
 
-            if (coroutine == null)
-            {
-                coroutine = StartCoroutine(Hover(hoverCard));
-            } 
+            hoverCard = Mouse.GetHitComponent<Card>();
+            hoverAnimation.Hover(hoverCard, 0.5f, 0.1f);
         }
-    }
-
-    private IEnumerator Hover(Card card)
-    {
-        var shakeAnimation = new ShakeAnimation(card.transform, 0.5f, 0.1f);
-        yield return StartCoroutine(shakeAnimation.AnimateFromStartToEnd());
-        bool stillRunning = true;
-        while (stillRunning)
-        {
-            if (!Mouse.IsOnHand() || CardIsNotTheSame(card))
-            {
-                yield return StartCoroutine(shakeAnimation.AnimateFromEndToStart());
-                stillRunning = false;
-            }
-
-            yield return null;
-        }
-
-        StopCoroutine(coroutine);
-        coroutine = null;
-        hoverCard = null;
     }
 
     private bool CardIsNotTheSame(Card card)
     {
+        if (card == null)
+        {
+            return true;
+        }
+
         if (Mouse.IsOnHand())
         {
             var mouseCard = Mouse.GetHitComponent<Card>();
