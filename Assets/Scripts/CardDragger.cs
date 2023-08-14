@@ -5,7 +5,6 @@ public class CardDragger : MonoBehaviour
 {
     private Card selectedCard;
     private Card hoverCard;
-    private Coroutine coroutine;
     private HoverAnimation hoverAnimation;
 
     private Hand hand;
@@ -49,16 +48,16 @@ public class CardDragger : MonoBehaviour
 
     private void HoverCard()
     {
-        if (Mouse.IsOnHand())
+        if (Mouse.IsOnHand() && CardIsNotSelected())
         {
             if (!CardIsNotTheSame(hoverCard))
             {
                 return;
             }
 
-            if(hoverCard != null)
+            if (hoverCard != null)
             {
-                hoverAnimation.StopHover(hoverCard);
+                hoverAnimation.PerformReturn();
             }
 
             hoverCard = Mouse.GetHitComponent<Card>();
@@ -136,13 +135,8 @@ public class CardDragger : MonoBehaviour
 
     private void MoveSelectedCardToMouse()
     {
+        hoverAnimation.ResetHoverAnimation();
         Vector2 mousePosition = Mouse.GetPosition();
-        if (coroutine != null)
-        {
-            StopCoroutine(coroutine);
-            coroutine = null;
-        }
-
         selectedCard.transform.position = mousePosition;
     }
 

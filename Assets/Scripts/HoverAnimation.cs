@@ -5,48 +5,73 @@ public class HoverAnimation : MonoBehaviour
 {
     private Coroutine hoverCoroutine;
     private Coroutine returnCoroutine;
-    private ShakeAnimation shakeAnimation;
-    private ShakeAnimation returnAnimation;
+    private ShakeAnimation verticalAnimation;
 
     public void Hover(Card card, float verticalMove, float time)
     {
-        if (hoverCoroutine == null)
+        if (IsHovering())
         {
-            hoverCoroutine = StartCoroutine(Hovering(card, verticalMove, time));
-            return;
+            StopHover();
         }
 
-        StopCoroutine(hoverCoroutine);
-        hoverCoroutine = StartCoroutine(Hovering(card, verticalMove, time));
+        PerformHover(card, verticalMove, time);
     }
 
-    public void StopHover(Card card)
+    public void PerformReturn()
     {
-        returnCoroutine = StartCoroutine(StopHovering(card));
+        returnCoroutine = StartCoroutine(Returning());
     }
 
-    public bool IsRunning() { return hoverCoroutine != null; }
+    public bool IsRunning() { return IsHovering() || IsReturning(); }
+
+    public void ResetHoverAnimation()
+    {
+        if (IsHovering())
+        {
+            StopHover();
+        }
+
+        if (IsReturning())
+        {
+            StopReturn();
+        }
+    }
 
     private IEnumerator Hovering(Card card, float verticalMove, float time)
     {
-        Debug.Log($"Starting: {card.transform.position}");
-        if (returnAnimation != null)
+        if (IsRunning())
         {
-            StopCoroutine(returnCoroutine);
-            returnAnimation.ReturnToStartPosition();
-            returnCoroutine = null;
-            returnAnimation = null;
+            StopReturn();
+            verticalAnimation.ReturnToStartPosition();
         }
 
-        shakeAnimation = new ShakeAnimation(card.transform, verticalMove, time);
-        yield return StartCoroutine(shakeAnimation.AnimateFromStartToEnd());
+        verticalAnimation = new ShakeAnimation(card.transform, verticalMove, time);
+        yield return StartCoroutine(verticalAnimation.AnimateFromStartToEnd());
         hoverCoroutine = null;
     }
 
-    private IEnumerator StopHovering(Card card)
+    private IEnumerator Returning()
     {
-        Debug.Log($"Stopping: {card.transform.position}");
-        returnAnimation = shakeAnimation;
-        yield return StartCoroutine(shakeAnimation.AnimateFromEndToStart());
+        yield return StartCoroutine(verticalAnimation.AnimateFromEndToStart());
+    }
+
+    private bool IsNotHovering() { return hoverCoroutine == null; }
+
+    private bool IsHovering() { return !IsNotHovering(); }
+
+    private bool IsReturning() { return returnCoroutine != null; }
+
+    private void PerformHover(Card card, float verticalMove, float time) { hoverCoroutine = StartCoroutine(Hovering(card, verticalMove, time)); }
+
+    private void StopHover()
+    {
+        StopCoroutine(hoverCoroutine);
+        hoverCoroutine = null;
+    }
+
+    private void StopReturn()
+    {
+        StopCoroutine(returnCoroutine);
+        returnCoroutine = null;
     }
 }

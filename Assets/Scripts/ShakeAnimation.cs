@@ -42,7 +42,6 @@ public class ShakeAnimation
 
     public void ReturnToStartPosition()
     {
-        Debug.Log($"Returning: {startPosition}");
         transform.position = startPosition;
     }
 
