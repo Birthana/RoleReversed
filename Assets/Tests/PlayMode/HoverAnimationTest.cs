@@ -1,20 +1,34 @@
 using System.Collections;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
 public class HoverAnimationTest : MonoBehaviour
 {
+    private Card ANY_CARD;
+    private HoverAnimation hoverAnimation;
     private readonly static float END_OF_ANIMATION = 1.0f;
     private readonly static float ANY_VERTICAL_MOVE = 2.0f;
+
+    [SetUp]
+    public void Setup()
+    {
+        ANY_CARD = new GameObject().AddComponent<Card>();
+        hoverAnimation = new GameObject().AddComponent<HoverAnimation>();
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        Object.FindObjectsOfType<Card>().ToList().ForEach(o => Object.DestroyImmediate(o.gameObject));
+        Object.FindObjectsOfType<HoverAnimation>().ToList().ForEach(o => Object.DestroyImmediate(o.gameObject));
+    }
 
     [UnityTest]
     public IEnumerator GivenHoverAnimation_Hover_ExpectHoverIsRunning()
     {
         // Arrange
-        var gameObject = new GameObject();
-        var ANY_CARD = new GameObject().AddComponent<Card>();
-        var hoverAnimation = gameObject.AddComponent<HoverAnimation>();
 
         // Act
         hoverAnimation.Hover(ANY_CARD, ANY_VERTICAL_MOVE, END_OF_ANIMATION);
@@ -28,9 +42,6 @@ public class HoverAnimationTest : MonoBehaviour
     public IEnumerator GivenHover_WaitForEndOfHover_ExpectHoverIsNotRunning()
     {
         // Arrange
-        var gameObject = new GameObject();
-        var ANY_CARD = new GameObject().AddComponent<Card>();
-        var hoverAnimation = gameObject.AddComponent<HoverAnimation>();
         hoverAnimation.Hover(ANY_CARD, ANY_VERTICAL_MOVE, END_OF_ANIMATION);
 
         // Act
@@ -44,9 +55,6 @@ public class HoverAnimationTest : MonoBehaviour
     public IEnumerator GivenHover_WaitForEndOfHover_ExpectPositionIsAtEnd()
     {
         // Arrange
-        var gameObject = new GameObject();
-        var ANY_CARD = new GameObject().AddComponent<Card>();
-        var hoverAnimation = gameObject.AddComponent<HoverAnimation>();
         var startPosition = ANY_CARD.transform.position;
         hoverAnimation.Hover(ANY_CARD, ANY_VERTICAL_MOVE, END_OF_ANIMATION);
 
@@ -61,9 +69,6 @@ public class HoverAnimationTest : MonoBehaviour
     public IEnumerator GivenHoverAndStopHover_WaitForEndOfStopHover_ExpectPositionIsAtStart()
     {
         // Arrange
-        var gameObject = new GameObject();
-        var ANY_CARD = new GameObject().AddComponent<Card>();
-        var hoverAnimation = gameObject.AddComponent<HoverAnimation>();
         var startPosition = ANY_CARD.transform.position;
         hoverAnimation.Hover(ANY_CARD, ANY_VERTICAL_MOVE, END_OF_ANIMATION);
         yield return new WaitForSeconds(END_OF_ANIMATION);
@@ -80,9 +85,6 @@ public class HoverAnimationTest : MonoBehaviour
     public IEnumerator GivenHoverForHalfTimeAndStopHover_WaitForEndOfStopHover_ExpectPositionIsAtStart()
     {
         // Arrange
-        var gameObject = new GameObject();
-        var ANY_CARD = new GameObject().AddComponent<Card>();
-        var hoverAnimation = gameObject.AddComponent<HoverAnimation>();
         var startPosition = ANY_CARD.transform.position;
         hoverAnimation.Hover(ANY_CARD, ANY_VERTICAL_MOVE, END_OF_ANIMATION);
         yield return new WaitForSeconds(END_OF_ANIMATION / 2);
@@ -99,8 +101,6 @@ public class HoverAnimationTest : MonoBehaviour
     public IEnumerator GivenASecondCardInterruptingFirstHover_WaitForSecondHover_ExpectPositionsAreCorrect()
     {
         // Arrange
-        var ANY_CARD = new GameObject().AddComponent<Card>();
-        var hoverAnimation = new GameObject().AddComponent<HoverAnimation>();
         var startPosition1 = ANY_CARD.transform.position;
         var ANY_CARD_2 = new GameObject().AddComponent<Card>();
         var startPosition2 = ANY_CARD_2.transform.position;
@@ -121,8 +121,6 @@ public class HoverAnimationTest : MonoBehaviour
     public IEnumerator GivenASecondInterruptingHover_WaitForEndOfAnimation_ExpectBackAtStart()
     {
         // Arrange
-        var ANY_CARD = new GameObject().AddComponent<Card>();
-        var hoverAnimation = new GameObject().AddComponent<HoverAnimation>();
         var startPosition1 = ANY_CARD.transform.position;
         hoverAnimation.Hover(ANY_CARD, ANY_VERTICAL_MOVE, END_OF_ANIMATION);
         yield return new WaitForSeconds(0.1f);
@@ -141,8 +139,6 @@ public class HoverAnimationTest : MonoBehaviour
     public IEnumerator GivenHover_ResetHoverAnimation_ExpectHoverAnimationIsNotRunning()
     {
         // Arrange
-        var ANY_CARD = new GameObject().AddComponent<Card>();
-        var hoverAnimation = new GameObject().AddComponent<HoverAnimation>();
         hoverAnimation.Hover(ANY_CARD, ANY_VERTICAL_MOVE, END_OF_ANIMATION);
         yield return new WaitForSeconds(END_OF_ANIMATION / 2);
 

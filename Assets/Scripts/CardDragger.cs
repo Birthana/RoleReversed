@@ -10,16 +10,31 @@ public class CardDragger : MonoBehaviour
     private Hand hand;
     private GainActionManager gainActions;
     private RerollManager reroll;
+    private SelectionScreen selectionScreen;
 
-    private void Start()
+    private IMouseWrapper mouseWrapper;
+
+    public void SetMouseWrapper(IMouseWrapper wrapper)
     {
+        mouseWrapper = wrapper;
+    }
+
+    private void Awake()
+    {
+        SetMouseWrapper(new MouseWrapper());
         hand = FindObjectOfType<Hand>();
         gainActions = GetComponent<GainActionManager>();
         reroll = GetComponent<RerollManager>();
         hoverAnimation = GetComponent<HoverAnimation>();
+        selectionScreen = FindObjectOfType<SelectionScreen>();
     }
 
     private void Update()
+    {
+        UpdateLoop();
+    }
+
+    public void UpdateLoop()
     {
         CheckToSelectCard();
         HoverCard();
@@ -48,7 +63,7 @@ public class CardDragger : MonoBehaviour
 
     private void HoverCard()
     {
-        if (Mouse.IsOnHand() && CardIsNotSelected())
+        if (mouseWrapper.IsOnHand() && CardIsNotSelected())
         {
             if (!CardIsNotTheSame(hoverCard))
             {
@@ -60,7 +75,7 @@ public class CardDragger : MonoBehaviour
                 hoverAnimation.PerformReturn();
             }
 
-            hoverCard = Mouse.GetHitComponent<Card>();
+            hoverCard = mouseWrapper.GetHitComponent<Card>();
             hoverAnimation.Hover(hoverCard, 0.5f, 0.1f);
         }
     }
@@ -72,9 +87,9 @@ public class CardDragger : MonoBehaviour
             return true;
         }
 
-        if (Mouse.IsOnHand())
+        if (mouseWrapper.IsOnHand())
         {
-            var mouseCard = Mouse.GetHitComponent<Card>();
+            var mouseCard = mouseWrapper.GetHitComponent<Card>();
             if (!card.Equals(mouseCard))
             {
                 return true;
@@ -84,7 +99,7 @@ public class CardDragger : MonoBehaviour
         return false;
     }
 
-    public virtual Card GetSelectedCard() { return selectedCard; }
+    public Card GetSelectedCard() { return selectedCard; }
 
     private bool CardIsNotSelected() { return selectedCard == null; }
 
@@ -97,7 +112,7 @@ public class CardDragger : MonoBehaviour
         }
     }
 
-    private bool PlayerIsOnActionButton() { return Mouse.PlayerReleasesLeftClick() && Mouse.IsOnActionButton(); }
+    private bool PlayerIsOnActionButton() { return mouseWrapper.PlayerReleasesLeftClick() && Mouse.IsOnActionButton(); }
 
     private void RemoveSelectedCard()
     {
@@ -114,7 +129,7 @@ public class CardDragger : MonoBehaviour
         }
     }
 
-    private bool PlayerIsOnRerollButton() { return Mouse.PlayerReleasesLeftClick() && Mouse.IsOnRerollButton(); }
+    private bool PlayerIsOnRerollButton() { return mouseWrapper.PlayerReleasesLeftClick() && Mouse.IsOnRerollButton(); }
 
     private void CheckToSelectCard()
     {
@@ -124,13 +139,13 @@ public class CardDragger : MonoBehaviour
         }
     }
 
-    public virtual void PickUpCard()
+    public void PickUpCard()
     {
-        selectedCard = Mouse.GetHitComponent<Card>();
+        selectedCard = mouseWrapper.GetHitComponent<Card>();
     }
 
-    private bool PlayerClicksOnHand() { return Mouse.PlayerPressesLeftClick() && Mouse.IsOnHand(); }
-
+    private bool PlayerClicksOnHand() { return mouseWrapper.PlayerPressesLeftClick() && mouseWrapper.IsOnHand(); }
+    public bool PlayerClicks() { return mouseWrapper.PlayerPressesLeftClick(); }
     private void DragSelectCardToMouse() { MoveSelectedCardToMouse(); }
 
     private void MoveSelectedCardToMouse()
@@ -148,7 +163,7 @@ public class CardDragger : MonoBehaviour
         }
     }
 
-    private bool PlayerCanCastSelectedCard() { return Mouse.PlayerReleasesLeftClick() && CanCastSelectedCard(); }
+    private bool PlayerCanCastSelectedCard() { return mouseWrapper.PlayerReleasesLeftClick() && CanCastSelectedCard(); }
 
     private bool CanCastSelectedCard() { return gainActions.HaveEnoughActions(selectedCard) && selectedCard.HasTarget(); }
 
@@ -158,10 +173,9 @@ public class CardDragger : MonoBehaviour
         selectedCard = null;
     }
 
-    private void CheckToAddCardToSelection()
+    public void CheckToAddCardToSelection()
     {
-        var selectionScreen = FindObjectOfType<SelectionScreen>();
-        if (Mouse.PlayerReleasesLeftClick() && Mouse.IsOnSelection())
+        if (mouseWrapper.PlayerReleasesLeftClick() && mouseWrapper.IsOnSelection())
         {
             if (selectionScreen.IsFull())
             {
@@ -176,7 +190,7 @@ public class CardDragger : MonoBehaviour
 
     private void CheckToReturnSelectCard()
     {
-        if (Mouse.PlayerReleasesLeftClick())
+        if (mouseWrapper.PlayerReleasesLeftClick())
         {
             ReturnSelectedCard();
         }
