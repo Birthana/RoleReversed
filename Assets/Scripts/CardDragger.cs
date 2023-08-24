@@ -38,11 +38,6 @@ public class CardDragger : MonoBehaviour
     {
         CheckToSelectCard();
         HoverCard();
-        if (CardIsNotSelected())
-        {
-            return;
-        }
-
         CheckToAddCardToSelection();
         if (CardIsNotSelected())
         {
@@ -145,13 +140,13 @@ public class CardDragger : MonoBehaviour
     }
 
     private bool PlayerClicksOnHand() { return mouseWrapper.PlayerPressesLeftClick() && mouseWrapper.IsOnHand(); }
-    public bool PlayerClicks() { return mouseWrapper.PlayerPressesLeftClick(); }
+    
     private void DragSelectCardToMouse() { MoveSelectedCardToMouse(); }
 
     private void MoveSelectedCardToMouse()
     {
         hoverAnimation.ResetHoverAnimation();
-        Vector2 mousePosition = Mouse.GetPosition();
+        Vector2 mousePosition = mouseWrapper.GetPosition();
         selectedCard.transform.position = mousePosition;
     }
 

@@ -11,7 +11,7 @@ public class TestSetup
 
     public TestSetup()
     {
-        mock = new Mock<IMouseWrapper>();
+        mock = new Mock<IMouseWrapper>(MockBehavior.Strict);
     }
 
     public Mock<IMouseWrapper> Get()
@@ -19,43 +19,37 @@ public class TestSetup
         return mock;
     }
 
-    public TestSetup WithPlayerClicksOnHand()
+    public TestSetup WithPlayerSelectsCard(Card card)
     {
         mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
         mock.Setup(x => x.IsOnHand()).Returns(true);
+        mock.Setup(x => x.GetHitComponent<Card>()).Returns(card);
         return this;
     }
 
-    public TestSetup WithPlayerDoesNotClickOnHand()
+    public TestSetup WithPlayerDoesNotSelectCard()
     {
         mock.Setup(x => x.PlayerPressesLeftClick()).Returns(false);
         return this;
     }
 
-    public TestSetup WithPickedUpCard(Card card)
-    {
-        mock.Setup(x => x.GetHitComponent<Card>()).Returns(card);
-        WithNoHover();
-        return this;
-    }
-
-    private TestSetup WithNoHover()
-    {
-        mock.Setup(x => x.IsOnHand()).Returns(true);
-        return this;
-    }
-
-    public TestSetup WithHover(Card card)
+    public TestSetup WithPlayerHoversCard(Card card)
     {
         mock.Setup(x => x.IsOnHand()).Returns(true);
         mock.Setup(x => x.GetHitComponent<Card>()).Returns(card);
         return this;
     }
 
-    public TestSetup WithAddCardToSelection()
+    public TestSetup WithPlayerAddsToSelection()
     {
         mock.Setup(x => x.PlayerReleasesLeftClick()).Returns(true);
         mock.Setup(x => x.IsOnSelection()).Returns(true);
+        return this;
+    }
+
+    public TestSetup WithPlayerDoesNotAddToSelection()
+    {
+        mock.Setup(x => x.PlayerReleasesLeftClick()).Returns(false);
         return this;
     }
 }
@@ -78,22 +72,8 @@ public class CardDraggerTest : MonoBehaviour
     {
         FindObjectsOfType<Hand>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
         FindObjectsOfType<SelectionScreen>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
-    }
-
-    [UnityTest]
-    public IEnumerator GivenClicksOnHandPickACardAndAddToSelection_Update_ExpectNoErrors()
-    {
-        // Arrange
-        var card = new GameObject().AddComponent<Card>();
-        var mouse = new TestSetup().WithPlayerClicksOnHand().WithPickedUpCard(card).WithAddCardToSelection().Get();
-        var cardDragger = new GameObject().AddComponent<CardDragger>();
-        cardDragger.SetMouseWrapper(mouse.Object);
-        yield return new WaitForEndOfFrame();
-
-        // Act
-
-        // Assert
-        Assert.DoesNotThrow(() => cardDragger.UpdateLoop());
+        FindObjectsOfType<Card>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+        FindObjectsOfType<CardDragger>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
     [UnityTest]
@@ -101,16 +81,34 @@ public class CardDraggerTest : MonoBehaviour
     {
         // Arrange
         var card = new GameObject().AddComponent<Card>();
-        var mouse = new TestSetup().WithPlayerDoesNotClickOnHand().WithHover(card).Get();
+        var mock = new TestSetup().WithPlayerDoesNotSelectCard().WithPlayerHoversCard(card).WithPlayerDoesNotAddToSelection().Get();
         var gameObject = new GameObject();
         gameObject.AddComponent<HoverAnimation>();
         var cardDragger = gameObject.AddComponent<CardDragger>();
-        cardDragger.SetMouseWrapper(mouse.Object);
-        yield return new WaitForEndOfFrame();
+        cardDragger.SetMouseWrapper(mock.Object);
 
         // Act
+        cardDragger.UpdateLoop();
+        yield return new WaitForEndOfFrame();
 
         // Assert
-        Assert.DoesNotThrow(() => cardDragger.UpdateLoop());
+        mock.VerifyAll();
+    }
+
+    [UnityTest]
+    public IEnumerator GivenClicksOnHandPickACardAndAddToSelection_Update_ExpectNoErrors()
+    {
+        // Arrange
+        var card = new GameObject().AddComponent<Card>();
+        var mock = new TestSetup().WithPlayerSelectsCard(card).WithPlayerAddsToSelection().Get();
+        var cardDragger = new GameObject().AddComponent<CardDragger>();
+        cardDragger.SetMouseWrapper(mock.Object);
+
+        // Act
+        cardDragger.UpdateLoop();
+        yield return new WaitForEndOfFrame();
+
+        // Assert
+        mock.VerifyAll();
     }
 }

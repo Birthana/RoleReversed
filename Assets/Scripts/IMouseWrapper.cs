@@ -11,5 +11,7 @@ public interface IMouseWrapper
     public ComponentType GetHitComponent<ComponentType>();
 
     public bool IsOnSelection();
+
+    public Vector2 GetPosition();
 }
 
