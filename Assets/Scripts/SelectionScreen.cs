@@ -6,6 +6,7 @@ public class SelectionScreen : MonoBehaviour
 {
     public event Action OnSelectPressed;
     public event Action OnCancelPressed;
+    public event Action OnReturn;
     public float SPACING;
     private List<Card> cards = new List<Card>();
     private int maxSelection;
@@ -67,6 +68,7 @@ public class SelectionScreen : MonoBehaviour
         }
 
         cards = new List<Card>();
+        OnReturn?.Invoke();
     }
 
     private void Display()

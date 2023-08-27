@@ -64,7 +64,10 @@ public class CardDraggerTest : MonoBehaviour
     {
         var gameObject = new GameObject();
         hand = gameObject.AddComponent<Hand>();
+        hand.SPACING = 5.0f;
         selectionScreen = gameObject.AddComponent<SelectionScreen>();
+        selectionScreen.transform.position = new Vector2(3, 5);
+        selectionScreen.SetMaxSelection(3);
     }
 
     [TearDown]
@@ -101,7 +104,9 @@ public class CardDraggerTest : MonoBehaviour
         // Arrange
         var card = new GameObject().AddComponent<Card>();
         var mock = new TestSetup().WithPlayerSelectsCard(card).WithPlayerAddsToSelection().Get();
-        var cardDragger = new GameObject().AddComponent<CardDragger>();
+        var gameObject = new GameObject();
+        gameObject.AddComponent<HoverAnimation>();
+        var cardDragger = gameObject.AddComponent<CardDragger>();
         cardDragger.SetMouseWrapper(mock.Object);
 
         // Act
@@ -110,5 +115,70 @@ public class CardDraggerTest : MonoBehaviour
 
         // Assert
         mock.VerifyAll();
+    }
+
+    [UnityTest]
+    public IEnumerator GivenHoverDrag_AddToSelection_ExpectPositionIsCorrect()
+    {
+        // Arrange
+        var card = new GameObject().AddComponent<Card>();
+        var mock = new Mock<IMouseWrapper>(MockBehavior.Strict);
+        mock.SetupSequence(x => x.PlayerPressesLeftClick()).Returns(false).Returns(true);
+        mock.Setup(x => x.IsOnHand()).Returns(true);
+        mock.Setup(x => x.GetHitComponent<Card>()).Returns(card);
+        mock.SetupSequence(x => x.PlayerReleasesLeftClick()).Returns(false).Returns(true);
+        mock.Setup(x => x.IsOnSelection()).Returns(true);
+        var gameObject = new GameObject();
+        gameObject.AddComponent<HoverAnimation>();
+        var cardDragger = gameObject.AddComponent<CardDragger>();
+        cardDragger.SetMouseWrapper(mock.Object);
+        cardDragger.UpdateLoop();
+        yield return new WaitForSeconds(1.0f);
+        cardDragger.UpdateLoop();
+
+        // Act
+        cardDragger.UpdateLoop();
+
+        // Assert
+        mock.VerifyAll();
+        var hoverMovement = new Vector3(0, 0.5f, 0);
+        Assert.AreEqual(selectionScreen.transform.position + hoverMovement, card.transform.position);
+    }
+
+    [UnityTest]
+    public IEnumerator GivenHoverDragAddToSelection_Hover_ExpectPositionIsCorrect()
+    {
+        // Arrange
+        var card = new GameObject().AddComponent<Card>();
+        var card2 = new GameObject().AddComponent<Card>();
+        hand.Add(card);
+        hand.Add(card2);
+        var previousPosition = card2.transform.position;
+        var mock = new Mock<IMouseWrapper>(MockBehavior.Strict);
+        mock.SetupSequence(x => x.PlayerPressesLeftClick()).Returns(false).Returns(true).Returns(false).Returns(false);
+        mock.Setup(x => x.IsOnHand()).Returns(true);
+        mock.Setup(x => x.GetHitComponent<Card>()).Returns(card);
+        mock.SetupSequence(x => x.PlayerReleasesLeftClick()).Returns(false).Returns(true);
+        mock.Setup(x => x.IsOnSelection()).Returns(true);
+        var gameObject = new GameObject();
+        gameObject.AddComponent<HoverAnimation>();
+        var cardDragger = gameObject.AddComponent<CardDragger>();
+        cardDragger.SetMouseWrapper(mock.Object);
+        cardDragger.UpdateLoop();
+        yield return new WaitForSeconds(1.0f);
+        cardDragger.UpdateLoop();
+
+
+        // Act
+        cardDragger.UpdateLoop();
+        selectionScreen.ReturnAllSelections();
+        mock.Setup(x => x.GetHitComponent<Card>()).Returns(card2);
+        cardDragger.SetMouseWrapper(mock.Object);
+        cardDragger.UpdateLoop();
+
+
+        // Assert
+        mock.VerifyAll();
+        Assert.AreEqual(previousPosition, card.transform.position);
     }
 }
