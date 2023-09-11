@@ -17,15 +17,27 @@ public class Player : Character
 
     public IEnumerator MakeAttack(Character character)
     {
-        GetComponent<Animator>().Play("Player");
+        var hoverAnimation = GetComponent<HoverAnimation>();
+        hoverAnimation.ResetHoverAnimation();
+        hoverAnimation.Hover(transform, new Vector2(0.5f, 0), 0.1f);
+        yield return new WaitForSeconds(0.1f);
+        hoverAnimation.PerformReturn();
+        yield return new WaitForSeconds(0.1f);
+        yield return TakeDamage(character);
+    }
+
+    private IEnumerator TakeDamage(Character character)
+    {
         character.TakeDamage(GetDamage());
+        var spriteRender = character.GetComponent<SpriteRenderer>();
+        var damageAnimation = new DamageAnimation(spriteRender, Color.red, 0.1f);
+        yield return StartCoroutine(damageAnimation.AnimateFromStartToEnd());
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(damageAnimation.AnimateFromEndToStart());
         if (character.IsDead())
         {
             transform.parent.GetComponent<Room>().Remove(character as Monster);
         }
-
-        yield return new WaitForSeconds(0.25f);
-        GetComponent<Animator>().Play("Player_Idle");
     }
 
     public void GetStronger()

@@ -5,16 +5,21 @@ public class HoverAnimation : MonoBehaviour
 {
     private Coroutine hoverCoroutine;
     private Coroutine returnCoroutine;
-    private ShakeAnimation verticalAnimation;
+    private ShakeAnimation shakeAnimation;
 
-    public void Hover(Card card, float verticalMove, float time)
+    public void Hover(Card card, Vector2 movement, float time)
+    {
+        Hover(card.transform, movement, time);
+    }
+
+    public void Hover(Transform objectTransform, Vector2 movement, float time)
     {
         if (IsHovering())
         {
             StopHover();
         }
 
-        PerformHover(card, verticalMove, time);
+        PerformHover(objectTransform, movement, time);
     }
 
     public void PerformReturn()
@@ -37,22 +42,22 @@ public class HoverAnimation : MonoBehaviour
         }
     }
 
-    private IEnumerator Hovering(Card card, float verticalMove, float time)
+    private IEnumerator Hovering(Transform objectTransform, Vector2 movement, float time)
     {
         if (IsRunning())
         {
             StopReturn();
-            verticalAnimation.ReturnToStartPosition();
+            shakeAnimation.ReturnToStartPosition();
         }
 
-        verticalAnimation = new ShakeAnimation(card.transform, verticalMove, time);
-        yield return StartCoroutine(verticalAnimation.AnimateFromStartToEnd());
+        shakeAnimation = new ShakeAnimation(objectTransform, movement, time);
+        yield return StartCoroutine(shakeAnimation.AnimateFromStartToEnd());
         hoverCoroutine = null;
     }
 
     private IEnumerator Returning()
     {
-        yield return StartCoroutine(verticalAnimation.AnimateFromEndToStart());
+        yield return StartCoroutine(shakeAnimation.AnimateFromEndToStart());
     }
 
     private bool IsNotHovering() { return hoverCoroutine == null; }
@@ -61,7 +66,7 @@ public class HoverAnimation : MonoBehaviour
 
     private bool IsReturning() { return returnCoroutine != null; }
 
-    private void PerformHover(Card card, float verticalMove, float time) { hoverCoroutine = StartCoroutine(Hovering(card, verticalMove, time)); }
+    private void PerformHover(Transform objectTransform, Vector2 movement, float time) { hoverCoroutine = StartCoroutine(Hovering(objectTransform, movement, time)); }
 
     private void StopHover()
     {

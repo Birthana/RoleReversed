@@ -4,12 +4,56 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    public List<Card> cards = new List<Card>();
+    public List<Card> commons = new List<Card>();
+    public List<Card> rares = new List<Card>();
 
     public Card GetRandomCard()
     {
-        int rngIndex = Random.Range(0, cards.Count);
-        return cards[rngIndex];
+        int rngIndex = Random.Range(0, 2);
+        if (rngIndex == 0)
+        {
+            return GetCommonCard();
+        }
+
+        return GetRareCard();
+    }
+
+    public Card GetCommonCard()
+    {
+        int rngIndex = Random.Range(0, commons.Count);
+        return commons[rngIndex];
+    }
+
+    public Card GetRareCard()
+    {
+        int rngIndex = Random.Range(0, rares.Count);
+        return rares[rngIndex];
+    }
+
+    public bool CardIsCommon(Card card)
+    {
+        foreach(var common in commons)
+        {
+            if(card.Equals(common))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool CardIsRare(Card card)
+    {
+        foreach (var rare in rares)
+        {
+            if (card.Equals(rare))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public Card GetMonsterCard()

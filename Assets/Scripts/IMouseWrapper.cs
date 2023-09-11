@@ -8,6 +8,8 @@ public interface IMouseWrapper
 
     public bool IsOnHand();
 
+    public bool IsOnMonster();
+
     public ComponentType GetHitComponent<ComponentType>();
 
     public bool IsOnSelection();

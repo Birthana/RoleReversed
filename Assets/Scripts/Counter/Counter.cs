@@ -10,6 +10,11 @@ public class Counter : MonoBehaviour
 
     protected virtual void Awake()
     {
+        if (ui == null)
+        {
+            return;
+        }
+
         OnCountChange += ui.Display;
         ResetMaxCount();
     }

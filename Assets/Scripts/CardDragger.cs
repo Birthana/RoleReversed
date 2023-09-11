@@ -27,7 +27,6 @@ public class CardDragger : MonoBehaviour
         reroll = GetComponent<RerollManager>();
         hoverAnimation = GetComponent<HoverAnimation>();
         selectionScreen = FindObjectOfType<SelectionScreen>();
-        selectionScreen.OnReturn += ResetHover;
     }
 
     private void Update()
@@ -72,7 +71,7 @@ public class CardDragger : MonoBehaviour
             }
 
             hoverCard = mouseWrapper.GetHitComponent<Card>();
-            hoverAnimation.Hover(hoverCard, 0.5f, 0.1f);
+            hoverAnimation.Hover(hoverCard, new Vector2(0, 0.5f), 0.1f);
         }
     }
 

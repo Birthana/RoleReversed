@@ -1,0 +1,36 @@
+using Moq;
+using NUnit.Framework;
+using UnityEngine;
+
+public class CardManagerTest
+{
+    [Test]
+    public void GivenCardManager_GetCommonCard_ExpectCommonCard()
+    {
+        // Arrange
+        var card = new GameObject().AddComponent<Card>();
+        var cardManager = new GameObject().AddComponent<CardManager>();
+        cardManager.commons.Add(card);
+
+        // Act
+        var monsterCard = cardManager.GetCommonCard();
+
+        // Assert
+        Assert.AreEqual(true, cardManager.CardIsCommon(monsterCard));
+    }
+
+    [Test]
+    public void GivenCardManager_GetRareCard_ExpectRareCard()
+    {
+        // Arrange
+        var card = new GameObject().AddComponent<Card>();
+        var cardManager = new GameObject().AddComponent<CardManager>();
+        cardManager.rares.Add(card);
+
+        // Act
+        var monsterCard = cardManager.GetRareCard();
+
+        // Assert
+        Assert.AreEqual(true, cardManager.CardIsRare(monsterCard));
+    }
+}

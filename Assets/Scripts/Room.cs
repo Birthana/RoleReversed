@@ -31,8 +31,13 @@ public class Room : MonoBehaviour
                 continue;
             }
 
-            yield return new WaitForSeconds(0.5f);
-            monster.Attack(character);
+            var hoverAnimation = monster.GetComponent<HoverAnimation>();
+            hoverAnimation.ResetHoverAnimation();
+            hoverAnimation.Hover(monster.transform, new Vector2(-0.5f, 0), 0.1f);
+            yield return new WaitForSeconds(0.1f);
+            hoverAnimation.PerformReturn();
+            yield return new WaitForSeconds(0.1f);
+            yield return monster.Attack(character);
         }
     }
 

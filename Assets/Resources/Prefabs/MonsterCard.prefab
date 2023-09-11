@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4931851699494922593}
   - component: {fileID: 2366953061084846578}
   - component: {fileID: 2232539658870202065}
-  - component: {fileID: -5550961309011121579}
   m_Layer: 6
   m_Name: MonsterCard
   m_TagString: Untagged
@@ -127,15 +126,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 1
   monsterPrefab: {fileID: 1632550545, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
---- !u!114 &-5550961309011121579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4931851699494922595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84ea273c5951bbf41808d75466725eea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -13,17 +13,17 @@ public class Hand : MonoBehaviour
 
     public void AddNewCard(Card card)
     {
+        if (hand.Count == 8)
+        {
+            return;
+        }
+
         var newCard = Instantiate(card, transform);
         Add(newCard);
     }
 
     public void Add(Card card)
     {
-        if (hand.Count == 8)
-        {
-            return;
-        }
-
         hand.Add(card);
         DisplayHand();
     }
@@ -41,5 +41,6 @@ public class Hand : MonoBehaviour
         {
             hand[i].transform.localPosition = centerPosition.GetHorizontalOffsetPositionAt(i);
         }
+        FindObjectOfType<CardDragger>().ResetHover();
     }
 }
