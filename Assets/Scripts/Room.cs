@@ -41,8 +41,21 @@ public class Room : MonoBehaviour
         }
     }
 
+    public void SetCapacity(int capacity)
+    {
+        this.capacity.maxCount = capacity;
+        this.capacity.ResetMaxCapacity();
+    }
+
+    public int GetCapacity()
+    {
+        return capacity.GetCount();
+    }
+
     public bool HasCapacity() { return capacity.HasCapacity(); }
 
+    public void IncreaseCapacity(int increase) { capacity.IncreaseCapacity(increase); }
+    
     public void ReduceCapacity(int decrease) { capacity.DecreaseCapacity(decrease); }
 
     public void Add(Monster monster)
@@ -51,7 +64,13 @@ public class Room : MonoBehaviour
         DisplayMonsters();
     }
 
-    private void DisplayMonsters()
+    public void Leave(Monster monster)
+    {
+        monsters.Remove(monster);
+        DisplayMonsters();
+    }
+
+    public void DisplayMonsters()
     {
         var centerPosition = new CenterPosition(new Vector2(MONSTER_OFFSET.x, 0), monsters.Count, SPACING);
         for (int i = 0; i < monsters.Count; i++)

@@ -19,7 +19,7 @@ public class Counter : MonoBehaviour
         ResetMaxCount();
     }
 
-    protected int GetCount() { return currentCount; }
+    public int GetCount() { return currentCount; }
 
     protected void ResetMaxCount() { SetCount(maxCount); }
 

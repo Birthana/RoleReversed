@@ -5,6 +5,7 @@ using UnityEngine;
 public class MonsterDragger : MonoBehaviour
 {
     private Monster selected;
+    private Room returnRoom;
     private IMouseWrapper mouse;
 
     private void Awake()
@@ -28,13 +29,40 @@ public class MonsterDragger : MonoBehaviour
         {
             PickUp();
         }
-        
+
         if (selected == null)
         {
             return;
         }
 
         MoveSelected();
+
+        if (mouse.PlayerReleasesLeftClick())
+        {
+            if (mouse.IsOnRoom())
+            {
+                var newRoom = mouse.GetHitComponent<Room>();
+                if(newRoom.GetCapacity() == 0)
+                {
+                    ReturnToRoom();
+                    return;
+                }
+                returnRoom.Leave(selected);
+                returnRoom.IncreaseCapacity(1);
+                selected.transform.position = newRoom.transform.position;
+                selected.transform.SetParent(newRoom.transform);
+                newRoom.Add(selected);
+                newRoom.ReduceCapacity(1);
+                selected = null;
+                returnRoom = null;
+            }
+            else
+            {
+                ReturnToRoom();
+            }
+
+        }
+
     }
 
     public Monster GetSelected()
@@ -52,6 +80,7 @@ public class MonsterDragger : MonoBehaviour
         if (selected == null && mouse.IsOnMonster())
         {
             selected = mouse.GetHitComponent<Monster>();
+            returnRoom = selected.GetComponentInParent<Room>();
         }
     }
 
@@ -59,5 +88,12 @@ public class MonsterDragger : MonoBehaviour
     {
         var mousePosition = mouse.GetPosition();
         selected.transform.position = mousePosition;
+    }
+
+    private void ReturnToRoom()
+    {
+        selected = null;
+        returnRoom.DisplayMonsters();
+        returnRoom = null;
     }
 }

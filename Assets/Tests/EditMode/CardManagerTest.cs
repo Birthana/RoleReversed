@@ -10,7 +10,7 @@ public class CardManagerTest
         // Arrange
         var card = new GameObject().AddComponent<Card>();
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.commons.Add(card);
+        cardManager.AddCommonCard(card);
 
         // Act
         var monsterCard = cardManager.GetCommonCard();
@@ -25,7 +25,7 @@ public class CardManagerTest
         // Arrange
         var card = new GameObject().AddComponent<Card>();
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.rares.Add(card);
+        cardManager.AddRareCard(card);
 
         // Act
         var monsterCard = cardManager.GetRareCard();

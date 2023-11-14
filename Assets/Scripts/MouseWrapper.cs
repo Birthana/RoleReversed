@@ -10,6 +10,8 @@ public class MouseWrapper : IMouseWrapper
 
     public bool IsOnMonster() { return Mouse.IsOnMonster(); }
 
+    public bool IsOnRoom() { return Mouse.IsOnRoom(); }
+
     public ComponentType GetHitComponent<ComponentType>() { return Mouse.GetHitComponent<ComponentType>(); }
 
     public bool IsOnSelection() { return Mouse.IsOnSelection(); }
