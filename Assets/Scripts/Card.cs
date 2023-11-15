@@ -1,11 +1,26 @@
 using UnityEngine;
 
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 public class Card : MonoBehaviour
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 {
+    public string cardName = "DEFAULT";
     public int cost;
-    private Vector2 startPosition;
 
-    public Vector2 GetStartPosition() { return startPosition; }
+    public override bool Equals(object other)
+    {
+        if(other == null)
+        {
+            return false;
+        }
+
+        if(!(other is Card))
+        {
+            return false;
+        }
+
+        return cardName.Equals(((Card)other).cardName);
+    }
 
     public int GetCost()
     {

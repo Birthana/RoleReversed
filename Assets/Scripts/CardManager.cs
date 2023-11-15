@@ -49,17 +49,21 @@ public class CardManager : MonoBehaviour
         return GetRareCard();
     }
 
-    public Card GetCommonCard()
+    private Card GetCommonCard()
     {
         int rngIndex = UnityEngine.Random.Range(0, commons.Count);
         return commons[rngIndex];
     }
 
-    public Card GetRareCard()
+    private Card GetRareCard()
     {
         int rngIndex = UnityEngine.Random.Range(0, rares.Count);
         return rares[rngIndex];
     }
+
+    public Card CreateCommonCard() { return Instantiate(GetCommonCard()); }
+
+    public Card CreateRareCard() { return Instantiate(GetRareCard()); }
 
     public bool CardIsCommon(Card card)
     {
@@ -87,7 +91,7 @@ public class CardManager : MonoBehaviour
         return false;
     }
 
-    public Card GetMonsterCard()
+    public Card CreateMonsterCard()
     {
         Card card = null;
         do
@@ -99,10 +103,10 @@ public class CardManager : MonoBehaviour
             }
         } while (card == null);
 
-        return card;
+        return Instantiate(card);
     }
 
-    public Card GetRoomCard()
+    public Card CreateRoomCard()
     {
         Card card = null;
         do
@@ -114,6 +118,6 @@ public class CardManager : MonoBehaviour
             }
         } while (card == null);
 
-        return card;
+        return Instantiate(card);
     }
 }

@@ -24,7 +24,7 @@ public class RerollManager : Counter
     public void Reroll()
     {
         SetMaxCount(0);
-        hand.AddNewCard(cardManager.GetRandomCard());
+        hand.Add(cardManager.GetRandomCard());
     }
 
 }

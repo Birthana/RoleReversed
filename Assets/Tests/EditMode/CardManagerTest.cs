@@ -13,7 +13,7 @@ public class CardManagerTest
         cardManager.AddCommonCard(card);
 
         // Act
-        var monsterCard = cardManager.GetCommonCard();
+        var monsterCard = cardManager.CreateCommonCard();
 
         // Assert
         Assert.AreEqual(true, cardManager.CardIsCommon(monsterCard));
@@ -28,7 +28,7 @@ public class CardManagerTest
         cardManager.AddRareCard(card);
 
         // Act
-        var monsterCard = cardManager.GetRareCard();
+        var monsterCard = cardManager.CreateRareCard();
 
         // Assert
         Assert.AreEqual(true, cardManager.CardIsRare(monsterCard));

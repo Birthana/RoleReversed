@@ -15,27 +15,15 @@ public class Pack : MonoBehaviour
 
     private bool PlayerClicksOnPack() { return Mouse.PlayerPressesLeftClick() && Mouse.IsOnPack(); }
 
-    public void OpenPack()
-    {
-        var hand = FindObjectOfType<Hand>();
-        var rngCards = FindObjectOfType<CardManager>();
-        hand.AddNewCard(rngCards.GetMonsterCard());
-        hand.AddNewCard(rngCards.GetRoomCard());
-        for (int i = 0; i < numberOfCards - 2; i++)
-        {
-            hand.AddNewCard(rngCards.GetRandomCard());
-        }
-    }
-
     public void OpenRarityPack()
     {
         var hand = FindObjectOfType<Hand>();
         var rngCards = FindObjectOfType<CardManager>();
-        hand.AddNewCard(rngCards.GetRareCard());
-        hand.AddNewCard(rngCards.GetRoomCard());
+        hand.Add(rngCards.CreateRareCard());
+        hand.Add(rngCards.CreateRoomCard());
         for (int i = 0; i < numberOfCards - 2; i++)
         {
-            hand.AddNewCard(rngCards.GetCommonCard());
+            hand.Add(rngCards.CreateCommonCard());
         }
     }
 }

@@ -124,5 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88647c380afc4084592c012876e9fc37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardName: Big_Room
   cost: 3
   roomPrefab: {fileID: 4520230631710316758, guid: 6cde3f1922627a84d83883a9987e43c1, type: 3}

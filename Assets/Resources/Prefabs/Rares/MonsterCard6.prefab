@@ -297,5 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e91673d54c00e48b74699836ceb0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardName: Gray_Slime
   cost: 2
   monsterPrefab: {fileID: 5920601525287919168, guid: 0bcb5c733fba13246815f241cc7cada3, type: 3}

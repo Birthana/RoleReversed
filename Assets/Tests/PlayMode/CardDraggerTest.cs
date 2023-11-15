@@ -151,6 +151,9 @@ public class CardDraggerTest : MonoBehaviour
         // Arrange
         var card = new GameObject().AddComponent<Card>();
         var card2 = new GameObject().AddComponent<Card>();
+        var gameObject = new GameObject();
+        gameObject.AddComponent<HoverAnimation>();
+        var cardDragger = gameObject.AddComponent<CardDragger>();
         hand.Add(card);
         hand.Add(card2);
         var previousPosition = card2.transform.position;
@@ -160,9 +163,6 @@ public class CardDraggerTest : MonoBehaviour
         mock.Setup(x => x.GetHitComponent<Card>()).Returns(card);
         mock.SetupSequence(x => x.PlayerReleasesLeftClick()).Returns(false).Returns(true);
         mock.Setup(x => x.IsOnSelection()).Returns(true);
-        var gameObject = new GameObject();
-        gameObject.AddComponent<HoverAnimation>();
-        var cardDragger = gameObject.AddComponent<CardDragger>();
         cardDragger.SetMouseWrapper(mock.Object);
         cardDragger.UpdateLoop();
         yield return new WaitForSeconds(1.0f);

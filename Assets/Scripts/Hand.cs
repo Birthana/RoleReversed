@@ -6,24 +6,14 @@ public class Hand : MonoBehaviour
     public List<Card> hand = new List<Card>();
     public float SPACING;
 
-    private void Start()
-    {
-        DisplayHand();
-    }
-
-    public void AddNewCard(Card card)
+    public void Add(Card card)
     {
         if (hand.Count == 8)
         {
             return;
         }
 
-        var newCard = Instantiate(card, transform);
-        Add(newCard);
-    }
-
-    public void Add(Card card)
-    {
+        card.gameObject.transform.SetParent(transform);
         hand.Add(card);
         DisplayHand();
     }

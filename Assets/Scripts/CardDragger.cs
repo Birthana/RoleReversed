@@ -85,7 +85,7 @@ public class CardDragger : MonoBehaviour
         if (mouseWrapper.IsOnHand())
         {
             var mouseCard = mouseWrapper.GetHitComponent<Card>();
-            if (!card.Equals(mouseCard))
+            if (!card.gameObject.Equals(mouseCard.gameObject))
             {
                 return true;
             }

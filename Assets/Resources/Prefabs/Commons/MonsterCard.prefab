@@ -124,5 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e91673d54c00e48b74699836ceb0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardName: Blue_Slime
   cost: 1
   monsterPrefab: {fileID: 1632550545, guid: 0bc35010900a521498bd3cd6a9715872, type: 3}
