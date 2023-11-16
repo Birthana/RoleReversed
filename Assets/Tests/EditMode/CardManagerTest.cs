@@ -8,9 +8,12 @@ public class CardManagerTest
     public void GivenCardManager_GetCommonCard_ExpectCommonCard()
     {
         // Arrange
-        var card = new GameObject().AddComponent<Card>();
+        var card = new GameObject();
+        card.AddComponent<MonsterCard>();
+        card.AddComponent<SpriteRenderer>();
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.AddCommonCard(card);
+        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
+        cardManager.AddCommonCard_(ScriptableObject.CreateInstance<CardInfo>());
 
         // Act
         var monsterCard = cardManager.CreateCommonCard();

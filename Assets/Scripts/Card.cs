@@ -6,6 +6,15 @@ public class Card : MonoBehaviour
 {
     public string cardName = "DEFAULT";
     public int cost;
+    private CardInfo cardInfo;
+
+    public virtual void SetCardInfo(CardInfo newCardInfo)
+    {
+        cardInfo = newCardInfo;
+        cardName = cardInfo.cardName;
+        cost = cardInfo.cost;
+        GetComponent<SpriteRenderer>().sprite = cardInfo.sprite;
+    }
 
     public override bool Equals(object other)
     {
@@ -22,10 +31,16 @@ public class Card : MonoBehaviour
         return cardName.Equals(((Card)other).cardName);
     }
 
-    public int GetCost()
+    public bool Equals_(object other)
     {
-        return cost;
+        return cardInfo.Equals(other);
     }
+
+    public int GetCost() { return cost; }
+    public int GetCost_() { return cardInfo.cost; }
+
+    public string GetName() { return cardName; }
+    public string GetName_() { return cardInfo.cardName; }
 
     public virtual bool HasTarget()
     {

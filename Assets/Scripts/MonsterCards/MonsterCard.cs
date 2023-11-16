@@ -7,6 +7,12 @@ public class MonsterCard : Card
     public Monster monsterPrefab;
     private Transform selectedRoom;
 
+    public override void SetCardInfo(CardInfo newCardInfo)
+    {
+        monsterPrefab = newCardInfo.prefab.GetComponent<Monster>();
+        base.SetCardInfo(newCardInfo);
+    }
+
     public override bool HasTarget()
     {
         if (Mouse.IsOnRoom())

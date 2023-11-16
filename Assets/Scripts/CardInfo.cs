@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardInfo : MonoBehaviour
+[CreateAssetMenu(fileName ="NewCard", menuName ="CardInfo")]
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+public class CardInfo : ScriptableObject
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string cardName = "DEFAULT";
+    public Sprite sprite;
+    public int cost;
+    public GameObject prefab;
 
-    // Update is called once per frame
-    void Update()
+    public override bool Equals(object other)
     {
-        
+        if (other == null)
+        {
+            return false;
+        }
+
+        if (!(other is Card))
+        {
+            return false;
+        }
+
+        return cardName.Equals(((Card)other).GetName());
     }
 }

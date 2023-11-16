@@ -1966,18 +1966,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e56e1fa68543a438c983d112769f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commons:
-  - {fileID: 2418224912530170501, guid: 46b7c2f389ed45146b81f5d85de7728b, type: 3}
-  - {fileID: 2232539658870202065, guid: 9e8facda1fcc4af47a8284ea163eb63b, type: 3}
-  - {fileID: 93011857, guid: c4ab0d4492639c1478b4dffc40ea7900, type: 3}
-  - {fileID: 1391622791351134472, guid: 3146ba2b135f2ff47ac984e3e1a283da, type: 3}
-  - {fileID: 2414559674931618722, guid: 7da0d33ad4533cb43b7e11ff460e99b1, type: 3}
-  - {fileID: 5430861658981758165, guid: 8240f136b54e2f749a6d170195ea96c6, type: 3}
-  rares:
-  - {fileID: 2864882233815873496, guid: b27a4c1145bc5204291dc47da22eb4eb, type: 3}
-  - {fileID: 5575839208734782802, guid: 00f7df0438ca58045a07f8612a3c2b0b, type: 3}
-  - {fileID: 6198032932479270623, guid: 3e120d3cd5c46b34b9a1146439a44e68, type: 3}
-  - {fileID: 2652546852703714084, guid: 3ccfc3152968af548b93aa0792853e96, type: 3}
+  monsterCardPrefab: {fileID: 2418224912530170501, guid: 46b7c2f389ed45146b81f5d85de7728b, type: 3}
+  roomCardPrefab: {fileID: 1391622791351134472, guid: 3146ba2b135f2ff47ac984e3e1a283da, type: 3}
 --- !u!4 &955908987
 Transform:
   m_ObjectHideFlags: 0
