@@ -26,4 +26,14 @@ public class CardInfo : ScriptableObject
 
         return cardName.Equals(((Card)other).GetName());
     }
+
+    public bool IsMonster()
+    {
+        return prefab.GetComponent<Monster>();
+    }
+
+    public bool IsRoom()
+    {
+        return prefab.GetComponent<Room>();
+    }
 }

@@ -8,26 +8,14 @@ public class CardManager : MonoBehaviour
     public MonsterCard monsterCardPrefab;
     public RoomCard roomCardPrefab;
     private static readonly string COMMON_CARDS_FILE_PATH = "Prefabs/Commons";
-    private static readonly string COMMON_CARDS_FILE_PATH_ = "Prefabs/Commons_";
     private static readonly string RARE_CARDS_FILE_PATH = "Prefabs/Rares";
-    private List<Card> commons = new List<Card>();
-    private List<Card> rares = new List<Card>();
-    private List<CardInfo> commons_ = new List<CardInfo>();
+    private List<CardInfo> commons = new List<CardInfo>();
+    private List<CardInfo> rares = new List<CardInfo>();
 
     private void Awake()
     {
         LoadCards(COMMON_CARDS_FILE_PATH, AddCommonCard);
-        LoadCards(COMMON_CARDS_FILE_PATH_, AddCommonCard_);
         LoadCards(RARE_CARDS_FILE_PATH, AddRareCard);
-    }
-
-    private void LoadCards(string path, Action<Card> addToCardList)
-    {
-        var resourceCards = Resources.LoadAll<Card>(path);
-        foreach (var card in resourceCards)
-        {
-            addToCardList(card);
-        }
     }
 
     private void LoadCards(string path, Action<CardInfo> addToCardList)
@@ -39,51 +27,58 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public void AddCommonCard(Card card)
-    {
-        commons.Add(card);
-    }
+    public void AddCommonCard(CardInfo card) { commons.Add(card); }
 
-    public void AddCommonCard_(CardInfo card)
-    {
-        commons_.Add(card);
-    }
+    public void AddRareCard(CardInfo card) { rares.Add(card); }
 
-    public void AddRareCard(Card card)
+    public Card CreateRandomCard()
     {
-        rares.Add(card);
+        var cardInfo = GetRandomCard();
+        var newCard = CreateNewCard(cardInfo);
+        newCard.SetCardInfo(cardInfo);
+        return newCard;
     }
-
-    public Card CreateRandomCard() { return Instantiate(GetRandomCard()); }
 
     public Card CreateCommonCard()
     {
-        var cardInfo = GetCommonCard_();
-        var card = Instantiate(monsterCardPrefab);
-        card.SetCardInfo(cardInfo);
-        return card;
+        var cardInfo = GetCommonCard();
+        var newCard = CreateNewCard(cardInfo);
+        newCard.SetCardInfo(cardInfo);
+        return newCard;
     }
 
-    public Card CreateRareCard() { return Instantiate(GetRareCard()); }
-
-    public bool CardIsCommon(Card card)
+    public Card CreateRareCard()
     {
-        foreach (var common in commons_)
+        var cardInfo = GetRareCard();
+        var newCard = CreateNewCard(cardInfo);
+        newCard.SetCardInfo(cardInfo);
+        return newCard;
+    }
+
+    private Card CreateNewCard(CardInfo cardInfo)
+    {
+        Card newCard;
+        if (cardInfo.IsMonster())
         {
-            if (card.cardName.Equals(common.cardName))
-            {
-                return true;
-            }
+            newCard = Instantiate(monsterCardPrefab, transform);
+        }
+        else
+        {
+            newCard = Instantiate(roomCardPrefab, transform);
         }
 
-        return false;
+        return newCard;
     }
 
-    public bool CardIsRare(Card card)
+    public bool CardIsCommon(Card card) { return ListContainsCard(commons, card); }
+
+    public bool CardIsRare(Card card) { return ListContainsCard(rares, card); }
+
+    private bool ListContainsCard(List<CardInfo> cards, Card cardToCheck)
     {
-        foreach (var rare in rares)
+        foreach (var card in cards)
         {
-            if (card.Equals(rare))
+            if (cardToCheck.cardName.Equals(card.cardName))
             {
                 return true;
             }
@@ -94,35 +89,46 @@ public class CardManager : MonoBehaviour
 
     public Card CreateMonsterCard()
     {
-        Card card = null;
+        CardInfo card = null;
         do
         {
-            var rngCard = GetRandomCard();
-            if(rngCard is MonsterCard && (rngCard.GetCost() < 3))
-            {
-                card = rngCard;
-            }
+            card = GetValidCard(CardInfoIsLowCostMonster);
         } while (card == null);
 
-        return Instantiate(card);
+        var newCard = Instantiate(monsterCardPrefab, transform);
+        newCard.SetCardInfo(card);
+        return newCard;
     }
+
+    private bool CardInfoIsLowCostMonster(CardInfo cardInfo) { return cardInfo.IsMonster() && (cardInfo.cost < 3); }
 
     public Card CreateRoomCard()
     {
-        Card card = null;
+        CardInfo card = null;
         do
         {
-            var rngCard = GetRandomCard();
-            if (rngCard is RoomCard && (rngCard.GetCost() < 3))
-            {
-                card = rngCard;
-            }
+            card = GetValidCard(CardInfoIsLowCostRoom);
         } while (card == null);
 
-        return Instantiate(card);
+        var newCard = Instantiate(roomCardPrefab, transform);
+        newCard.SetCardInfo(card);
+        return newCard;
     }
 
-    private Card GetRandomCard()
+    private bool CardInfoIsLowCostRoom(CardInfo cardInfo) { return cardInfo.IsRoom() && (cardInfo.cost < 3); }
+
+    private CardInfo GetValidCard(Func<CardInfo, bool> requirementFunction)
+    {
+        var rngCardInfo = GetRandomCard();
+        if (requirementFunction(rngCardInfo))
+        {
+            return rngCardInfo;
+        }
+
+        return null;
+    }
+
+    private CardInfo GetRandomCard()
     {
         int rngIndex = UnityEngine.Random.Range(0, 2);
         if (rngIndex == 0)
@@ -133,21 +139,19 @@ public class CardManager : MonoBehaviour
         return GetRareCard();
     }
 
-    private Card GetCommonCard()
+    private CardInfo GetCommonCard()
     {
         int rngIndex = UnityEngine.Random.Range(0, commons.Count);
         return commons[rngIndex];
     }
 
-    private CardInfo GetCommonCard_()
-    {
-        int rngIndex = UnityEngine.Random.Range(0, commons_.Count);
-        return commons_[rngIndex];
-    }
-
-    private Card GetRareCard()
+    private CardInfo GetRareCard()
     {
         int rngIndex = UnityEngine.Random.Range(0, rares.Count);
         return rares[rngIndex];
     }
 }
+
+// TODO: Hand Remove Bug. Removes first card of the same type.
+// TODO: Add effect descriptions.
+// TODO: Condense monster/rooms

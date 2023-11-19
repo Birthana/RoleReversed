@@ -1966,8 +1966,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e56e1fa68543a438c983d112769f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterCardPrefab: {fileID: 2418224912530170501, guid: 46b7c2f389ed45146b81f5d85de7728b, type: 3}
-  roomCardPrefab: {fileID: 1391622791351134472, guid: 3146ba2b135f2ff47ac984e3e1a283da, type: 3}
+  monsterCardPrefab: {fileID: -6711869192912208744, guid: 109b5c9931efac248912025447cef8d2, type: 3}
+  roomCardPrefab: {fileID: -5276209314207143491, guid: 1ccabceff46f8404a8bf6328d70f8c1e, type: 3}
 --- !u!4 &955908987
 Transform:
   m_ObjectHideFlags: 0
@@ -1976,7 +1976,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 955908985}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

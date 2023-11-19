@@ -12,6 +12,12 @@ public class RoomCard : Card
         gameManager = FindObjectOfType<GameManager>();
     }
 
+    public override void SetCardInfo(CardInfo newCardInfo)
+    {
+        roomPrefab = newCardInfo.prefab.GetComponent<Room>();
+        base.SetCardInfo(newCardInfo);
+    }
+
     public override bool HasTarget()
     {
         if (Mouse.IsOnSpace())

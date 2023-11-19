@@ -13,7 +13,11 @@ public class CardManagerTest
         card.AddComponent<SpriteRenderer>();
         var cardManager = new GameObject().AddComponent<CardManager>();
         cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
-        cardManager.AddCommonCard_(ScriptableObject.CreateInstance<CardInfo>());
+        var monsterPrefab = new GameObject();
+        monsterPrefab.AddComponent<Monster>();
+        var cardInfo = ScriptableObject.CreateInstance<CardInfo>();
+        cardInfo.prefab = monsterPrefab;
+        cardManager.AddCommonCard(cardInfo);
 
         // Act
         var monsterCard = cardManager.CreateCommonCard();
@@ -26,14 +30,21 @@ public class CardManagerTest
     public void GivenCardManager_GetRareCard_ExpectRareCard()
     {
         // Arrange
-        var card = new GameObject().AddComponent<Card>();
+        var card = new GameObject();
+        card.AddComponent<RoomCard>();
+        card.AddComponent<SpriteRenderer>();
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.AddRareCard(card);
+        cardManager.roomCardPrefab = card.GetComponent<RoomCard>();
+        var cardInfo = ScriptableObject.CreateInstance<CardInfo>();
+        var roomPrefab = new GameObject();
+        roomPrefab.AddComponent<Room>();
+        cardInfo.prefab = roomPrefab;
+        cardManager.AddRareCard(cardInfo);
 
         // Act
-        var monsterCard = cardManager.CreateRareCard();
+        var roomCard = cardManager.CreateRareCard();
 
         // Assert
-        Assert.AreEqual(true, cardManager.CardIsRare(monsterCard));
+        Assert.AreEqual(true, cardManager.CardIsRare(roomCard));
     }
 }

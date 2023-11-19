@@ -21,7 +21,8 @@ public class Pack : MonoBehaviour
         var rngCards = FindObjectOfType<CardManager>();
         hand.Add(rngCards.CreateRareCard());
         hand.Add(rngCards.CreateRoomCard());
-        for (int i = 0; i < numberOfCards - 2; i++)
+        hand.Add(rngCards.CreateMonsterCard());
+        for (int i = 0; i < numberOfCards - 3; i++)
         {
             hand.Add(rngCards.CreateCommonCard());
         }
