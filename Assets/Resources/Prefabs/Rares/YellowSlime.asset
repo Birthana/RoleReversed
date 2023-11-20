@@ -16,3 +16,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: af850828449746640a258558ba03c64a, type: 3}
   cost: 3
   prefab: {fileID: 2560249252460832255, guid: df0548ca9f96b5f469d40526c10f01a3, type: 3}
+  effectDescription: '[Exit] Spawn 2
+
+    2/2 Slimes'

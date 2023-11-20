@@ -19,7 +19,7 @@ public class CardDragger : MonoBehaviour
         mouseWrapper = wrapper;
     }
 
-    private void Awake()
+    public void Awake()
     {
         SetMouseWrapper(new MouseWrapper());
         hand = FindObjectOfType<Hand>();

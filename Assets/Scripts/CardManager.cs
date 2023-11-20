@@ -152,6 +152,6 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Hand Remove Bug. Removes first card of the same type.
-// TODO: Add effect descriptions.
+// TODO: Name unittests
+// TODO: Extract set Card description in Card.cs
 // TODO: Condense monster/rooms

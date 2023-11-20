@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 #pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 public class Card : MonoBehaviour
@@ -14,6 +15,11 @@ public class Card : MonoBehaviour
         cardName = cardInfo.cardName;
         cost = cardInfo.cost;
         GetComponent<SpriteRenderer>().sprite = cardInfo.sprite;
+        var description = GetComponentInChildren<TextMeshPro>();
+        if (description != null)
+        {
+            description.text = cardInfo.effectDescription;
+        }
     }
 
     public override bool Equals(object other)

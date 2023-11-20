@@ -11,6 +11,8 @@ public class CardInfo : ScriptableObject
     public Sprite sprite;
     public int cost;
     public GameObject prefab;
+    [TextArea(1, 2)]
+    public string effectDescription;
 
     public override bool Equals(object other)
     {

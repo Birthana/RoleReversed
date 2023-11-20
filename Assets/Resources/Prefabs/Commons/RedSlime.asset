@@ -16,3 +16,4 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 1ca013bc593420e498389037fbb896a4, type: 3}
   cost: 1
   prefab: {fileID: 8896185266046223979, guid: 872db77420529364ab5065469ae0d8a9, type: 3}
+  effectDescription: '[Exit] Deal 2 damage'
