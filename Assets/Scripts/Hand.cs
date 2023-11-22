@@ -20,11 +20,6 @@ public class Hand : MonoBehaviour
 
     public void Remove(Card card)
     {
-        Remove_(card);
-    }
-
-    public void Remove_(Card card)
-    {
         for (var index = 0; index < hand.Count; index++)
         {
             if(card.gameObject.Equals(hand[index].gameObject))

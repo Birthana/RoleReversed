@@ -26,7 +26,7 @@ public class HandTest : MonoBehaviour
     }
 
     [Test]
-    public void XXX()
+    public void GivenHandWithThreeCards_RemoveThirdCard_ExpectFirstAndSecondCard()
     {
         // Arrange
         var hand = new GameObject().AddComponent<Hand>();
@@ -39,7 +39,7 @@ public class HandTest : MonoBehaviour
         hand.Add(thirdCard);
 
         // Act
-        hand.Remove_(thirdCard);
+        hand.Remove(thirdCard);
 
         // Assert
         List<Card> expectedCard = new List<Card>();

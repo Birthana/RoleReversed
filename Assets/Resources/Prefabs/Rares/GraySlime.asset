@@ -16,6 +16,4 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2db17d2c9397d264aa069f134cf0949c, type: 3}
   cost: 2
   prefab: {fileID: 3521848847335630289, guid: 0bcb5c733fba13246815f241cc7cada3, type: 3}
-  effectDescription: '[Exit] Draw 1 random
-
-    card'
+  effectDescription: '[Exit] Draw 1 random card'

@@ -31,43 +31,29 @@ public class CardManager : MonoBehaviour
 
     public void AddRareCard(CardInfo card) { rares.Add(card); }
 
-    public Card CreateRandomCard()
+    public Card CreateRandomCard() { return CreateCard(GetRandomCard()); }
+
+    public Card CreateCommonCard() { return CreateCard(GetCommonCard()); }
+
+    public Card CreateRareCard() { return CreateCard(GetRareCard()); }
+
+    private Card CreateCard(CardInfo cardInfo)
     {
-        var cardInfo = GetRandomCard();
         var newCard = CreateNewCard(cardInfo);
         newCard.SetCardInfo(cardInfo);
         return newCard;
     }
 
-    public Card CreateCommonCard()
-    {
-        var cardInfo = GetCommonCard();
-        var newCard = CreateNewCard(cardInfo);
-        newCard.SetCardInfo(cardInfo);
-        return newCard;
-    }
+    private Card CreateNewCard(CardInfo cardInfo) { return Instantiate(GetCardPrefab(cardInfo), transform); }
 
-    public Card CreateRareCard()
+    private Card GetCardPrefab(CardInfo cardInfo)
     {
-        var cardInfo = GetRareCard();
-        var newCard = CreateNewCard(cardInfo);
-        newCard.SetCardInfo(cardInfo);
-        return newCard;
-    }
-
-    private Card CreateNewCard(CardInfo cardInfo)
-    {
-        Card newCard;
         if (cardInfo.IsMonster())
         {
-            newCard = Instantiate(monsterCardPrefab, transform);
-        }
-        else
-        {
-            newCard = Instantiate(roomCardPrefab, transform);
+            return monsterCardPrefab;
         }
 
-        return newCard;
+        return roomCardPrefab;
     }
 
     public bool CardIsCommon(Card card) { return ListContainsCard(commons, card); }
@@ -87,35 +73,24 @@ public class CardManager : MonoBehaviour
         return false;
     }
 
-    public Card CreateMonsterCard()
-    {
-        CardInfo card = null;
-        do
-        {
-            card = GetValidCard(CardInfoIsLowCostMonster);
-        } while (card == null);
-
-        var newCard = Instantiate(monsterCardPrefab, transform);
-        newCard.SetCardInfo(card);
-        return newCard;
-    }
+    public Card CreateMonsterCard() { return CreateSpecificCard(CardInfoIsLowCostMonster); }
 
     private bool CardInfoIsLowCostMonster(CardInfo cardInfo) { return cardInfo.IsMonster() && (cardInfo.cost < 3); }
 
-    public Card CreateRoomCard()
+    public Card CreateRoomCard() { return CreateSpecificCard(CardInfoIsLowCostRoom); }
+
+    private bool CardInfoIsLowCostRoom(CardInfo cardInfo) { return cardInfo.IsRoom() && (cardInfo.cost < 3); }
+
+    private Card CreateSpecificCard(Func<CardInfo, bool> requirementFunction)
     {
         CardInfo card = null;
         do
         {
-            card = GetValidCard(CardInfoIsLowCostRoom);
+            card = GetValidCard(requirementFunction);
         } while (card == null);
 
-        var newCard = Instantiate(roomCardPrefab, transform);
-        newCard.SetCardInfo(card);
-        return newCard;
+        return CreateCard(card);
     }
-
-    private bool CardInfoIsLowCostRoom(CardInfo cardInfo) { return cardInfo.IsRoom() && (cardInfo.cost < 3); }
 
     private CardInfo GetValidCard(Func<CardInfo, bool> requirementFunction)
     {
@@ -152,6 +127,6 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Name unittests
-// TODO: Extract set Card description in Card.cs
-// TODO: Condense monster/rooms
+// TODO: Condense monster/rooms into the Card Scriptable by making the specific ScriptableObject for each monster/room.
+// TODO: Polish Health & Damage Numbers
+// TODO: Animation: Zoom into Room that Battle is happening

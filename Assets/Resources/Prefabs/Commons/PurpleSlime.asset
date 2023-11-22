@@ -16,6 +16,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 22dfff5ce188db043b7900c0eda98442, type: 3}
   cost: 1
   prefab: {fileID: 5795488505245987341, guid: c11eeb75101ff3a4195a6d5407a852bb, type: 3}
-  effectDescription: '[Entrance] Player
+  effectDescription: '[Entrance]
 
-    ATK -1'
+    Player ATK -1'

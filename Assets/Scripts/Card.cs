@@ -14,7 +14,21 @@ public class Card : MonoBehaviour
         cardInfo = newCardInfo;
         cardName = cardInfo.cardName;
         cost = cardInfo.cost;
-        GetComponent<SpriteRenderer>().sprite = cardInfo.sprite;
+        SetSprite();
+        SetDescription();
+    }
+
+    public void SetSprite()
+    {
+        var renderer = GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.sprite = cardInfo.sprite;
+        }
+    }
+
+    public void SetDescription()
+    {
         var description = GetComponentInChildren<TextMeshPro>();
         if (description != null)
         {

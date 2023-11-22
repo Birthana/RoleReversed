@@ -140,7 +140,7 @@ public class MonsterDraggerTest : MonoBehaviour
     }
 
     [UnityTest]
-    public IEnumerator XXX()
+    public IEnumerator GivenMonsterInFullRoomAndAnotherFullRoom_DragMonsterToOtherRoom_ExpectNoMove()
     {
         // Arrange
         var gameObject = new GameObject();
