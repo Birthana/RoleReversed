@@ -9,13 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8853512d93e5164190b2ead4c2ffb51, type: 3}
-  m_Name: PurpleSlime
+  m_Script: {fileID: 11500000, guid: 40c4624f772cfda4fb0956a60273ecd8, type: 3}
+  m_Name: VioletSlime
   m_EditorClassIdentifier: 
-  cardName: Purple Slime
-  sprite: {fileID: 21300000, guid: 22dfff5ce188db043b7900c0eda98442, type: 3}
+  cardName: Violet Slime
+  cardSprite: {fileID: 21300000, guid: 22dfff5ce188db043b7900c0eda98442, type: 3}
+  fieldSprite: {fileID: 829540261, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
   cost: 1
   prefab: {fileID: 5795488505245987341, guid: c11eeb75101ff3a4195a6d5407a852bb, type: 3}
   effectDescription: '[Entrance]
 
     Player ATK -1'
+  damage: 1
+  health: 1

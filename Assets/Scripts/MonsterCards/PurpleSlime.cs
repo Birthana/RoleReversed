@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PurpleSlime : Monster
 {
-    public override void Entrance()
-    {
-        FindObjectOfType<Player>().ReduceDamage(1);
-    }
+    //public override void Entrance()
+    //{
+    //    FindObjectOfType<Player>().ReduceDamage(1);
+    //}
 }

@@ -23,7 +23,7 @@ public class Card : MonoBehaviour
         var renderer = GetComponent<SpriteRenderer>();
         if (renderer != null)
         {
-            renderer.sprite = cardInfo.sprite;
+            renderer.sprite = cardInfo.cardSprite;
         }
     }
 

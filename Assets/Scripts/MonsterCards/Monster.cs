@@ -4,26 +4,45 @@ using System.Collections;
 public class Monster : Character
 {
     public bool isTemporary = false;
+    public int damageStat;
+    public int healthStat;
+    public MonsterCardInfo cardInfo;
 
     public override void Awake()
     {
         base.Awake();
-        Entrance();
+    }
+
+    public void SetupStats()
+    {
+        GetComponent<Damage>().maxCount = damageStat;
+        GetComponent<Damage>().ResetDamage();
+        GetComponent<Health>().maxCount = healthStat;
+        GetComponent<Health>().RestoreFullHealth();
     }
 
     public virtual void Entrance()
     {
-
+        if(cardInfo != null)
+        {
+            cardInfo.Entrance();
+        }
     }
 
     public virtual void Engage()
     {
-
+        if (cardInfo != null)
+        {
+            cardInfo.Engage();
+        }
     }
 
     public virtual void Exit()
     {
-
+        if (cardInfo != null)
+        {
+            cardInfo.Exit();
+        }
     }
 
     public IEnumerator Attack(Character character)

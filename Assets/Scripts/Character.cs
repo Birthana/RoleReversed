@@ -1,7 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Damage))]
-[RequireComponent(typeof(Health))]
 public class Character : MonoBehaviour
 {
     protected Health health;

@@ -451,7 +451,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1499185117, guid: 37ec56a1c45cff14a9f5a2edf23b5247, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -459,7 +459,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7050006689211839890
@@ -475,6 +475,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTemporary: 0
+  damageStat: 0
+  healthStat: 0
 --- !u!114 &7422970575677711293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb5ee22f881d20342a969db86e64ec40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCount: 5
+  maxCount: 0
   ui: {fileID: 3844554648907945646}
 --- !u!114 &7050006689211839889
 MonoBehaviour:
@@ -501,7 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7837cb1f891ff4e4c8dc7bc7ca3e934e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCount: 5
+  maxCount: 0
   ui: {fileID: 6910599671026217045}
 --- !u!114 &6542215246899396061
 MonoBehaviour:

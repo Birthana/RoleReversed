@@ -105,6 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTemporary: 1
+  damageStat: 2
+  healthStat: 2
 --- !u!114 &1877259298958668909
 MonoBehaviour:
   m_ObjectHideFlags: 0

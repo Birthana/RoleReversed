@@ -15,7 +15,8 @@ public class CardManagerTest
         cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         var monsterPrefab = new GameObject();
         monsterPrefab.AddComponent<Monster>();
-        var cardInfo = ScriptableObject.CreateInstance<CardInfo>();
+        monsterPrefab.AddComponent<SpriteRenderer>();
+        var cardInfo = ScriptableObject.CreateInstance<MonsterCardInfo>();
         cardInfo.prefab = monsterPrefab;
         cardManager.AddCommonCard(cardInfo);
 

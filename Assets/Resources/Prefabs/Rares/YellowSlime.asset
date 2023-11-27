@@ -9,13 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8853512d93e5164190b2ead4c2ffb51, type: 3}
+  m_Script: {fileID: 11500000, guid: c5898c8e137d9fb4981d0e8097960468, type: 3}
   m_Name: YellowSlime
   m_EditorClassIdentifier: 
   cardName: Yellow Slime
-  sprite: {fileID: 21300000, guid: af850828449746640a258558ba03c64a, type: 3}
+  cardSprite: {fileID: 21300000, guid: af850828449746640a258558ba03c64a, type: 3}
+  fieldSprite: {fileID: -99023764, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
   cost: 3
   prefab: {fileID: 2560249252460832255, guid: df0548ca9f96b5f469d40526c10f01a3, type: 3}
   effectDescription: '[Exit] Spawn 2
 
     2/2 Slimes'
+  damage: 5
+  health: 5
+  slimePrefab: {fileID: 652129889170413184, guid: 5833d9e251acb1d4f89791c32fca2665, type: 3}
