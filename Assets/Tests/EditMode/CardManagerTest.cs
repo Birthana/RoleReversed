@@ -13,11 +13,7 @@ public class CardManagerTest
         card.AddComponent<SpriteRenderer>();
         var cardManager = new GameObject().AddComponent<CardManager>();
         cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
-        var monsterPrefab = new GameObject();
-        monsterPrefab.AddComponent<Monster>();
-        monsterPrefab.AddComponent<SpriteRenderer>();
         var cardInfo = ScriptableObject.CreateInstance<MonsterCardInfo>();
-        cardInfo.prefab = monsterPrefab;
         cardManager.AddCommonCard(cardInfo);
 
         // Act
@@ -36,10 +32,7 @@ public class CardManagerTest
         card.AddComponent<SpriteRenderer>();
         var cardManager = new GameObject().AddComponent<CardManager>();
         cardManager.roomCardPrefab = card.GetComponent<RoomCard>();
-        var cardInfo = ScriptableObject.CreateInstance<CardInfo>();
-        var roomPrefab = new GameObject();
-        roomPrefab.AddComponent<Room>();
-        cardInfo.prefab = roomPrefab;
+        var cardInfo = ScriptableObject.CreateInstance<RoomCardInfo>();
         cardManager.AddRareCard(cardInfo);
 
         // Act

@@ -3,13 +3,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PinkySlime", menuName = "CardInfo/PinkySlime")]
 public class PinkySlime : MonsterCardInfo
 {
-    public int baseDamage;
-    public int baseHealth;
+    private int newDamage;
+    private int newHealth;
+
+    public override int GetDamage()
+    {
+        return newDamage;
+    }
+
+    public override int GetHealth()
+    {
+        return newHealth;
+    }
 
     public override void Entrance()
     {
         int roomCount = FindObjectsOfType<Room>().Length;
-        damage = baseDamage + (2 * roomCount);
-        health = baseHealth + (2 * roomCount);
+        newDamage = damage + (2 * roomCount);
+        newHealth = health + (2 * roomCount);
     }
 }

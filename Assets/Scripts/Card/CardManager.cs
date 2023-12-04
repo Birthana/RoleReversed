@@ -64,7 +64,7 @@ public class CardManager : MonoBehaviour
     {
         foreach (var card in cards)
         {
-            if (cardToCheck.cardName.Equals(card.cardName))
+            if (cardToCheck.GetName().Equals(card.cardName))
             {
                 return true;
             }
@@ -128,5 +128,6 @@ public class CardManager : MonoBehaviour
 }
 
 // TODO: Condense monster/rooms into the Card Scriptable by making the specific ScriptableObject for each monster/room.
+// TODO: Remove CardInfo in Card.cs
 // TODO: Polish Health & Damage Numbers
 // TODO: Animation: Zoom into Room that Battle is happening

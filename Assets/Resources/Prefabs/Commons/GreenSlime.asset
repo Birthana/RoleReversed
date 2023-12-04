@@ -16,8 +16,7 @@ MonoBehaviour:
   cardSprite: {fileID: 21300000, guid: 91da6d1589f70884b8b0fe41f101420d, type: 3}
   fieldSprite: {fileID: 1612410023, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
   cost: 2
-  prefab: {fileID: 7027894561611250893, guid: 6b3b6887fcde85b44b35116234212e0c, type: 3}
+  prefab: {fileID: 26669088733083598, guid: 2264cfa19620d414e9c72d67f17e0bcd, type: 3}
   effectDescription: 
   damage: 5
   health: 5
-  effect: {fileID: 2611888799062412915, guid: 95e5b6a95f67cca408e6386adf7d40e1, type: 3}

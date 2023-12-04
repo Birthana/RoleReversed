@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8853512d93e5164190b2ead4c2ffb51, type: 3}
+  m_Script: {fileID: 11500000, guid: 23571381a92bb51498d39c04a4010979, type: 3}
   m_Name: SmallRoom
   m_EditorClassIdentifier: 
   cardName: Small Room
   cardSprite: {fileID: 21300000, guid: 16908baed43bd2540a7cbf6e29ffc415, type: 3}
   fieldSprite: {fileID: -302848885, guid: f6d8bd116986ee946830499f748b35d3, type: 3}
   cost: 1
-  prefab: {fileID: 1190293193756740652, guid: 7e8f97030608fe047bab1dccb49aa33e, type: 3}
+  prefab: {fileID: 1190293193756740652, guid: 5c05f333306d2b04987156a697d532ac, type: 3}
   effectDescription: 
+  capacity: 1

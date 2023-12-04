@@ -8,7 +8,6 @@ public class CardInfo : ScriptableObject
     public Sprite cardSprite;
     public Sprite fieldSprite;
     public int cost;
-    public GameObject prefab;
     [TextArea(1, 2)]
     public string effectDescription;
 
@@ -29,11 +28,11 @@ public class CardInfo : ScriptableObject
 
     public bool IsMonster()
     {
-        return prefab.GetComponent<Monster>();
+        return this is MonsterCardInfo;
     }
 
     public bool IsRoom()
     {
-        return prefab.GetComponent<Room>();
+        return this is RoomCardInfo;
     }
 }

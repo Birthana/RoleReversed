@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class RoomCard : Card
 {
-    public Room roomPrefab;
+    private static readonly string FIELD_ROOM_PREFAB = "Prefabs/FieldRoom";
+    private Room roomPrefab;
     private GameManager gameManager;
     private RoomTransform roomTransform;
+    private RoomCardInfo roomCardInfo;
 
     private void Awake()
     {
@@ -14,7 +16,8 @@ public class RoomCard : Card
 
     public override void SetCardInfo(CardInfo newCardInfo)
     {
-        roomPrefab = newCardInfo.prefab.GetComponent<Room>();
+        roomPrefab = Resources.Load<Room>(FIELD_ROOM_PREFAB);
+        roomCardInfo = (RoomCardInfo)newCardInfo;
         base.SetCardInfo(newCardInfo);
     }
 
@@ -53,6 +56,8 @@ public class RoomCard : Card
     private void SpawnRoom()
     {
         var room = Instantiate(roomPrefab);
+        room.GetComponent<SpriteRenderer>().sprite = roomCardInfo.fieldSprite;
+        room.SetCapacity(roomCardInfo.capacity);
         room.transform.position = roomTransform.GetTransform().position;
         Destroy(roomTransform.GetTransform().gameObject);
         if (gameManager.DoesNotHaveStartRoom())

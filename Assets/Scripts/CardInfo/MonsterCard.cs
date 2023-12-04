@@ -1,28 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public struct MonsterInfo
-{
-    public Sprite sprite;
-    public int damage;
-    public int health;
-}
 
 public class MonsterCard : Card
 {
-    public Monster monsterPrefab;
+    private static readonly string FIELD_MONSTER_PREFAB = "Prefabs/FieldMonster";
+    private Monster monsterPrefab;
     private Transform selectedRoom;
-    private MonsterInfo monsterInfo;
     private MonsterCardInfo monsterCardInfo;
+
+    public void SetMonsterPrefab(Monster newMonsterPrefab)
+    {
+        monsterPrefab = newMonsterPrefab;
+    }
+
+    public Monster GetMonsterPrefab()
+    {
+        return monsterPrefab;
+    }
 
     public override void SetCardInfo(CardInfo newCardInfo)
     {
-        monsterPrefab = newCardInfo.prefab.GetComponent<Monster>();
+        monsterPrefab = Resources.Load<Monster>(FIELD_MONSTER_PREFAB);
         monsterCardInfo = (MonsterCardInfo)newCardInfo;
-        monsterInfo.sprite = newCardInfo.fieldSprite;
-        monsterInfo.damage = ((MonsterCardInfo)newCardInfo).damage;
-        monsterInfo.health = ((MonsterCardInfo)newCardInfo).health;
         base.SetCardInfo(newCardInfo);
     }
 
@@ -49,11 +47,11 @@ public class MonsterCard : Card
     private void SpawnMonster()
     {
         var monster = Instantiate(monsterPrefab, selectedRoom);
-        monster.GetComponent<SpriteRenderer>().sprite = monsterInfo.sprite;
+        monster.GetComponent<SpriteRenderer>().sprite = monsterCardInfo.fieldSprite;
         monster.cardInfo = monsterCardInfo;
         monster.Entrance();
-        monster.damageStat = monsterInfo.damage;
-        monster.healthStat = monsterInfo.health;
+        monster.damageStat = monsterCardInfo.GetDamage();
+        monster.healthStat = monsterCardInfo.GetHealth();
         monster.SetupStats();
         var room = selectedRoom.GetComponent<Room>();
         room.Add(monster);
