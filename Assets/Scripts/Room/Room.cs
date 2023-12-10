@@ -12,7 +12,7 @@ public class Room : MonoBehaviour
     public float VERTICAL_SPACING;
     private Capacity capacity;
 
-    private void Awake()
+    public void Awake()
     {
         capacity = GetComponent<Capacity>();
     }

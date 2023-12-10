@@ -21,7 +21,18 @@ public class MonsterCard : Card
     {
         monsterPrefab = Resources.Load<Monster>(FIELD_MONSTER_PREFAB);
         monsterCardInfo = (MonsterCardInfo)newCardInfo;
-        base.SetCardInfo(newCardInfo);
+        SetSprite(newCardInfo.cardSprite);
+        SetDescription(newCardInfo.effectDescription);
+    }
+
+    public override int GetCost()
+    {
+        return monsterCardInfo.cost;
+    }
+
+    public override string GetName()
+    {
+        return monsterCardInfo.cardName;
     }
 
     public override bool HasTarget()
@@ -50,9 +61,7 @@ public class MonsterCard : Card
         monster.GetComponent<SpriteRenderer>().sprite = monsterCardInfo.fieldSprite;
         monster.cardInfo = monsterCardInfo;
         monster.Entrance();
-        monster.damageStat = monsterCardInfo.GetDamage();
-        monster.healthStat = monsterCardInfo.GetHealth();
-        monster.SetupStats();
+        monster.SetupStats(monsterCardInfo.GetDamage(), monsterCardInfo.GetHealth());
         var room = selectedRoom.GetComponent<Room>();
         room.Add(monster);
         room.ReduceCapacity(1);

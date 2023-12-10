@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomCard : Card
@@ -18,7 +17,18 @@ public class RoomCard : Card
     {
         roomPrefab = Resources.Load<Room>(FIELD_ROOM_PREFAB);
         roomCardInfo = (RoomCardInfo)newCardInfo;
-        base.SetCardInfo(newCardInfo);
+        SetSprite(newCardInfo.cardSprite);
+        SetDescription(newCardInfo.effectDescription);
+    }
+
+    public override int GetCost()
+    {
+        return roomCardInfo.cost;
+    }
+
+    public override string GetName()
+    {
+        return roomCardInfo.cardName;
     }
 
     public override bool HasTarget()

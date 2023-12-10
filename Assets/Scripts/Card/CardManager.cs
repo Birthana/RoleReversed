@@ -127,7 +127,11 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Condense monster/rooms into the Card Scriptable by making the specific ScriptableObject for each monster/room.
-// TODO: Remove CardInfo in Card.cs
-// TODO: Polish Health & Damage Numbers
+// TODO: Unittest previous card effects.
+// TODO: Replace 5 card pack with 2 card pack with Room and Monster that costs 3 combined.
+// TODO: Replace card pack reward with choose 1 card out of 3 and player soul.
+// TODO: Add soul mechnanic.
+// TODO: Add soul shop.
+// TODO: Add new cards.
 // TODO: Animation: Zoom into Room that Battle is happening
+// TODO: Bug: Release with no card selected in CardDragger.cs

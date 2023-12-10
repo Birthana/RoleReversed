@@ -3,36 +3,29 @@ using TMPro;
 
 public class Card : MonoBehaviour
 {
-    private CardInfo cardInfo;
+    public virtual void SetCardInfo(CardInfo newCardInfo) {}
 
-    public virtual void SetCardInfo(CardInfo newCardInfo)
-    {
-        cardInfo = newCardInfo;
-        SetSprite();
-        SetDescription();
-    }
-
-    public void SetSprite()
+    public void SetSprite(Sprite sprite)
     {
         var renderer = GetComponent<SpriteRenderer>();
         if (renderer != null)
         {
-            renderer.sprite = cardInfo.cardSprite;
+            renderer.sprite = sprite;
         }
     }
 
-    public void SetDescription()
+    public void SetDescription(string effectDescription)
     {
         var description = GetComponentInChildren<TextMeshPro>();
         if (description != null)
         {
-            description.text = cardInfo.effectDescription;
+            description.text = effectDescription;
         }
     }
 
-    public int GetCost() { return cardInfo.cost; }
+    public virtual int GetCost() { return 0; }
 
-    public string GetName() { return cardInfo.cardName; }
+    public virtual string GetName() { return ""; }
 
     public virtual bool HasTarget()
     {

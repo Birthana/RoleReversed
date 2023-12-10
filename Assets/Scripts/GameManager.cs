@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         gameOverScreen.SetActive(false);
+        SpawnPackInRandomSpot();
     }
 
     public void StartPlayerRun()
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
     private void SpawnPackInRandomSpot()
     {
         var newPack = Instantiate(packPrefab);
+        newPack.CreateStarterPack();
         newPack.transform.position = new Vector3(Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 0);
     }
 
