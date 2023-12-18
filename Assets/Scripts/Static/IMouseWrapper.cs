@@ -14,6 +14,8 @@ public interface IMouseWrapper
 
     public bool IsOnPack();
 
+    public bool IsOnDraft();
+
     public ComponentType GetHitComponent<ComponentType>();
 
     public bool IsOnSelection();

@@ -37,7 +37,7 @@ public class CardManager : MonoBehaviour
 
     public Card CreateRareCard() { return CreateCard(GetRareCard()); }
 
-    private Card CreateCard(CardInfo cardInfo)
+    public Card CreateCard(CardInfo cardInfo)
     {
         var newCard = CreateNewCard(cardInfo);
         newCard.SetCardInfo(cardInfo);
@@ -92,7 +92,7 @@ public class CardManager : MonoBehaviour
         return CreateCard(card);
     }
 
-    private CardInfo GetValidCard(Func<CardInfo, bool> requirementFunction)
+    public CardInfo GetValidCard(Func<CardInfo, bool> requirementFunction)
     {
         var rngCardInfo = GetRandomCard();
         if (requirementFunction(rngCardInfo))
@@ -127,8 +127,7 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Unittest previous card effects.
-// TODO: Replace 5 card pack with 2 card pack with Room and Monster that costs 3 combined.
+// TODO: Clean up MonsterDraggerTests Mock Setups.
 // TODO: Replace card pack reward with choose 1 card out of 3 and player soul.
 // TODO: Add soul mechnanic.
 // TODO: Add soul shop.

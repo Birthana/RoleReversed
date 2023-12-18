@@ -54,7 +54,8 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<ActionManager>().ResetActions();
         ResetAllMonsterStats();
         DestroyAllTempMonsters();
-        SpawnPackInRandomSpot();
+        //SpawnPackInRandomSpot();
+        FindObjectOfType<DraftManager>().Draft();
     }
 
     private void DestroyAllTempMonsters()
@@ -81,7 +82,6 @@ public class GameManager : MonoBehaviour
     private void SpawnPackInRandomSpot()
     {
         var newPack = Instantiate(packPrefab);
-        newPack.CreateStarterPack();
         newPack.transform.position = new Vector3(Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 0);
     }
 

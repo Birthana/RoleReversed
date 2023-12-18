@@ -19,15 +19,10 @@ public class CardTest : MonoBehaviour
     [SetUp]
     public void Setup()
     {
-        player = new GameObject().AddComponent<Player>();
-        player.gameObject.AddComponent<Damage>().IncreaseMaxDamage(ANY_MAX_DAMAGE);
-        player.gameObject.AddComponent<Health>().IncreaseMaxHealth(ANY_MAX_HEALTH);
-        player.Awake();
+        player = TestHelper.GetPlayer(ANY_MAX_DAMAGE, ANY_MAX_HEALTH);
         card = new GameObject().AddComponent<MonsterCard>();
-        hand = new GameObject().AddComponent<Hand>();
-        cardDragger = new GameObject().AddComponent<CardDragger>();
-        cardDragger.gameObject.AddComponent<HoverAnimation>();
-        cardDragger.Awake();
+        hand = TestHelper.GetHand();
+        cardDragger = TestHelper.GetCardDragger();
         CreateMonsterCardInfo();
     }
 
@@ -141,10 +136,7 @@ public class CardTest : MonoBehaviour
     public void UsingYellowSlime_Exit_ExpectTwo2_2SlimesInRoomAndStatIs5_5()
     {
         // Arrange
-        var room = new GameObject().AddComponent<Room>();
-        room.gameObject.AddComponent<Capacity>();
-        room.Awake();
-        room.SetCapacity(2);
+        var room = TestHelper.GetRoom();
         player.transform.SetParent(room.transform);
 
         var cardManager = new GameObject().AddComponent<CardManager>();

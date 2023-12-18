@@ -8,13 +8,7 @@ public class CardManagerTest
     public void GivenCardManager_GetCommonCard_ExpectCommonCard()
     {
         // Arrange
-        var card = new GameObject();
-        card.AddComponent<MonsterCard>();
-        card.AddComponent<SpriteRenderer>();
-        var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
-        var cardInfo = ScriptableObject.CreateInstance<MonsterCardInfo>();
-        cardManager.AddCommonCard(cardInfo);
+        var cardManager = TestHelper.GetCardManager();
 
         // Act
         var monsterCard = cardManager.CreateCommonCard();
@@ -27,13 +21,7 @@ public class CardManagerTest
     public void GivenCardManager_GetRareCard_ExpectRareCard()
     {
         // Arrange
-        var card = new GameObject();
-        card.AddComponent<RoomCard>();
-        card.AddComponent<SpriteRenderer>();
-        var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.roomCardPrefab = card.GetComponent<RoomCard>();
-        var cardInfo = ScriptableObject.CreateInstance<RoomCardInfo>();
-        cardManager.AddRareCard(cardInfo);
+        var cardManager = TestHelper.GetCardManager();
 
         // Act
         var roomCard = cardManager.CreateRareCard();

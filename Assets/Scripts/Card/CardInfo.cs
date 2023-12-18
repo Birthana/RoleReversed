@@ -18,12 +18,12 @@ public class CardInfo : ScriptableObject
             return false;
         }
 
-        if (!(other is Card))
+        if (!(other is CardInfo))
         {
             return false;
         }
 
-        return cardName.Equals(((Card)other).GetName());
+        return cardName.Equals(((CardInfo)other).cardName);
     }
 
     public bool IsMonster()

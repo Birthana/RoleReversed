@@ -62,12 +62,8 @@ public class CardDraggerTest : MonoBehaviour
     [SetUp]
     public void Setup()
     {
-        var gameObject = new GameObject();
-        hand = gameObject.AddComponent<Hand>();
-        hand.SPACING = 5.0f;
-        selectionScreen = gameObject.AddComponent<SelectionScreen>();
-        selectionScreen.transform.position = new Vector2(3, 5);
-        selectionScreen.SetMaxSelection(3);
+        hand = TestHelper.GetHand();
+        selectionScreen = TestHelper.GetSelectionScreen();
     }
 
     [TearDown]
@@ -85,9 +81,7 @@ public class CardDraggerTest : MonoBehaviour
         // Arrange
         var card = new GameObject().AddComponent<Card>();
         var mock = new TestSetup().WithPlayerDoesNotSelectCard().WithPlayerHoversCard(card).WithPlayerDoesNotAddToSelection().Get();
-        var gameObject = new GameObject();
-        gameObject.AddComponent<HoverAnimation>();
-        var cardDragger = gameObject.AddComponent<CardDragger>();
+        var cardDragger = TestHelper.GetCardDragger();
         cardDragger.SetMouseWrapper(mock.Object);
 
         // Act
@@ -104,9 +98,7 @@ public class CardDraggerTest : MonoBehaviour
         // Arrange
         var card = new GameObject().AddComponent<Card>();
         var mock = new TestSetup().WithPlayerSelectsCard(card).WithPlayerAddsToSelection().Get();
-        var gameObject = new GameObject();
-        gameObject.AddComponent<HoverAnimation>();
-        var cardDragger = gameObject.AddComponent<CardDragger>();
+        var cardDragger = TestHelper.GetCardDragger();
         cardDragger.SetMouseWrapper(mock.Object);
 
         // Act
@@ -128,9 +120,7 @@ public class CardDraggerTest : MonoBehaviour
         mock.Setup(x => x.GetHitComponent<Card>()).Returns(card);
         mock.SetupSequence(x => x.PlayerReleasesLeftClick()).Returns(false).Returns(true);
         mock.Setup(x => x.IsOnSelection()).Returns(true);
-        var gameObject = new GameObject();
-        gameObject.AddComponent<HoverAnimation>();
-        var cardDragger = gameObject.AddComponent<CardDragger>();
+        var cardDragger = TestHelper.GetCardDragger();
         cardDragger.SetMouseWrapper(mock.Object);
         cardDragger.UpdateLoop();
         yield return new WaitForSeconds(1.0f);
@@ -151,9 +141,7 @@ public class CardDraggerTest : MonoBehaviour
         // Arrange
         var card = new GameObject().AddComponent<Card>();
         var card2 = new GameObject().AddComponent<Card>();
-        var gameObject = new GameObject();
-        gameObject.AddComponent<HoverAnimation>();
-        var cardDragger = gameObject.AddComponent<CardDragger>();
+        var cardDragger = TestHelper.GetCardDragger();
         hand.Add(card);
         hand.Add(card2);
         var previousPosition = card2.transform.position;

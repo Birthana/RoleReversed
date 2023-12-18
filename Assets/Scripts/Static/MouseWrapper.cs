@@ -14,6 +14,8 @@ public class MouseWrapper : IMouseWrapper
 
     public bool IsOnPack() { return Mouse.IsOnPack(); }
 
+    public bool IsOnDraft() { return Mouse.IsOnDraft(); }
+
     public ComponentType GetHitComponent<ComponentType>() { return Mouse.GetHitComponent<ComponentType>(); }
 
     public bool IsOnSelection() { return Mouse.IsOnSelection(); }

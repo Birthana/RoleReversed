@@ -29,11 +29,8 @@ public class HandTest : MonoBehaviour
     public void GivenHandWithThreeCards_RemoveThirdCard_ExpectFirstAndSecondCard()
     {
         // Arrange
-        var hand = new GameObject().AddComponent<Hand>();
-        var gameObject = new GameObject();
-        gameObject.AddComponent<HoverAnimation>();
-        var cardDragger = gameObject.AddComponent<CardDragger>();
-        cardDragger.Awake();
+        var hand = TestHelper.GetHand();
+        var cardDragger = TestHelper.GetCardDragger();
         hand.Add(firstCard);
         hand.Add(secondCard);
         hand.Add(thirdCard);
@@ -47,7 +44,6 @@ public class HandTest : MonoBehaviour
         expectedCard.Add(secondCard);
         for(var index = 0; index < expectedCard.Count; index++)
         {
-            Debug.Log($"{index}");
             Assert.AreEqual(expectedCard[index].gameObject, hand.hand[index].gameObject);
         }
     }

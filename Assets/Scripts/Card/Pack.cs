@@ -17,6 +17,17 @@ public class Pack : MonoBehaviour
         SetMouseWrapper(new MouseWrapper());
     }
 
+    public int GetTotalCost()
+    {
+        var totalCost = 0;
+        foreach(var card in cards)
+        {
+            totalCost += card.GetCost();
+        }
+
+        return totalCost;
+    }
+
     public void CreateRarityPack()
     {
         var rngCards = FindObjectOfType<CardManager>();
@@ -32,14 +43,19 @@ public class Pack : MonoBehaviour
     public void CreateStarterPack()
     {
         var rngCards = FindObjectOfType<CardManager>();
-        cards.Add(rngCards.CreateRoomCard());
-        cards.Add(rngCards.CreateMonsterCard());
+        do
+        {
+            cards = new List<Card>();
+            cards.Add(rngCards.CreateRoomCard());
+            cards.Add(rngCards.CreateMonsterCard());
+        } while (GetTotalCost() > 3);
     }
 
     public void Update()
     {
         if (PlayerClicksOnPack())
         {
+            CreateStarterPack();
             OpenPack();
             DestroyImmediate(gameObject);
         }
