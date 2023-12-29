@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         DestroyAllTempMonsters();
         //SpawnPackInRandomSpot();
         FindObjectOfType<DraftManager>().Draft();
+        FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
     }
 
     private void DestroyAllTempMonsters()

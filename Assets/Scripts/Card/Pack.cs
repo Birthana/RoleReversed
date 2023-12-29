@@ -43,12 +43,24 @@ public class Pack : MonoBehaviour
     public void CreateStarterPack()
     {
         var rngCards = FindObjectOfType<CardManager>();
-        do
+        var cardInfos = rngCards.GetValidCardInfos(TotalCostIsGreaterThanThree);
+        cards = rngCards.CreateCards(cardInfos);
+    }
+
+    private bool TotalCostIsGreaterThanThree(List<CardInfo> cardInfos)
+    {
+        return GetTotalCost(cardInfos) > 3;
+    }
+
+    private int GetTotalCost(List<CardInfo> cardInfos)
+    {
+        var totalCost = 0;
+        foreach (var cardInfo in cardInfos)
         {
-            cards = new List<Card>();
-            cards.Add(rngCards.CreateRoomCard());
-            cards.Add(rngCards.CreateMonsterCard());
-        } while (GetTotalCost() > 3);
+            totalCost += cardInfo.cost;
+        }
+
+        return totalCost;
     }
 
     public void Update()

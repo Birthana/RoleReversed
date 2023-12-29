@@ -78,9 +78,9 @@ public class DraftManagerTest : MonoBehaviour
 
         // Assert
         var draftCards = FindObjectsOfType<DraftCard>();
-        Assert.AreEqual(1.75f, Mathf.Round(draftCards[0].transform.localPosition.x * 100) / 100);
+        Assert.AreEqual(1.75f, TestHelper.RoundToNearestHundredth(draftCards[0].transform.localPosition.x));
         Assert.AreEqual(0, draftCards[1].transform.localPosition.x);
-        Assert.AreEqual(-1.75f, Mathf.Round(draftCards[2].transform.localPosition.x * 100) / 100);
+        Assert.AreEqual(-1.75f, TestHelper.RoundToNearestHundredth(draftCards[2].transform.localPosition.x));
     }
 
     [Test]

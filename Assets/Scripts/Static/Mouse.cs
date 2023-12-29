@@ -30,6 +30,7 @@ public static class Mouse
     public static RaycastHit2D IsOnMonster() { return IsOnLayer("Monster"); }
     public static RaycastHit2D IsOnPack() { return IsOnLayer("Pack"); }
     public static RaycastHit2D IsOnDraft() { return IsOnLayer("Draft"); }
+    public static RaycastHit2D IsOnOpenSoulShop() { return IsOnLayer("OpenSoulShop"); }
     public static RaycastHit2D IsOnSpace() { return IsOnLayer("Space"); }
     public static RaycastHit2D IsOnRoom() { return IsOnLayer("Room"); }
     public static RaycastHit2D IsOnSelection() { return IsOnLayer("Selection"); }

@@ -16,6 +16,8 @@ public interface IMouseWrapper
 
     public bool IsOnDraft();
 
+    public bool IsOnOpenSoulShop();
+
     public ComponentType GetHitComponent<ComponentType>();
 
     public bool IsOnSelection();

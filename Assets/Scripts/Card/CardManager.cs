@@ -44,6 +44,17 @@ public class CardManager : MonoBehaviour
         return newCard;
     }
 
+    public List<Card> CreateCards(List<CardInfo> cardInfos)
+    {
+        var cards = new List<Card>();
+        foreach (var cardInfo in cardInfos)
+        {
+            cards.Add(CreateCard(cardInfo));
+        }
+
+        return cards;
+    }
+
     private Card CreateNewCard(CardInfo cardInfo) { return Instantiate(GetCardPrefab(cardInfo), transform); }
 
     private Card GetCardPrefab(CardInfo cardInfo)
@@ -75,21 +86,27 @@ public class CardManager : MonoBehaviour
 
     public Card CreateMonsterCard() { return CreateSpecificCard(CardInfoIsLowCostMonster); }
 
-    private bool CardInfoIsLowCostMonster(CardInfo cardInfo) { return cardInfo.IsMonster() && (cardInfo.cost < 3); }
+    public bool CardInfoIsLowCostMonster(CardInfo cardInfo) { return cardInfo.IsMonster() && (cardInfo.cost < 3); }
 
     public Card CreateRoomCard() { return CreateSpecificCard(CardInfoIsLowCostRoom); }
 
-    private bool CardInfoIsLowCostRoom(CardInfo cardInfo) { return cardInfo.IsRoom() && (cardInfo.cost < 3); }
+    public bool CardInfoIsLowCostRoom(CardInfo cardInfo) { return cardInfo.IsRoom() && (cardInfo.cost < 3); }
 
     private Card CreateSpecificCard(Func<CardInfo, bool> requirementFunction)
     {
-        CardInfo card = null;
+        var cardInfo = GetValidCardInfo(requirementFunction);
+        return CreateCard(cardInfo);
+    }
+
+    public CardInfo GetValidCardInfo(Func<CardInfo, bool> requirementFunction)
+    {
+        CardInfo cardInfo = null;
         do
         {
-            card = GetValidCard(requirementFunction);
-        } while (card == null);
+            cardInfo = GetValidCard(requirementFunction);
+        } while (cardInfo == null);
 
-        return CreateCard(card);
+        return cardInfo;
     }
 
     public CardInfo GetValidCard(Func<CardInfo, bool> requirementFunction)
@@ -101,6 +118,27 @@ public class CardManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public List<CardInfo> GetValidCardInfos(Func<List<CardInfo>, bool> requirementFunction)
+    {
+        List<CardInfo> cardInfos;
+        do
+        {
+            cardInfos = GetValidStarterCardInfos();
+        } while (requirementFunction(cardInfos));
+
+        return cardInfos;
+    }
+
+    private List<CardInfo> GetValidStarterCardInfos()
+    {
+        var cardInfos = new List<CardInfo>();
+        var newCardInfo = GetValidCardInfo(CardInfoIsLowCostRoom);
+        cardInfos.Add(newCardInfo);
+        newCardInfo = GetValidCardInfo(CardInfoIsLowCostMonster);
+        cardInfos.Add(newCardInfo);
+        return cardInfos;
     }
 
     private CardInfo GetRandomCard()
@@ -127,10 +165,10 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Clean up MonsterDraggerTests Mock Setups.
-// TODO: Replace card pack reward with choose 1 card out of 3 and player soul.
-// TODO: Add soul mechnanic.
 // TODO: Add soul shop.
+// TODO: Refactor DraftManager.cs
+// TODO: Add soul mechnanic.
 // TODO: Add new cards.
+// TODO: Clean up MonsterDraggerTests Mock Setups.
 // TODO: Animation: Zoom into Room that Battle is happening
 // TODO: Bug: Release with no card selected in CardDragger.cs

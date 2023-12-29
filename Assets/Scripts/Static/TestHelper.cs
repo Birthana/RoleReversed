@@ -11,6 +11,11 @@ public static class TestHelper
     public static readonly string ANY_CARD_NAME_4 = "ANY CARD NAME 4";
     public static readonly string ANY_CARD_TEXT = "ANY CARD TEXT";
 
+    public static float RoundToNearestHundredth(float floatPointNumber)
+    {
+        return Mathf.Round(floatPointNumber * 100) / 100;
+    }
+
     public static Hand GetHand()
     {
         var hand = new GameObject().AddComponent<Hand>();
