@@ -31,6 +31,12 @@ public class Counter : MonoBehaviour
 
     protected void IncreaseMaxCount(int increase) { SetMaxCount(maxCount + increase); }
 
+    protected void IncreaseMaxCountWithoutReset(int increase)
+    {
+        maxCount += increase;
+        IncreaseCount(increase);
+    }
+
     protected void DecreaseMaxCount(int decrease) { SetMaxCount(maxCount - decrease); }
 
     protected void IncreaseCount(int increase) { SetCount(Mathf.Max(0, currentCount + increase)); }

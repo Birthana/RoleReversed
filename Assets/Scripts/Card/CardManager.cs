@@ -31,11 +31,11 @@ public class CardManager : MonoBehaviour
 
     public void AddRareCard(CardInfo card) { rares.Add(card); }
 
-    public Card CreateRandomCard() { return CreateCard(GetRandomCard()); }
+    public Card CreateRandomCard() { return CreateCard(GetRandomCardInfo()); }
 
-    public Card CreateCommonCard() { return CreateCard(GetCommonCard()); }
+    public Card CreateCommonCard() { return CreateCard(GetCommonCardInfo()); }
 
-    public Card CreateRareCard() { return CreateCard(GetRareCard()); }
+    public Card CreateRareCard() { return CreateCard(GetRareCardInfo()); }
 
     public Card CreateCard(CardInfo cardInfo)
     {
@@ -86,11 +86,15 @@ public class CardManager : MonoBehaviour
 
     public Card CreateMonsterCard() { return CreateSpecificCard(CardInfoIsLowCostMonster); }
 
-    public bool CardInfoIsLowCostMonster(CardInfo cardInfo) { return cardInfo.IsMonster() && (cardInfo.cost < 3); }
+    public bool CardInfoIsLowCostMonster(CardInfo cardInfo) { return CardInfoIsMonster(cardInfo) && (cardInfo.cost < 3); }
+
+    public bool CardInfoIsMonster(CardInfo cardInfo) { return cardInfo.IsMonster(); }
 
     public Card CreateRoomCard() { return CreateSpecificCard(CardInfoIsLowCostRoom); }
 
-    public bool CardInfoIsLowCostRoom(CardInfo cardInfo) { return cardInfo.IsRoom() && (cardInfo.cost < 3); }
+    public bool CardInfoIsLowCostRoom(CardInfo cardInfo) { return CardInfoIsRoom(cardInfo) && (cardInfo.cost < 3); }
+
+    public bool CardInfoIsRoom(CardInfo cardInfo) { return cardInfo.IsRoom(); }
 
     private Card CreateSpecificCard(Func<CardInfo, bool> requirementFunction)
     {
@@ -111,7 +115,7 @@ public class CardManager : MonoBehaviour
 
     public CardInfo GetValidCard(Func<CardInfo, bool> requirementFunction)
     {
-        var rngCardInfo = GetRandomCard();
+        var rngCardInfo = GetRandomCardInfo();
         if (requirementFunction(rngCardInfo))
         {
             return rngCardInfo;
@@ -120,7 +124,47 @@ public class CardManager : MonoBehaviour
         return null;
     }
 
-    public List<CardInfo> GetValidCardInfos(Func<List<CardInfo>, bool> requirementFunction)
+    public List<CardInfo> GetUniqueCardInfos(int numberOfDraftCards)
+    {
+        var cardInfos = new List<CardInfo>();
+        for (int i = 0; i < numberOfDraftCards; i++)
+        {
+            cardInfos.Add(GetUniqueCardInfo(cardInfos));
+        }
+
+        return cardInfos;
+    }
+
+    private CardInfo GetUniqueCardInfo(List<CardInfo> cardInfos)
+    {
+        CardInfo cardInfo;
+        do
+        {
+            cardInfo = GetCommonCardInfo();
+        } while (CardInfoIsNotUnique(cardInfo, cardInfos));
+
+        return cardInfo;
+    }
+
+    private bool CardInfoIsNotUnique(CardInfo currentCardInfo, List<CardInfo> cardInfos)
+    {
+        if (cardInfos.Count == 0)
+        {
+            return false;
+        }
+
+        foreach (var cardInfo in cardInfos)
+        {
+            if (cardInfo.Equals(currentCardInfo))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public List<CardInfo> GetValidStarterCardInfos(Func<List<CardInfo>, bool> requirementFunction)
     {
         List<CardInfo> cardInfos;
         do
@@ -141,34 +185,41 @@ public class CardManager : MonoBehaviour
         return cardInfos;
     }
 
-    private CardInfo GetRandomCard()
+    public CardInfo GetRandomCardInfo()
     {
         int rngIndex = UnityEngine.Random.Range(0, 2);
         if (rngIndex == 0)
         {
-            return GetCommonCard();
+            return GetCommonCardInfo();
         }
 
-        return GetRareCard();
+        return GetRareCardInfo();
     }
 
-    private CardInfo GetCommonCard()
+    public CardInfo GetCommonCardInfo()
     {
         int rngIndex = UnityEngine.Random.Range(0, commons.Count);
         return commons[rngIndex];
     }
 
-    private CardInfo GetRareCard()
+    public CardInfo GetRareCardInfo()
     {
         int rngIndex = UnityEngine.Random.Range(0, rares.Count);
         return rares[rngIndex];
     }
 }
 
-// TODO: Add soul shop.
-// TODO: Refactor DraftManager.cs
-// TODO: Add soul mechnanic.
+// TODO: Change CardTest to use Room to spawn Monsters.
+// TODO: Null Object in OrangeSlime.cs
+// TODO: Organize Different Managers in a GameObject.
+// TODO: Fix Room Monsters Display when Monsters are dead.
+
+// TODO: Implement Deck Mechanic.
 // TODO: Add new cards.
+// TODO: Add Monster Soul mechnanic.
+
+// TODO: BUG: Create cards when Hand is full.
 // TODO: Clean up MonsterDraggerTests Mock Setups.
+// TODO: Create New UI with for Counters with Custom Card Numbers.
 // TODO: Animation: Zoom into Room that Battle is happening
 // TODO: Bug: Release with no card selected in CardDragger.cs

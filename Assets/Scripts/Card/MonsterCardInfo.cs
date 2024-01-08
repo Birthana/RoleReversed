@@ -16,11 +16,11 @@ public class MonsterCardInfo : CardInfo
         return health;
     }
 
-    public virtual void Entrance()
+    public virtual void Entrance(Character self)
     {
     }
 
-    public virtual void Engage()
+    public virtual void Engage(Character self)
     {
     }
 

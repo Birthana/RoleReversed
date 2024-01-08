@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using System.Linq;
 using UnityEngine;
 
 public class CardTest : MonoBehaviour
@@ -13,8 +14,13 @@ public class CardTest : MonoBehaviour
     private RedSlime redSlimeInfo;
     private VioletSlime violetSlimeInfo;
     private YellowSlime yellowSlimeInfo;
+    private BrownSlime brownSlimeInfo;
+    private OrangeSlime orangeSlimeInfo;
+    private TemporaryMonster temporarySlimeInfo;
+    private Monster monsterPrefab;
     private readonly int ANY_MAX_DAMAGE = 3;
     private readonly int ANY_MAX_HEALTH = 5;
+    private static readonly string FIELD_MONSTER_PREFAB = "Prefabs/FieldMonster";
 
     [SetUp]
     public void Setup()
@@ -23,7 +29,14 @@ public class CardTest : MonoBehaviour
         card = new GameObject().AddComponent<MonsterCard>();
         hand = TestHelper.GetHand();
         cardDragger = TestHelper.GetCardDragger();
+        monsterPrefab = Resources.Load<Monster>(FIELD_MONSTER_PREFAB);
         CreateMonsterCardInfo();
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        FindObjectsOfType<Room>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
     public void CreateMonsterCardInfo()
@@ -38,16 +51,28 @@ public class CardTest : MonoBehaviour
 
         redSlimeInfo = ScriptableObject.CreateInstance<RedSlime>();
         redSlimeInfo.damage = 1;
-        redSlimeInfo.health = 3;
+        redSlimeInfo.health = 2;
 
         violetSlimeInfo = ScriptableObject.CreateInstance<VioletSlime>();
         violetSlimeInfo.damage = 1;
         violetSlimeInfo.health = 1;
 
+        temporarySlimeInfo = ScriptableObject.CreateInstance<TemporaryMonster>();
+        temporarySlimeInfo.damage = 2;
+        temporarySlimeInfo.health = 2;
+
         yellowSlimeInfo = ScriptableObject.CreateInstance<YellowSlime>();
         yellowSlimeInfo.damage = 5;
         yellowSlimeInfo.health = 5;
-        yellowSlimeInfo.slimePrefab = new GameObject().AddComponent<Monster>();
+        yellowSlimeInfo.tempMonsterCardInfo = temporarySlimeInfo;
+
+        brownSlimeInfo = ScriptableObject.CreateInstance<BrownSlime>();
+        brownSlimeInfo.damage = 2;
+        brownSlimeInfo.health = 5;
+
+        orangeSlimeInfo = ScriptableObject.CreateInstance<OrangeSlime>();
+        orangeSlimeInfo.damage = 2;
+        orangeSlimeInfo.health = 4;
     }
 
     [Test]
@@ -59,9 +84,9 @@ public class CardTest : MonoBehaviour
         card.SetCardInfo(graySlimeInfo);
         cardManager.AddCommonCard(graySlimeInfo);
         cardManager.AddRareCard(graySlimeInfo);
-        var newMonster = Instantiate(card.GetMonsterPrefab());
+        var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = graySlimeInfo;
-        newMonster.SetupStats(graySlimeInfo.GetDamage(), graySlimeInfo.GetHealth());
+        newMonster.Setup(graySlimeInfo.GetDamage(), graySlimeInfo.GetHealth());
 
         // Act
         newMonster.Exit();
@@ -79,13 +104,13 @@ public class CardTest : MonoBehaviour
         var cardManager = new GameObject().AddComponent<CardManager>();
         cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(pinkySlimeInfo);
-        var newMonster = Instantiate(card.GetMonsterPrefab());
+        var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = pinkySlimeInfo;
         var room = new GameObject().AddComponent<Room>();
 
         // Act
         newMonster.Entrance();
-        newMonster.SetupStats(pinkySlimeInfo.GetDamage(), pinkySlimeInfo.GetHealth());
+        newMonster.Setup(pinkySlimeInfo.GetDamage(), pinkySlimeInfo.GetHealth());
 
         // 
         Assert.AreEqual(4, newMonster.GetComponent<Damage>().maxCount);
@@ -93,23 +118,23 @@ public class CardTest : MonoBehaviour
     }
 
     [Test]
-    public void UsingRedSlime_Exit_ExpectPlayerIsDealt2DamageAndStatIs1_3()
+    public void UsingRedSlime_Exit_ExpectPlayerIsDealt2DamageAndStatIs1_2()
     {
         // Arrange
         var cardManager = new GameObject().AddComponent<CardManager>();
         cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(redSlimeInfo);
-        var newMonster = Instantiate(card.GetMonsterPrefab());
+        var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = redSlimeInfo;
 
         // Act
-        newMonster.SetupStats(redSlimeInfo.GetDamage(), redSlimeInfo.GetHealth());
+        newMonster.Setup(redSlimeInfo.GetDamage(), redSlimeInfo.GetHealth());
         newMonster.Exit();
 
         // 
         Assert.AreEqual(ANY_MAX_HEALTH - 2, player.GetComponent<Health>().GetCurrentHealth());
         Assert.AreEqual(1, newMonster.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(3, newMonster.GetComponent<Health>().maxCount);
+        Assert.AreEqual(2, newMonster.GetComponent<Health>().maxCount);
     }
 
     [Test]
@@ -119,12 +144,12 @@ public class CardTest : MonoBehaviour
         var cardManager = new GameObject().AddComponent<CardManager>();
         cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(violetSlimeInfo);
-        var newMonster = Instantiate(card.GetMonsterPrefab());
+        var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = violetSlimeInfo;
 
         // Act
         newMonster.Entrance();
-        newMonster.SetupStats(violetSlimeInfo.GetDamage(), violetSlimeInfo.GetHealth());
+        newMonster.Setup(violetSlimeInfo.GetDamage(), violetSlimeInfo.GetHealth());
 
         // 
         Assert.AreEqual(ANY_MAX_DAMAGE - 1, player.GetComponent<Damage>().GetDamage());
@@ -142,17 +167,93 @@ public class CardTest : MonoBehaviour
         var cardManager = new GameObject().AddComponent<CardManager>();
         cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(yellowSlimeInfo);
-        var newMonster = Instantiate(card.GetMonsterPrefab());
+        var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = yellowSlimeInfo;
         newMonster.transform.SetParent(room.transform);
 
         // Act
-        newMonster.SetupStats(yellowSlimeInfo.GetDamage(), yellowSlimeInfo.GetHealth());
+        newMonster.Setup(yellowSlimeInfo.GetDamage(), yellowSlimeInfo.GetHealth());
         newMonster.Exit();
 
         //
         Assert.AreEqual(4, room.transform.childCount);
         Assert.AreEqual(5, newMonster.GetComponent<Damage>().maxCount);
         Assert.AreEqual(5, newMonster.GetComponent<Health>().maxCount);
+    }
+
+    [Test]
+    public void UsingBrownSlime_SetStats_ExpectAndStatIs2_5()
+    {
+        // Arrange
+        var cardManager = new GameObject().AddComponent<CardManager>();
+        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
+        card.SetCardInfo(brownSlimeInfo);
+        var newMonster = Instantiate(monsterPrefab);
+        newMonster.cardInfo = brownSlimeInfo;
+
+        // Act
+        newMonster.Setup(brownSlimeInfo.GetDamage(), brownSlimeInfo.GetHealth());
+
+        // 
+        Assert.AreEqual(2, newMonster.GetComponent<Damage>().maxCount);
+        Assert.AreEqual(5, newMonster.GetComponent<Health>().maxCount);
+    }
+
+    [Test]
+    public void UsingBrownSlime_Engage_ExpectAndStatIs3_6()
+    {
+        // Arrange
+        var cardManager = new GameObject().AddComponent<CardManager>();
+        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
+        card.SetCardInfo(brownSlimeInfo);
+        var newMonster = Instantiate(monsterPrefab);
+        var room = TestHelper.GetRoom();
+        newMonster.transform.SetParent(room.transform);
+        newMonster.cardInfo = brownSlimeInfo;
+
+        // Act
+        newMonster.Setup(brownSlimeInfo.GetDamage(), brownSlimeInfo.GetHealth());
+        newMonster.Engage();
+
+        // 
+        Assert.AreEqual(3, newMonster.GetComponent<Damage>().maxCount);
+        Assert.AreEqual(6, newMonster.GetComponent<Health>().maxCount);
+    }
+
+    [Test]
+    public void UsingOrangeSlime_SetStats_ExpectAndStatIs2_4()
+    {
+        // Arrange
+        var cardManager = new GameObject().AddComponent<CardManager>();
+        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
+        card.SetCardInfo(orangeSlimeInfo);
+        var newMonster = Instantiate(monsterPrefab);
+        newMonster.cardInfo = orangeSlimeInfo;
+
+        // Act
+        newMonster.Setup(orangeSlimeInfo.GetDamage(), orangeSlimeInfo.GetHealth());
+
+        // 
+        Assert.AreEqual(2, newMonster.GetComponent<Damage>().maxCount);
+        Assert.AreEqual(4, newMonster.GetComponent<Health>().maxCount);
+    }
+
+    [Test]
+    public void UsingTemporarySlime_SetStats_ExpectAndStatIs2_2()
+    {
+        // Arrange
+        var cardManager = new GameObject().AddComponent<CardManager>();
+        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
+        card.SetCardInfo(temporarySlimeInfo);
+        var newMonster = Instantiate(monsterPrefab);
+        newMonster.cardInfo = temporarySlimeInfo;
+
+        // Act
+        newMonster.Setup(temporarySlimeInfo.GetDamage(), temporarySlimeInfo.GetHealth());
+
+        // 
+        Assert.AreEqual(2, newMonster.GetComponent<Damage>().maxCount);
+        Assert.AreEqual(2, newMonster.GetComponent<Health>().maxCount);
+        Assert.AreEqual(true, newMonster.isTemporary);
     }
 }

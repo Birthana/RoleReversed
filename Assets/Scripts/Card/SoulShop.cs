@@ -4,24 +4,34 @@ using UnityEngine;
 
 public class SoulShop : MonoBehaviour
 {
+    public List<OptionInfo> optionInfos = new List<OptionInfo>();
     public Option optionPrefab;
     public float SPACING = 5.0f;
+    private static readonly string OPTIONS_FILE_PATH = "Prefabs/Options";
     private List<Option> options = new List<Option>();
     private IMouseWrapper mouse;
 
-    public void SetMouseWrapper(IMouseWrapper wrapper)
-    {
-        mouse = wrapper;
-    }
+    public void SetMouseWrapper(IMouseWrapper wrapper) { mouse = wrapper; }
 
     private void Awake()
     {
         SetMouseWrapper(new MouseWrapper());
+        LoadOptionInfos(OPTIONS_FILE_PATH);
     }
+
+    private void LoadOptionInfos(string path)
+    {
+        var resourceOptionInfos = Resources.LoadAll<OptionInfo>(path);
+        foreach (var resourceOptionInfo in resourceOptionInfos)
+        {
+            optionInfos.Add(resourceOptionInfo);
+        }
+    }
+
 
     public void Update()
     {
-        if (!mouse.PlayerPressesLeftClick() || !mouse.IsOnOpenSoulShop())
+        if (PlayerDoesNotClickOnShop())
         {
             return;
         }
@@ -35,9 +45,11 @@ public class SoulShop : MonoBehaviour
         OpenShop();
     }
 
-    private void CloseShop() { HideOptions(); }
+    private bool PlayerDoesNotClickOnShop() { return (!mouse.PlayerPressesLeftClick() || !mouse.IsOnOpenSoulShop()); }
 
-    private void OpenShop()
+    public void CloseShop() { HideOptions(); }
+
+    public void OpenShop()
     {
         if (!ShopIsEmpty())
         {
@@ -67,8 +79,15 @@ public class SoulShop : MonoBehaviour
         {
             var newOption = Instantiate(optionPrefab);
             newOption.transform.SetParent(transform);
+            var rngOptionInfo = GetRandomOptionInfo();
+            newOption.SetOptionInfo(rngOptionInfo);
             options.Add(newOption);
         }
+    }
+
+    public OptionInfo GetRandomOptionInfo()
+    {
+        return optionInfos[Random.Range(0, optionInfos.Count)];
     }
 
     private void DisplayOptions()
@@ -80,10 +99,7 @@ public class SoulShop : MonoBehaviour
         }
     }
 
-    private bool ShopIsEmpty()
-    {
-        return options.Count == 0;
-    }
+    private bool ShopIsEmpty() { return options.Count == 0; }
 
     public bool IsOpen()
     {

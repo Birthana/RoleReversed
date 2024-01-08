@@ -4,6 +4,7 @@ using UnityEngine;
 public class Pack : MonoBehaviour
 {
     public int numberOfCards = 5;
+    private List<CardInfo> cardInfos = new List<CardInfo>();
     private List<Card> cards = new List<Card>();
     private IMouseWrapper mouseWrapper;
 
@@ -28,23 +29,34 @@ public class Pack : MonoBehaviour
         return totalCost;
     }
 
-    public void CreateRarityPack()
+    public void LoadStarterPack()
     {
         var rngCards = FindObjectOfType<CardManager>();
-        cards.Add(rngCards.CreateRareCard());
-        cards.Add(rngCards.CreateRoomCard());
-        cards.Add(rngCards.CreateMonsterCard());
-        for (int i = 0; i < numberOfCards - 3; i++)
-        {
-            cards.Add(rngCards.CreateCommonCard());
-        }
+        cardInfos = rngCards.GetValidStarterCardInfos(TotalCostIsGreaterThanThree);
+    }
+
+    public void LoadRandomRarePack()
+    {
+        var rngCards = FindObjectOfType<CardManager>();
+        cardInfos.Add(rngCards.GetRareCardInfo());
     }
 
     public void CreateStarterPack()
     {
+        LoadStarterPack();
+        cards = FindObjectOfType<CardManager>().CreateCards(cardInfos);
+    }
+
+    public void LoadRandomMonster()
+    {
         var rngCards = FindObjectOfType<CardManager>();
-        var cardInfos = rngCards.GetValidCardInfos(TotalCostIsGreaterThanThree);
-        cards = rngCards.CreateCards(cardInfos);
+        cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIsMonster));
+    }
+
+    public void LoadRandomRoom()
+    {
+        var rngCards = FindObjectOfType<CardManager>();
+        cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIsRoom));
     }
 
     private bool TotalCostIsGreaterThanThree(List<CardInfo> cardInfos)
@@ -65,17 +77,43 @@ public class Pack : MonoBehaviour
 
     public void Update()
     {
-        if (PlayerClicksOnPack())
+        if (PlayerClicksOnAPack())
         {
-            CreateStarterPack();
+            if(PackIsNotClicked())
+            {
+                return;
+            }
+
             OpenPack();
-            DestroyImmediate(gameObject);
         }
     }
 
-    public int GetSize() { return cards.Count; }
-
     private void OpenPack()
+    {
+        cards = FindObjectOfType<CardManager>().CreateCards(cardInfos);
+        AddPackToHand();
+        DestroyImmediate(gameObject);
+    }
+
+    private bool PackIsNotClicked()
+    {
+        var clickedPack = mouseWrapper.GetHitComponent<Pack>();
+        if (clickedPack == null)
+        {
+            return true;
+        }
+
+        return !PackIsSame(clickedPack);
+    }
+
+    private bool PackIsSame(Pack clickedPack)
+    {
+        return clickedPack.gameObject.Equals(gameObject);
+    }
+
+    public int GetSize() { return cardInfos.Count; }
+
+    private void AddPackToHand()
     {
         var hand = FindObjectOfType<Hand>();
         foreach (var card in cards)
@@ -84,5 +122,5 @@ public class Pack : MonoBehaviour
         }
     }
 
-    private bool PlayerClicksOnPack() { return mouseWrapper.PlayerPressesLeftClick() && mouseWrapper.IsOnPack(); }
+    private bool PlayerClicksOnAPack() { return mouseWrapper.PlayerPressesLeftClick() && mouseWrapper.IsOnPack(); }
 }

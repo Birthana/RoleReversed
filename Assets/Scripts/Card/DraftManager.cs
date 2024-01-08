@@ -5,6 +5,7 @@ public class DraftManager : MonoBehaviour
 {
     public float SPACING = 10;
     private List<DraftCard> draftCards = new List<DraftCard>();
+    private int NUMBER_OF_DRAFT_CARDS = 3;
     private static readonly string DRAFT_CARD_FILE_PATH = "Prefabs/DraftCard";
     private DraftCard draftCardPrefab;
     private IMouseWrapper mouseWrapper;
@@ -20,59 +21,52 @@ public class DraftManager : MonoBehaviour
         mouseWrapper = wrapper;
     }
 
+    private bool PlayerClicksOnDraftCard() { return mouseWrapper.PlayerPressesLeftClick() && mouseWrapper.IsOnDraft(); }
+
     public void Update()
     {
-        if (mouseWrapper.PlayerPressesLeftClick() && mouseWrapper.IsOnDraft())
+        if (PlayerClicksOnDraftCard())
         {
-            var draftCard = mouseWrapper.GetHitComponent<DraftCard>();
-            var cardInfo = draftCard.GetCardInfo();
-            var newCard = FindObjectOfType<CardManager>().CreateCard(cardInfo);
-            FindObjectOfType<Hand>().Add(newCard);
-            var allDraftCards = FindObjectsOfType<DraftCard>();
-            foreach (var card in allDraftCards)
-            {
-                DestroyImmediate(card.gameObject);
-            }
-            draftCards = new List<DraftCard>();
+            AddDraftCardToHand();
+            ClearDraftCards();
         }
     }
 
-    private bool CardInfoIsNotUnique(CardInfo cardInfo)
+    private void AddDraftCardToHand()
     {
-        if (draftCards.Count == 0)
+        var chosenCard = mouseWrapper.GetHitComponent<DraftCard>();
+        var cardToAdd = FindObjectOfType<CardManager>().CreateCard(chosenCard.GetCardInfo());
+        FindObjectOfType<Hand>().Add(cardToAdd);
+    }
+
+    private void ClearDraftCards()
+    {
+        foreach (var card in FindObjectsOfType<DraftCard>())
         {
-            return false;
+            DestroyImmediate(card.gameObject);
         }
 
-        foreach (var draftCard in draftCards)
-        {
-            if (draftCard.GetCardInfo().Equals(cardInfo))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        draftCards = new List<DraftCard>();
     }
 
     public int GetCount() { return draftCards.Count; }
 
     public void Draft()
     {
-        var cardManager = FindObjectOfType<CardManager>();
-        for(int i = 0; i < 3; i++)
+        var cardInfos = FindObjectOfType<CardManager>().GetUniqueCardInfos(NUMBER_OF_DRAFT_CARDS);
+        for (int i = 0; i < cardInfos.Count; i++)
         {
-            CardInfo cardInfo;
-            do
-            {
-                cardInfo = cardManager.GetValidCard(CardInfoIsValid);
-            } while (CardInfoIsNotUnique(cardInfo));
-            var newDraftCard = Instantiate(draftCardPrefab, transform);
-            newDraftCard.SetCardInfo(cardInfo);
-            draftCards.Add(newDraftCard);
+            CreateDraftCard(cardInfos[i]);
         }
 
         DisplayDraftCards();
+    }
+
+    private void CreateDraftCard(CardInfo cardInfo)
+    {
+        var newDraftCard = Instantiate(draftCardPrefab, transform);
+        newDraftCard.SetCardInfo(cardInfo);
+        draftCards.Add(newDraftCard);
     }
 
     private void DisplayDraftCards()
@@ -82,10 +76,5 @@ public class DraftManager : MonoBehaviour
         {
             draftCards[i].transform.localPosition = centerPosition.GetHorizontalOffsetPositionAt(i);
         }
-    }
-
-    private bool CardInfoIsValid(CardInfo cardInfo)
-    {
-        return true;
     }
 }

@@ -16,7 +16,7 @@ public class PinkySlime : MonsterCardInfo
         return newHealth;
     }
 
-    public override void Entrance()
+    public override void Entrance(Character self)
     {
         int roomCount = FindObjectsOfType<Room>().Length;
         newDamage = damage + (2 * roomCount);

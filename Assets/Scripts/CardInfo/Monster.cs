@@ -11,8 +11,21 @@ public class Monster : Character
         base.Awake();
     }
 
-    public void SetupStats(int damage, int health)
+    public void Setup(MonsterCardInfo monsterCardInfo)
     {
+        cardInfo = monsterCardInfo;
+        GetComponent<SpriteRenderer>().sprite = cardInfo.fieldSprite;
+        Entrance();
+        Setup(cardInfo.GetDamage(), cardInfo.GetHealth());
+    }
+
+    public void Setup(int damage, int health)
+    {
+        if (cardInfo is TemporaryMonster)
+        {
+            isTemporary = true;
+        }
+
         GetComponent<Damage>().maxCount = damage;
         GetComponent<Damage>().ResetDamage();
         GetComponent<Health>().maxCount = health;
@@ -23,7 +36,7 @@ public class Monster : Character
     {
         if(cardInfo != null)
         {
-            cardInfo.Entrance();
+            cardInfo.Entrance(this);
         }
     }
 
@@ -31,7 +44,7 @@ public class Monster : Character
     {
         if (cardInfo != null)
         {
-            cardInfo.Engage();
+            cardInfo.Engage(this);
         }
     }
 
@@ -45,18 +58,28 @@ public class Monster : Character
 
     public IEnumerator Attack(Character character)
     {
+        yield return PlayAttackAnimation();
         character.TakeDamage(GetDamage());
         var spriteRender = character.GetComponent<SpriteRenderer>();
         var damageAnimation = new DamageAnimation(spriteRender, Color.red, 0.1f);
         yield return StartCoroutine(damageAnimation.AnimateFromStartToEnd());
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(damageAnimation.AnimateFromEndToStart());
+        Engage();
         if (character.IsDead())
         {
             FindObjectOfType<GameManager>().ResetPlayer();
             yield break;
         }
+    }
 
-        Engage();
+    private IEnumerator PlayAttackAnimation()
+    {
+        var hoverAnimation = GetComponent<HoverAnimation>();
+        hoverAnimation.ResetHoverAnimation();
+        hoverAnimation.Hover(transform, new Vector2(-0.5f, 0), 0.1f);
+        yield return new WaitForSeconds(0.1f);
+        hoverAnimation.PerformReturn();
+        yield return new WaitForSeconds(0.1f);
     }
 }

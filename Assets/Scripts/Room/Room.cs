@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Capacity))]
 public class Room : MonoBehaviour
 {
+    private static readonly string FIELD_MONSTER_PREFAB = "Prefabs/FieldMonster";
     public List<Monster> monsters = new List<Monster>();
     public Vector2 MONSTER_OFFSET = new Vector2(2, 0);
     public float SPACING;
@@ -31,12 +32,6 @@ public class Room : MonoBehaviour
                 continue;
             }
 
-            var hoverAnimation = monster.GetComponent<HoverAnimation>();
-            hoverAnimation.ResetHoverAnimation();
-            hoverAnimation.Hover(monster.transform, new Vector2(-0.5f, 0), 0.1f);
-            yield return new WaitForSeconds(0.1f);
-            hoverAnimation.PerformReturn();
-            yield return new WaitForSeconds(0.1f);
             yield return monster.Attack(character);
         }
     }
@@ -83,9 +78,7 @@ public class Room : MonoBehaviour
     {
         if (monster.isTemporary)
         {
-            monsters.Remove(monster);
-            Destroy(monster.gameObject);
-            DisplayMonsters();
+            RemoveTemporaryMonster(monster);
             return;
         }
 
@@ -93,20 +86,36 @@ public class Room : MonoBehaviour
         monster.Exit();
     }
 
+    private void RemoveTemporaryMonster(Monster monster)
+    {
+        monsters.Remove(monster);
+        Destroy(monster.gameObject);
+        DisplayMonsters();
+    }
+
     public Monster GetRandomMonster()
     {
-        Monster monster = null;
+        if(monsters.Count == 0)
+        {
+            return null;
+        }
+
+        return GetAliveRandomMonster();
+    }
+
+    private Monster GetAliveRandomMonster()
+    {
+        Monster monster;
         do
         {
             var rngIndex = Random.Range(0, monsters.Count);
-            if (!monsters[rngIndex].IsDead())
-            {
-                monster = monsters[rngIndex];
-            }
-        } while (monster == null);
+            monster = monsters[rngIndex];
+        } while (MonsterIsDead(monster));
 
         return monster;
     }
+
+    private bool MonsterIsDead(Monster monster) { return monster.IsDead(); }
 
     public Room GetNextRoom()
     {
@@ -127,5 +136,24 @@ public class Room : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void SpawnMonster(MonsterCardInfo monsterCardInfo)
+    {
+        CreateMonster(monsterCardInfo);
+        ReduceCapacity(1);
+    }
+
+    public void SpawnTemporaryMonster(MonsterCardInfo monsterCardInfo)
+    {
+        CreateMonster(monsterCardInfo);
+    }
+
+    private void CreateMonster(MonsterCardInfo monsterCardInfo)
+    {
+        var monsterPrefab = Resources.Load<Monster>(FIELD_MONSTER_PREFAB);
+        var monster = Instantiate(monsterPrefab, transform);
+        monster.Setup(monsterCardInfo);
+        Add(monster);
     }
 }

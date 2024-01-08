@@ -4431,6 +4431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098d63a60fb51134fa8daa7935851b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionInfos: []
   optionPrefab: {fileID: 2590861047659745027, guid: ddd9b14dc9ec37642bb5452e84a9437b, type: 3}
   SPACING: 50
 --- !u!61 &2085048933

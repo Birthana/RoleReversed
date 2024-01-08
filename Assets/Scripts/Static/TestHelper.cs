@@ -122,4 +122,32 @@ public static class TestHelper
         selectionScreen.SetMaxSelection(3);
         return selectionScreen;
     }
+
+    public static Option GetOption()
+    {
+        var option = new GameObject().AddComponent<Option>();
+        var cost = new GameObject().AddComponent<TextMeshPro>();
+        cost.transform.SetParent(option.transform);
+        var description = new GameObject().AddComponent<TextMeshPro>();
+        description.transform.SetParent(option.transform);
+        return option;
+    }
+
+    public static StarterPack GetStarterPackOptionInfo()
+    {
+        var optionInfo = ScriptableObject.CreateInstance<StarterPack>();
+        optionInfo.cost = 1;
+        optionInfo.description = "ANY_TEXT";
+        optionInfo.packPrefab = new GameObject().AddComponent<Pack>();
+        return optionInfo;
+    }
+
+    public static RandomMonster GetRandomMonsterOptionInfo()
+    {
+        var oneCardPackOptionInfo = ScriptableObject.CreateInstance<RandomMonster>();
+        oneCardPackOptionInfo.cost = 1;
+        oneCardPackOptionInfo.description = "ANY_TEXT";
+        oneCardPackOptionInfo.packPrefab = new GameObject().AddComponent<Pack>();
+        return oneCardPackOptionInfo;
+    }
 }

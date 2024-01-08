@@ -18,6 +18,8 @@ public class MouseWrapper : IMouseWrapper
 
     public bool IsOnOpenSoulShop() { return Mouse.IsOnOpenSoulShop(); }
 
+    public bool IsOnOption() { return Mouse.IsOnOption(); }
+
     public ComponentType GetHitComponent<ComponentType>() { return Mouse.GetHitComponent<ComponentType>(); }
 
     public bool IsOnSelection() { return Mouse.IsOnSelection(); }

@@ -19,19 +19,6 @@ public class PackTest
     }
 
     [Test]
-    public void UsingPack_CreateRarityPack_Expect5Cards()
-    {
-        // Arrange
-        var pack = new GameObject().AddComponent<Pack>();
-
-        // Act
-        pack.CreateRarityPack();
-
-        // Assert
-        Assert.AreEqual(5, pack.GetSize());
-    }
-
-    [Test]
     public void UsingPack_CreateStarterPack_Expect2Cards()
     {
         // Arrange
@@ -64,7 +51,9 @@ public class PackTest
         var pack = new GameObject().AddComponent<Pack>();
         mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
         mock.Setup(x => x.IsOnPack()).Returns(true);
+        mock.Setup(x => x.GetHitComponent<Pack>()).Returns(pack);
         pack.SetMouseWrapper(mock.Object);
+        pack.LoadStarterPack();
 
         // Act
         pack.Update();
@@ -80,6 +69,7 @@ public class PackTest
         var pack = new GameObject().AddComponent<Pack>();
         mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
         mock.Setup(x => x.IsOnPack()).Returns(true);
+        mock.Setup(x => x.GetHitComponent<Pack>()).Returns(pack);
         pack.SetMouseWrapper(mock.Object);
 
         // Act
@@ -87,5 +77,27 @@ public class PackTest
 
         // Assert
         Assert.AreEqual(true, pack.GetTotalCost() <= 3);
+    }
+
+    [Test]
+    public void UsingTwoPacks_ClickOnPack_Expect2CardsInHand()
+    {
+        // Arrange
+        var pack1 = new GameObject().AddComponent<Pack>();
+        var pack2 = new GameObject().AddComponent<Pack>();
+        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
+        mock.Setup(x => x.IsOnPack()).Returns(true);
+        mock.Setup(x => x.GetHitComponent<Pack>()).Returns(pack1);
+        pack1.SetMouseWrapper(mock.Object);
+        pack1.LoadStarterPack();
+        pack2.SetMouseWrapper(mock.Object);
+        pack2.LoadStarterPack();
+
+        // Act
+        pack1.Update();
+        pack2.Update();
+
+        // Assert
+        Assert.AreEqual(2, hand.hand.Count);
     }
 }

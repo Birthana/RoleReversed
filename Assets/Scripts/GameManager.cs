@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
     private void SpawnPackInRandomSpot()
     {
         var newPack = Instantiate(packPrefab);
+        newPack.LoadStarterPack();
         newPack.transform.position = new Vector3(Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 0);
     }
 

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1bf6471e9e2aca4395a4b8debbc9154, type: 3}
+  m_Name: TemporaryYellowSlime
+  m_EditorClassIdentifier: 
+  cardName: Temp Slime
+  cardSprite: {fileID: 0}
+  fieldSprite: {fileID: -230130822, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
+  cost: 0
+  effectDescription: 
+  damage: 2
+  health: 2
