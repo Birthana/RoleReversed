@@ -27,16 +27,16 @@ public class DraftManager : MonoBehaviour
     {
         if (PlayerClicksOnDraftCard())
         {
-            AddDraftCardToHand();
+            AddDraftCardToDeck();
             ClearDraftCards();
         }
     }
 
-    private void AddDraftCardToHand()
+    private void AddDraftCardToDeck()
     {
         var chosenCard = mouseWrapper.GetHitComponent<DraftCard>();
-        var cardToAdd = FindObjectOfType<CardManager>().CreateCard(chosenCard.GetCardInfo());
-        FindObjectOfType<Hand>().Add(cardToAdd);
+        FindObjectOfType<Deck>().Add(chosenCard.GetCardInfo());
+        FindObjectOfType<Deck>().DrawCardToHand();
     }
 
     private void ClearDraftCards()

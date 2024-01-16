@@ -11,6 +11,7 @@ public class OptionTest : MonoBehaviour
     private PlayerSoulCounter playerSoulCount;
     private Option option;
     private OptionInfo optionInfo;
+    private Deck deck;
     private Mock<IMouseWrapper> mock;
 
     [SetUp]
@@ -22,6 +23,7 @@ public class OptionTest : MonoBehaviour
         playerSoulCount.IncreaseSouls();
         option = TestHelper.GetOption();
         optionInfo = TestHelper.GetStarterPackOptionInfo();
+        deck = TestHelper.GetDeck();
         mock = new Mock<IMouseWrapper>(MockBehavior.Strict);
     }
 

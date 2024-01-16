@@ -79,6 +79,8 @@ public class CardTest : MonoBehaviour
     public void UsingGraySlime_Exit_ExpectHandIs1AndStatIs3_3()
     {
         // Arrange
+        var deck = TestHelper.GetDeck();
+        deck.Add(graySlimeInfo);
         var cardManager = new GameObject().AddComponent<CardManager>();
         cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(graySlimeInfo);
@@ -92,7 +94,7 @@ public class CardTest : MonoBehaviour
         newMonster.Exit();
 
         // Assert
-        Assert.AreEqual(1, hand.hand.Count);
+        Assert.AreEqual(0, deck.GetSize());
         Assert.AreEqual(3, newMonster.GetComponent<Damage>().maxCount);
         Assert.AreEqual(3, newMonster.GetComponent<Health>().maxCount);
     }

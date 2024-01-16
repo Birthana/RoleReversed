@@ -9,6 +9,7 @@ public class RandomMonster : OptionInfo
     {
         var pack = Instantiate(packPrefab);
         pack.LoadRandomMonster();
+        pack.SetDrawOnOpen();
         base.Choose();
     }
 }

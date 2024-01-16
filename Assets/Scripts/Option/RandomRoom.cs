@@ -11,6 +11,7 @@ public class RandomRoom : OptionInfo
     {
         var pack = Instantiate(packPrefab);
         pack.LoadRandomRoom();
+        pack.SetDrawOnOpen();
         base.Choose();
     }
 }

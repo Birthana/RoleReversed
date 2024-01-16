@@ -8,6 +8,7 @@ public class PackTest
     private CardManager cardManager;
     private Hand hand;
     private CardDragger cardDragger;
+    private Deck deck;
 
     [SetUp]
     public void Setup()
@@ -15,6 +16,7 @@ public class PackTest
         cardManager = TestHelper.GetCardManager();
         hand = TestHelper.GetHand();
         cardDragger = TestHelper.GetCardDragger();
+        deck = TestHelper.GetDeck();
         mock = new Mock<IMouseWrapper>(MockBehavior.Strict);
     }
 

@@ -8,7 +8,7 @@ public class StarterPack : OptionInfo
     public override void Choose()
     {
         var pack = Instantiate(packPrefab);
-        pack.LoadStarterPack();
+        pack.LoadBasicPack();
         base.Choose();
     }
 }

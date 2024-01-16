@@ -68,7 +68,12 @@ public static class TestHelper
         return roomCard;
     }
 
-    private static MonsterCardInfo GetMonsterCardInfo(string cardName, string cardEffect)
+    public static MonsterCardInfo GetAnyMonsterCardInfo()
+    {
+        return GetMonsterCardInfo(ANY_CARD_NAME_1, ANY_CARD_TEXT);
+    }
+
+    public static MonsterCardInfo GetMonsterCardInfo(string cardName, string cardEffect)
     {
         var monsterCardInfo = ScriptableObject.CreateInstance<MonsterCardInfo>();
         monsterCardInfo.cardName = cardName;
@@ -137,7 +142,7 @@ public static class TestHelper
     {
         var optionInfo = ScriptableObject.CreateInstance<StarterPack>();
         optionInfo.cost = 1;
-        optionInfo.description = "ANY_TEXT";
+        optionInfo.description = "ANY_TEXT_1";
         optionInfo.packPrefab = new GameObject().AddComponent<Pack>();
         return optionInfo;
     }
@@ -146,8 +151,25 @@ public static class TestHelper
     {
         var oneCardPackOptionInfo = ScriptableObject.CreateInstance<RandomMonster>();
         oneCardPackOptionInfo.cost = 1;
-        oneCardPackOptionInfo.description = "ANY_TEXT";
+        oneCardPackOptionInfo.description = "ANY_TEXT_2";
         oneCardPackOptionInfo.packPrefab = new GameObject().AddComponent<Pack>();
         return oneCardPackOptionInfo;
+    }
+
+    public static RandomRoom GetRandomRoomOptionInfo()
+    {
+        var oneCardPackOptionInfo = ScriptableObject.CreateInstance<RandomRoom>();
+        oneCardPackOptionInfo.cost = 1;
+        oneCardPackOptionInfo.description = "ANY_TEXT_3";
+        oneCardPackOptionInfo.packPrefab = new GameObject().AddComponent<Pack>();
+        return oneCardPackOptionInfo;
+    }
+
+    public static Deck GetDeck()
+    {
+        var deck = new GameObject().AddComponent<Deck>();
+        deck.monsterCardPrefab = GetMonsterCard();
+        deck.roomCardPrefab = GetRoomCard();
+        return deck;
     }
 }

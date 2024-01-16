@@ -790,7 +790,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488200827}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16, y: 8, z: 0}
+  m_LocalPosition: {x: -16.55, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1085,6 +1085,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &815771740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 815771742}
+  - component: {fileID: 815771741}
+  m_Layer: 0
+  m_Name: Deck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &815771741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815771740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4c4e929e9677142b66069c8dd5047f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterCardPrefab: {fileID: -6711869192912208744, guid: 109b5c9931efac248912025447cef8d2, type: 3}
+  roomCardPrefab: {fileID: -5276209314207143491, guid: 1ccabceff46f8404a8bf6328d70f8c1e, type: 3}
+  cardInfos: []
+--- !u!4 &815771742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815771740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &825913289
 GameObject:
   m_ObjectHideFlags: 0
@@ -4431,6 +4478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098d63a60fb51134fa8daa7935851b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openShop: {fileID: 21300000, guid: 6f7984cf2892b054f876a7e95fc315c8, type: 3}
+  closeShop: {fileID: 21300000, guid: 2350b3fb04564a04ea60fa051c4b1321, type: 3}
   optionInfos: []
   optionPrefab: {fileID: 2590861047659745027, guid: ddd9b14dc9ec37642bb5452e84a9437b, type: 3}
   SPACING: 50
@@ -4447,18 +4496,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.039331913, y: -0.31465507}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 5.714286, y: 5.714286}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 5.153735, y: 3.9999995}
   m_EdgeRadius: 0
 --- !u!212 &2085048934
 SpriteRenderer:
@@ -4501,7 +4550,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -472094947, guid: a600b3e5a26d03b4fb73e9e3d94e2087, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6f7984cf2892b054f876a7e95fc315c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4520,7 +4569,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085048931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12, y: 8, z: 0}
+  m_LocalPosition: {x: -12, y: 8.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

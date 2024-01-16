@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Pack : MonoBehaviour
 {
     public int numberOfCards = 5;
+    private event Action OnOpenPack;
     private List<CardInfo> cardInfos = new List<CardInfo>();
     private List<Card> cards = new List<Card>();
     private IMouseWrapper mouseWrapper;
@@ -33,6 +35,14 @@ public class Pack : MonoBehaviour
     {
         var rngCards = FindObjectOfType<CardManager>();
         cardInfos = rngCards.GetValidStarterCardInfos(TotalCostIsGreaterThanThree);
+        SetDrawOnOpen();
+        SetDrawOnOpen();
+    }
+
+    public void LoadBasicPack()
+    {
+        var rngCards = FindObjectOfType<CardManager>();
+        cardInfos = rngCards.GetValidStarterCardInfos(TotalCostIsGreaterThanThree);
     }
 
     public void LoadRandomRarePack()
@@ -44,7 +54,16 @@ public class Pack : MonoBehaviour
     public void CreateStarterPack()
     {
         LoadStarterPack();
-        cards = FindObjectOfType<CardManager>().CreateCards(cardInfos);
+        CreatePackToHand();
+    }
+
+    private void CreatePackToHand()
+    {
+        var deck = FindObjectOfType<Deck>();
+        foreach (var cardInfo in cardInfos)
+        {
+            deck.Add(cardInfo);
+        }
     }
 
     public void LoadRandomMonster()
@@ -90,9 +109,18 @@ public class Pack : MonoBehaviour
 
     private void OpenPack()
     {
-        cards = FindObjectOfType<CardManager>().CreateCards(cardInfos);
-        AddPackToHand();
+        CreatePackToHand();
+        AddCardsToHand();
+        OnOpenPack?.Invoke();
         DestroyImmediate(gameObject);
+    }
+
+    public void SetDrawOnOpen() { OnOpenPack += DrawCard; }
+
+    private void DrawCard()
+    {
+        FindObjectOfType<Deck>().DrawCardToHand();
+        OnOpenPack -= DrawCard;
     }
 
     private bool PackIsNotClicked()
@@ -113,7 +141,7 @@ public class Pack : MonoBehaviour
 
     public int GetSize() { return cardInfos.Count; }
 
-    private void AddPackToHand()
+    private void AddCardsToHand()
     {
         var hand = FindObjectOfType<Hand>();
         foreach (var card in cards)

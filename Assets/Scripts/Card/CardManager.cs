@@ -31,42 +31,6 @@ public class CardManager : MonoBehaviour
 
     public void AddRareCard(CardInfo card) { rares.Add(card); }
 
-    public Card CreateRandomCard() { return CreateCard(GetRandomCardInfo()); }
-
-    public Card CreateCommonCard() { return CreateCard(GetCommonCardInfo()); }
-
-    public Card CreateRareCard() { return CreateCard(GetRareCardInfo()); }
-
-    public Card CreateCard(CardInfo cardInfo)
-    {
-        var newCard = CreateNewCard(cardInfo);
-        newCard.SetCardInfo(cardInfo);
-        return newCard;
-    }
-
-    public List<Card> CreateCards(List<CardInfo> cardInfos)
-    {
-        var cards = new List<Card>();
-        foreach (var cardInfo in cardInfos)
-        {
-            cards.Add(CreateCard(cardInfo));
-        }
-
-        return cards;
-    }
-
-    private Card CreateNewCard(CardInfo cardInfo) { return Instantiate(GetCardPrefab(cardInfo), transform); }
-
-    private Card GetCardPrefab(CardInfo cardInfo)
-    {
-        if (cardInfo.IsMonster())
-        {
-            return monsterCardPrefab;
-        }
-
-        return roomCardPrefab;
-    }
-
     public bool CardIsCommon(Card card) { return ListContainsCard(commons, card); }
 
     public bool CardIsRare(Card card) { return ListContainsCard(rares, card); }
@@ -84,23 +48,13 @@ public class CardManager : MonoBehaviour
         return false;
     }
 
-    public Card CreateMonsterCard() { return CreateSpecificCard(CardInfoIsLowCostMonster); }
-
     public bool CardInfoIsLowCostMonster(CardInfo cardInfo) { return CardInfoIsMonster(cardInfo) && (cardInfo.cost < 3); }
 
     public bool CardInfoIsMonster(CardInfo cardInfo) { return cardInfo.IsMonster(); }
 
-    public Card CreateRoomCard() { return CreateSpecificCard(CardInfoIsLowCostRoom); }
-
     public bool CardInfoIsLowCostRoom(CardInfo cardInfo) { return CardInfoIsRoom(cardInfo) && (cardInfo.cost < 3); }
 
     public bool CardInfoIsRoom(CardInfo cardInfo) { return cardInfo.IsRoom(); }
-
-    private Card CreateSpecificCard(Func<CardInfo, bool> requirementFunction)
-    {
-        var cardInfo = GetValidCardInfo(requirementFunction);
-        return CreateCard(cardInfo);
-    }
 
     public CardInfo GetValidCardInfo(Func<CardInfo, bool> requirementFunction)
     {
@@ -214,12 +168,19 @@ public class CardManager : MonoBehaviour
 // TODO: Organize Different Managers in a GameObject.
 // TODO: Fix Room Monsters Display when Monsters are dead.
 
-// TODO: Implement Deck Mechanic.
-// TODO: Add new cards.
+// TODO: Refactor Deck.cs
+// TODO: Refactor SoulShop.cs
+// TODO: Add Deck Count.
+// TODO: Add new cards. (Blink/Reentrance trigger & Small Yellow Slime)
 // TODO: Add Monster Soul mechnanic.
+
+// TODO: Create Play Soul Icon.
+// TODO: Create Shop Option BackGround.
 
 // TODO: BUG: Create cards when Hand is full.
 // TODO: Clean up MonsterDraggerTests Mock Setups.
 // TODO: Create New UI with for Counters with Custom Card Numbers.
 // TODO: Animation: Zoom into Room that Battle is happening
+// TODO: Animation: Flip Animation.
+// TODO: Animation: Drawing Cards from Deck. Opening Pack.
 // TODO: Bug: Release with no card selected in CardDragger.cs

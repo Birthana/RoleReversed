@@ -54,9 +54,9 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<ActionManager>().ResetActions();
         ResetAllMonsterStats();
         DestroyAllTempMonsters();
-        //SpawnPackInRandomSpot();
         FindObjectOfType<DraftManager>().Draft();
         FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
+        FindObjectOfType<Deck>().DrawCardToHand();
     }
 
     private void DestroyAllTempMonsters()

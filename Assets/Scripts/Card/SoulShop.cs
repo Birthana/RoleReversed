@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SoulShop : MonoBehaviour
 {
+    public Sprite openShop;
+    public Sprite closeShop;
     public List<OptionInfo> optionInfos = new List<OptionInfo>();
     public Option optionPrefab;
     public float SPACING = 5.0f;
@@ -43,11 +45,27 @@ public class SoulShop : MonoBehaviour
         }
 
         OpenShop();
+        SetSprite(closeShop);
+    }
+
+    private void SetSprite(Sprite sprite)
+    {
+        var renderer = GetComponent<SpriteRenderer>();
+        if (renderer == null)
+        {
+            return;
+        }
+
+        renderer.sprite = sprite;
     }
 
     private bool PlayerDoesNotClickOnShop() { return (!mouse.PlayerPressesLeftClick() || !mouse.IsOnOpenSoulShop()); }
 
-    public void CloseShop() { HideOptions(); }
+    public void CloseShop()
+    {
+        HideOptions();
+        SetSprite(openShop);
+    }
 
     public void OpenShop()
     {
@@ -75,6 +93,11 @@ public class SoulShop : MonoBehaviour
 
     private void CreateNewOptions()
     {
+        CreateNewOptions_();
+    }
+
+    private void CreateNewOptions_()
+    {
         for (int i = 0; i < 3; i++)
         {
             var newOption = Instantiate(optionPrefab);
@@ -85,9 +108,33 @@ public class SoulShop : MonoBehaviour
         }
     }
 
+    private bool OptionInfoIsNotUnique(OptionInfo newOptionInfo)
+    {
+        if (optionInfos.Count < 3 || options.Count == 0)
+        {
+            return false;
+        }
+
+        foreach (var option in options)
+        {
+            if (newOptionInfo.description.Equals(option.GetDescription()))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public OptionInfo GetRandomOptionInfo()
     {
-        return optionInfos[Random.Range(0, optionInfos.Count)];
+        OptionInfo rngOptionInfo;
+        do
+        {
+            rngOptionInfo = optionInfos[Random.Range(0, optionInfos.Count)];
+        } while (OptionInfoIsNotUnique(rngOptionInfo));
+        
+        return rngOptionInfo;
     }
 
     private void DisplayOptions()

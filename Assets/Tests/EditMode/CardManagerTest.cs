@@ -9,9 +9,11 @@ public class CardManagerTest
     {
         // Arrange
         var cardManager = TestHelper.GetCardManager();
+        var deck = TestHelper.GetDeck();
 
         // Act
-        var monsterCard = cardManager.CreateCommonCard();
+        deck.Add(cardManager.GetCommonCardInfo());
+        var monsterCard = deck.Draw();
 
         // Assert
         Assert.AreEqual(true, cardManager.CardIsCommon(monsterCard));
@@ -22,9 +24,11 @@ public class CardManagerTest
     {
         // Arrange
         var cardManager = TestHelper.GetCardManager();
+        var deck = TestHelper.GetDeck();
 
         // Act
-        var roomCard = cardManager.CreateRareCard();
+        deck.Add(cardManager.GetRareCardInfo());
+        var roomCard = deck.Draw();
 
         // Assert
         Assert.AreEqual(true, cardManager.CardIsRare(roomCard));

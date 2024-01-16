@@ -9,18 +9,18 @@ public class DraftManagerTest : MonoBehaviour
     private Mock<IMouseWrapper> mock;
     private DraftManager draftManager;
     private CardManager cardManager;
-    private Hand hand;
     private CardDragger cardDragger;
+    private Deck deck;
     private static readonly int ANY_SPACING = 10;
 
     [SetUp]
     public void Setup()
     {
         mock = new Mock<IMouseWrapper>(MockBehavior.Strict);
-        hand = TestHelper.GetHand();
         draftManager = TestHelper.GetDraftManager(ANY_SPACING);
         cardManager = TestHelper.GetCardManager();
         cardDragger = TestHelper.GetCardDragger();
+        deck = TestHelper.GetDeck();
     }
 
     [TearDown]
@@ -97,7 +97,6 @@ public class DraftManagerTest : MonoBehaviour
         draftManager.Update();
 
         // Assert
-        Assert.AreEqual(1, hand.hand.Count);
         var draftCards = FindObjectsOfType<DraftCard>();
         Assert.AreEqual(0, draftCards.Length);
     }

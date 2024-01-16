@@ -26,7 +26,15 @@ public class Option : MonoBehaviour
 
     public int GetCost() { return optionInfo.cost; }
 
-    public string GetDescription() { return optionInfo.description; }
+    public string GetDescription()
+    {
+        if (optionInfo == null)
+        {
+            return "";
+        }
+
+        return optionInfo.description;
+    }
 
     public void SetPlayerSoulCount()
     {
@@ -50,6 +58,7 @@ public class Option : MonoBehaviour
             }
 
             optionInfo.Choose();
+            optionInfo = null;
             SetOptionInfo(FindObjectOfType<SoulShop>().GetRandomOptionInfo());
         }
     }

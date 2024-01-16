@@ -7,7 +7,7 @@ using TMPro;
 public class SoulShopTest : MonoBehaviour
 {
     public Option option;
-    public OptionInfo optionInfo;
+    public StarterPack optionInfo;
     private SoulShop soulShop;
     private Mock<IMouseWrapper> mock;
 
@@ -173,5 +173,25 @@ public class SoulShopTest : MonoBehaviour
         var expectedOption = FindObjectOfType<Option>();
         Assert.AreEqual(optionInfo.cost, expectedOption.GetCost());
         Assert.AreEqual(optionInfo.description, expectedOption.GetDescription());
+    }
+
+    [Test]
+    public void UsingSoulShop_Update_ExpectDifferentOptionInfos()
+    {
+        // Arrange
+        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
+        mock.Setup(x => x.IsOnOpenSoulShop()).Returns(true);
+        soulShop.SetMouseWrapper(mock.Object);
+        var randomMonsterOptionInfo = TestHelper.GetRandomMonsterOptionInfo();
+        soulShop.optionInfos.Add(randomMonsterOptionInfo);
+        var randomRoomOptionInfo = TestHelper.GetRandomRoomOptionInfo();
+        soulShop.optionInfos.Add(randomRoomOptionInfo);
+
+        // Act
+        soulShop.Update();
+
+        // Assert
+        var expectedOptions = FindObjectsOfType<Option>();
+        Assert.AreEqual(4, expectedOptions.Length);
     }
 }
