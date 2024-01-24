@@ -1,9 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DraftManager : MonoBehaviour
 {
     public float SPACING = 10;
+    public LootAnimation lootAnimation;
     private List<DraftCard> draftCards = new List<DraftCard>();
     private int NUMBER_OF_DRAFT_CARDS = 3;
     private static readonly string DRAFT_CARD_FILE_PATH = "Prefabs/DraftCard";
@@ -34,9 +36,24 @@ public class DraftManager : MonoBehaviour
 
     private void AddDraftCardToDeck()
     {
+        var deck = FindObjectOfType<Deck>();
+        StartCoroutine(AnimateChosenCard(deck));
+    }
+
+    private IEnumerator AnimateChosenCard(Deck deck)
+    {
         var chosenCard = mouseWrapper.GetHitComponent<DraftCard>();
-        FindObjectOfType<Deck>().Add(chosenCard.GetCardInfo());
-        FindObjectOfType<Deck>().DrawCardToHand();
+        deck.Add(chosenCard.GetCardInfo());
+        AnimateCard(chosenCard.GetCardInfo());
+        yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME);
+        deck.DrawCardToHand();
+    }
+
+    private void AnimateCard(CardInfo card)
+    {
+        var animation = Instantiate(lootAnimation);
+        animation.AnimateLoot(card.cardSprite);
+        Destroy(animation.gameObject, LootAnimation.ANIMATION_TIME);
     }
 
     private void ClearDraftCards()

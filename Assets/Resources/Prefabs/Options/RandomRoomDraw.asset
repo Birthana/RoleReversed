@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d515aa8de278324eb30c4913904bb82, type: 3}
-  m_Name: RandomMonster
+  m_Script: {fileID: 11500000, guid: 6ac1cd179e6df0a44ad82da3b762cba3, type: 3}
+  m_Name: RandomRoomDraw
   m_EditorClassIdentifier: 
   cost: 1
   sprite: {fileID: 444981905, guid: edc2b4ba5bc1cd548a4a509923e3ef64, type: 3}
-  description: Spawn 1 Pack with 1 Monster. When open, draw 1.
+  description: Spawn 1 Pack with 1 Room. When open, draw 1.
   packPrefab: {fileID: 4177456929125811513, guid: ba3070f0221f9e143b8c78e828e45009, type: 3}

@@ -147,18 +147,45 @@ public static class TestHelper
         return optionInfo;
     }
 
-    public static RandomMonster GetRandomMonsterOptionInfo()
+    public static RandomMonsterDraw GetRandomMonsterOptionInfo()
     {
-        var oneCardPackOptionInfo = ScriptableObject.CreateInstance<RandomMonster>();
+        var oneCardPackOptionInfo = ScriptableObject.CreateInstance<RandomMonsterDraw>();
         oneCardPackOptionInfo.cost = 1;
         oneCardPackOptionInfo.description = "ANY_TEXT_2";
         oneCardPackOptionInfo.packPrefab = new GameObject().AddComponent<Pack>();
         return oneCardPackOptionInfo;
     }
 
-    public static RandomRoom GetRandomRoomOptionInfo()
+    public static RandomTwoMonsters GetRandomTwoMonstersOptionInfo()
     {
-        var oneCardPackOptionInfo = ScriptableObject.CreateInstance<RandomRoom>();
+        var oneCardPackOptionInfo = ScriptableObject.CreateInstance<RandomTwoMonsters>();
+        oneCardPackOptionInfo.cost = 1;
+        oneCardPackOptionInfo.description = "ANY_TEXT_2";
+        oneCardPackOptionInfo.packPrefab = new GameObject().AddComponent<Pack>();
+        return oneCardPackOptionInfo;
+    }
+
+    public static RandomTwoRooms GetRandomTwoRoomsOptionInfo()
+    {
+        var oneCardPackOptionInfo = ScriptableObject.CreateInstance<RandomTwoRooms>();
+        oneCardPackOptionInfo.cost = 1;
+        oneCardPackOptionInfo.description = "ANY_TEXT_3";
+        oneCardPackOptionInfo.packPrefab = new GameObject().AddComponent<Pack>();
+        return oneCardPackOptionInfo;
+    }
+
+    public static RandomMonsterAction GetRandomMonsterActionOptionInfo()
+    {
+        var oneCardPackOptionInfo = ScriptableObject.CreateInstance<RandomMonsterAction>();
+        oneCardPackOptionInfo.cost = 1;
+        oneCardPackOptionInfo.description = "ANY_TEXT_4";
+        oneCardPackOptionInfo.packPrefab = new GameObject().AddComponent<Pack>();
+        return oneCardPackOptionInfo;
+    }
+
+    public static RandomRoomDraw GetRandomRoomOptionInfo()
+    {
+        var oneCardPackOptionInfo = ScriptableObject.CreateInstance<RandomRoomDraw>();
         oneCardPackOptionInfo.cost = 1;
         oneCardPackOptionInfo.description = "ANY_TEXT_3";
         oneCardPackOptionInfo.packPrefab = new GameObject().AddComponent<Pack>();

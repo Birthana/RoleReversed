@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfCards: 5
+  lootAnimation: {fileID: 1770659344784451318, guid: 33a78d01d7540c349806ddc26bb9153d, type: 3}
 --- !u!95 &4177456929782573083
 Animator:
   serializedVersion: 4

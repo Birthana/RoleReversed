@@ -11,6 +11,7 @@ public class Deck : MonoBehaviour
     public void Add(CardInfo cardInfo)
     {
         cardInfos.Add(cardInfo);
+        GetComponent<DeckCount>().AddToDeck();
     }
 
     public Card Draw()
@@ -24,6 +25,7 @@ public class Deck : MonoBehaviour
         cardInfos.RemoveAt(0);
         var newCard = CreateNewCard(cardInfo);
         newCard.SetCardInfo(cardInfo);
+        GetComponent<DeckCount>().DrawFromDeck();
         return newCard;
     }
 

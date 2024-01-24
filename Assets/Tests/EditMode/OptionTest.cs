@@ -12,6 +12,7 @@ public class OptionTest : MonoBehaviour
     private Option option;
     private OptionInfo optionInfo;
     private Deck deck;
+    private ActionManager actions;
     private Mock<IMouseWrapper> mock;
 
     [SetUp]
@@ -24,6 +25,7 @@ public class OptionTest : MonoBehaviour
         option = TestHelper.GetOption();
         optionInfo = TestHelper.GetStarterPackOptionInfo();
         deck = TestHelper.GetDeck();
+        actions = new GameObject().AddComponent<ActionManager>();
         mock = new Mock<IMouseWrapper>(MockBehavior.Strict);
     }
 
@@ -246,5 +248,68 @@ public class OptionTest : MonoBehaviour
         var expectedPacks = FindObjectsOfType<Pack>();
         Assert.AreEqual(3, expectedPacks.Length);
         Assert.AreEqual(0, playerSoulCount.GetCurrentSouls());
+    }
+
+    [Test]
+    public void Using2RandomMonstersOption_ClickOnOption_ExpectPackWith2Cards()
+    {
+        // Arrange
+        var oneCardPackOptionInfo = TestHelper.GetRandomTwoMonstersOptionInfo();
+        option.SetOptionInfo(oneCardPackOptionInfo);
+        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
+        mock.Setup(x => x.IsOnOption()).Returns(true);
+        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
+        option.SetMouseWrapper(mock.Object);
+        soulShop.optionPrefab = option;
+        soulShop.optionInfos.Add(oneCardPackOptionInfo);
+
+        // Act
+        option.Update();
+
+        // Assert
+        var expectedPacks = FindObjectOfType<Pack>();
+        Assert.AreEqual(2, expectedPacks.GetSize());
+    }
+
+    [Test]
+    public void Using2RandomRoomsOption_ClickOnOption_ExpectPackWith2Cards()
+    {
+        // Arrange
+        var oneCardPackOptionInfo = TestHelper.GetRandomTwoRoomsOptionInfo();
+        option.SetOptionInfo(oneCardPackOptionInfo);
+        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
+        mock.Setup(x => x.IsOnOption()).Returns(true);
+        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
+        option.SetMouseWrapper(mock.Object);
+        soulShop.optionPrefab = option;
+        soulShop.optionInfos.Add(oneCardPackOptionInfo);
+
+        // Act
+        option.Update();
+
+        // Assert
+        var expectedPacks = FindObjectOfType<Pack>();
+        Assert.AreEqual(2, expectedPacks.GetSize());
+    }
+
+    [Test]
+    public void UsingRandomRoomActionOption_ClickOnOption_ExpectPackWith1Card()
+    {
+        // Arrange
+        var oneCardPackOptionInfo = TestHelper.GetRandomMonsterActionOptionInfo();
+        option.SetOptionInfo(oneCardPackOptionInfo);
+        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
+        mock.Setup(x => x.IsOnOption()).Returns(true);
+        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
+        option.SetMouseWrapper(mock.Object);
+        soulShop.optionPrefab = option;
+        soulShop.optionInfos.Add(oneCardPackOptionInfo);
+
+        // Act
+        option.Update();
+
+        // Assert
+        var expectedPacks = FindObjectOfType<Pack>();
+        Assert.AreEqual(1, expectedPacks.GetSize());
     }
 }

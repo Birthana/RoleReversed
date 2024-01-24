@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Option/RandomRoom", fileName = "RandomRoom")]
-public class RandomRoom : OptionInfo
+[CreateAssetMenu(menuName = "Option/RandomTwoRooms", fileName = "RandomTwoRooms")]
+public class RandomTwoRooms : OptionInfo
 {
     public Pack packPrefab;
 
@@ -11,7 +11,7 @@ public class RandomRoom : OptionInfo
     {
         var pack = Instantiate(packPrefab);
         pack.LoadRandomRoom();
-        pack.SetDrawOnOpen();
+        pack.LoadRandomRoom();
         base.Choose();
     }
 }

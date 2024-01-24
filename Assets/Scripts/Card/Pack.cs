@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pack : MonoBehaviour
 {
     public int numberOfCards = 5;
+    public LootAnimation lootAnimation;
     private event Action OnOpenPack;
     private List<CardInfo> cardInfos = new List<CardInfo>();
     private List<Card> cards = new List<Card>();
@@ -60,9 +61,15 @@ public class Pack : MonoBehaviour
     private void CreatePackToHand()
     {
         var deck = FindObjectOfType<Deck>();
-        foreach (var cardInfo in cardInfos)
+        var centerPosition = new CenterPosition(Vector2.zero, cardInfos.Count, 25);
+        for (int index = 0; index < cardInfos.Count; index++)
         {
-            deck.Add(cardInfo);
+            var animation = Instantiate(lootAnimation);
+            animation.transform.position = centerPosition.GetHorizontalOffsetPositionAt(index);
+            animation.SetDelay(0.35f * index);
+            animation.AnimateLoot(cardInfos[index].cardSprite);
+            Destroy(animation.gameObject, LootAnimation.ANIMATION_TIME);
+            deck.Add(cardInfos[index]);
         }
     }
 
@@ -110,12 +117,18 @@ public class Pack : MonoBehaviour
     private void OpenPack()
     {
         CreatePackToHand();
-        AddCardsToHand();
         OnOpenPack?.Invoke();
         DestroyImmediate(gameObject);
     }
 
     public void SetDrawOnOpen() { OnOpenPack += DrawCard; }
+    public void SetGainActionOnOpen() { OnOpenPack += GainAction; }
+
+    private void GainAction()
+    {
+        FindObjectOfType<ActionManager>().AddActions(1);
+        OnOpenPack -= GainAction;
+    }
 
     private void DrawCard()
     {
@@ -140,15 +153,6 @@ public class Pack : MonoBehaviour
     }
 
     public int GetSize() { return cardInfos.Count; }
-
-    private void AddCardsToHand()
-    {
-        var hand = FindObjectOfType<Hand>();
-        foreach (var card in cards)
-        {
-            hand.Add(card);
-        }
-    }
 
     private bool PlayerClicksOnAPack() { return mouseWrapper.PlayerPressesLeftClick() && mouseWrapper.IsOnPack(); }
 }
