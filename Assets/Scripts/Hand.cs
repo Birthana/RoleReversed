@@ -5,6 +5,12 @@ public class Hand : MonoBehaviour
 {
     public List<Card> hand = new List<Card>();
     public float SPACING;
+    private ICardDragger cardDragger;
+
+    public void SetCardDragger(ICardDragger newCardDragger)
+    {
+        cardDragger = newCardDragger;
+    }
 
     public void Add(Card card)
     {
@@ -39,6 +45,12 @@ public class Hand : MonoBehaviour
         {
             hand[i].transform.localPosition = centerPosition.GetHorizontalOffsetPositionAt(i);
         }
-        FindObjectOfType<CardDragger>().ResetHover();
+
+        if (cardDragger == null)
+        {
+            SetCardDragger(FindObjectOfType<CardDragger>());
+        }
+
+        cardDragger.ResetHover();
     }
 }

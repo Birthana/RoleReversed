@@ -1,7 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class CardDragger : MonoBehaviour
+public interface ICardDragger
+{
+    public void UpdateLoop();
+    public void ResetHover();
+}
+
+public class CardDragger : MonoBehaviour, ICardDragger
 {
     private Card selectedCard;
     private Card hoverCard;

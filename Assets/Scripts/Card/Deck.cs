@@ -16,18 +16,27 @@ public class Deck : MonoBehaviour
 
     public Card Draw()
     {
-        if(cardInfos.Count == 0)
+        if (cardInfos.Count == 0)
         {
             return null;
         }
 
-        var cardInfo = cardInfos[0];
-        cardInfos.RemoveAt(0);
-        var newCard = CreateNewCard(cardInfo);
-        newCard.SetCardInfo(cardInfo);
+        var newCard = CreateCardWith(GetTopCard());
+        RemoveTopCard();
         GetComponent<DeckCount>().DrawFromDeck();
         return newCard;
     }
+
+    private Card CreateCardWith(CardInfo cardInfo)
+    {
+        var newCard = CreateNewCard(cardInfo);
+        newCard.SetCardInfo(cardInfo);
+        return newCard;
+    }
+
+    private CardInfo GetTopCard() { return cardInfos[0]; }
+
+    private void RemoveTopCard() { cardInfos.RemoveAt(0); }
 
     public void DrawCardToHand()
     {

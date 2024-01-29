@@ -29,7 +29,7 @@ public class DeckTest : MonoBehaviour
     public void UsingDeck_CreateCard_DeckSizeIsOne()
     {
         // Arrange
-        var deck = new GameObject().AddComponent<Deck>();
+        var deck = TestHelper.GetDeck();
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
 
         // Act

@@ -26,9 +26,17 @@ public static class TestHelper
     public static DraftManager GetDraftManager(int spacing)
     {
         var draftManager = new GameObject().AddComponent<DraftManager>();
+        draftManager.lootAnimation = GetLootAnimation();
         draftManager.SPACING = spacing;
         draftManager.Awake();
         return draftManager;
+    }
+
+    private static LootAnimation GetLootAnimation()
+    {
+        var lootAnimation = new GameObject().AddComponent<LootAnimation>();
+        lootAnimation.gameObject.AddComponent<SpriteRenderer>();
+        return lootAnimation;
     }
 
     public static CardDragger GetCardDragger()
@@ -195,8 +203,18 @@ public static class TestHelper
     public static Deck GetDeck()
     {
         var deck = new GameObject().AddComponent<Deck>();
+        deck.gameObject.AddComponent<DeckCount>();
         deck.monsterCardPrefab = GetMonsterCard();
         deck.roomCardPrefab = GetRoomCard();
         return deck;
+    }
+
+    public static Pack GetPack()
+    {
+        var pack = new GameObject().AddComponent<Pack>();
+        pack.gameObject.AddComponent<SpriteRenderer>();
+        pack.gameObject.AddComponent<Animator>();
+        pack.lootAnimation = GetLootAnimation();
+        return pack;
     }
 }

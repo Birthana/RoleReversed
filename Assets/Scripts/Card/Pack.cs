@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,15 +61,35 @@ public class Pack : MonoBehaviour
 
     private void CreatePackToHand()
     {
-        var deck = FindObjectOfType<Deck>();
+        GetComponent<Animator>().enabled = false;
+        GetComponent<SpriteRenderer>().sprite = null;
+        AnimatePackCards();
+        AddPackCardsToDeck();
+    }
+
+    private void AnimatePackCards()
+    {
         var centerPosition = new CenterPosition(Vector2.zero, cardInfos.Count, 25);
         for (int index = 0; index < cardInfos.Count; index++)
         {
-            var animation = Instantiate(lootAnimation);
-            animation.transform.position = centerPosition.GetHorizontalOffsetPositionAt(index);
-            animation.SetDelay(0.35f * index);
-            animation.AnimateLoot(cardInfos[index].cardSprite);
-            Destroy(animation.gameObject, LootAnimation.ANIMATION_TIME);
+            var position = centerPosition.GetHorizontalOffsetPositionAt(index);
+            AnimateCardAtPosition(cardInfos[index].cardSprite, position, LootAnimation.SHOW_TIME * index);
+        }
+    }
+
+    private void AnimateCardAtPosition(Sprite cardSprite, Vector3 position, float delay)
+    {
+        var animation = Instantiate(lootAnimation);
+        animation.transform.position = position;
+        animation.SetDelay(delay);
+        animation.AnimateLoot(cardSprite);
+    }
+
+    private void AddPackCardsToDeck()
+    {
+        var deck = FindObjectOfType<Deck>();
+        for (int index = 0; index < cardInfos.Count; index++)
+        {
             deck.Add(cardInfos[index]);
         }
     }
@@ -110,13 +131,14 @@ public class Pack : MonoBehaviour
                 return;
             }
 
-            OpenPack();
+            StartCoroutine(OpenPack());
         }
     }
 
-    private void OpenPack()
+    private IEnumerator OpenPack()
     {
         CreatePackToHand();
+        yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME);
         OnOpenPack?.Invoke();
         DestroyImmediate(gameObject);
     }

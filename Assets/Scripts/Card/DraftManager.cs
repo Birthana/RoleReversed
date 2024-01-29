@@ -53,7 +53,6 @@ public class DraftManager : MonoBehaviour
     {
         var animation = Instantiate(lootAnimation);
         animation.AnimateLoot(card.cardSprite);
-        Destroy(animation.gameObject, LootAnimation.ANIMATION_TIME);
     }
 
     private void ClearDraftCards()

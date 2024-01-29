@@ -163,20 +163,22 @@ public class CardManager : MonoBehaviour
     }
 }
 
+// TODO: BUG: Can click pack multiple times.
 // TODO: Add Drop Zone.
 // TODO: Add Goblin cards focusing on Room & Deck.
 // TODO: Change CardTest to use Room to spawn Monsters.
 // TODO: Null Object in OrangeSlime.cs
 // TODO: Organize Different Managers in a GameObject.
 // TODO: Fix Room Monsters Display when Monsters are dead.
+// TODO: Add something with a deck size restriction.
 
-// TODO: Refactor Deck.cs
 // TODO: Refactor SoulShop.cs
 // TODO: Make unittests for OptionInfos.
 // TODO: Add new cards. (Blink/Reentrance trigger & Small Yellow Slime)
 // TODO: Add Monster Soul mechnanic.
 
-// TODO: Loot Animation for Pack.cs. When Open Start Pack. And When drawing a card after open.
+// TODO: Add Transform Options.
+// TODO: Loot Animation for Pack.cs. When Open Start Pack.
 // TODO: Remove cards in Pack.cs
 // TODO: Create Shop Option BackGround.
 

@@ -12,11 +12,8 @@ public class LootAnimationTest : MonoBehaviour
     [SetUp]
     public void Setup()
     {
-        var gameObject = new GameObject();
-        gameObject.AddComponent<SpriteRenderer>();
         deck = new GameObject().AddComponent<Deck>();
         deck.transform.position = new Vector2(3, 5);
-        lootAnimation = gameObject.AddComponent<LootAnimation>();
     }
 
     [TearDown]
@@ -30,6 +27,9 @@ public class LootAnimationTest : MonoBehaviour
     {
         // Arrange
         Sprite sprite = Resources.Load<Sprite>("Sprites/card");
+        var gameObject = new GameObject();
+        gameObject.AddComponent<SpriteRenderer>();
+        lootAnimation = gameObject.AddComponent<LootAnimation>();
 
         // Act
         lootAnimation.AnimateLoot(sprite);
@@ -44,10 +44,13 @@ public class LootAnimationTest : MonoBehaviour
     {
         // Arrange
         Sprite sprite = Resources.Load<Sprite>("Sprites/card");
+        var gameObject = new GameObject();
+        gameObject.AddComponent<SpriteRenderer>();
+        lootAnimation = gameObject.AddComponent<LootAnimation>();
 
         // Act
         lootAnimation.AnimateLoot(sprite);
-        yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME + 0.01f);
+        yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME + 0.1f);
 
         // Assert
         Assert.AreEqual(null, lootAnimation.GetSprite());
@@ -58,10 +61,13 @@ public class LootAnimationTest : MonoBehaviour
     {
         // Arrange
         Sprite sprite = Resources.Load<Sprite>("Sprites/card");
+        var gameObject = new GameObject();
+        gameObject.AddComponent<SpriteRenderer>();
+        lootAnimation = gameObject.AddComponent<LootAnimation>();
 
         // Act
         lootAnimation.AnimateLoot(sprite);
-        yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME + 0.01f);
+        yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME + 0.1f);
 
         // Assert
         Assert.AreEqual(new Vector3(3, 5, 0), lootAnimation.transform.position);
@@ -72,6 +78,9 @@ public class LootAnimationTest : MonoBehaviour
     {
         // Arrange
         Sprite sprite = Resources.Load<Sprite>("Sprites/card");
+        var gameObject = new GameObject();
+        gameObject.AddComponent<SpriteRenderer>();
+        lootAnimation = gameObject.AddComponent<LootAnimation>();
 
         // Act
         lootAnimation.AnimateLoot(sprite);
@@ -86,6 +95,9 @@ public class LootAnimationTest : MonoBehaviour
     {
         // Arrange
         Sprite sprite = Resources.Load<Sprite>("Sprites/card");
+        var gameObject = new GameObject();
+        gameObject.AddComponent<SpriteRenderer>();
+        lootAnimation = gameObject.AddComponent<LootAnimation>();
         float delay = LootAnimation.SHOW_TIME;
         lootAnimation.SetDelay(delay * 1);
 

@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SPACING: 65
+  lootAnimation: {fileID: 1770659344784451318, guid: 33a78d01d7540c349806ddc26bb9153d, type: 3}
 --- !u!4 &137727809
 Transform:
   m_ObjectHideFlags: 0
