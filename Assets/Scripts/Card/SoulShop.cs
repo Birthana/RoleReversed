@@ -93,37 +93,44 @@ public class SoulShop : MonoBehaviour
 
     private void CreateNewOptions()
     {
-        CreateNewOptions_();
-    }
-
-    private void CreateNewOptions_()
-    {
         for (int i = 0; i < 3; i++)
         {
-            var newOption = Instantiate(optionPrefab);
-            newOption.transform.SetParent(transform);
-            var rngOptionInfo = GetRandomOptionInfo();
-            newOption.SetOptionInfo(rngOptionInfo);
+            var newOption = CreateRandomOption();
             options.Add(newOption);
         }
     }
 
+    private Option CreateRandomOption()
+    {
+        var newOption = Instantiate(optionPrefab, transform);
+        var rngOptionInfo = GetRandomOptionInfo();
+        newOption.SetOptionInfo(rngOptionInfo);
+        return newOption;
+    }
+
     private bool OptionInfoIsNotUnique(OptionInfo newOptionInfo)
     {
-        if (optionInfos.Count < 3 || options.Count == 0)
+        if (OptionsAreInValid())
         {
             return false;
         }
 
         foreach (var option in options)
         {
-            if (newOptionInfo.description.Equals(option.GetDescription()))
+            if (OptionInfoIsSameAsOption(newOptionInfo, option))
             {
                 return true;
             }
         }
 
         return false;
+    }
+
+    private bool OptionsAreInValid() { return optionInfos.Count < 3 || options.Count == 0; }
+
+    private bool OptionInfoIsSameAsOption(OptionInfo optionInfo, Option option)
+    {
+        return optionInfo.description.Equals(option.GetDescription());
     }
 
     public OptionInfo GetRandomOptionInfo()
