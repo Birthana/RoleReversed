@@ -163,7 +163,6 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: BUG: Can click pack multiple times.
 // TODO: Add Drop Zone.
 // TODO: Add Goblin cards focusing on Rooms.
 // TODO: Change CardTest to use Room to spawn Monsters.

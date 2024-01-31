@@ -31,6 +31,8 @@ public class PackAnimationTest : MonoBehaviour
     [TearDown]
     public void TearDown()
     {
+        FindObjectsOfType<Deck>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+        FindObjectsOfType<Hand>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
     [UnityTest]

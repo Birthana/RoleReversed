@@ -11,6 +11,7 @@ public class Pack : MonoBehaviour
     private List<CardInfo> cardInfos = new List<CardInfo>();
     private List<Card> cards = new List<Card>();
     private IMouseWrapper mouseWrapper;
+    private bool openingPack = false;
 
     public void SetMouseWrapper(IMouseWrapper wrapper)
     {
@@ -126,7 +127,7 @@ public class Pack : MonoBehaviour
     {
         if (PlayerClicksOnAPack())
         {
-            if(PackIsNotClicked())
+            if (PackIsNotClicked() || openingPack)
             {
                 return;
             }
@@ -137,6 +138,7 @@ public class Pack : MonoBehaviour
 
     private IEnumerator OpenPack()
     {
+        openingPack = true;
         CreatePackToHand();
         yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME);
         OnOpenPack?.Invoke();
