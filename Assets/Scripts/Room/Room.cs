@@ -53,6 +53,8 @@ public class Room : MonoBehaviour
     
     public void ReduceCapacity(int decrease) { capacity.DecreaseCapacity(decrease); }
 
+    public bool CurrentCapacityIsMaxCapacity() { return capacity.CurrentCapacityIsMaxCapcity(); }
+
     public void Add(Monster monster)
     {
         monsters.Add(monster);

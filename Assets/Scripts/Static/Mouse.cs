@@ -5,17 +5,27 @@ public static class Mouse
     public static Camera camera = Camera.main;
     private static RaycastHit2D hit;
 
+    private static Camera GetCamera()
+    {
+        if (camera == null)
+        {
+            camera = Camera.main;
+        }
+
+        return camera;
+    }
+
     public static bool PlayerPressesLeftClick() { return Input.GetMouseButtonDown(0); }
 
     public static bool PlayerReleasesLeftClick() { return Input.GetMouseButtonUp(0); }
 
-    public static Vector2 GetPosition() { return camera.ScreenToWorldPoint(Input.mousePosition); }
+    public static Vector2 GetPosition() { return GetCamera().ScreenToWorldPoint(Input.mousePosition); }
 
     public static RaycastHit2D IsOnLayer(string layerName) { return PositionIsOnLayer(Input.mousePosition, layerName); }
 
     private static RaycastHit2D PositionIsOnLayer(Vector3 position, string layerName)
     {
-        Ray ray = camera.ScreenPointToRay(position);
+        Ray ray = GetCamera().ScreenPointToRay(position);
         hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer(layerName));
         return hit;
     }

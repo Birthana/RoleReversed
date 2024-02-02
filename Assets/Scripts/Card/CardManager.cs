@@ -163,14 +163,16 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Add Drop Zone.
+// TODO: Animation: Zoom into Room that Battle is happening
 // TODO: Add Goblin cards focusing on Rooms.
+// TODO: Add Drop Zone.
 // TODO: Change CardTest to use Room to spawn Monsters.
 // TODO: Null Object in OrangeSlime.cs
 // TODO: Organize Different Managers in a GameObject.
 // TODO: Fix Room Monsters Display when Monsters are dead.
-// TODO: Add something with a deck size restriction.
+// TODO: Add something with a deck size milestones.
 // TODO: Remove Temporary Monster if-statements.
+// TODO: Create common array container for Hand, Deck, Drop, etc.
 
 // TODO: Split UI and Mechanics of various scripts
 // TODO: Make unittests for OptionInfos.
@@ -186,7 +188,6 @@ public class CardManager : MonoBehaviour
 // TODO: BUG: Reroll Option cannot be previously chosen option.
 // TODO: Clean up MonsterDraggerTests Mock Setups.
 // TODO: Create New UI with for Counters with Custom Card Numbers.
-// TODO: Animation: Zoom into Room that Battle is happening
 // TODO: Animation: Flip Animation.
 // TODO: Animation: Drawing Cards from Deck. Opening Pack.
 // TODO: Bug: Release with no card selected in CardDragger.cs
