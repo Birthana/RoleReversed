@@ -23,6 +23,9 @@ public class DeckTest : MonoBehaviour
     {
         FindObjectsOfType<CardManager>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
         FindObjectsOfType<Deck>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+        FindObjectsOfType<Card>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+        FindObjectsOfType<MonsterCard>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+        FindObjectsOfType<RoomCard>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
     [Test]
@@ -66,5 +69,28 @@ public class DeckTest : MonoBehaviour
 
         // Assert
         Assert.AreEqual(null, card);
+    }
+
+    [Test]
+    public void UsingDeck_DrawCardToHand_CardIsZero()
+    {
+        // Arrange
+        hand.Add(new GameObject().AddComponent<Card>());
+        hand.Add(new GameObject().AddComponent<Card>());
+        hand.Add(new GameObject().AddComponent<Card>());
+        hand.Add(new GameObject().AddComponent<Card>());
+        hand.Add(new GameObject().AddComponent<Card>());
+        hand.Add(new GameObject().AddComponent<Card>());
+        hand.Add(new GameObject().AddComponent<Card>());
+        hand.Add(new GameObject().AddComponent<Card>());
+        var deck = TestHelper.GetDeck();
+        var cardInfo = TestHelper.GetAnyMonsterCardInfo();
+        deck.Add(cardInfo);
+
+        // Act
+        deck.DrawCardToHand();
+
+        // Assert
+        Assert.AreEqual(1, deck.GetSize());
     }
 }

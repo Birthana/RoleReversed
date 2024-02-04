@@ -7,6 +7,8 @@ public class Hand : MonoBehaviour
     public float SPACING;
     private ICardDragger cardDragger;
 
+    public bool IsFull() { return hand.Count == 8; }
+
     public void SetCardDragger(ICardDragger newCardDragger)
     {
         cardDragger = newCardDragger;
@@ -14,7 +16,7 @@ public class Hand : MonoBehaviour
 
     public void Add(Card card)
     {
-        if (hand.Count == 8)
+        if (IsFull())
         {
             return;
         }

@@ -40,10 +40,16 @@ public class Deck : MonoBehaviour
 
     public void DrawCardToHand()
     {
+        var hand = FindObjectOfType<Hand>();
+        if (hand.IsFull())
+        {
+            return;
+        }
+
         var card = Draw();
         if (card != null)
         {
-            FindObjectOfType<Hand>().Add(card);
+            hand.Add(card);
         }
     }
 
