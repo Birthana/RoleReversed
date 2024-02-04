@@ -4434,6 +4434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2007611545}
   - component: {fileID: 2007611546}
+  - component: {fileID: 2007611547}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4473,6 +4474,19 @@ MonoBehaviour:
   PLAYER_OFFSET: {x: -2, y: 0}
   respawnCounter: {fileID: 488200827}
   gameOverScreen: {fileID: 680646422}
+  focusAnimation: {fileID: 2007611547}
+--- !u!114 &2007611547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007611544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f2333ab764d08946ac56a626cc334a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2032193042
 GameObject:
   m_ObjectHideFlags: 0

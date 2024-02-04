@@ -163,7 +163,9 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Animation: Zoom into Room that Battle is happening
+// TODO: Clean/refactor GameManager WalkThru().
+// TODO: Disable MonsterDragger during game.
+// TODO: Fix Scale Animation Sprite Layering.
 // TODO: Add Goblin cards focusing on Rooms.
 // TODO: Add Drop Zone.
 // TODO: Change CardTest to use Room to spawn Monsters.
@@ -179,8 +181,10 @@ public class CardManager : MonoBehaviour
 // TODO: Add new cards. (Blink/Reentrance trigger)
 // TODO: Add Monster Soul mechnanic.
 
+// TODO: Add Show BattleField Button In Draft Card Pick.
 // TODO: Add Transform Options.
 // TODO: Loot Animation for Pack.cs. When Open Start Pack.
+// TODO: Loot Animation, make a class not a monobehavior.
 // TODO: Remove cards in Pack.cs
 // TODO: Create Shop Option BackGround.
 

@@ -14,11 +14,15 @@ public class GameManager : MonoBehaviour
     private Room currentRoom;
     private Monster[] monsters;
     private bool isRunning = false;
+    private Coroutine coroutine;
+    [SerializeField] private FocusAnimation focusAnimation;
 
     private void Awake()
     {
         gameOverScreen.SetActive(false);
         SpawnPackInRandomSpot();
+        focusAnimation.SetFocusPosition(Vector3.up * 3);
+        focusAnimation.SetFocusScale(2.5f);
     }
 
     public void StartPlayerRun()
@@ -30,7 +34,7 @@ public class GameManager : MonoBehaviour
 
         isRunning = true;
         monsters = FindObjectsOfType<Monster>();
-        StartCoroutine(WalkThruDungeon());
+        coroutine = StartCoroutine(WalkThruDungeon());
     }
 
     public bool DoesNotHaveStartRoom() { return startRoom == null; }
@@ -43,10 +47,13 @@ public class GameManager : MonoBehaviour
         PlayerMoveTo(room);
     }
 
-    public void ResetPlayer()
+    public void ResetPlayer() { StartCoroutine(Reset()); }
+
+    private IEnumerator Reset()
     {
         isRunning = false;
-        StopAllCoroutines();
+        StopCoroutine(coroutine);
+        yield return focusAnimation.UnfocusOn();
         SetRoom(startRoom);
         PlayerMoveTo(currentRoom);
         player.ResetStats();
@@ -57,6 +64,7 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<DraftManager>().Draft();
         FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
         FindObjectOfType<Deck>().DrawCardToHand();
+
     }
 
     private void DestroyAllTempMonsters()
@@ -94,6 +102,13 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator WalkThruDungeon()
     {
+        bool emptyRoom = false;
+        if (!currentRoom.IsEmpty())
+        {
+            yield return focusAnimation.FocusOn(currentRoom.transform);
+            emptyRoom = true;
+        }
+
         bool still_running = true;
         while (still_running)
         {
@@ -112,8 +127,17 @@ public class GameManager : MonoBehaviour
 
             if (currentRoom.IsEmpty())
             {
+                if (emptyRoom)
+                {
+                    yield return focusAnimation.UnfocusOn();
+                }
+
                 GoToNextRoom();
                 PlayerMoveTo(currentRoom);
+                if (!currentRoom.IsEmpty())
+                {
+                    yield return focusAnimation.FocusOn(currentRoom.transform);
+                }
             }
         }
     }

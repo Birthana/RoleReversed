@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsters: []
-  MONSTER_OFFSET: {x: 2, y: 0}
+  MONSTER_OFFSET: {x: 1.5, y: 0}
   SPACING: 10
   HORIZONTAL_SPACING: 5
   VERTICAL_SPACING: 5

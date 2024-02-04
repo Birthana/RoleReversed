@@ -6,6 +6,8 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     private static readonly string FIELD_MONSTER_PREFAB = "Prefabs/FieldMonster";
+    private static readonly int MAX_NUMBER_OF_MONSTERS_IN_COLUMN = 3;
+    private static readonly float COLUMN_SPACING = 2.0f;
     public List<Monster> monsters = new List<Monster>();
     public Vector2 MONSTER_OFFSET = new Vector2(2, 0);
     public float SPACING;
@@ -69,11 +71,29 @@ public class Room : MonoBehaviour
 
     public void DisplayMonsters()
     {
-        var centerPosition = new CenterPosition(new Vector2(MONSTER_OFFSET.x, 0), monsters.Count, SPACING);
+        var centerPosition = new CenterPosition(new Vector2(MONSTER_OFFSET.x, 0), GetMonsterCount(), SPACING);
         for (int i = 0; i < monsters.Count; i++)
         {
-            monsters[i].transform.localPosition = centerPosition.GetVerticalOffsetPositionAt(i);
+            var position = centerPosition.GetVerticalOffsetPositionAt(i % MAX_NUMBER_OF_MONSTERS_IN_COLUMN);
+            position = new Vector3(GetHorizontalPosition(i), position.y, position.z);
+            monsters[i].transform.localPosition = position;
         }
+    }
+
+    private int GetMonsterCount()
+    {
+        if (monsters.Count < MAX_NUMBER_OF_MONSTERS_IN_COLUMN)
+        {
+            return monsters.Count;
+        }
+
+        return MAX_NUMBER_OF_MONSTERS_IN_COLUMN;
+    }
+
+    private float GetHorizontalPosition(int index)
+    {
+        int column = index / MAX_NUMBER_OF_MONSTERS_IN_COLUMN;
+        return MONSTER_OFFSET.x + (column * COLUMN_SPACING);
     }
 
     public void Remove(Monster monster)
