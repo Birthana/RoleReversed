@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
         isRunning = false;
         StopCoroutine(coroutine);
         yield return focusAnimation.UnfocusOn();
+        new ChangeSortingLayer(currentRoom.gameObject).SetToDefault();
         SetRoom(startRoom);
         PlayerMoveTo(currentRoom);
         player.ResetStats();
@@ -102,11 +103,12 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator WalkThruDungeon()
     {
-        bool emptyRoom = false;
+        bool focusOnRoom = false;
         if (!currentRoom.IsEmpty())
         {
+            new ChangeSortingLayer(currentRoom.gameObject).SetToCurrentRoom();
             yield return focusAnimation.FocusOn(currentRoom.transform);
-            emptyRoom = true;
+            focusOnRoom = true;
         }
 
         bool still_running = true;
@@ -127,15 +129,17 @@ public class GameManager : MonoBehaviour
 
             if (currentRoom.IsEmpty())
             {
-                if (emptyRoom)
+                if (focusOnRoom)
                 {
                     yield return focusAnimation.UnfocusOn();
+                    new ChangeSortingLayer(currentRoom.gameObject).SetToDefault();
                 }
 
                 GoToNextRoom();
                 PlayerMoveTo(currentRoom);
                 if (!currentRoom.IsEmpty())
                 {
+                    new ChangeSortingLayer(currentRoom.gameObject).SetToCurrentRoom();
                     yield return focusAnimation.FocusOn(currentRoom.transform);
                 }
             }

@@ -44,9 +44,9 @@ TagManager:
   - name: Player
     uniqueID: 3831325761
     locked: 0
-  - name: DamageNumber
-    uniqueID: 2667337567
-    locked: 0
   - name: CurrentRoom
     uniqueID: 1053083385
+    locked: 0
+  - name: DamageNumber
+    uniqueID: 2667337567
     locked: 0

@@ -165,7 +165,6 @@ public class CardManager : MonoBehaviour
 
 // TODO: Clean/refactor GameManager WalkThru().
 // TODO: Disable MonsterDragger during game.
-// TODO: Fix Scale Animation Sprite Layering.
 // TODO: Add Goblin cards focusing on Rooms.
 // TODO: Add Drop Zone.
 // TODO: Change CardTest to use Room to spawn Monsters.
