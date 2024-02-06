@@ -7,10 +7,17 @@ public class MonsterDragger : MonoBehaviour
     private Monster selected;
     private Room returnRoom;
     private IMouseWrapper mouse;
+    private IGameManager gameManager;
+
+    public void SetGameManager(IGameManager newGameManager)
+    {
+        gameManager = newGameManager;
+    }
 
     private void Awake()
     {
         SetMouseWrapper(new MouseWrapper());
+        SetGameManager(FindObjectOfType<GameManager>());
     }
 
     private void Update()
@@ -25,6 +32,11 @@ public class MonsterDragger : MonoBehaviour
 
     public void UpdateLoop()
     {
+        if (gameManager.IsRunning())
+        {
+            return;
+        }
+
         if (mouse.PlayerPressesLeftClick())
         {
             PickUp();

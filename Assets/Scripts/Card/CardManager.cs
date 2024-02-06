@@ -163,10 +163,10 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Clean/refactor GameManager WalkThru().
-// TODO: Disable MonsterDragger during game.
 // TODO: Add Goblin cards focusing on Rooms.
+// TODO: BUG: Temporary Monsters are not in CurrentRoom layer.
 // TODO: Add Drop Zone.
+
 // TODO: Change CardTest to use Room to spawn Monsters.
 // TODO: Null Object in OrangeSlime.cs
 // TODO: Organize Different Managers in a GameObject.
@@ -174,7 +174,13 @@ public class CardManager : MonoBehaviour
 // TODO: Add something with a deck size milestones.
 // TODO: Remove Temporary Monster if-statements.
 // TODO: Create common array container for Hand, Deck, Drop, etc.
+// TODO: Clean/refactor GameManager WalkThru().
 
+// TODO: Add Tooltips
+// TODO: Add Text Icons
+// TODO: Add Room Start effects.
+// TODO: Fix MonsterDraggerTest unittests.
+// TODO: Refactor MonsterDragger.
 // TODO: Split UI and Mechanics of various scripts
 // TODO: Make unittests for OptionInfos.
 // TODO: Add new cards. (Blink/Reentrance trigger)

@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public interface IGameManager
+{
+    public void Awake();
+
+    public bool IsRunning();
+}
+
+public class GameManager : MonoBehaviour, IGameManager
 {
     public Player playerPrefab;
     public Pack packPrefab;
@@ -17,13 +24,15 @@ public class GameManager : MonoBehaviour
     private Coroutine coroutine;
     [SerializeField] private FocusAnimation focusAnimation;
 
-    private void Awake()
+    public void Awake()
     {
         gameOverScreen.SetActive(false);
         SpawnPackInRandomSpot();
         focusAnimation.SetFocusPosition(Vector3.up * 3);
         focusAnimation.SetFocusScale(2.5f);
     }
+
+    public bool IsRunning() { return isRunning; }
 
     public void StartPlayerRun()
     {
@@ -141,6 +150,7 @@ public class GameManager : MonoBehaviour
                 {
                     new ChangeSortingLayer(currentRoom.gameObject).SetToCurrentRoom();
                     yield return focusAnimation.FocusOn(currentRoom.transform);
+                    focusOnRoom = true;
                 }
             }
         }

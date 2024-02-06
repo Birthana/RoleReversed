@@ -7,6 +7,7 @@ using UnityEngine.TestTools;
 
 public class MonsterDraggerTest : MonoBehaviour
 {
+    private Mock<IGameManager> gameManagerMock;
     private Monster expectedMonster;
     private Room expectedRoom;
 
@@ -21,6 +22,9 @@ public class MonsterDraggerTest : MonoBehaviour
         var basicUI = new GameObject().AddComponent<BasicUI>();
         gameObject.AddComponent<Damage>().ui = basicUI;
         gameObject.AddComponent<Health>().ui = basicUI;
+        gameManagerMock = new Mock<IGameManager>(MockBehavior.Strict);
+        gameManagerMock.Setup(x => x.Awake());
+        gameManagerMock.Setup(x => x.IsRunning()).Returns(false);
     }
 
     [TearDown]
@@ -28,6 +32,7 @@ public class MonsterDraggerTest : MonoBehaviour
     {
         FindObjectsOfType<Monster>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
         FindObjectsOfType<MonsterDragger>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+        FindObjectsOfType<GameManager>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
     [UnityTest]
@@ -39,6 +44,7 @@ public class MonsterDraggerTest : MonoBehaviour
         mock.Setup(x => x.GetHitComponent<Monster>()).Returns(expectedMonster);
         var monsterDragger = new GameObject().AddComponent<MonsterDragger>();
         monsterDragger.SetMouseWrapper(mock.Object);
+        monsterDragger.SetGameManager(gameManagerMock.Object);
 
         // Act
         monsterDragger.PickUp();
@@ -62,6 +68,7 @@ public class MonsterDraggerTest : MonoBehaviour
         mock.Setup(x => x.PlayerReleasesLeftClick()).Returns(false);
         var monsterDragger = new GameObject().AddComponent<MonsterDragger>();
         monsterDragger.SetMouseWrapper(mock.Object);
+        monsterDragger.SetGameManager(gameManagerMock.Object);
 
         // Act
         monsterDragger.UpdateLoop();
@@ -87,6 +94,7 @@ public class MonsterDraggerTest : MonoBehaviour
         var returnPosition = expectedMonster.transform.position;
         var monsterDragger = new GameObject().AddComponent<MonsterDragger>();
         monsterDragger.SetMouseWrapper(mock.Object);
+        monsterDragger.SetGameManager(gameManagerMock.Object);
         monsterDragger.UpdateLoop();
         mock.Setup(x => x.PlayerReleasesLeftClick()).Returns(true);
         mock.Setup(x => x.IsOnRoom()).Returns(false);
@@ -121,6 +129,7 @@ public class MonsterDraggerTest : MonoBehaviour
         mock.Setup(x => x.PlayerReleasesLeftClick()).Returns(false);
         var monsterDragger = new GameObject().AddComponent<MonsterDragger>();
         monsterDragger.SetMouseWrapper(mock.Object);
+        monsterDragger.SetGameManager(gameManagerMock.Object);
         monsterDragger.UpdateLoop();
         mock.Setup(x => x.PlayerReleasesLeftClick()).Returns(true);
         mock.Setup(x => x.IsOnRoom()).Returns(true);
@@ -161,6 +170,7 @@ public class MonsterDraggerTest : MonoBehaviour
         mock.Setup(x => x.PlayerReleasesLeftClick()).Returns(false);
         var monsterDragger = new GameObject().AddComponent<MonsterDragger>();
         monsterDragger.SetMouseWrapper(mock.Object);
+        monsterDragger.SetGameManager(gameManagerMock.Object);
         monsterDragger.UpdateLoop();
         mock.Setup(x => x.PlayerReleasesLeftClick()).Returns(true);
         mock.Setup(x => x.IsOnRoom()).Returns(true);

@@ -19,6 +19,7 @@ public class CardTest : MonoBehaviour
     private EmeraldSlime emeraldSlimeInfo;
     private GoblinWorker goblinWorkerInfo;
     private GoblinMiner goblinMinerInfo;
+    private GoblinBuilder goblinBuilderInfo;
     private TemporaryMonster temporarySlimeInfo;
     private Monster monsterPrefab;
     private readonly int ANY_MAX_DAMAGE = 3;
@@ -89,6 +90,10 @@ public class CardTest : MonoBehaviour
         goblinMinerInfo = ScriptableObject.CreateInstance<GoblinMiner>();
         goblinMinerInfo.damage = 3;
         goblinMinerInfo.health = 3;
+
+        goblinBuilderInfo = ScriptableObject.CreateInstance<GoblinBuilder>();
+        goblinBuilderInfo.damage = 5;
+        goblinBuilderInfo.health = 3;
     }
 
     [Test]
@@ -350,5 +355,30 @@ public class CardTest : MonoBehaviour
         Assert.AreEqual(0, deck.GetSize());
         Assert.AreEqual(5, newMonster.GetComponent<Damage>().maxCount);
         Assert.AreEqual(5, newMonster.GetComponent<Health>().maxCount);
+    }
+
+    [Test]
+    public void UsingGoblinBuilder_Entrance_ExpectRoomCapacityPlus2AndStatIs5_3()
+    {
+        // Arrange
+        var room = TestHelper.GetRoom();
+        room.SetCapacity(2);
+        player.transform.SetParent(room.transform);
+
+        var cardManager = new GameObject().AddComponent<CardManager>();
+        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
+        card.SetCardInfo(goblinBuilderInfo);
+        var newMonster = Instantiate(monsterPrefab);
+        newMonster.cardInfo = goblinBuilderInfo;
+        newMonster.transform.SetParent(room.transform);
+
+        // Act
+        newMonster.Setup(goblinBuilderInfo.GetDamage(), goblinBuilderInfo.GetHealth());
+        newMonster.Entrance();
+
+        // Assert
+        Assert.AreEqual(4, room.GetCapacity());
+        Assert.AreEqual(5, newMonster.GetComponent<Damage>().maxCount);
+        Assert.AreEqual(3, newMonster.GetComponent<Health>().maxCount);
     }
 }

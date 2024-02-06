@@ -297,6 +297,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e91673d54c00e48b74699836ceb0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardName: DEFAULT
-  cost: 0
-  monsterPrefab: {fileID: 0}
