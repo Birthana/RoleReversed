@@ -167,6 +167,7 @@ public class CardManager : MonoBehaviour
 // TODO: BUG: Temporary Monsters are not in CurrentRoom layer.
 // TODO: Add Drop Zone.
 
+// TODO: BUG: Player can get negative damage, and heal monsters.
 // TODO: Change CardTest to use Room to spawn Monsters.
 // TODO: Null Object in OrangeSlime.cs
 // TODO: Organize Different Managers in a GameObject.
@@ -175,6 +176,7 @@ public class CardManager : MonoBehaviour
 // TODO: Remove Temporary Monster if-statements.
 // TODO: Create common array container for Hand, Deck, Drop, etc.
 // TODO: Clean/refactor GameManager WalkThru().
+// TODO: Refactor BasicUI
 
 // TODO: Add Tooltips
 // TODO: Add Text Icons
@@ -193,10 +195,8 @@ public class CardManager : MonoBehaviour
 // TODO: Remove cards in Pack.cs
 // TODO: Create Shop Option BackGround.
 
-// TODO: BUG: Create cards when Hand is full.
 // TODO: BUG: Reroll Option cannot be previously chosen option.
 // TODO: Clean up MonsterDraggerTests Mock Setups.
-// TODO: Create New UI with for Counters with Custom Card Numbers.
 // TODO: Animation: Flip Animation.
 // TODO: Animation: Drawing Cards from Deck. Opening Pack.
 // TODO: Bug: Release with no card selected in CardDragger.cs
