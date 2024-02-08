@@ -731,6 +731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 931263240}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &488200829
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1703,7 +1704,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -30
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1729,7 +1730,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 8.396212, y: 0, z: 8.3008, w: 0}
+  m_margin: {x: 7.664543, y: 0, z: 7.1057444, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -1797,8 +1798,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: -0.0244, y: 0}
+  m_SizeDelta: {x: 19.9512, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &931786828
 GameObject:
@@ -2124,6 +2125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1933600792}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1006651662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2932,6 +2934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1704204463}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &1351252960
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3073,6 +3076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1844830146}
+  color: {r: 1, g: 1, b: 1, a: 1}
   maxCount: 3
 --- !u!1 &1503459361
 GameObject:
@@ -4372,6 +4376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 825913291}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &1965248259
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4748,6 +4753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1022499978}
+  color: {r: 1, g: 1, b: 1, a: 1}
   maxCount: 2
 --- !u!1 &2085048931
 GameObject:

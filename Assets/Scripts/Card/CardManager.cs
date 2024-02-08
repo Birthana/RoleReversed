@@ -164,9 +164,12 @@ public class CardManager : MonoBehaviour
 }
 
 // TODO: Add Goblin cards focusing on Rooms.
-// TODO: BUG: Temporary Monsters are not in CurrentRoom layer.
 // TODO: Add Drop Zone.
+// TODO: Make Start Button Sprite
 
+// TODO: Edit Card to use CardInfo damage and health and use number text instead of sprite card
+// TODO: Create New UI with for Counters with Custom Card Numbers.
+// TODO: Add numbers font to damage numbers. Extract custom numbers to own helper class.
 // TODO: BUG: Player can get negative damage, and heal monsters.
 // TODO: Change CardTest to use Room to spawn Monsters.
 // TODO: Null Object in OrangeSlime.cs

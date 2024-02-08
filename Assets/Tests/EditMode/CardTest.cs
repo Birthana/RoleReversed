@@ -302,6 +302,10 @@ public class CardTest : MonoBehaviour
         Assert.AreEqual(3, room.transform.childCount);
         Assert.AreEqual(1, newMonster.GetComponent<Damage>().maxCount);
         Assert.AreEqual(1, newMonster.GetComponent<Health>().maxCount);
+        foreach(var monster in room.monsters)
+        {
+            Assert.AreEqual("CurrentRoom", monster.GetComponent<SpriteRenderer>().sortingLayerName);
+        }
     }
 
     [Test]

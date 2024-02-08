@@ -168,14 +168,16 @@ public class Room : MonoBehaviour
 
     public void SpawnTemporaryMonster(MonsterCardInfo monsterCardInfo)
     {
-        CreateMonster(monsterCardInfo);
+        var monster = CreateMonster(monsterCardInfo);
+        new ChangeSortingLayer(monster.gameObject).SetToCurrentRoom();
     }
 
-    private void CreateMonster(MonsterCardInfo monsterCardInfo)
+    private Monster CreateMonster(MonsterCardInfo monsterCardInfo)
     {
         var monsterPrefab = Resources.Load<Monster>(FIELD_MONSTER_PREFAB);
         var monster = Instantiate(monsterPrefab, transform);
         monster.Setup(monsterCardInfo);
         Add(monster);
+        return monster;
     }
 }
