@@ -50,8 +50,6 @@ public static class TestHelper
     public static CardManager GetCardManager()
     {
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = GetMonsterCard();
-        cardManager.roomCardPrefab = GetRoomCard();
         cardManager.AddCommonCard(GetMonsterCardInfo(ANY_CARD_NAME_1, ANY_CARD_TEXT));
         cardManager.AddCommonCard(GetMonsterCardInfo(ANY_CARD_NAME_2, ANY_CARD_TEXT));
         cardManager.AddCommonCard(GetMonsterCardInfo(ANY_CARD_NAME_3, ANY_CARD_TEXT));

@@ -20,6 +20,7 @@ public class CardTest : MonoBehaviour
     private GoblinWorker goblinWorkerInfo;
     private GoblinMiner goblinMinerInfo;
     private GoblinBuilder goblinBuilderInfo;
+    private GoblinGatherer goblinGathererInfo;
     private TemporaryMonster temporarySlimeInfo;
     private Monster monsterPrefab;
     private readonly int ANY_MAX_DAMAGE = 3;
@@ -48,6 +49,7 @@ public class CardTest : MonoBehaviour
         graySlimeInfo = ScriptableObject.CreateInstance<GraySlime>();
         graySlimeInfo.damage = 3;
         graySlimeInfo.health = 3;
+        graySlimeInfo.effectDescription = "1";
 
         pinkySlimeInfo = ScriptableObject.CreateInstance<PinkySlime>();
         pinkySlimeInfo.damage = 2;
@@ -94,6 +96,10 @@ public class CardTest : MonoBehaviour
         goblinBuilderInfo = ScriptableObject.CreateInstance<GoblinBuilder>();
         goblinBuilderInfo.damage = 5;
         goblinBuilderInfo.health = 3;
+
+        goblinGathererInfo = ScriptableObject.CreateInstance<GoblinGatherer>();
+        goblinGathererInfo.damage = 2;
+        goblinGathererInfo.health = 1;
     }
 
     [Test]
@@ -103,7 +109,6 @@ public class CardTest : MonoBehaviour
         var deck = TestHelper.GetDeck();
         deck.Add(graySlimeInfo);
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(graySlimeInfo);
         cardManager.AddCommonCard(graySlimeInfo);
         cardManager.AddRareCard(graySlimeInfo);
@@ -125,7 +130,6 @@ public class CardTest : MonoBehaviour
     {
         // Arrange
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(pinkySlimeInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = pinkySlimeInfo;
@@ -145,7 +149,6 @@ public class CardTest : MonoBehaviour
     {
         // Arrange
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(redSlimeInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = redSlimeInfo;
@@ -165,7 +168,6 @@ public class CardTest : MonoBehaviour
     {
         // Arrange
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(violetSlimeInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = violetSlimeInfo;
@@ -188,7 +190,6 @@ public class CardTest : MonoBehaviour
         player.transform.SetParent(room.transform);
 
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(yellowSlimeInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = yellowSlimeInfo;
@@ -209,7 +210,6 @@ public class CardTest : MonoBehaviour
     {
         // Arrange
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(brownSlimeInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = brownSlimeInfo;
@@ -227,7 +227,6 @@ public class CardTest : MonoBehaviour
     {
         // Arrange
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(brownSlimeInfo);
         var newMonster = Instantiate(monsterPrefab);
         var room = TestHelper.GetRoom();
@@ -248,7 +247,6 @@ public class CardTest : MonoBehaviour
     {
         // Arrange
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(orangeSlimeInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = orangeSlimeInfo;
@@ -266,7 +264,6 @@ public class CardTest : MonoBehaviour
     {
         // Arrange
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(temporarySlimeInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = temporarySlimeInfo;
@@ -288,7 +285,6 @@ public class CardTest : MonoBehaviour
         player.transform.SetParent(room.transform);
 
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(emeraldSlimeInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = emeraldSlimeInfo;
@@ -317,7 +313,6 @@ public class CardTest : MonoBehaviour
         player.transform.SetParent(room.transform);
 
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(goblinWorkerInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = goblinWorkerInfo;
@@ -344,7 +339,6 @@ public class CardTest : MonoBehaviour
         player.transform.SetParent(room.transform);
 
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(goblinMinerInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = goblinMinerInfo;
@@ -370,7 +364,6 @@ public class CardTest : MonoBehaviour
         player.transform.SetParent(room.transform);
 
         var cardManager = new GameObject().AddComponent<CardManager>();
-        cardManager.monsterCardPrefab = card.GetComponent<MonsterCard>();
         card.SetCardInfo(goblinBuilderInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = goblinBuilderInfo;
@@ -384,5 +377,30 @@ public class CardTest : MonoBehaviour
         Assert.AreEqual(4, room.GetCapacity());
         Assert.AreEqual(5, newMonster.GetComponent<Damage>().maxCount);
         Assert.AreEqual(3, newMonster.GetComponent<Health>().maxCount);
+    }
+
+    [Test]
+    public void UsingGoblinGatherer_Entrance_ExpectStatIs3_2()
+    {
+        // Arrange
+        var room = TestHelper.GetRoom();
+        room.SetCapacity(2);
+        player.transform.SetParent(room.transform);
+
+        var actionManager = new GameObject().AddComponent<ActionManager>();
+        var cardManager = new GameObject().AddComponent<CardManager>();
+        card.SetCardInfo(goblinGathererInfo);
+        var newMonster = Instantiate(monsterPrefab);
+        newMonster.cardInfo = goblinGathererInfo;
+        newMonster.transform.SetParent(room.transform);
+
+        // Act
+        newMonster.Entrance();
+        newMonster.Setup(goblinGathererInfo.GetDamage(), goblinGathererInfo.GetHealth());
+
+        // Assert
+        Assert.AreEqual(1, actionManager.GetCount());
+        Assert.AreEqual(3, newMonster.GetComponent<Damage>().maxCount);
+        Assert.AreEqual(2, newMonster.GetComponent<Health>().maxCount);
     }
 }

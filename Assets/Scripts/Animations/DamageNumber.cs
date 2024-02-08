@@ -20,7 +20,7 @@ public class DamageNumber : MonoBehaviour
 
         var prefab = Resources.Load(numberPrefabFilePath);
         var damageNumber = Instantiate(prefab, transform) as GameObject;
-        damageNumber.GetComponent<TextMeshPro>().text = $"-{damage}";
+        damageNumber.GetComponent<TextMeshPro>().text = $"{new IconText(Color.red).GetNumbersText($"-{damage}")}";
         damageNumber.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * 100);
         Destroy(damageNumber.gameObject, duration);
     }

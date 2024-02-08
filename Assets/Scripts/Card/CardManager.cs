@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    public MonsterCard monsterCardPrefab;
-    public RoomCard roomCardPrefab;
     private static readonly string COMMON_CARDS_FILE_PATH = "Prefabs/Commons";
     private static readonly string RARE_CARDS_FILE_PATH = "Prefabs/Rares";
     private List<CardInfo> commons = new List<CardInfo>();
@@ -163,10 +161,9 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Add Goblin cards focusing on Rooms.
 // TODO: Add Drop Zone.
-// TODO: Make Start Button Sprite
 
+// TODO: Optiminize IconText to not for loop after first time Getting text.
 // TODO: Edit Card to use CardInfo damage and health and use number text instead of sprite card
 // TODO: Create New UI with for Counters with Custom Card Numbers.
 // TODO: Add numbers font to damage numbers. Extract custom numbers to own helper class.
