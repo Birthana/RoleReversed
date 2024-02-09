@@ -21,6 +21,11 @@ public class RoomCard : Card
         SetDescription(newCardInfo.effectDescription);
     }
 
+    public override CardInfo GetCardInfo()
+    {
+        return roomCardInfo;
+    }
+
     public override int GetCost()
     {
         return roomCardInfo.cost;

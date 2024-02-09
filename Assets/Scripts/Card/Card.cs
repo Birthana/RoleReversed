@@ -5,6 +5,8 @@ public class Card : MonoBehaviour
 {
     public virtual void SetCardInfo(CardInfo newCardInfo) {}
 
+    public virtual CardInfo GetCardInfo() { return null; }
+
     public void SetSprite(Sprite sprite)
     {
         var renderer = GetComponent<SpriteRenderer>();

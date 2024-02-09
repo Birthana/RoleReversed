@@ -20,7 +20,7 @@ public class Option : MonoBehaviour
     {
         optionInfo = newOptionInfo;
         var texts = GetComponentsInChildren<TextMeshPro>();
-        texts[0].text = $"{newOptionInfo.cost}";
+        texts[0].text = $"{new IconText(Color.magenta).GetNumbersText("" + newOptionInfo.cost)}";
         texts[1].text = $"{newOptionInfo.description}";
     }
 

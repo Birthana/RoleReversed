@@ -12,6 +12,11 @@ public class MonsterCard : Card
         SetDescription(newCardInfo.effectDescription);
     }
 
+    public override CardInfo GetCardInfo()
+    {
+        return monsterCardInfo;
+    }
+
     public override int GetCost()
     {
         return monsterCardInfo.cost;

@@ -18,7 +18,12 @@ public class Deck : MonoBehaviour
     {
         if (cardInfos.Count == 0)
         {
-            return null;
+            FindObjectOfType<Drop>().ReturnCardsToDeck();
+
+            if (cardInfos.Count == 0)
+            {
+                return null;
+            }
         }
 
         var newCard = CreateCardWith(GetTopCard());

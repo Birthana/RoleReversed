@@ -85,6 +85,7 @@ public static class TestHelper
         monsterCardInfo.cardName = cardName;
         monsterCardInfo.cost = 2;
         monsterCardInfo.effectDescription = cardEffect;
+        monsterCardInfo.cardSprite = Resources.Load<Sprite>("Sprites/card");
         return monsterCardInfo;
     }
 

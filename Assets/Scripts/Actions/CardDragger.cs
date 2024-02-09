@@ -177,6 +177,7 @@ public class CardDragger : MonoBehaviour, ICardDragger
     private void CastSelectedCard()
     {
         selectedCard.Cast();
+        FindObjectOfType<Drop>().Add(selectedCard.GetCardInfo());
         selectedCard = null;
     }
 

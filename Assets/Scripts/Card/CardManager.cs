@@ -161,7 +161,9 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Add Drop Zone.
+// TODO: Fix Goblin Worker Bug
+// TODO: Add shuffle to Deck
+// TODO: Add Option to remove a common card in deck to add a rare card to deck
 
 // TODO: Optiminize IconText to not for loop after first time Getting text.
 // TODO: Edit Card to use CardInfo damage and health and use number text instead of sprite card
@@ -179,7 +181,7 @@ public class CardManager : MonoBehaviour
 // TODO: Refactor BasicUI
 
 // TODO: Add Tooltips
-// TODO: Add Text Icons
+// TODO: Add Text Icons for card effects
 // TODO: Add Room Start effects.
 // TODO: Fix MonsterDraggerTest unittests.
 // TODO: Refactor MonsterDragger.
