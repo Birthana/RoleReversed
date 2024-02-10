@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RandomTwoRooms
   m_EditorClassIdentifier: 
   cost: 1
-  sprite: {fileID: 444981905, guid: edc2b4ba5bc1cd548a4a509923e3ef64, type: 3}
+  sprite: {fileID: 21300000, guid: 6c90ce7a8a304234088054dc007827af, type: 3}
   description: 'Spawn 1 Pack with 2 Rooms. '
   packPrefab: {fileID: 4177456929125811513, guid: ba3070f0221f9e143b8c78e828e45009, type: 3}

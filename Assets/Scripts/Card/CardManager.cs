@@ -161,10 +161,9 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Fix Goblin Worker Bug
 // TODO: Add shuffle to Deck
-// TODO: Add Option to remove a common card in deck to add a rare card to deck
 
+// TODO: Add Option to remove a common card in deck to add a rare card to deck
 // TODO: Optiminize IconText to not for loop after first time Getting text.
 // TODO: Edit Card to use CardInfo damage and health and use number text instead of sprite card
 // TODO: Create New UI with for Counters with Custom Card Numbers.
