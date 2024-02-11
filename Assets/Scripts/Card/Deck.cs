@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deck : MonoBehaviour
+public class Deck : DisplayObject
 {
     public MonsterCard monsterCardPrefab;
     public RoomCard roomCardPrefab;
-    [SerializeField] private List<CardInfo> cardInfos = new List<CardInfo>();
+
+    protected override bool PlayerClicksOnObject() { return mouse.PlayerPressesLeftClick() && mouse.IsOnDeck(); }
 
     public void Add(CardInfo cardInfo)
     {
@@ -14,13 +15,15 @@ public class Deck : MonoBehaviour
         GetComponent<DeckCount>().AddToDeck();
     }
 
+    private bool IsEmpty() { return cardInfos.Count == 0; }
+
     public Card Draw()
     {
-        if (cardInfos.Count == 0)
+        if (IsEmpty())
         {
-            FindObjectOfType<Drop>().ReturnCardsToDeck();
+            ShuffleDropToDeck();
 
-            if (cardInfos.Count == 0)
+            if (IsEmpty())
             {
                 return null;
             }
@@ -30,6 +33,23 @@ public class Deck : MonoBehaviour
         RemoveTopCard();
         GetComponent<DeckCount>().DrawFromDeck();
         return newCard;
+    }
+
+    private void ShuffleDropToDeck()
+    {
+        FindObjectOfType<Drop>().ReturnCardsToDeck();
+        Shuffle();
+    }
+
+    private void Shuffle()
+    {
+        for (int index = 0; index < cardInfos.Count - 1; index++)
+        {
+            int randomIndex = index + Random.Range(0, cardInfos.Count - index);
+            CardInfo randomCard = cardInfos[randomIndex];
+            cardInfos[randomIndex] = cardInfos[index];
+            cardInfos[index] = randomCard;
+        }
     }
 
     private Card CreateCardWith(CardInfo cardInfo)

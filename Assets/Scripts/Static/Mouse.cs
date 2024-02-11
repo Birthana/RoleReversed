@@ -42,6 +42,8 @@ public static class Mouse
     public static RaycastHit2D IsOnDraft() { return IsOnLayer("Draft"); }
     public static RaycastHit2D IsOnOpenSoulShop() { return IsOnLayer("OpenSoulShop"); }
     public static RaycastHit2D IsOnOption() { return IsOnLayer("Option"); }
+    public static RaycastHit2D IsOnDeck() { return IsOnLayer("Deck"); }
+    public static RaycastHit2D IsOnDrop() { return IsOnLayer("Drop"); }
     public static RaycastHit2D IsOnSpace() { return IsOnLayer("Space"); }
     public static RaycastHit2D IsOnRoom() { return IsOnLayer("Room"); }
     public static RaycastHit2D IsOnSelection() { return IsOnLayer("Selection"); }

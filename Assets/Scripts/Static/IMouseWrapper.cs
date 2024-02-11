@@ -20,6 +20,10 @@ public interface IMouseWrapper
 
     public bool IsOnOption();
 
+    public bool IsOnDeck();
+
+    public bool IsOnDrop();
+
     public ComponentType GetHitComponent<ComponentType>();
 
     public bool IsOnSelection();

@@ -20,6 +20,10 @@ public class MouseWrapper : IMouseWrapper
 
     public bool IsOnOption() { return Mouse.IsOnOption(); }
 
+    public bool IsOnDeck() { return Mouse.IsOnDeck(); }
+
+    public bool IsOnDrop() { return Mouse.IsOnDrop(); }
+
     public ComponentType GetHitComponent<ComponentType>() { return Mouse.GetHitComponent<ComponentType>(); }
 
     public bool IsOnSelection() { return Mouse.IsOnSelection(); }

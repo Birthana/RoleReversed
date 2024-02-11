@@ -161,43 +161,57 @@ public class CardManager : MonoBehaviour
     }
 }
 
-// TODO: Add shuffle to Deck
 
-// TODO: Add Option to remove a common card in deck to add a rare card to deck
-// TODO: Optiminize IconText to not for loop after first time Getting text.
-// TODO: Edit Card to use CardInfo damage and health and use number text instead of sprite card
-// TODO: Create New UI with for Counters with Custom Card Numbers.
-// TODO: Add numbers font to damage numbers. Extract custom numbers to own helper class.
-// TODO: BUG: Player can get negative damage, and heal monsters.
-// TODO: Change CardTest to use Room to spawn Monsters.
-// TODO: Null Object in OrangeSlime.cs
-// TODO: Organize Different Managers in a GameObject.
-// TODO: Fix Room Monsters Display when Monsters are dead.
-// TODO: Add something with a deck size milestones.
-// TODO: Remove Temporary Monster if-statements.
-// TODO: Create common array container for Hand, Deck, Drop, etc.
-// TODO: Clean/refactor GameManager WalkThru().
-// TODO: Refactor BasicUI
 
-// TODO: Add Tooltips
-// TODO: Add Text Icons for card effects
+//----------------
+// Features
+//----------------
 // TODO: Add Room Start effects.
+// TODO: Edit Card to use CardInfo damage and health and use number text instead of sprite card
+// TODO: Add Option to remove a common card in deck to add a rare card to deck
+// TODO: Add Show BattleField Button In Draft Card Pick.
+// TODO: Add Text Icons for card effects
+// TODO: Add Tooltips
+// TODO: Add Transform Options.
+// TODO: Add Monster Soul mechnanic.
+// TODO: Add new cards. (Blink/Reentrance trigger)
+// TODO: Add something to reward adding cards to Deck.
+
+//----------------
+// Refactors
+//----------------
+// TODO: Optiminize IconText to not for loop after first time Getting text.
+// TODO: Create Fix Columns CenterPosition.
+// TODO: Clean up MonsterDraggerTests Mock Setups.
+// TODO: Remove cards in Pack.cs
+// TODO: Make unittests for OptionInfos.
+// TODO: Split UI and Mechanics of various scripts
 // TODO: Fix MonsterDraggerTest unittests.
 // TODO: Refactor MonsterDragger.
-// TODO: Split UI and Mechanics of various scripts
-// TODO: Make unittests for OptionInfos.
-// TODO: Add new cards. (Blink/Reentrance trigger)
-// TODO: Add Monster Soul mechnanic.
+// TODO: Clean/refactor GameManager WalkThru().
+// TODO: Create common array container for Hand, Deck, Drop, etc.
+// TODO: Remove Temporary Monster if-statements.
+// TODO: Null Object in OrangeSlime.cs
+// TODO: Organize Different Managers in a GameObject.
+// TODO: Change CardTest to use Room to spawn Monsters.
 
-// TODO: Add Show BattleField Button In Draft Card Pick.
-// TODO: Add Transform Options.
-// TODO: Loot Animation for Pack.cs. When Open Start Pack.
-// TODO: Loot Animation, make a class not a monobehavior.
-// TODO: Remove cards in Pack.cs
-// TODO: Create Shop Option BackGround.
-
+//----------------
+// Bugs
+//----------------
+// TODO: Fix Room Monsters Display when Monsters are dead.
+// TODO: Bug: Release with no card selected in CardDragger.cs
 // TODO: BUG: Reroll Option cannot be previously chosen option.
-// TODO: Clean up MonsterDraggerTests Mock Setups.
+// TODO: BUG: Player can get negative damage, and heal monsters.
+
+//----------------
+// Animations
+//----------------
 // TODO: Animation: Flip Animation.
 // TODO: Animation: Drawing Cards from Deck. Opening Pack.
-// TODO: Bug: Release with no card selected in CardDragger.cs
+// TODO: Loot Animation for Pack.cs. When Open Start Pack.
+
+//----------------
+// Sprites
+//----------------
+// TODO: Create Shop Option BackGround.
+// TODO: Create DisplayCard Background.

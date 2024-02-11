@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drop : MonoBehaviour
+public class Drop : DisplayObject
 {
-    [SerializeField] private List<CardInfo> cardInfos = new List<CardInfo>();
+    protected override bool PlayerClicksOnObject() { return mouse.PlayerPressesLeftClick() && mouse.IsOnDrop(); }
 
     public int GetSize() { return cardInfos.Count; }
 
