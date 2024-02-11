@@ -181,7 +181,6 @@ public class CardManager : MonoBehaviour
 // Refactors
 //----------------
 // TODO: Optiminize IconText to not for loop after first time Getting text.
-// TODO: Create Fix Columns CenterPosition.
 // TODO: Clean up MonsterDraggerTests Mock Setups.
 // TODO: Remove cards in Pack.cs
 // TODO: Make unittests for OptionInfos.
@@ -194,6 +193,7 @@ public class CardManager : MonoBehaviour
 // TODO: Null Object in OrangeSlime.cs
 // TODO: Organize Different Managers in a GameObject.
 // TODO: Change CardTest to use Room to spawn Monsters.
+// TODO: Change Mouse Raycast to look at component instead of Layer.
 
 //----------------
 // Bugs

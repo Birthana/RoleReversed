@@ -48,28 +48,14 @@ public class DisplayCardInfos : MonoBehaviour
 
     private void DisplayDisplayCard()
     {
-        var centerPostion = new CenterPosition(transform.position, GetDeckCardCount(), 25.0f);
-        for (int index = 0; index < displayCards.Count; index++)
+        var blockCenterPosition = new BlockCenterPosition(transform.position,
+                                                          displayCards.Count,
+                                                          MAX_DISPLAY_COLUMN_COUNT,
+                                                          25.0f,
+                                                          ROW_SPACING);
+        for (int i = 0; i < displayCards.Count; i++)
         {
-            var position = centerPostion.GetHorizontalOffsetPositionAt(index % MAX_DISPLAY_COLUMN_COUNT);
-            position = new Vector3(position.x, GetVerticalPosition(index), position.z);
-            displayCards[index].transform.position = position;
+            displayCards[i].transform.position = blockCenterPosition.GetHorizontalLayoutPositionAt(i);
         }
-    }
-
-    private float GetVerticalPosition(int index)
-    {
-        int row = index / MAX_DISPLAY_COLUMN_COUNT;
-        return transform.position.x - (row * ROW_SPACING);
-    }
-
-    private int GetDeckCardCount()
-    {
-        if (displayCards.Count < MAX_DISPLAY_COLUMN_COUNT)
-        {
-            return displayCards.Count;
-        }
-
-        return MAX_DISPLAY_COLUMN_COUNT;
     }
 }

@@ -71,29 +71,15 @@ public class Room : MonoBehaviour
 
     public void DisplayMonsters()
     {
-        var centerPosition = new CenterPosition(new Vector2(MONSTER_OFFSET.x, 0), GetMonsterCount(), SPACING);
+        var blockCenterPosition = new BlockCenterPosition(new Vector2(MONSTER_OFFSET.x, 0), 
+                                                          monsters.Count,
+                                                          MAX_NUMBER_OF_MONSTERS_IN_COLUMN,
+                                                          SPACING,
+                                                          COLUMN_SPACING);
         for (int i = 0; i < monsters.Count; i++)
         {
-            var position = centerPosition.GetVerticalOffsetPositionAt(i % MAX_NUMBER_OF_MONSTERS_IN_COLUMN);
-            position = new Vector3(GetHorizontalPosition(i), position.y, position.z);
-            monsters[i].transform.localPosition = position;
+            monsters[i].transform.localPosition = blockCenterPosition.GetVerticalLayoutPositionAt(i);
         }
-    }
-
-    private int GetMonsterCount()
-    {
-        if (monsters.Count < MAX_NUMBER_OF_MONSTERS_IN_COLUMN)
-        {
-            return monsters.Count;
-        }
-
-        return MAX_NUMBER_OF_MONSTERS_IN_COLUMN;
-    }
-
-    private float GetHorizontalPosition(int index)
-    {
-        int column = index / MAX_NUMBER_OF_MONSTERS_IN_COLUMN;
-        return MONSTER_OFFSET.x + (column * COLUMN_SPACING);
     }
 
     public void Remove(Monster monster)
