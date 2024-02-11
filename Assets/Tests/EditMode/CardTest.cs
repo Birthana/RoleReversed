@@ -32,6 +32,7 @@ public class CardTest : MonoBehaviour
     {
         player = TestHelper.GetPlayer(ANY_MAX_DAMAGE, ANY_MAX_HEALTH);
         card = new GameObject().AddComponent<MonsterCard>();
+        card.gameObject.AddComponent<MonsterCardUI>();
         hand = TestHelper.GetHand();
         cardDragger = TestHelper.GetCardDragger();
         monsterPrefab = Resources.Load<Monster>(FIELD_MONSTER_PREFAB);

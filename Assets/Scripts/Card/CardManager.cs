@@ -161,13 +161,15 @@ public class CardManager : MonoBehaviour
     }
 }
 
-
+//----------------
+// Current Things
+//----------------
+// TODO: Add same card setting to DraftCards and DisplayCards.
 
 //----------------
 // Features
 //----------------
 // TODO: Add Room Start effects.
-// TODO: Edit Card to use CardInfo damage and health and use number text instead of sprite card
 // TODO: Add Option to remove a common card in deck to add a rare card to deck
 // TODO: Add Show BattleField Button In Draft Card Pick.
 // TODO: Add Text Icons for card effects

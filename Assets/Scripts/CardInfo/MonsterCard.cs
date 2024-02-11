@@ -1,15 +1,26 @@
 using UnityEngine;
+using TMPro;
 
 public class MonsterCard : Card
 {
+    [SerializeField] private MonsterCardUI cardUI;
     private Transform selectedRoom;
     private MonsterCardInfo monsterCardInfo;
+
+    private MonsterCardUI GetCardUI()
+    {
+        if (cardUI == null)
+        {
+            cardUI = GetComponent<MonsterCardUI>();
+        }
+
+        return cardUI;
+    }
 
     public override void SetCardInfo(CardInfo newCardInfo)
     {
         monsterCardInfo = (MonsterCardInfo)newCardInfo;
-        SetSprite(newCardInfo.cardSprite);
-        SetDescription(newCardInfo.effectDescription);
+        GetCardUI().SetCardInfo(monsterCardInfo);
     }
 
     public override CardInfo GetCardInfo()

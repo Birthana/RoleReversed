@@ -61,6 +61,7 @@ public static class TestHelper
     private static MonsterCard GetMonsterCard()
     {
         var monsterCard = new GameObject().AddComponent<MonsterCard>();
+        monsterCard.gameObject.AddComponent<MonsterCardUI>();
         monsterCard.gameObject.AddComponent<SpriteRenderer>();
         var cardDescription = new GameObject().AddComponent<TextMeshPro>();
         cardDescription.transform.SetParent(monsterCard.transform);
@@ -70,6 +71,7 @@ public static class TestHelper
     private static RoomCard GetRoomCard()
     {
         var roomCard = new GameObject().AddComponent<RoomCard>();
+        roomCard.gameObject.AddComponent<RoomCardUI>();
         roomCard.gameObject.AddComponent<SpriteRenderer>();
         return roomCard;
     }

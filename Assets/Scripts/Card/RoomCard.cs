@@ -1,12 +1,25 @@
 using UnityEngine;
+using TMPro;
 
 public class RoomCard : Card
 {
+    [SerializeField] private RoomCardUI cardUI;
     private static readonly string FIELD_ROOM_PREFAB = "Prefabs/FieldRoom";
     private Room roomPrefab;
     private GameManager gameManager;
     private RoomTransform roomTransform;
     private RoomCardInfo roomCardInfo;
+
+    private RoomCardUI GetCardUI()
+    {
+        if (cardUI == null)
+        {
+            cardUI = GetComponent<RoomCardUI>();
+        }
+
+        return cardUI;
+    }
+
 
     private void Awake()
     {
@@ -17,8 +30,7 @@ public class RoomCard : Card
     {
         roomPrefab = Resources.Load<Room>(FIELD_ROOM_PREFAB);
         roomCardInfo = (RoomCardInfo)newCardInfo;
-        SetSprite(newCardInfo.cardSprite);
-        SetDescription(newCardInfo.effectDescription);
+        GetCardUI().SetCardInfo(roomCardInfo);
     }
 
     public override CardInfo GetCardInfo()

@@ -3,27 +3,13 @@ using TMPro;
 
 public class Card : MonoBehaviour
 {
-    public virtual void SetCardInfo(CardInfo newCardInfo) {}
+    [SerializeField] private BasicUI cost;
+    [SerializeField] private TextMeshPro description;
+    [SerializeField] private SpriteRenderer cardSprite;
+
+    public virtual void SetCardInfo(CardInfo newCardInfo) { }
 
     public virtual CardInfo GetCardInfo() { return null; }
-
-    public void SetSprite(Sprite sprite)
-    {
-        var renderer = GetComponent<SpriteRenderer>();
-        if (renderer != null)
-        {
-            renderer.sprite = sprite;
-        }
-    }
-
-    public void SetDescription(string effectDescription)
-    {
-        var description = GetComponentInChildren<TextMeshPro>();
-        if (description != null)
-        {
-            description.text = effectDescription;
-        }
-    }
 
     public virtual int GetCost() { return 0; }
 
