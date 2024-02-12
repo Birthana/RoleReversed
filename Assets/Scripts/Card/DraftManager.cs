@@ -52,7 +52,7 @@ public class DraftManager : MonoBehaviour
     private void AnimateCard(CardInfo card)
     {
         var animation = Instantiate(lootAnimation);
-        animation.AnimateLoot(card.cardSprite);
+        animation.AnimateLoot(card);
     }
 
     private void ClearDraftCards()

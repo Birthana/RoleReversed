@@ -62,7 +62,7 @@ public class DropTest : MonoBehaviour
         drop.Add(cardInfo);
 
         // Assert
-        Assert.AreEqual(cardInfo.cardSprite, drop.GetComponent<SpriteRenderer>().sprite);
+        Assert.AreEqual(cardInfo.fieldSprite, drop.GetComponent<SpriteRenderer>().sprite);
     }
 
     [Test]

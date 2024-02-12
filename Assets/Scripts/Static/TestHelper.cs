@@ -36,6 +36,8 @@ public static class TestHelper
     {
         var lootAnimation = new GameObject().AddComponent<LootAnimation>();
         lootAnimation.gameObject.AddComponent<SpriteRenderer>();
+        lootAnimation.gameObject.AddComponent<MonsterCardUI>();
+        lootAnimation.gameObject.AddComponent<RoomCardUI>();
         return lootAnimation;
     }
 
@@ -87,7 +89,6 @@ public static class TestHelper
         monsterCardInfo.cardName = cardName;
         monsterCardInfo.cost = 2;
         monsterCardInfo.effectDescription = cardEffect;
-        monsterCardInfo.cardSprite = Resources.Load<Sprite>("Sprites/card");
         return monsterCardInfo;
     }
 
@@ -105,6 +106,8 @@ public static class TestHelper
         var roomCardInfo = GetRoomCardInfo(1, ANY_CARD_NAME_4, ANY_CARD_TEXT);
         var draftCard = new GameObject().AddComponent<DraftCard>();
         draftCard.gameObject.AddComponent<SpriteRenderer>();
+        draftCard.gameObject.AddComponent<MonsterCardUI>();
+        draftCard.gameObject.AddComponent<RoomCardUI>();
         var cardDescription = new GameObject().AddComponent<TextMeshPro>();
         cardDescription.transform.SetParent(draftCard.transform);
         draftCard.SetCardInfo(roomCardInfo);

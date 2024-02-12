@@ -11,7 +11,7 @@ public class Drop : DisplayObject
     public void Add(CardInfo cardInfo)
     {
         cardInfos.Add(cardInfo);
-        SetSprite(cardInfo.cardSprite);
+        SetSprite(cardInfo.fieldSprite);
         FindObjectOfType<DropCount>().AddToDrop();
     }
 

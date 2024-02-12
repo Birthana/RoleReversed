@@ -74,16 +74,16 @@ public class Pack : MonoBehaviour
         for (int index = 0; index < cardInfos.Count; index++)
         {
             var position = centerPosition.GetHorizontalOffsetPositionAt(index);
-            AnimateCardAtPosition(cardInfos[index].cardSprite, position, LootAnimation.SHOW_TIME * index);
+            AnimateCardAtPosition(cardInfos[index], position, LootAnimation.SHOW_TIME * index);
         }
     }
 
-    private void AnimateCardAtPosition(Sprite cardSprite, Vector3 position, float delay)
+    private void AnimateCardAtPosition(CardInfo cardInfo, Vector3 position, float delay)
     {
         var animation = Instantiate(lootAnimation);
         animation.transform.position = position;
         animation.SetDelay(delay);
-        animation.AnimateLoot(cardSprite);
+        animation.AnimateLoot(cardInfo);
     }
 
     private void AddPackCardsToDeck()

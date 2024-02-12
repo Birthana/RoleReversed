@@ -16,6 +16,9 @@ public class DeckShowTest : MonoBehaviour
         display = new GameObject().AddComponent<DisplayCardInfos>();
         var deckCardPrefab = new GameObject().AddComponent<DisplayCard>();
         deckCardPrefab.gameObject.AddComponent<SpriteRenderer>();
+        deckCardPrefab.gameObject.AddComponent<BoxCollider2D>();
+        deckCardPrefab.gameObject.AddComponent<MonsterCardUI>();
+        deckCardPrefab.gameObject.AddComponent<RoomCardUI>();
         display.displayCardPrefab = deckCardPrefab;
         deck = new GameObject().AddComponent<Deck>();
         deck.gameObject.AddComponent<DeckCount>();
@@ -25,7 +28,7 @@ public class DeckShowTest : MonoBehaviour
     [TearDown]
     public void TearDown()
     {
-        FindObjectsOfType<DisplayCard>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+        FindObjectsOfType<DraftCard>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
         FindObjectsOfType<Deck>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
         FindObjectsOfType<DisplayCardInfos>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
@@ -49,7 +52,7 @@ public class DeckShowTest : MonoBehaviour
 
         // Assert
         mock.VerifyAll();
-        var deckCard = FindObjectsOfType<DisplayCard>();
+        var deckCard = FindObjectsOfType<DraftCard>();
         Assert.AreEqual(1 + 1, deckCard.Length);
     }
 
@@ -73,7 +76,7 @@ public class DeckShowTest : MonoBehaviour
 
         // Assert
         mock.VerifyAll();
-        var deckCard = FindObjectsOfType<DisplayCard>();
+        var deckCard = FindObjectsOfType<DraftCard>();
         Assert.AreEqual(0 + 1, deckCard.Length);
     }
 }

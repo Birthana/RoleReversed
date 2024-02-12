@@ -164,7 +164,7 @@ public class CardManager : MonoBehaviour
 //----------------
 // Current Things
 //----------------
-// TODO: Add same card setting to DraftCards and DisplayCards.
+// TODO: Add DisplayCard to Drop.
 
 //----------------
 // Features
@@ -178,6 +178,7 @@ public class CardManager : MonoBehaviour
 // TODO: Add Monster Soul mechnanic.
 // TODO: Add new cards. (Blink/Reentrance trigger)
 // TODO: Add something to reward adding cards to Deck.
+// TODO: Change it so it is harder to get Rare Cards, like 2 Monster Pack can only contain 1 Rare at a low chance.
 
 //----------------
 // Refactors
@@ -196,10 +197,13 @@ public class CardManager : MonoBehaviour
 // TODO: Organize Different Managers in a GameObject.
 // TODO: Change CardTest to use Room to spawn Monsters.
 // TODO: Change Mouse Raycast to look at component instead of Layer.
+// TODO: Clean up LootAnimation.
+// TODO: Combine Loot, DisplayCard, and DraftCard Prefabs.
 
 //----------------
 // Bugs
 //----------------
+// TODO: Fix commented out unittests in LootAnimation.cs
 // TODO: Fix Room Monsters Display when Monsters are dead.
 // TODO: Bug: Release with no card selected in CardDragger.cs
 // TODO: BUG: Reroll Option cannot be previously chosen option.

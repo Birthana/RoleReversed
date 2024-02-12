@@ -23,7 +23,7 @@ public class DisplayCardInfos : MonoBehaviour
         foreach (var cardInfo in cardInfos)
         {
             var displayCard = Instantiate(displayCardPrefab, transform);
-            displayCard.Set(cardInfo);
+            displayCard.SetCardInfo(cardInfo);
             displayCards.Add(displayCard);
         }
 

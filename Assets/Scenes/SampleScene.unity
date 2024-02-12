@@ -1446,9 +1446,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4c4e929e9677142b66069c8dd5047f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardInfos: []
   monsterCardPrefab: {fileID: -6711869192912208744, guid: 109b5c9931efac248912025447cef8d2, type: 3}
   roomCardPrefab: {fileID: -5276209314207143491, guid: 1ccabceff46f8404a8bf6328d70f8c1e, type: 3}
-  cardInfos: []
 --- !u!4 &815771742
 Transform:
   m_ObjectHideFlags: 0
@@ -3324,7 +3324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33abff15bc7dd22489185cef8c71c58a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayCardPrefab: {fileID: 5238261319865215590, guid: 5cf37cc81c849124f901605befd682b3, type: 3}
+  displayCardPrefab: {fileID: 185882098863434448, guid: 8fac92f1caa16c64eb3f3f9c15cda1c8, type: 3}
 --- !u!4 &1491384156
 Transform:
   m_ObjectHideFlags: 0
