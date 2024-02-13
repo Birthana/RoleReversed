@@ -9,6 +9,12 @@ public class MonsterCardUI : MonoBehaviour
     [SerializeField] private BasicUI damage;
     [SerializeField] private BasicUI health;
 
+    public BasicUI GetDamageUI() { return damage; }
+
+    public BasicUI GetHealthUI() { return health; }
+
+    public SpriteRenderer GetCardSprite() { return cardSprite; }
+
     public void SetCardInfo(MonsterCardInfo newCardInfo)
     {
         SetDamage(newCardInfo.damage);

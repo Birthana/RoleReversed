@@ -9,6 +9,11 @@ public class RoomCardUI : MonoBehaviour
     [SerializeField] private SpriteRenderer cardSprite;
     [SerializeField] private BasicUI capacity;
 
+    public BasicUI GetCapacity() { return capacity; }
+
+    public SpriteRenderer GetCardSprite() { return cardSprite; }
+
+
     public void SetCardInfo(RoomCardInfo newCardInfo)
     {
         SetCost(newCardInfo.cost);

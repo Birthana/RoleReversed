@@ -164,7 +164,7 @@ public class CardManager : MonoBehaviour
 //----------------
 // Current Things
 //----------------
-// TODO: Add DisplayCard to Drop.
+
 
 //----------------
 // Features
@@ -179,6 +179,7 @@ public class CardManager : MonoBehaviour
 // TODO: Add new cards. (Blink/Reentrance trigger)
 // TODO: Add something to reward adding cards to Deck.
 // TODO: Change it so it is harder to get Rare Cards, like 2 Monster Pack can only contain 1 Rare at a low chance.
+// TODO: Add incentive for getting a set of 4 cards.
 
 //----------------
 // Refactors

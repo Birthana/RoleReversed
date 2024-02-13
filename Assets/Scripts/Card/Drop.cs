@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Drop : DisplayObject
 {
+    [SerializeField] private DisplayCard displayCard;
+
+    public void SetDisplayCard(DisplayCard displayCard)
+    {
+        this.displayCard = displayCard;
+    }
+
     protected override bool PlayerClicksOnObject() { return mouse.PlayerPressesLeftClick() && mouse.IsOnDrop(); }
 
     public int GetSize() { return cardInfos.Count; }
@@ -11,7 +18,8 @@ public class Drop : DisplayObject
     public void Add(CardInfo cardInfo)
     {
         cardInfos.Add(cardInfo);
-        SetSprite(cardInfo.fieldSprite);
+        displayCard.gameObject.SetActive(true);
+        displayCard.SetCardInfo(cardInfo);
         FindObjectOfType<DropCount>().AddToDrop();
     }
 
@@ -26,8 +34,6 @@ public class Drop : DisplayObject
         }
 
         cardInfos = new List<CardInfo>();
-        SetSprite(null);
+        displayCard.gameObject.SetActive(false);
     }
-
-    private void SetSprite(Sprite sprite) { GetComponent<SpriteRenderer>().sprite = sprite; }
 }

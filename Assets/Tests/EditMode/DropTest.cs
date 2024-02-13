@@ -25,6 +25,10 @@ public class DropTest : MonoBehaviour
         // Arrange
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
         var drop = new GameObject().AddComponent<Drop>();
+        var displayCard = new GameObject().AddComponent<DisplayCard>();
+        displayCard.gameObject.AddComponent<MonsterCardUI>();
+        displayCard.gameObject.AddComponent<RoomCardUI>();
+        drop.SetDisplayCard(displayCard);
         drop.gameObject.AddComponent<SpriteRenderer>();
 
         // Act
@@ -40,6 +44,10 @@ public class DropTest : MonoBehaviour
         // Arrange
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
         var drop = new GameObject().AddComponent<Drop>();
+        var displayCard = new GameObject().AddComponent<DisplayCard>();
+        displayCard.gameObject.AddComponent<MonsterCardUI>();
+        displayCard.gameObject.AddComponent<RoomCardUI>();
+        drop.SetDisplayCard(displayCard);
         drop.gameObject.AddComponent<SpriteRenderer>();
         drop.Add(cardInfo);
 
@@ -56,6 +64,10 @@ public class DropTest : MonoBehaviour
         // Arrange
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
         var drop = new GameObject().AddComponent<Drop>();
+        var displayCard = new GameObject().AddComponent<DisplayCard>();
+        displayCard.gameObject.AddComponent<MonsterCardUI>();
+        displayCard.gameObject.AddComponent<RoomCardUI>();
+        drop.SetDisplayCard(displayCard);
         drop.gameObject.AddComponent<SpriteRenderer>();
 
         // Act
@@ -71,6 +83,10 @@ public class DropTest : MonoBehaviour
         // Arrange
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
         var drop = new GameObject().AddComponent<Drop>();
+        var displayCard = new GameObject().AddComponent<DisplayCard>();
+        displayCard.gameObject.AddComponent<MonsterCardUI>();
+        displayCard.gameObject.AddComponent<RoomCardUI>();
+        drop.SetDisplayCard(displayCard);
         drop.gameObject.AddComponent<SpriteRenderer>();
         drop.Add(cardInfo);
 
