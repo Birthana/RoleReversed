@@ -4,4 +4,6 @@ using UnityEngine;
 public class RoomCardInfo : CardInfo
 {
     public int capacity;
+
+    public virtual void BattleStart() { Debug.Log($"Room."); }
 }

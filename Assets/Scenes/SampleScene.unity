@@ -1309,7 +1309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5227417338984079950, guid: 8fac92f1caa16c64eb3f3f9c15cda1c8, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5949488506443496513, guid: 8fac92f1caa16c64eb3f3f9c15cda1c8, type: 3}
       propertyPath: m_SortingOrder
@@ -2407,6 +2407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e56e1fa68543a438c983d112769f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rarityRate: 10
 --- !u!4 &955908987
 Transform:
   m_ObjectHideFlags: 0

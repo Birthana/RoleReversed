@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
+    [Range(5, 50)]
+    public int rarityRate = 10;
     private static readonly string COMMON_CARDS_FILE_PATH = "Prefabs/Commons";
     private static readonly string RARE_CARDS_FILE_PATH = "Prefabs/Rares";
     private List<CardInfo> commons = new List<CardInfo>();
@@ -139,13 +141,13 @@ public class CardManager : MonoBehaviour
 
     public CardInfo GetRandomCardInfo()
     {
-        int rngIndex = UnityEngine.Random.Range(0, 2);
+        int rngIndex = UnityEngine.Random.Range(0, 100 / rarityRate);
         if (rngIndex == 0)
         {
-            return GetCommonCardInfo();
+            return GetRareCardInfo();
         }
 
-        return GetRareCardInfo();
+        return GetCommonCardInfo();
     }
 
     public CardInfo GetCommonCardInfo()
@@ -164,12 +166,11 @@ public class CardManager : MonoBehaviour
 //----------------
 // Current Things
 //----------------
-
+// TODO: Add Room Start effects.
 
 //----------------
 // Features
 //----------------
-// TODO: Add Room Start effects.
 // TODO: Add Option to remove a common card in deck to add a rare card to deck
 // TODO: Add Show BattleField Button In Draft Card Pick.
 // TODO: Add Text Icons for card effects
@@ -178,8 +179,8 @@ public class CardManager : MonoBehaviour
 // TODO: Add Monster Soul mechnanic.
 // TODO: Add new cards. (Blink/Reentrance trigger)
 // TODO: Add something to reward adding cards to Deck.
-// TODO: Change it so it is harder to get Rare Cards, like 2 Monster Pack can only contain 1 Rare at a low chance.
 // TODO: Add incentive for getting a set of 4 cards.
+// TODO: Add incentive for getting more Rooms.
 
 //----------------
 // Refactors
@@ -209,6 +210,7 @@ public class CardManager : MonoBehaviour
 // TODO: Bug: Release with no card selected in CardDragger.cs
 // TODO: BUG: Reroll Option cannot be previously chosen option.
 // TODO: BUG: Player can get negative damage, and heal monsters.
+// TODO: BUG: When game over, focused room is still focused.
 
 //----------------
 // Animations

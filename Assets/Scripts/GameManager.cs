@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour, IGameManager
         bool focusOnRoom = false;
         if (!currentRoom.IsEmpty())
         {
+            currentRoom.BattleStart();
             new ChangeSortingLayer(currentRoom.gameObject).SetToCurrentRoom();
             yield return focusAnimation.FocusOn(currentRoom.transform);
             focusOnRoom = true;
@@ -148,6 +149,7 @@ public class GameManager : MonoBehaviour, IGameManager
                 PlayerMoveTo(currentRoom);
                 if (!currentRoom.IsEmpty())
                 {
+                    currentRoom.BattleStart();
                     new ChangeSortingLayer(currentRoom.gameObject).SetToCurrentRoom();
                     yield return focusAnimation.FocusOn(currentRoom.transform);
                     focusOnRoom = true;

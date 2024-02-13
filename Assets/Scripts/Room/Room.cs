@@ -14,6 +14,7 @@ public class Room : MonoBehaviour
     public float HORIZONTAL_SPACING;
     public float VERTICAL_SPACING;
     private Capacity capacity;
+    private RoomCardInfo cardInfo;
 
     public void Awake()
     {
@@ -165,5 +166,15 @@ public class Room : MonoBehaviour
         monster.Setup(monsterCardInfo);
         Add(monster);
         return monster;
+    }
+
+    public void BattleStart()
+    {
+        cardInfo.BattleStart();
+    }
+
+    public void SetCardInfo(RoomCardInfo roomCardInfo)
+    {
+        cardInfo = roomCardInfo;
     }
 }

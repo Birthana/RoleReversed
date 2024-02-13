@@ -85,6 +85,7 @@ public class RoomCard : Card
         var room = Instantiate(roomPrefab);
         room.GetComponent<SpriteRenderer>().sprite = roomCardInfo.fieldSprite;
         room.SetCapacity(roomCardInfo.capacity);
+        room.SetCardInfo(roomCardInfo);
         room.transform.position = roomTransform.GetTransform().position;
         Destroy(roomTransform.GetTransform().gameObject);
         if (gameManager.DoesNotHaveStartRoom())
