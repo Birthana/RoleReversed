@@ -166,7 +166,8 @@ public class CardManager : MonoBehaviour
 //----------------
 // Current Things
 //----------------
-// TODO: Add Room Start effects.
+// TODO: Fix unittests.
+// TODO: Add Construction Room.
 
 //----------------
 // Features

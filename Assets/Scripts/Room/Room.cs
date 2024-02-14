@@ -39,6 +39,17 @@ public class Room : MonoBehaviour
         }
     }
 
+    public IEnumerator MakeRandomAttack(Character character)
+    {
+        var randomIndex = Random.Range(0, monsters.Count);
+        if (monsters[randomIndex].IsDead())
+        {
+            yield break;
+        }
+
+        yield return monsters[randomIndex].Attack(character);
+    }
+
     public void SetCapacity(int capacity)
     {
         this.capacity.maxCount = capacity;
@@ -168,9 +179,9 @@ public class Room : MonoBehaviour
         return monster;
     }
 
-    public void BattleStart()
+    public IEnumerator BattleStart()
     {
-        cardInfo.BattleStart();
+        yield return cardInfo.BattleStart(this);
     }
 
     public void SetCardInfo(RoomCardInfo roomCardInfo)
