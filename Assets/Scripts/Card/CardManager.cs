@@ -37,9 +37,19 @@ public class CardManager : MonoBehaviour
 
     private bool ListContainsCard(List<CardInfo> cards, Card cardToCheck)
     {
+        return CheckCardNameIsSame(cardToCheck.GetName(), cards);
+    }
+
+    private bool ListContainsCard(List<CardInfo> cards, CardInfo cardToCheck)
+    {
+        return CheckCardNameIsSame(cardToCheck.cardName, cards);
+    }
+
+    private bool CheckCardNameIsSame(string cardName, List<CardInfo> cards)
+    {
         foreach (var card in cards)
         {
-            if (cardToCheck.GetName().Equals(card.cardName))
+            if (cardName.Equals(card.cardName))
             {
                 return true;
             }
@@ -48,11 +58,17 @@ public class CardManager : MonoBehaviour
         return false;
     }
 
-    public bool CardInfoIsLowCostMonster(CardInfo cardInfo) { return CardInfoIsMonster(cardInfo) && (cardInfo.cost < 3); }
+    public bool CardInfoIsLowCostMonster(CardInfo cardInfo)
+    {
+        return CardInfoIsMonster(cardInfo) && (cardInfo.cost < 3) && ListContainsCard(commons, cardInfo);
+    }
 
     public bool CardInfoIsMonster(CardInfo cardInfo) { return cardInfo.IsMonster(); }
 
-    public bool CardInfoIsLowCostRoom(CardInfo cardInfo) { return CardInfoIsRoom(cardInfo) && (cardInfo.cost < 3); }
+    public bool CardInfoIsLowCostRoom(CardInfo cardInfo)
+    {
+        return CardInfoIsRoom(cardInfo) && (cardInfo.cost < 3) && ListContainsCard(commons, cardInfo);
+    }
 
     public bool CardInfoIsRoom(CardInfo cardInfo) { return cardInfo.IsRoom(); }
 
@@ -81,20 +97,33 @@ public class CardManager : MonoBehaviour
     public List<CardInfo> GetUniqueCardInfos(int numberOfDraftCards)
     {
         var cardInfos = new List<CardInfo>();
-        for (int i = 0; i < numberOfDraftCards; i++)
+        for (int i = 0; i < numberOfDraftCards - 1; i++)
         {
-            cardInfos.Add(GetUniqueCardInfo(cardInfos));
+            cardInfos.Add(GetUniqueCommonCardInfo(cardInfos));
         }
+
+        cardInfos.Add(GetUniqueRandomCardInfo(cardInfos));
 
         return cardInfos;
     }
 
-    private CardInfo GetUniqueCardInfo(List<CardInfo> cardInfos)
+    private CardInfo GetUniqueCommonCardInfo(List<CardInfo> cardInfos)
     {
         CardInfo cardInfo;
         do
         {
             cardInfo = GetCommonCardInfo();
+        } while (CardInfoIsNotUnique(cardInfo, cardInfos));
+
+        return cardInfo;
+    }
+
+    private CardInfo GetUniqueRandomCardInfo(List<CardInfo> cardInfos)
+    {
+        CardInfo cardInfo;
+        do
+        {
+            cardInfo = GetRandomCardInfo();
         } while (CardInfoIsNotUnique(cardInfo, cardInfos));
 
         return cardInfo;
@@ -141,7 +170,7 @@ public class CardManager : MonoBehaviour
 
     public CardInfo GetRandomCardInfo()
     {
-        int rngIndex = UnityEngine.Random.Range(0, 100 / rarityRate);
+        int rngIndex = UnityEngine.Random.Range(0, Mathf.Max(1, 100 - rarityRate));
         if (rngIndex == 0)
         {
             return GetRareCardInfo();
@@ -161,12 +190,14 @@ public class CardManager : MonoBehaviour
         int rngIndex = UnityEngine.Random.Range(0, rares.Count);
         return rares[rngIndex];
     }
+
+    public void IncreaseRarity() { rarityRate += 1; }
 }
 
 //----------------
 // Current Things
 //----------------
-// TODO: Fix unittests.
+// TODO: Fix unittests. Add commons / rares to CardManager.cs during unittest.
 // TODO: Add Construction Room.
 
 //----------------

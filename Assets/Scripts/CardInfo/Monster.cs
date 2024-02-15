@@ -61,10 +61,14 @@ public class Monster : Character
         yield return PlayAttackAnimation();
         character.TakeDamage(GetDamage());
         var spriteRender = character.GetComponent<SpriteRenderer>();
-        var damageAnimation = new DamageAnimation(spriteRender, Color.red, 0.1f);
-        yield return StartCoroutine(damageAnimation.AnimateFromStartToEnd());
-        yield return new WaitForSeconds(0.1f);
-        yield return StartCoroutine(damageAnimation.AnimateFromEndToStart());
+        if(spriteRender != null)
+        {
+            var damageAnimation = new DamageAnimation(spriteRender, Color.red, 0.1f);
+            yield return StartCoroutine(damageAnimation.AnimateFromStartToEnd());
+            yield return new WaitForSeconds(0.1f);
+            yield return StartCoroutine(damageAnimation.AnimateFromEndToStart());
+        }
+
         Engage();
         if (character.IsDead())
         {

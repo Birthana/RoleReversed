@@ -9,6 +9,8 @@ public static class TestHelper
     public static readonly string ANY_CARD_NAME_2 = "ANY CARD NAME 2";
     public static readonly string ANY_CARD_NAME_3 = "ANY CARD NAME 3";
     public static readonly string ANY_CARD_NAME_4 = "ANY CARD NAME 4";
+    public static readonly string ANY_CARD_NAME_5 = "ANY CARD NAME 5";
+    public static readonly string ANY_CARD_NAME_6 = "ANY CARD NAME 6";
     public static readonly string ANY_CARD_TEXT = "ANY CARD TEXT";
 
     public static float RoundToNearestHundredth(float floatPointNumber)
@@ -56,7 +58,8 @@ public static class TestHelper
         cardManager.AddCommonCard(GetMonsterCardInfo(ANY_CARD_NAME_2, ANY_CARD_TEXT));
         cardManager.AddCommonCard(GetMonsterCardInfo(ANY_CARD_NAME_3, ANY_CARD_TEXT));
         cardManager.AddRareCard(GetRoomCardInfo(2, ANY_CARD_NAME_4, ANY_CARD_TEXT));
-        cardManager.AddRareCard(GetRoomCardInfo(1, ANY_CARD_NAME_4, ANY_CARD_TEXT));
+        cardManager.AddRareCard(GetRoomCardInfo(1, ANY_CARD_NAME_5, ANY_CARD_TEXT));
+        cardManager.AddRareCard(GetRoomCardInfo(1, ANY_CARD_NAME_6, ANY_CARD_TEXT));
         return cardManager;
     }
 
@@ -87,8 +90,10 @@ public static class TestHelper
     {
         var monsterCardInfo = ScriptableObject.CreateInstance<MonsterCardInfo>();
         monsterCardInfo.cardName = cardName;
-        monsterCardInfo.cost = 2;
+        monsterCardInfo.cost = 1;
         monsterCardInfo.effectDescription = cardEffect;
+        monsterCardInfo.damage = 1;
+        monsterCardInfo.health = 1;
         return monsterCardInfo;
     }
 

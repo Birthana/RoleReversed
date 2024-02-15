@@ -76,6 +76,7 @@ public class RoomCard : Card
 
     public override void Cast()
     {
+        FindObjectOfType<CardManager>().IncreaseRarity();
         SpawnRoom();
         base.Cast();
     }

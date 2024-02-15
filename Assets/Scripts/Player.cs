@@ -11,7 +11,11 @@ public class Player : Character
     public override void Awake()
     {
         respawnCounter = FindObjectOfType<Respawn>();
-        OnRespawn += respawnCounter.Increment;
+        if (respawnCounter != null)
+        {
+            OnRespawn += respawnCounter.Increment;
+        }
+
         base.Awake();
     }
 
