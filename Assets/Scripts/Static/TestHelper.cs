@@ -60,6 +60,7 @@ public static class TestHelper
         cardManager.AddRareCard(GetRoomCardInfo(2, ANY_CARD_NAME_4, ANY_CARD_TEXT));
         cardManager.AddRareCard(GetRoomCardInfo(1, ANY_CARD_NAME_5, ANY_CARD_TEXT));
         cardManager.AddRareCard(GetRoomCardInfo(1, ANY_CARD_NAME_6, ANY_CARD_TEXT));
+        cardManager.Awake();
         return cardManager;
     }
 

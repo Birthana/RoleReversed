@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ae2a22a8df28e846b64aca9690fcfc0, type: 3}
-  m_Name: EmeraldSlime
+  m_Script: {fileID: 11500000, guid: 7516a5876e832f945af35bcd31c27554, type: 3}
+  m_Name: SlimyRoom
   m_EditorClassIdentifier: 
-  cardName: Emerald Slime
-  fieldSprite: {fileID: 21300000, guid: d0e2b782ae19b7e4ba7eca1b3d18d463, type: 3}
-  cost: 1
-  effectDescription: '[Exit] Spawn 1 1/1 Slime.'
-  damage: 1
-  health: 1
+  cardName: Slimy Room
+  fieldSprite: {fileID: -1534250167, guid: f6d8bd116986ee946830499f748b35d3, type: 3}
+  cost: 2
+  effectDescription: '[Battle Start] Spawn a 1/1 Slime.'
+  capacity: 2
   tempMonsterCardInfo: {fileID: 11400000, guid: 16c0ec62134bf2f42af7ec72e84e0131, type: 2}

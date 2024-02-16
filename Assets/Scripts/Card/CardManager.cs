@@ -12,7 +12,7 @@ public class CardManager : MonoBehaviour
     private List<CardInfo> commons = new List<CardInfo>();
     private List<CardInfo> rares = new List<CardInfo>();
 
-    private void Awake()
+    public void Awake()
     {
         LoadCards(COMMON_CARDS_FILE_PATH, AddCommonCard);
         LoadCards(RARE_CARDS_FILE_PATH, AddRareCard);
@@ -197,7 +197,6 @@ public class CardManager : MonoBehaviour
 //----------------
 // Current Things
 //----------------
-// TODO: Fix unittests. Add commons / rares to CardManager.cs during unittest.
 // TODO: Add Construction Room.
 
 //----------------

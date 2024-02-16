@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: GoblinWorker
   m_EditorClassIdentifier: 
   cardName: Goblin Worker
-  cardSprite: {fileID: 21300000, guid: daf4d03a008a50148b0394b6284aaeea, type: 3}
   fieldSprite: {fileID: 21300000, guid: 25fd6fffcd30e2843bf44f0476db22b4, type: 3}
   cost: 2
   effectDescription: '[Entrance] Room Capacity +1'
   damage: 1
-  health: 2
+  health: 8
