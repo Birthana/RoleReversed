@@ -115,10 +115,10 @@ public class GameManager : MonoBehaviour, IGameManager
         bool focusOnRoom = false;
         if (!currentRoom.IsEmpty())
         {
+            yield return currentRoom.BattleStart();
             new ChangeSortingLayer(currentRoom.gameObject).SetToCurrentRoom();
             yield return focusAnimation.FocusOn(currentRoom.transform);
             focusOnRoom = true;
-            yield return currentRoom.BattleStart();
         }
 
         bool still_running = true;
@@ -149,10 +149,10 @@ public class GameManager : MonoBehaviour, IGameManager
                 PlayerMoveTo(currentRoom);
                 if (!currentRoom.IsEmpty())
                 {
+                    yield return currentRoom.BattleStart();
                     new ChangeSortingLayer(currentRoom.gameObject).SetToCurrentRoom();
                     yield return focusAnimation.FocusOn(currentRoom.transform);
                     focusOnRoom = true;
-                    yield return currentRoom.BattleStart();
                 }
             }
         }

@@ -115,7 +115,7 @@ public class Room : MonoBehaviour
 
     public Monster GetRandomMonster()
     {
-        if(monsters.Count == 0)
+        if (IsEmpty())
         {
             return null;
         }
@@ -147,6 +147,11 @@ public class Room : MonoBehaviour
 
     public bool IsEmpty()
     {
+        if (monsters.Count == 0)
+        {
+            return true;
+        }
+
         foreach (var monster in monsters)
         {
             if (!monster.IsDead())

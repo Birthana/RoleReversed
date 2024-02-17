@@ -197,7 +197,8 @@ public class CardManager : MonoBehaviour
 //----------------
 // Current Things
 //----------------
-// TODO: Fix Orange Room & Orange Slime/Pink Slime Interactions.
+// TODO: Fix Orange Room & Pink Slime Interactions.
+// TODO: Make Construction Room & Deck UI Sprites.
 // TODO: Add Construction Room.
 
 //----------------
