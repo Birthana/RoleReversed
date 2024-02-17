@@ -52,7 +52,7 @@ public class Monster : Character
     {
         if (cardInfo != null)
         {
-            cardInfo.Exit();
+            cardInfo.Exit(this);
         }
     }
 

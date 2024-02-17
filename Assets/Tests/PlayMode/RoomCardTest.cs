@@ -53,4 +53,23 @@ public class RoomCardTest : MonoBehaviour
         Assert.AreEqual(2, FindObjectOfType<TemporaryMonster>().damage);
         Assert.AreEqual(2, FindObjectOfType<TemporaryMonster>().health);
     }
+
+    [UnityTest]
+    public IEnumerator UsingOrangeRoom_BattleStart_ExpectEntrance()
+    {
+        // Arrange
+        var orangeRoom = ScriptableObject.CreateInstance<OrangeRoom>();
+        var goblinBuilderInfo = ScriptableObject.CreateInstance<GoblinBuilder>();
+        goblinBuilderInfo.damage = 2;
+        goblinBuilderInfo.health = 2;
+        var room = TestHelper.GetRoom();
+        room.SetCardInfo(orangeRoom);
+        room.SpawnMonster(goblinBuilderInfo);
+
+        // Act
+        yield return room.BattleStart();
+
+        // Assert
+        Assert.AreEqual(5, room.GetCapacity());
+    }
 }

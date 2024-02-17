@@ -24,7 +24,7 @@ public class MonsterCardInfo : CardInfo
     {
     }
 
-    public virtual void Exit()
+    public virtual void Exit(Character self)
     {
     }
 }

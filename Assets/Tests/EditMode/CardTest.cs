@@ -21,6 +21,7 @@ public class CardTest : MonoBehaviour
     private GoblinMiner goblinMinerInfo;
     private GoblinBuilder goblinBuilderInfo;
     private GoblinGatherer goblinGathererInfo;
+    private RedBrownSlime redBrownSlimeInfo;
     private TemporaryMonster temporarySlimeInfo;
     private Monster monsterPrefab;
     private readonly int ANY_MAX_DAMAGE = 3;
@@ -101,6 +102,10 @@ public class CardTest : MonoBehaviour
         goblinGathererInfo = ScriptableObject.CreateInstance<GoblinGatherer>();
         goblinGathererInfo.damage = 2;
         goblinGathererInfo.health = 1;
+
+        redBrownSlimeInfo = ScriptableObject.CreateInstance<RedBrownSlime>();
+        redBrownSlimeInfo.damage = 1;
+        redBrownSlimeInfo.health = 2;
     }
 
     [Test]
@@ -389,7 +394,6 @@ public class CardTest : MonoBehaviour
         player.transform.SetParent(room.transform);
 
         var actionManager = new GameObject().AddComponent<ActionManager>();
-        var cardManager = new GameObject().AddComponent<CardManager>();
         card.SetCardInfo(goblinGathererInfo);
         var newMonster = Instantiate(monsterPrefab);
         newMonster.cardInfo = goblinGathererInfo;
@@ -403,5 +407,27 @@ public class CardTest : MonoBehaviour
         Assert.AreEqual(1, actionManager.GetCount());
         Assert.AreEqual(3, newMonster.GetComponent<Damage>().maxCount);
         Assert.AreEqual(2, newMonster.GetComponent<Health>().maxCount);
+    }
+
+    [Test]
+    public void UsingRedBrownSlime_Exit_ExpectStatIs1_2()
+    {
+        // Arrange
+        var room = TestHelper.GetRoom();
+        room.SetCapacity(2);
+        player.transform.SetParent(room.transform);
+
+        card.SetCardInfo(redBrownSlimeInfo);
+        var newMonster = Instantiate(monsterPrefab);
+        newMonster.cardInfo = redBrownSlimeInfo;
+        newMonster.transform.SetParent(room.transform);
+
+        // Act
+        newMonster.Setup(redBrownSlimeInfo.GetDamage(), redBrownSlimeInfo.GetHealth());
+        newMonster.Exit();
+
+        // Assert
+        Assert.AreEqual(2, newMonster.GetComponent<Damage>().maxCount);
+        Assert.AreEqual(3, newMonster.GetComponent<Health>().maxCount);
     }
 }
