@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Drop : DisplayObject
 {
+    public Sprite openBox;
+    public Sprite closedBox;
+    public GameObject frontDeckBox;
     [SerializeField] private DisplayCard displayCard;
 
     public void SetDisplayCard(DisplayCard displayCard)
@@ -17,6 +20,12 @@ public class Drop : DisplayObject
 
     public void Add(CardInfo cardInfo)
     {
+        if (GetSize() == 0)
+        {
+            GetComponent<SpriteRenderer>().sprite = openBox;
+            frontDeckBox.gameObject.SetActive(true);
+        }
+
         cardInfos.Add(cardInfo);
         displayCard.gameObject.SetActive(true);
         displayCard.SetCardInfo(cardInfo);
@@ -34,6 +43,8 @@ public class Drop : DisplayObject
         }
 
         cardInfos = new List<CardInfo>();
+        GetComponent<SpriteRenderer>().sprite = closedBox;
+        frontDeckBox.gameObject.SetActive(false);
         displayCard.gameObject.SetActive(false);
     }
 }
