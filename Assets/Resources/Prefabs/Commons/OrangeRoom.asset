@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: Orange Room
   fieldSprite: {fileID: 21300000, guid: fb9f448a1286099489cf22796b837adb, type: 3}
   cost: 1
-  effectDescription: '[Battle Start] Use a random room monster''s [Entrance].'
+  effectDescription: '[Battle Start] Use a random room monster [Entrance].'
   capacity: 2

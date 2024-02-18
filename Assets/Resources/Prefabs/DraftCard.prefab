@@ -506,10 +506,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterCardUI: {fileID: 946462128274730783}
   roomCardUI: {fileID: 1339589061606432813}
-  damageUI: {fileID: 5174910777478706610}
-  healthUI: {fileID: 4965129187624474263}
-  capacityUI: {fileID: 8815043653860613951}
-  cardSprite: {fileID: 5227417338984079950}
 --- !u!114 &946462128274730783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,7 +564,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3442775766331877151}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.85, z: 0}
+  m_LocalPosition: {x: 0, y: 1.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1206,8 +1202,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0046, y: -1.0591}
-  m_SizeDelta: {x: 3.3901, y: 0.9606}
+  m_AnchoredPosition: {x: -0.0046, y: -0.3199}
+  m_SizeDelta: {x: 3.3901, y: 1.4677}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &5949488506443496513
 MeshRenderer:
@@ -1290,7 +1286,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 00046f5a6d636ea43a6fc20a0f7c616f, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -1309,8 +1305,8 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_wordSpacing: -10
+  m_lineSpacing: 50
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -1334,7 +1330,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.032430172, y: 0.96783125, z: 0.00969696, w: 0.954309}
+  m_margin: {x: 0.022423387, y: 0.042807043, z: 0.009697318, w: 0.024641782}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0

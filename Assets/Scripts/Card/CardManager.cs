@@ -198,6 +198,8 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 // TODO: Fix Orange Room & Pink Slime Interactions.
+// TODO: Refactor EffectText.cs
+// TODO: Make icons for Battle Start, Start Button, Entrance, Exit, Engage.
 // TODO: Make Construction Room & Deck UI Sprites.
 // TODO: Add Construction Room.
 

@@ -24,6 +24,6 @@ public class IconText
             }
         }
 
-        return result.Replace("PLACEHOLDER", $"color=#{ColorUtility.ToHtmlStringRGBA(color)}"); ;
+        return result.Replace("PLACEHOLDER", $"color=#{ColorUtility.ToHtmlStringRGBA(color)}");
     }
 }

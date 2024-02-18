@@ -15,8 +15,6 @@ MonoBehaviour:
   cardName: Violet Slime
   fieldSprite: {fileID: 829540261, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
   cost: 1
-  effectDescription: '[Entrance]
-
-    Player ATK -1'
+  effectDescription: '[Entrance] -1 Player Damage'
   damage: 2
   health: 1
