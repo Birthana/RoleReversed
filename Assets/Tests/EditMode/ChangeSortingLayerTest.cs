@@ -5,9 +5,17 @@ using UnityEngine;
 
 public class ChangeSortingLayerTest : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRendererChild;
+
     [SetUp]
     public void Setup()
     {
+        spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
+        spriteRenderer.sortingLayerName = "Default";
+        spriteRendererChild = new GameObject().AddComponent<SpriteRenderer>();
+        spriteRendererChild.sortingLayerName = "Default";
+        spriteRendererChild.transform.SetParent(spriteRenderer.transform);
     }
 
     [TearDown]
@@ -19,8 +27,6 @@ public class ChangeSortingLayerTest : MonoBehaviour
     public void UsingChangeSortingLayer_SetToCurrentRoom_ExpectSortingLayerIsCurrentRoom()
     {
         // Arrange
-        var spriteRenderer = new GameObject().AddComponent<SpriteRenderer>();
-        spriteRenderer.sortingLayerName = "Default";
         var changeLayer = new ChangeSortingLayer(spriteRenderer.gameObject);
 
         // Act
@@ -34,12 +40,7 @@ public class ChangeSortingLayerTest : MonoBehaviour
     public void UsingChangeSortingLayerWithChildren_SetToCurrentRoom_ExpectSortingLayerIsCurrentRoom()
     {
         // Arrange
-        var spriteRendererParent = new GameObject().AddComponent<SpriteRenderer>();
-        spriteRendererParent.sortingLayerName = "Default";
-        var changeLayer = new ChangeSortingLayer(spriteRendererParent.gameObject);
-        var spriteRendererChild = new GameObject().AddComponent<SpriteRenderer>();
-        spriteRendererChild.sortingLayerName = "Default";
-        spriteRendererChild.transform.SetParent(spriteRendererParent.transform);
+        var changeLayer = new ChangeSortingLayer(spriteRenderer.gameObject);
 
         // Act
         changeLayer.SetToCurrentRoom();
@@ -52,12 +53,8 @@ public class ChangeSortingLayerTest : MonoBehaviour
     public void UsingChangeSortingLayerWithChildren_SetToDefault_ExpectSortingLayerIsDefault()
     {
         // Arrange
-        var spriteRendererParent = new GameObject().AddComponent<SpriteRenderer>();
-        spriteRendererParent.sortingLayerName = "CurrentRoom";
-        var changeLayer = new ChangeSortingLayer(spriteRendererParent.gameObject);
-        var spriteRendererChild = new GameObject().AddComponent<SpriteRenderer>();
-        spriteRendererChild.sortingLayerName = "CurrentRoom";
-        spriteRendererChild.transform.SetParent(spriteRendererParent.transform);
+        var changeLayer = new ChangeSortingLayer(spriteRenderer.gameObject);
+        changeLayer.SetToCurrentRoom();
 
         // Act
         changeLayer.SetToDefault();

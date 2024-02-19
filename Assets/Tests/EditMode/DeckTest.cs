@@ -28,6 +28,14 @@ public class DeckTest : MonoBehaviour
         FindObjectsOfType<RoomCard>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
+    public void FillHand()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            hand.Add(new GameObject().AddComponent<Card>());
+        }
+    }
+
     [Test]
     public void UsingDeck_CreateCard_DeckSizeIsOne()
     {
@@ -63,13 +71,7 @@ public class DeckTest : MonoBehaviour
     {
         // Arrange
         var deck = TestHelper.GetDeck();
-        var drop = new GameObject().AddComponent<Drop>();
-        var displayCard = new GameObject().AddComponent<DisplayCard>();
-        displayCard.gameObject.AddComponent<MonsterCardUI>();
-        displayCard.gameObject.AddComponent<RoomCardUI>();
-        drop.SetDisplayCard(displayCard);
-        drop.gameObject.AddComponent<SpriteRenderer>();
-        drop.frontDeckBox = new GameObject().AddComponent<SpriteRenderer>();
+        var drop = TestHelper.GetDrop();
 
         // Act
         var card = deck.Draw();
@@ -82,14 +84,7 @@ public class DeckTest : MonoBehaviour
     public void UsingDeck_DrawCardToHand_CardIsZero()
     {
         // Arrange
-        hand.Add(new GameObject().AddComponent<Card>());
-        hand.Add(new GameObject().AddComponent<Card>());
-        hand.Add(new GameObject().AddComponent<Card>());
-        hand.Add(new GameObject().AddComponent<Card>());
-        hand.Add(new GameObject().AddComponent<Card>());
-        hand.Add(new GameObject().AddComponent<Card>());
-        hand.Add(new GameObject().AddComponent<Card>());
-        hand.Add(new GameObject().AddComponent<Card>());
+        FillHand();
         var deck = TestHelper.GetDeck();
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
         deck.Add(cardInfo);

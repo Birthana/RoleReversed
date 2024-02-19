@@ -228,4 +228,30 @@ public static class TestHelper
         pack.lootAnimation = GetLootAnimation();
         return pack;
     }
+
+    public static Drop GetDrop()
+    {
+        var drop = new GameObject().AddComponent<Drop>();
+        var displayCard = GetDisplayCard();
+        drop.SetDisplayCard(displayCard);
+        drop.gameObject.AddComponent<SpriteRenderer>();
+        drop.frontDeckBox = new GameObject().AddComponent<SpriteRenderer>();
+        return drop;
+    }
+
+    private static DisplayCard GetDisplayCard()
+    {
+        var displayCard = new GameObject().AddComponent<DisplayCard>();
+        displayCard.gameObject.AddComponent<MonsterCardUI>();
+        displayCard.gameObject.AddComponent<RoomCardUI>();
+        return displayCard;
+    }
+
+    public static SoulShop GetSoulShop(Option option, OptionInfo optionInfo)
+    {
+        var soulShop = new GameObject().AddComponent<SoulShop>();
+        soulShop.optionPrefab = option;
+        soulShop.optionInfos.Add(optionInfo);
+        return soulShop;
+    }
 }

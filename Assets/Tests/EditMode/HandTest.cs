@@ -25,6 +25,19 @@ public class HandTest : MonoBehaviour
         FindObjectsOfType<CardDragger>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
+    public bool CheckCardListsAreSame(List<Card> list1, List<Card> list2)
+    {
+        for (var index = 0; index < list1.Count; index++)
+        {
+            if (list1[index].gameObject != list2[index].gameObject)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     [Test]
     public void GivenHandWithThreeCards_RemoveThirdCard_ExpectFirstAndSecondCard()
     {
@@ -42,9 +55,6 @@ public class HandTest : MonoBehaviour
         List<Card> expectedCard = new List<Card>();
         expectedCard.Add(firstCard);
         expectedCard.Add(secondCard);
-        for(var index = 0; index < expectedCard.Count; index++)
-        {
-            Assert.AreEqual(expectedCard[index].gameObject, hand.hand[index].gameObject);
-        }
+        Assert.AreEqual(true, CheckCardListsAreSame(expectedCard, hand.hand));
     }
 }

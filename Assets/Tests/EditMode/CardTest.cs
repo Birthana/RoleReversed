@@ -6,7 +6,6 @@ using UnityEngine;
 public class CardTest : MonoBehaviour
 {
     private Player player;
-    private MonsterCard card;
     private Hand hand;
     private Deck deck;
     private Room room;
@@ -27,21 +26,16 @@ public class CardTest : MonoBehaviour
     private RedBrownSlime redBrownSlimeInfo;
     private OrangeGraySlime orangeGraySlimeInfo;
     private TemporaryMonster temporarySlimeInfo;
-    private Monster monsterPrefab;
     private readonly int ANY_MAX_DAMAGE = 3;
     private readonly int ANY_MAX_HEALTH = 5;
-    private static readonly string FIELD_MONSTER_PREFAB = "Prefabs/FieldMonster";
 
     [SetUp]
     public void Setup()
     {
         player = TestHelper.GetPlayer(ANY_MAX_DAMAGE, ANY_MAX_HEALTH);
-        card = new GameObject().AddComponent<MonsterCard>();
-        card.gameObject.AddComponent<MonsterCardUI>();
         hand = TestHelper.GetHand();
         cardManager = TestHelper.GetCardManager();
         cardDragger = TestHelper.GetCardDragger();
-        monsterPrefab = Resources.Load<Monster>(FIELD_MONSTER_PREFAB);
         CreateMonsterCardInfo();
         deck = TestHelper.GetDeck();
         deck.Add(graySlimeInfo);
@@ -122,6 +116,23 @@ public class CardTest : MonoBehaviour
         orangeGraySlimeInfo.damage = 2;
         orangeGraySlimeInfo.health = 3;
     }
+    public bool RoomMonstersAreInCorrectLayer(Room room, string layer)
+    {
+        foreach (var monster in room.monsters)
+        {
+            if (!monster.isTemporary)
+            {
+                continue;
+            }
+
+            if (layer != monster.GetComponent<SpriteRenderer>().sortingLayerName)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     [Test]
     public void UsingGraySlime_Exit_ExpectHandIs1AndStatIs3_3()
@@ -161,7 +172,7 @@ public class CardTest : MonoBehaviour
         redSlime.Exit();
 
         // Assert
-        Assert.AreEqual(ANY_MAX_HEALTH - 2, player.GetComponent<Health>().GetCurrentHealth());
+        Assert.AreEqual(ANY_MAX_HEALTH - 2, player.GetHealthComponent().GetCurrentHealth());
         Assert.AreEqual(1, redSlime.GetDamage());
         Assert.AreEqual(2, redSlime.GetHealth());
     }
@@ -175,7 +186,7 @@ public class CardTest : MonoBehaviour
         var violetSlime = room.SpawnMonster(violetSlimeInfo);
 
         // Assert
-        Assert.AreEqual(ANY_MAX_DAMAGE - 1, player.GetComponent<Damage>().GetDamage());
+        Assert.AreEqual(ANY_MAX_DAMAGE - 1, player.GetDamage());
         Assert.AreEqual(1, violetSlime.GetDamage());
         Assert.AreEqual(1, violetSlime.GetHealth());
     }
@@ -241,10 +252,9 @@ public class CardTest : MonoBehaviour
     public void UsingTemporarySlime_SetStats_ExpectAndStatIs2_2()
     {
         // Arrange
-        var temporarySlime = room.SpawnTemporaryMonster(temporarySlimeInfo);
 
         // Act
-        temporarySlime.Setup(temporarySlimeInfo.GetDamage(), temporarySlimeInfo.GetHealth());
+        var temporarySlime = room.SpawnTemporaryMonster(temporarySlimeInfo);
 
         // Assert 
         Assert.AreEqual(2, temporarySlime.GetDamage());
@@ -266,15 +276,7 @@ public class CardTest : MonoBehaviour
         Assert.AreEqual(3, room.transform.childCount);
         Assert.AreEqual(1, emeraldSlime.GetDamage());
         Assert.AreEqual(1, emeraldSlime.GetHealth());
-        foreach(var monster in room.monsters)
-        {
-            if (!monster.isTemporary)
-            {
-                continue;
-            }
-
-            Assert.AreEqual("CurrentRoom", monster.GetComponent<SpriteRenderer>().sortingLayerName);
-        }
+        Assert.AreEqual(true, RoomMonstersAreInCorrectLayer(room, "CurrentRoom"));
     }
 
     [Test]

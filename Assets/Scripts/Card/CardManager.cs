@@ -199,6 +199,7 @@ public class CardManager : MonoBehaviour
 //----------------
 
 // TODO: Refactor Tests, then Everything. Before moving on.
+// TODO: Clean up OptionTest.cs
 
 // TODO: Fix Orange Room & Pink Slime Interactions.
 // TODO: Refactor EffectText.cs
@@ -235,7 +236,6 @@ public class CardManager : MonoBehaviour
 // TODO: Remove Temporary Monster if-statements.
 // TODO: Null Object in OrangeSlime.cs
 // TODO: Organize Different Managers in a GameObject.
-// TODO: Change CardTest to use Room to spawn Monsters.
 // TODO: Change Mouse Raycast to look at component instead of Layer.
 // TODO: Clean up LootAnimation.
 // TODO: Combine Loot, DisplayCard, and DraftCard Prefabs.

@@ -16,9 +16,7 @@ public class SoulShopTest : MonoBehaviour
     {
         option = TestHelper.GetOption();
         optionInfo = TestHelper.GetStarterPackOptionInfo();
-        soulShop = new GameObject().AddComponent<SoulShop>();
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(optionInfo);
+        soulShop = TestHelper.GetSoulShop(option, optionInfo);
         mock = new Mock<IMouseWrapper>(MockBehavior.Strict);
     }
 
@@ -27,6 +25,13 @@ public class SoulShopTest : MonoBehaviour
     {
         FindObjectsOfType<SoulShop>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
         FindObjectsOfType<Option>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+    }
+
+    public void SetMocks()
+    {
+        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
+        mock.Setup(x => x.IsOnOpenSoulShop()).Returns(true);
+        soulShop.SetMouseWrapper(mock.Object);
     }
 
     [Test]
@@ -46,9 +51,7 @@ public class SoulShopTest : MonoBehaviour
     public void UsingSoulShop_Update_ExpectTrue()
     {
         // Arrange
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOpenSoulShop()).Returns(true);
-        soulShop.SetMouseWrapper(mock.Object);
+        SetMocks();
 
         // Act
         soulShop.Update();
@@ -61,9 +64,7 @@ public class SoulShopTest : MonoBehaviour
     public void UsingSoulShop_Update_ExpectOptionCountIsThree()
     {
         // Arrange
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOpenSoulShop()).Returns(true);
-        soulShop.SetMouseWrapper(mock.Object);
+        SetMocks();
 
         // Act
         soulShop.Update();
@@ -77,9 +78,7 @@ public class SoulShopTest : MonoBehaviour
     public void UsingSoulShop_UpdateTwice_ExpectOptionCountIsOne()
     {
         // Arrange
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOpenSoulShop()).Returns(true);
-        soulShop.SetMouseWrapper(mock.Object);
+        SetMocks();
         soulShop.Update();
 
         // Act
@@ -94,9 +93,7 @@ public class SoulShopTest : MonoBehaviour
     public void UsingSoulShop_Update_ExpectOptionIsAtCorrectPosition()
     {
         // Arrange
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOpenSoulShop()).Returns(true);
-        soulShop.SetMouseWrapper(mock.Object);
+        SetMocks();
         soulShop.transform.position = new Vector3(3, 5);
 
         // Act
@@ -111,9 +108,7 @@ public class SoulShopTest : MonoBehaviour
     public void UsingSoulShopThatIsOpen_Update_ExpectShopIsClosed()
     {
         // Arrange
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOpenSoulShop()).Returns(true);
-        soulShop.SetMouseWrapper(mock.Object);
+        SetMocks();
         soulShop.Update();
 
         // Act
@@ -127,9 +122,7 @@ public class SoulShopTest : MonoBehaviour
     public void UsingSoulShopThatIsOpen_Update_ExpectOptionsAreInactive()
     {
         // Arrange
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOpenSoulShop()).Returns(true);
-        soulShop.SetMouseWrapper(mock.Object);
+        SetMocks();
         soulShop.Update();
 
         // Act
@@ -144,9 +137,7 @@ public class SoulShopTest : MonoBehaviour
     public void UsingSoulShopThatHasSpawnedOptions_Update_ExpectOptionsAreActive()
     {
         // Arrange
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOpenSoulShop()).Returns(true);
-        soulShop.SetMouseWrapper(mock.Object);
+        SetMocks();
         soulShop.Update();
         soulShop.Update();
 
@@ -162,9 +153,7 @@ public class SoulShopTest : MonoBehaviour
     public void UsingSoulShop_Update_ExpectOptionInfo()
     {
         // Arrange
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOpenSoulShop()).Returns(true);
-        soulShop.SetMouseWrapper(mock.Object);
+        SetMocks();
 
         // Act
         soulShop.Update();
@@ -179,13 +168,9 @@ public class SoulShopTest : MonoBehaviour
     public void UsingSoulShop_Update_ExpectDifferentOptionInfos()
     {
         // Arrange
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOpenSoulShop()).Returns(true);
-        soulShop.SetMouseWrapper(mock.Object);
-        var randomMonsterOptionInfo = TestHelper.GetRandomMonsterOptionInfo();
-        soulShop.optionInfos.Add(randomMonsterOptionInfo);
-        var randomRoomOptionInfo = TestHelper.GetRandomRoomOptionInfo();
-        soulShop.optionInfos.Add(randomRoomOptionInfo);
+        SetMocks();
+        soulShop.optionInfos.Add(TestHelper.GetRandomMonsterOptionInfo());
+        soulShop.optionInfos.Add(TestHelper.GetRandomRoomOptionInfo());
 
         // Act
         soulShop.Update();
