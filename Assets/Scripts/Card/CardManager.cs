@@ -197,9 +197,11 @@ public class CardManager : MonoBehaviour
 //----------------
 // Current Things
 //----------------
+
+// TODO: Refactor Tests, then Everything. Before moving on.
+
 // TODO: Fix Orange Room & Pink Slime Interactions.
 // TODO: Refactor EffectText.cs
-// TODO: Make icons for Battle Start, Start Button, Entrance, Exit, Engage.
 // TODO: Make Construction Room & Deck UI Sprites.
 // TODO: Add Construction Room.
 
@@ -216,6 +218,7 @@ public class CardManager : MonoBehaviour
 // TODO: Add something to reward adding cards to Deck.
 // TODO: Add incentive for getting a set of 4 cards.
 // TODO: Add incentive for getting more Rooms.
+// TODO: Set Max Room Capacity to 9.
 
 //----------------
 // Refactors

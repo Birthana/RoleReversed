@@ -6,7 +6,7 @@ public class Drop : DisplayObject
 {
     public Sprite openBox;
     public Sprite closedBox;
-    public GameObject frontDeckBox;
+    public SpriteRenderer frontDeckBox;
     [SerializeField] private DisplayCard displayCard;
 
     public void SetDisplayCard(DisplayCard displayCard)

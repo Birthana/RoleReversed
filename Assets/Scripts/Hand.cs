@@ -14,6 +14,8 @@ public class Hand : MonoBehaviour
         cardDragger = newCardDragger;
     }
 
+    public int GetSize() { return hand.Count; }
+
     public void Add(Card card)
     {
         if (IsFull())

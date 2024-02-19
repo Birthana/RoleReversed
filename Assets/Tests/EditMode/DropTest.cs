@@ -30,6 +30,7 @@ public class DropTest : MonoBehaviour
         displayCard.gameObject.AddComponent<RoomCardUI>();
         drop.SetDisplayCard(displayCard);
         drop.gameObject.AddComponent<SpriteRenderer>();
+        drop.frontDeckBox = new GameObject().AddComponent<SpriteRenderer>();
 
         // Act
         drop.Add(cardInfo);
@@ -49,6 +50,7 @@ public class DropTest : MonoBehaviour
         displayCard.gameObject.AddComponent<RoomCardUI>();
         drop.SetDisplayCard(displayCard);
         drop.gameObject.AddComponent<SpriteRenderer>();
+        drop.frontDeckBox = new GameObject().AddComponent<SpriteRenderer>();
         drop.Add(cardInfo);
 
         // Act
@@ -69,6 +71,7 @@ public class DropTest : MonoBehaviour
         displayCard.gameObject.AddComponent<RoomCardUI>();
         drop.SetDisplayCard(displayCard);
         drop.gameObject.AddComponent<SpriteRenderer>();
+        drop.frontDeckBox = new GameObject().AddComponent<SpriteRenderer>();
 
         // Act
         drop.Add(cardInfo);
@@ -88,6 +91,7 @@ public class DropTest : MonoBehaviour
         displayCard.gameObject.AddComponent<RoomCardUI>();
         drop.SetDisplayCard(displayCard);
         drop.gameObject.AddComponent<SpriteRenderer>();
+        drop.frontDeckBox = new GameObject().AddComponent<SpriteRenderer>();
         drop.Add(cardInfo);
 
         // Act

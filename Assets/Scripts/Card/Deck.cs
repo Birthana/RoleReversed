@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Deck : DisplayObject
 {
+    public Sprite openBox;
+    public Sprite closedBox;
     public MonsterCard monsterCardPrefab;
     public RoomCard roomCardPrefab;
 
@@ -11,11 +13,57 @@ public class Deck : DisplayObject
 
     public void Add(CardInfo cardInfo)
     {
+        if (IsEmpty())
+        {
+            GetComponent<SpriteRenderer>().sprite = openBox;
+        }
+
         cardInfos.Add(cardInfo);
         GetComponent<DeckCount>().AddToDeck();
     }
 
     private bool IsEmpty() { return cardInfos.Count == 0; }
+
+    private bool Contains(CardInfo cardInfo) { return cardInfos.Contains(cardInfo); }
+
+    private void Remove(CardInfo cardInfo)
+    {
+        cardInfos.Remove(cardInfo);
+        Shuffle();
+    }
+
+    public void DrawSpecificCard(CardInfo cardInfo)
+    {
+        var hand = FindObjectOfType<Hand>();
+        if (hand.IsFull())
+        {
+            return;
+        }
+
+        if (IsEmpty())
+        {
+            ShuffleDropToDeck();
+
+            if (IsEmpty())
+            {
+                return;
+            }
+        }
+
+        if (!Contains(cardInfo))
+        {
+            return;
+        }
+
+        var newCard = CreateCardWith(cardInfo);
+        Remove(cardInfo);
+        GetComponent<DeckCount>().DrawFromDeck();
+
+        if (newCard != null)
+        {
+            hand.Add(newCard);
+        }
+    }
 
     public Card Draw()
     {
@@ -32,6 +80,12 @@ public class Deck : DisplayObject
         var newCard = CreateCardWith(GetTopCard());
         RemoveTopCard();
         GetComponent<DeckCount>().DrawFromDeck();
+
+        if (IsEmpty())
+        {
+            GetComponent<SpriteRenderer>().sprite = closedBox;
+        }
+
         return newCard;
     }
 

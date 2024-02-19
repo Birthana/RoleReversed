@@ -214,6 +214,7 @@ public static class TestHelper
     {
         var deck = new GameObject().AddComponent<Deck>();
         deck.gameObject.AddComponent<DeckCount>();
+        deck.gameObject.AddComponent<SpriteRenderer>();
         deck.monsterCardPrefab = GetMonsterCard();
         deck.roomCardPrefab = GetRoomCard();
         return deck;

@@ -17,8 +17,7 @@ public class RoomCardUI : MonoBehaviour
     public void SetCardInfo(RoomCardInfo newCardInfo)
     {
         SetCost(newCardInfo.cost);
-        var effectText = new EffectText();
-        SetDescription(effectText.GetText(newCardInfo.effectDescription));
+        SetDescription(newCardInfo.effectDescription);
         SetCardSprite(newCardInfo.fieldSprite);
         SetCapacity(newCardInfo.capacity);
     }
@@ -60,6 +59,7 @@ public class RoomCardUI : MonoBehaviour
             return;
         }
 
-        description.text = cardDescription;
+        var effectText = new EffectText();
+        description.text = effectText.GetText(cardDescription);
     }
 }

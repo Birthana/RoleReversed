@@ -20,8 +20,7 @@ public class MonsterCardUI : MonoBehaviour
         SetDamage(newCardInfo.damage);
         SetHealth(newCardInfo.health);
         SetCost(newCardInfo.cost);
-        var effectText = new EffectText();
-        SetDescription(effectText.GetText(newCardInfo.effectDescription));
+        SetDescription(newCardInfo.effectDescription);
         SetCardSprite(newCardInfo.fieldSprite);
     }
 
@@ -72,6 +71,7 @@ public class MonsterCardUI : MonoBehaviour
             return;
         }
 
-        description.text = cardDescription;
+        var effectText = new EffectText();
+        description.text = effectText.GetText(cardDescription);
     }
 }

@@ -163,16 +163,18 @@ public class Room : MonoBehaviour
         return true;
     }
 
-    public void SpawnMonster(MonsterCardInfo monsterCardInfo)
+    public Monster SpawnMonster(MonsterCardInfo monsterCardInfo)
     {
-        CreateMonster(monsterCardInfo);
+        var monster = CreateMonster(monsterCardInfo);
         ReduceCapacity(1);
+        return monster;
     }
 
-    public void SpawnTemporaryMonster(MonsterCardInfo monsterCardInfo)
+    public Monster SpawnTemporaryMonster(MonsterCardInfo monsterCardInfo)
     {
         var monster = CreateMonster(monsterCardInfo);
         new ChangeSortingLayer(monster.gameObject).SetToCurrentRoom();
+        return monster;
     }
 
     private Monster CreateMonster(MonsterCardInfo monsterCardInfo)

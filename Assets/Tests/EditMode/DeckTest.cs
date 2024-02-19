@@ -63,6 +63,13 @@ public class DeckTest : MonoBehaviour
     {
         // Arrange
         var deck = TestHelper.GetDeck();
+        var drop = new GameObject().AddComponent<Drop>();
+        var displayCard = new GameObject().AddComponent<DisplayCard>();
+        displayCard.gameObject.AddComponent<MonsterCardUI>();
+        displayCard.gameObject.AddComponent<RoomCardUI>();
+        drop.SetDisplayCard(displayCard);
+        drop.gameObject.AddComponent<SpriteRenderer>();
+        drop.frontDeckBox = new GameObject().AddComponent<SpriteRenderer>();
 
         // Act
         var card = deck.Draw();

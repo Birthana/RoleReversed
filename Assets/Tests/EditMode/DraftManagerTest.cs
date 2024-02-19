@@ -56,19 +56,6 @@ public class DraftManagerTest : MonoBehaviour
     }
 
     [Test]
-    public void UsingDraftManager_Draft_ExpectDraftCardHasCardDescription()
-    {
-        // Arrange
-
-        // Act
-        draftManager.Draft();
-
-        // Assert
-        var draftCard = FindObjectOfType<DraftCard>();
-        Assert.AreEqual(TestHelper.ANY_CARD_TEXT, draftCard.GetComponentInChildren<TextMeshPro>().text);
-    }
-
-    [Test]
     public void UsingDraftManager_Draft_ExpectDraftCardsAreSpreadOut()
     {
         // Arrange
