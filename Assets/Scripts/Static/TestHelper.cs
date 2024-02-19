@@ -140,14 +140,6 @@ public static class TestHelper
         return room;
     }
 
-    public static SelectionScreen GetSelectionScreen()
-    {
-        var selectionScreen = new GameObject().AddComponent<SelectionScreen>();
-        selectionScreen.transform.position = new Vector2(3, 5);
-        selectionScreen.SetMaxSelection(3);
-        return selectionScreen;
-    }
-
     public static Option GetOption()
     {
         var option = new GameObject().AddComponent<Option>();
