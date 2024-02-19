@@ -19,11 +19,11 @@ public class OptionTest : MonoBehaviour
     public void Setup()
     {
         cardManager = TestHelper.GetCardManager();
-        soulShop = new GameObject().AddComponent<SoulShop>();
         playerSoulCount = new GameObject().AddComponent<PlayerSoulCounter>();
         playerSoulCount.IncreaseSouls();
         option = TestHelper.GetOption();
         optionInfo = TestHelper.GetStarterPackOptionInfo();
+        soulShop = TestHelper.GetSoulShop(option, optionInfo);
         deck = TestHelper.GetDeck();
         actions = new GameObject().AddComponent<ActionManager>();
         mock = new Mock<IMouseWrapper>(MockBehavior.Strict);
@@ -34,6 +34,15 @@ public class OptionTest : MonoBehaviour
     {
         FindObjectsOfType<Option>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
         FindObjectsOfType<Pack>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+        FindObjectsOfType<SoulShop>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+    }
+
+    private void SetMocks()
+    {
+        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
+        mock.Setup(x => x.IsOnOption()).Returns(true);
+        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
+        option.SetMouseWrapper(mock.Object);
     }
 
     [Test]
@@ -41,12 +50,7 @@ public class OptionTest : MonoBehaviour
     {
         // Arrange
         option.SetOptionInfo(optionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(optionInfo);
+        SetMocks();
 
         // Act
         option.Update();
@@ -61,15 +65,10 @@ public class OptionTest : MonoBehaviour
     {
         // Arrange
         option.SetOptionInfo(optionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
+        SetMocks();
         var option2 = TestHelper.GetOption();
         option2.SetOptionInfo(optionInfo);
         option2.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(optionInfo);
 
         // Act
         option.Update();
@@ -85,12 +84,7 @@ public class OptionTest : MonoBehaviour
     {
         // Arrange
         option.SetOptionInfo(optionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(optionInfo);
+        SetMocks();
 
         // Act
         option.Update();
@@ -105,12 +99,7 @@ public class OptionTest : MonoBehaviour
     {
         // Arrange
         option.SetOptionInfo(optionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(optionInfo);
+        SetMocks();
         soulShop.OpenShop();
 
         // Act
@@ -125,12 +114,7 @@ public class OptionTest : MonoBehaviour
     public void UsingStarterPackOption_ClickOnOption_ExpectPackIsNotSpawned()
     {
         // Arrange
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(optionInfo);
+        SetMocks();
         soulShop.OpenShop();
         playerSoulCount.DecreaseSouls();
 
@@ -147,12 +131,7 @@ public class OptionTest : MonoBehaviour
     {
         // Arrange
         option.SetOptionInfo(optionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(optionInfo);
+        SetMocks();
 
         // Act
         option.Update();
@@ -168,12 +147,7 @@ public class OptionTest : MonoBehaviour
         // Arrange
         var oneCardPackOptionInfo = TestHelper.GetRandomMonsterOptionInfo();
         option.SetOptionInfo(oneCardPackOptionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(optionInfo);
+        SetMocks();
 
         // Act
         option.Update();
@@ -190,12 +164,8 @@ public class OptionTest : MonoBehaviour
         var oneCardPackOptionInfo = TestHelper.GetRandomMonsterOptionInfo();
         oneCardPackOptionInfo.cost = 2;
         option.SetOptionInfo(optionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(oneCardPackOptionInfo);
+        SetMocks();
+        soulShop = TestHelper.GetSoulShop(option, oneCardPackOptionInfo);
 
         // Act
         option.Update();
@@ -211,12 +181,8 @@ public class OptionTest : MonoBehaviour
         var oneCardPackOptionInfo = TestHelper.GetRandomMonsterOptionInfo();
         oneCardPackOptionInfo.cost = 2;
         option.SetOptionInfo(oneCardPackOptionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(oneCardPackOptionInfo);
+        SetMocks();
+        soulShop = TestHelper.GetSoulShop(option, oneCardPackOptionInfo);
 
         // Act
         option.Update();
@@ -233,12 +199,8 @@ public class OptionTest : MonoBehaviour
         var oneCardPackOptionInfo = TestHelper.GetRandomMonsterOptionInfo();
         oneCardPackOptionInfo.cost = 2;
         option.SetOptionInfo(oneCardPackOptionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(oneCardPackOptionInfo);
+        SetMocks();
+        soulShop = TestHelper.GetSoulShop(option, oneCardPackOptionInfo);
         playerSoulCount.IncreaseSouls();
 
         // Act
@@ -256,12 +218,8 @@ public class OptionTest : MonoBehaviour
         // Arrange
         var oneCardPackOptionInfo = TestHelper.GetRandomTwoMonstersOptionInfo();
         option.SetOptionInfo(oneCardPackOptionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(oneCardPackOptionInfo);
+        SetMocks();
+        soulShop = TestHelper.GetSoulShop(option, oneCardPackOptionInfo);
 
         // Act
         option.Update();
@@ -277,12 +235,8 @@ public class OptionTest : MonoBehaviour
         // Arrange
         var oneCardPackOptionInfo = TestHelper.GetRandomTwoRoomsOptionInfo();
         option.SetOptionInfo(oneCardPackOptionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(oneCardPackOptionInfo);
+        SetMocks();
+        soulShop = TestHelper.GetSoulShop(option, oneCardPackOptionInfo);
 
         // Act
         option.Update();
@@ -298,12 +252,8 @@ public class OptionTest : MonoBehaviour
         // Arrange
         var oneCardPackOptionInfo = TestHelper.GetRandomMonsterActionOptionInfo();
         option.SetOptionInfo(oneCardPackOptionInfo);
-        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
-        mock.Setup(x => x.IsOnOption()).Returns(true);
-        mock.Setup(x => x.GetHitComponent<Option>()).Returns(option);
-        option.SetMouseWrapper(mock.Object);
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(oneCardPackOptionInfo);
+        SetMocks();
+        soulShop = TestHelper.GetSoulShop(option, oneCardPackOptionInfo);
 
         // Act
         option.Update();

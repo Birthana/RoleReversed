@@ -198,8 +198,7 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Refactor Tests, then Everything. Before moving on.
-// TODO: Clean up OptionTest.cs
+// TODO: Refactor Everything. Before moving on.
 
 // TODO: Fix Orange Room & Pink Slime Interactions.
 // TODO: Refactor EffectText.cs
@@ -209,27 +208,23 @@ public class CardManager : MonoBehaviour
 //----------------
 // Features
 //----------------
+// TODO: Add Tooltips
 // TODO: Add Option to remove a common card in deck to add a rare card to deck
 // TODO: Add Show BattleField Button In Draft Card Pick.
 // TODO: Add Text Icons for card effects
-// TODO: Add Tooltips
 // TODO: Add Transform Options.
 // TODO: Add Monster Soul mechnanic.
-// TODO: Add new cards. (Blink/Reentrance trigger)
 // TODO: Add something to reward adding cards to Deck.
 // TODO: Add incentive for getting a set of 4 cards.
-// TODO: Add incentive for getting more Rooms.
 // TODO: Set Max Room Capacity to 9.
 
 //----------------
 // Refactors
 //----------------
 // TODO: Optiminize IconText to not for loop after first time Getting text.
-// TODO: Clean up MonsterDraggerTests Mock Setups.
 // TODO: Remove cards in Pack.cs
 // TODO: Make unittests for OptionInfos.
 // TODO: Split UI and Mechanics of various scripts
-// TODO: Fix MonsterDraggerTest unittests.
 // TODO: Refactor MonsterDragger.
 // TODO: Clean/refactor GameManager WalkThru().
 // TODO: Create common array container for Hand, Deck, Drop, etc.
@@ -237,13 +232,11 @@ public class CardManager : MonoBehaviour
 // TODO: Null Object in OrangeSlime.cs
 // TODO: Organize Different Managers in a GameObject.
 // TODO: Change Mouse Raycast to look at component instead of Layer.
-// TODO: Clean up LootAnimation.
 // TODO: Combine Loot, DisplayCard, and DraftCard Prefabs.
 
 //----------------
 // Bugs
 //----------------
-// TODO: Fix commented out unittests in LootAnimation.cs
 // TODO: Fix Room Monsters Display when Monsters are dead.
 // TODO: Bug: Release with no card selected in CardDragger.cs
 // TODO: BUG: Reroll Option cannot be previously chosen option.

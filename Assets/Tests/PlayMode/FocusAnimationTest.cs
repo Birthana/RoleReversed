@@ -7,9 +7,18 @@ using UnityEngine.TestTools;
 
 public class FocusAnimationTest : MonoBehaviour
 {
+    private Room room;
+    private FocusAnimation focusAnimation;
+    private static Vector3 ANY_POSITION = new Vector3(3, 5, 0);
+
     [SetUp]
     public void Setup()
     {
+        room = TestHelper.GetRoom();
+        room.transform.position = ANY_POSITION;
+        focusAnimation = new GameObject().AddComponent<FocusAnimation>();
+        focusAnimation.SetFocusPosition(Vector3.up);
+        focusAnimation.SetFocusScale(3);
     }
 
     [TearDown]
@@ -23,10 +32,6 @@ public class FocusAnimationTest : MonoBehaviour
     public IEnumerator UsingFocusAnimation_Focus_ExpectFocusPosition()
     {
         // Arrange
-        var room = new GameObject().AddComponent<Room>();
-        room.transform.position = new Vector3(3, 5, 0);
-        var focusAnimation = new GameObject().AddComponent<FocusAnimation>();
-        focusAnimation.SetFocusPosition(Vector3.up);
 
         // Act
         focusAnimation.Focus(room.transform);
@@ -40,11 +45,6 @@ public class FocusAnimationTest : MonoBehaviour
     public IEnumerator UsingFocusAnimation_Focus_ExpectFocusScale()
     {
         // Arrange
-        var room = new GameObject().AddComponent<Room>();
-        room.transform.position = new Vector3(3, 5, 0);
-        var focusAnimation = new GameObject().AddComponent<FocusAnimation>();
-        focusAnimation.SetFocusPosition(Vector3.up);
-        focusAnimation.SetFocusScale(3);
 
         // Act
         focusAnimation.Focus(room.transform);
@@ -58,13 +58,8 @@ public class FocusAnimationTest : MonoBehaviour
     public IEnumerator UsingFocusAnimation_FocusTwice_ExpectFirstFocusPositionAndScale()
     {
         // Arrange
-        var room = new GameObject().AddComponent<Room>();
-        room.transform.position = new Vector3(3, 5, 0);
-        var focusAnimation = new GameObject().AddComponent<FocusAnimation>();
-        focusAnimation.SetFocusPosition(Vector3.up);
-        focusAnimation.SetFocusScale(3);
-        var secondRoom = new GameObject().AddComponent<Room>();
-        secondRoom.transform.position = new Vector3(3, 5, 0);
+        var secondRoom = TestHelper.GetRoom();
+        secondRoom.transform.position = ANY_POSITION;
 
         // Act
         focusAnimation.Focus(room.transform);
@@ -73,7 +68,7 @@ public class FocusAnimationTest : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         // Assert
-        Assert.AreEqual(new Vector3(3, 5, 0), room.transform.position);
+        Assert.AreEqual(ANY_POSITION, room.transform.position);
         Assert.AreEqual(1, room.transform.localScale.x);
     }
 }

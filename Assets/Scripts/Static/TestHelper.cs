@@ -34,7 +34,7 @@ public static class TestHelper
         return draftManager;
     }
 
-    private static LootAnimation GetLootAnimation()
+    public static LootAnimation GetLootAnimation()
     {
         var lootAnimation = new GameObject().AddComponent<LootAnimation>();
         lootAnimation.gameObject.AddComponent<SpriteRenderer>();
@@ -95,6 +95,8 @@ public static class TestHelper
         monsterCardInfo.effectDescription = cardEffect;
         monsterCardInfo.damage = 1;
         monsterCardInfo.health = 1;
+        Sprite sprite = Resources.Load<Sprite>("Sprites/card");
+        monsterCardInfo.fieldSprite = sprite;
         return monsterCardInfo;
     }
 
@@ -239,11 +241,13 @@ public static class TestHelper
         return drop;
     }
 
-    private static DisplayCard GetDisplayCard()
+    public static DisplayCard GetDisplayCard()
     {
         var displayCard = new GameObject().AddComponent<DisplayCard>();
         displayCard.gameObject.AddComponent<MonsterCardUI>();
         displayCard.gameObject.AddComponent<RoomCardUI>();
+        displayCard.gameObject.AddComponent<SpriteRenderer>();
+        displayCard.gameObject.AddComponent<BoxCollider2D>();
         return displayCard;
     }
 

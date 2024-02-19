@@ -14,6 +14,7 @@ public class LootAnimationTest : MonoBehaviour
     {
         deck = new GameObject().AddComponent<Deck>();
         deck.transform.position = new Vector2(3, 5);
+        lootAnimation = TestHelper.GetLootAnimation();
     }
 
     [TearDown]
@@ -22,39 +23,11 @@ public class LootAnimationTest : MonoBehaviour
         FindObjectsOfType<LootAnimation>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
-    //[UnityTest]
-    //public IEnumerator UsingLootAnimation_Animate_ExpectSprite()
-    //{
-    //    // Arrange
-    //    Sprite sprite = Resources.Load<Sprite>("Sprites/card");
-    //    var monsterCardInfo = TestHelper.GetAnyMonsterCardInfo();
-    //    monsterCardInfo.cardSprite = sprite;
-    //    var gameObject = new GameObject();
-    //    gameObject.AddComponent<SpriteRenderer>();
-    //    lootAnimation = gameObject.AddComponent<LootAnimation>();
-    //    lootAnimation.gameObject.AddComponent<MonsterCardUI>();
-    //    lootAnimation.gameObject.AddComponent<RoomCardUI>();
-
-    //    // Act
-    //    lootAnimation.AnimateLoot(monsterCardInfo);
-    //    yield return null;
-
-    //    // Assert
-    //    Assert.AreEqual(sprite, lootAnimation.GetSprite());
-    //}
-
     [UnityTest]
     public IEnumerator UsingLootAnimationAnimate_WaitForHalfSecond_ExpectNoSprite()
     {
         // Arrange
-        Sprite sprite = Resources.Load<Sprite>("Sprites/card");
         var monsterCardInfo = TestHelper.GetAnyMonsterCardInfo();
-        monsterCardInfo.fieldSprite = sprite;
-        var gameObject = new GameObject();
-        gameObject.AddComponent<SpriteRenderer>();
-        lootAnimation = gameObject.AddComponent<LootAnimation>();
-        lootAnimation.gameObject.AddComponent<MonsterCardUI>();
-        lootAnimation.gameObject.AddComponent<RoomCardUI>();
 
         // Act
         lootAnimation.AnimateLoot(monsterCardInfo);
@@ -68,14 +41,7 @@ public class LootAnimationTest : MonoBehaviour
     public IEnumerator UsingLootAnimationAnimate_WaitForHalfSecond_ExpectPosition()
     {
         // Arrange
-        Sprite sprite = Resources.Load<Sprite>("Sprites/card");
         var monsterCardInfo = TestHelper.GetAnyMonsterCardInfo();
-        monsterCardInfo.fieldSprite = sprite;
-        var gameObject = new GameObject();
-        gameObject.AddComponent<SpriteRenderer>();
-        lootAnimation = gameObject.AddComponent<LootAnimation>();
-        lootAnimation.gameObject.AddComponent<MonsterCardUI>();
-        lootAnimation.gameObject.AddComponent<RoomCardUI>();
 
         // Act
         lootAnimation.AnimateLoot(monsterCardInfo);
@@ -89,14 +55,7 @@ public class LootAnimationTest : MonoBehaviour
     public IEnumerator UsingLootAnimationAnimate_WaitForABit_ExpectNoMove()
     {
         // Arrange
-        Sprite sprite = Resources.Load<Sprite>("Sprites/card");
         var monsterCardInfo = TestHelper.GetAnyMonsterCardInfo();
-        monsterCardInfo.fieldSprite = sprite;
-        var gameObject = new GameObject();
-        gameObject.AddComponent<SpriteRenderer>();
-        lootAnimation = gameObject.AddComponent<LootAnimation>();
-        lootAnimation.gameObject.AddComponent<MonsterCardUI>();
-        lootAnimation.gameObject.AddComponent<RoomCardUI>();
 
         // Act
         lootAnimation.AnimateLoot(monsterCardInfo);
@@ -106,27 +65,19 @@ public class LootAnimationTest : MonoBehaviour
         Assert.AreEqual(Vector3.zero, lootAnimation.transform.position);
     }
 
-    //[UnityTest]
-    //public IEnumerator UsingLootAnimationAnimateWithDelay_WaitForDelay_ExpectNoMove()
-    //{
-    //    // Arrange
-    //    Sprite sprite = Resources.Load<Sprite>("Sprites/card");
-    //    var monsterCardInfo = TestHelper.GetAnyMonsterCardInfo();
-    //    monsterCardInfo.cardSprite = sprite;
-    //    var gameObject = new GameObject();
-    //    gameObject.AddComponent<SpriteRenderer>();
-    //    lootAnimation = gameObject.AddComponent<LootAnimation>();
-    //    lootAnimation.gameObject.AddComponent<MonsterCardUI>();
-    //    lootAnimation.gameObject.AddComponent<RoomCardUI>();
-    //    float delay = LootAnimation.SHOW_TIME;
-    //    lootAnimation.SetDelay(delay * 1);
+    [UnityTest]
+    public IEnumerator UsingLootAnimationAnimateWithDelay_WaitForDelay_ExpectNoMove()
+    {
+        // Arrange
+        var monsterCardInfo = TestHelper.GetAnyMonsterCardInfo();
+        float delay = LootAnimation.SHOW_TIME;
+        lootAnimation.SetDelay(delay * 1);
 
-    //    // Act
-    //    lootAnimation.AnimateLoot(monsterCardInfo);
-    //    yield return new WaitForSeconds(delay);
+        // Act
+        lootAnimation.AnimateLoot(monsterCardInfo);
+        yield return new WaitForSeconds(delay);
 
-    //    // Assert
-    //    Assert.AreEqual(Vector3.zero, lootAnimation.transform.position);
-    //    Assert.AreEqual(sprite, lootAnimation.GetSprite());
-    //}
+        // Assert
+        Assert.AreEqual(Vector3.zero, lootAnimation.transform.position);
+    }
 }
