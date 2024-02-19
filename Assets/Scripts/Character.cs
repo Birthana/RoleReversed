@@ -5,26 +5,44 @@ public class Character : MonoBehaviour
     protected Health health;
     protected Damage damage;
 
-    public virtual void Awake()
+    public virtual void Awake() { }
+
+    public Damage GetDamageComponent()
     {
-        damage = GetComponent<Damage>();
-        health = GetComponent<Health>();
+        if (damage == null)
+        {
+            damage = GetComponent<Damage>();
+        }
+
+        return damage;
+    }
+
+    public Health GetHealthComponent()
+    {
+        if (health == null)
+        {
+            health = GetComponent<Health>();
+        }
+
+        return health;
     }
 
     public void ResetStats()
     {
-        damage.ResetDamage();
-        health.RestoreFullHealth();
+        GetDamageComponent().ResetDamage();
+        GetHealthComponent().RestoreFullHealth();
     }
 
-    public bool IsDead() { return health.GetCurrentHealth() == 0; }
+    public bool IsDead() { return GetHealthComponent().GetCurrentHealth() == 0; }
 
-    public void TakeDamage(int damage) { health.TakeDamage(damage); }
+    public void TakeDamage(int damage) { GetHealthComponent().TakeDamage(damage); }
 
-    public int GetDamage() { return damage.GetDamage(); }
+    public int GetDamage() { return GetDamageComponent().GetDamage(); }
 
-    public void IncreaseDamage(int increase) { damage.IncreaseMaxDamage(increase); }
+    public int GetHealth() { return GetHealthComponent().GetCount(); }
 
-    public void ReduceDamage(int decrease) { damage.DecreaseMaxDamage(decrease); }
+    public void IncreaseDamage(int increase) { GetDamageComponent().IncreaseMaxDamage(increase); }
+
+    public void ReduceDamage(int decrease) { GetDamageComponent().DecreaseMaxDamage(decrease); }
 
 }

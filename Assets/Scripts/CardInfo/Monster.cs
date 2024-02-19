@@ -6,11 +6,6 @@ public class Monster : Character
     public bool isTemporary = false;
     public MonsterCardInfo cardInfo;
 
-    public override void Awake()
-    {
-        base.Awake();
-    }
-
     public void Setup(MonsterCardInfo monsterCardInfo)
     {
         cardInfo = monsterCardInfo;
@@ -26,10 +21,10 @@ public class Monster : Character
             isTemporary = true;
         }
 
-        GetComponent<Damage>().maxCount = damage;
-        GetComponent<Damage>().ResetDamage();
-        GetComponent<Health>().maxCount = health;
-        GetComponent<Health>().RestoreFullHealth();
+        GetDamageComponent().maxCount = damage;
+        GetDamageComponent().ResetDamage();
+        GetHealthComponent().maxCount = health;
+        GetHealthComponent().RestoreFullHealth();
     }
 
     public void Entrance()

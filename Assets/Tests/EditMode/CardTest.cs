@@ -134,8 +134,8 @@ public class CardTest : MonoBehaviour
 
         // Assert
         Assert.AreEqual(1, hand.GetSize());
-        Assert.AreEqual(3, graySlime.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(3, graySlime.GetComponent<Health>().maxCount);
+        Assert.AreEqual(3, graySlime.GetDamage());
+        Assert.AreEqual(3, graySlime.GetHealth());
     }
 
     [Test]
@@ -147,8 +147,8 @@ public class CardTest : MonoBehaviour
         var pinkSlime = room.SpawnMonster(pinkySlimeInfo);
 
         // Assert 
-        Assert.AreEqual(4, pinkSlime.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(4, pinkSlime.GetComponent<Health>().maxCount);
+        Assert.AreEqual(4, pinkSlime.GetDamage());
+        Assert.AreEqual(4, pinkSlime.GetHealth());
     }
 
     [Test]
@@ -162,8 +162,8 @@ public class CardTest : MonoBehaviour
 
         // Assert
         Assert.AreEqual(ANY_MAX_HEALTH - 2, player.GetComponent<Health>().GetCurrentHealth());
-        Assert.AreEqual(1, redSlime.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(2, redSlime.GetComponent<Health>().maxCount);
+        Assert.AreEqual(1, redSlime.GetDamage());
+        Assert.AreEqual(2, redSlime.GetHealth());
     }
 
     [Test]
@@ -176,8 +176,8 @@ public class CardTest : MonoBehaviour
 
         // Assert
         Assert.AreEqual(ANY_MAX_DAMAGE - 1, player.GetComponent<Damage>().GetDamage());
-        Assert.AreEqual(1, violetSlime.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(1, violetSlime.GetComponent<Health>().maxCount);
+        Assert.AreEqual(1, violetSlime.GetDamage());
+        Assert.AreEqual(1, violetSlime.GetHealth());
     }
 
     [Test]
@@ -192,8 +192,8 @@ public class CardTest : MonoBehaviour
 
         // Assert
         Assert.AreEqual(4, room.transform.childCount);
-        Assert.AreEqual(5, yellowSlime.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(5, yellowSlime.GetComponent<Health>().maxCount);
+        Assert.AreEqual(5, yellowSlime.GetDamage());
+        Assert.AreEqual(5, yellowSlime.GetHealth());
     }
 
     [Test]
@@ -205,8 +205,8 @@ public class CardTest : MonoBehaviour
         // Act
 
         // Assert
-        Assert.AreEqual(2, brownSlime.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(5, brownSlime.GetComponent<Health>().maxCount);
+        Assert.AreEqual(2, brownSlime.GetDamage());
+        Assert.AreEqual(5, brownSlime.GetHealth());
     }
 
     [Test]
@@ -219,8 +219,8 @@ public class CardTest : MonoBehaviour
         brownSlime.Engage();
 
         // Assert
-        Assert.AreEqual(3, brownSlime.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(6, brownSlime.GetComponent<Health>().maxCount);
+        Assert.AreEqual(3, brownSlime.GetDamage());
+        Assert.AreEqual(6, brownSlime.GetHealth());
     }
 
     [Test]
@@ -233,8 +233,8 @@ public class CardTest : MonoBehaviour
         orangeSlime.Setup(orangeSlimeInfo.GetDamage(), orangeSlimeInfo.GetHealth());
 
         // Assert 
-        Assert.AreEqual(2, orangeSlime.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(4, orangeSlime.GetComponent<Health>().maxCount);
+        Assert.AreEqual(2, orangeSlime.GetDamage());
+        Assert.AreEqual(4, orangeSlime.GetHealth());
     }
 
     [Test]
@@ -247,8 +247,8 @@ public class CardTest : MonoBehaviour
         temporarySlime.Setup(temporarySlimeInfo.GetDamage(), temporarySlimeInfo.GetHealth());
 
         // Assert 
-        Assert.AreEqual(2, temporarySlime.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(2, temporarySlime.GetComponent<Health>().maxCount);
+        Assert.AreEqual(2, temporarySlime.GetDamage());
+        Assert.AreEqual(2, temporarySlime.GetHealth());
         Assert.AreEqual(true, temporarySlime.isTemporary);
     }
 
@@ -264,8 +264,8 @@ public class CardTest : MonoBehaviour
 
         // Assert
         Assert.AreEqual(3, room.transform.childCount);
-        Assert.AreEqual(1, emeraldSlime.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(1, emeraldSlime.GetComponent<Health>().maxCount);
+        Assert.AreEqual(1, emeraldSlime.GetDamage());
+        Assert.AreEqual(1, emeraldSlime.GetHealth());
         foreach(var monster in room.monsters)
         {
             if (!monster.isTemporary)
@@ -287,8 +287,8 @@ public class CardTest : MonoBehaviour
 
         // Assert
         Assert.AreEqual(2, room.GetCapacity());
-        Assert.AreEqual(1, goblinWorker.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(2, goblinWorker.GetComponent<Health>().maxCount);
+        Assert.AreEqual(1, goblinWorker.GetDamage());
+        Assert.AreEqual(2, goblinWorker.GetHealth());
     }
 
     [Test]
@@ -303,8 +303,8 @@ public class CardTest : MonoBehaviour
         // Assert
         Assert.AreEqual(0, room.GetCapacity());
         Assert.AreEqual(1, hand.GetSize());
-        Assert.AreEqual(5, goblinMiner.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(5, goblinMiner.GetComponent<Health>().maxCount);
+        Assert.AreEqual(5, goblinMiner.GetDamage());
+        Assert.AreEqual(5, goblinMiner.GetHealth());
     }
 
     [Test]
@@ -317,8 +317,8 @@ public class CardTest : MonoBehaviour
 
         // Assert
         Assert.AreEqual(3, room.GetCapacity());
-        Assert.AreEqual(5, goblinBuilder.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(3, goblinBuilder.GetComponent<Health>().maxCount);
+        Assert.AreEqual(5, goblinBuilder.GetDamage());
+        Assert.AreEqual(3, goblinBuilder.GetHealth());
     }
 
     [Test]
@@ -332,8 +332,8 @@ public class CardTest : MonoBehaviour
 
         // Assert
         Assert.AreEqual(1, actionManager.GetCount());
-        Assert.AreEqual(3, goblinGatherer.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(2, goblinGatherer.GetComponent<Health>().maxCount);
+        Assert.AreEqual(3, goblinGatherer.GetDamage());
+        Assert.AreEqual(2, goblinGatherer.GetHealth());
     }
 
     [Test]
@@ -346,32 +346,22 @@ public class CardTest : MonoBehaviour
         redBrownSlime.Exit();
 
         // Assert
-        Assert.AreEqual(2, redBrownSlime.GetComponent<Damage>().maxCount);
-        Assert.AreEqual(3, redBrownSlime.GetComponent<Health>().maxCount);
+        Assert.AreEqual(2, redBrownSlime.GetDamage());
+        Assert.AreEqual(3, redBrownSlime.GetHealth());
     }
 
     //[Test]
     //public void UsingOrangeGraySlime_Entrance_ExpectStatIs1_2()
     //{
     //    // Arrange
-    //    var room = TestHelper.GetRoom();
-    //    player.transform.SetParent(room.transform);
-    //    var deck = TestHelper.GetDeck();
-    //    deck.Add(graySlimeInfo);
     //    room.SpawnMonster(graySlimeInfo);
 
-    //    card.SetCardInfo(orangeGraySlimeInfo);
-    //    var newMonster = Instantiate(monsterPrefab);
-    //    newMonster.cardInfo = orangeGraySlimeInfo;
-    //    newMonster.transform.SetParent(room.transform);
-
     //    // Act
-    //    newMonster.Entrance();
-    //    newMonster.Setup(orangeGraySlimeInfo.GetDamage(), orangeGraySlimeInfo.GetHealth());
+    //    var orangeGray = room.SpawnMonster(orangeGraySlimeInfo);
 
     //    // Assert
-    //    Assert.AreEqual(0, deck.GetSize());
-    //    Assert.AreEqual(2, newMonster.GetComponent<Damage>().maxCount);
-    //    Assert.AreEqual(3, newMonster.GetComponent<Health>().maxCount);
+    //    Assert.AreEqual(1, hand.GetSize());
+    //    Assert.AreEqual(2, orangeGray.GetDamage());
+    //    Assert.AreEqual(3, orangeGray.GetHealth());
     //}
 }
