@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterDragger : MonoBehaviour
 {
-    private Monster selected;
+    private Monster monster;
     private Room returnRoom;
     private IMouseWrapper mouse;
     private IGameManager gameManager;
@@ -37,50 +37,70 @@ public class MonsterDragger : MonoBehaviour
             return;
         }
 
-        if (mouse.PlayerPressesLeftClick())
-        {
-            PickUp();
-        }
+        TryToPickUpMonster();
 
-        if (selected == null)
+        if (monster == null)
         {
             return;
         }
 
         MoveSelected();
+        TryToDropMonster();
+    }
 
-        if (mouse.PlayerReleasesLeftClick())
+    private void TryToPickUpMonster()
+    {
+        if (mouse.PlayerPressesLeftClick())
         {
-            if (mouse.IsOnRoom())
-            {
-                var newRoom = mouse.GetHitComponent<Room>();
-                if(newRoom.GetCapacity() == 0)
-                {
-                    ReturnToRoom();
-                    return;
-                }
-                returnRoom.Leave(selected);
-                returnRoom.IncreaseCapacity(1);
-                selected.transform.position = newRoom.transform.position;
-                selected.transform.SetParent(newRoom.transform);
-                newRoom.Add(selected);
-                newRoom.ReduceCapacity(1);
-                selected = null;
-                returnRoom = null;
-            }
-            else
-            {
-                ReturnToRoom();
-            }
+            PickUp();
+        }
+    }
 
+    private void TryToDropMonster()
+    {
+        if (!mouse.PlayerReleasesLeftClick())
+        {
+            return;
         }
 
+        if (!mouse.IsOnRoom())
+        {
+            ReturnToRoom();
+            return;
+        }
+
+        var newRoom = mouse.GetHitComponent<Room>();
+        if (newRoom.GetCapacity() == 0)
+        {
+            ReturnToRoom();
+            return;
+        }
+
+        DropMonsterTo(newRoom);
     }
 
-    public Monster GetSelected()
+    private void DropMonsterTo(Room room)
     {
-        return selected;
+        LeaveCurrentRoom();
+        MoveTo(room);
+        monster = null;
     }
+
+    private void LeaveCurrentRoom()
+    {
+        returnRoom.Leave(monster);
+        returnRoom.IncreaseCapacity(1);
+        returnRoom = null;
+    }
+
+    private void MoveTo(Room room)
+    {
+        monster.transform.SetParent(room.transform);
+        room.Add(monster);
+        room.ReduceCapacity(1);
+    }
+
+    public Monster GetSelected() { return monster; }
 
     public void SetMouseWrapper(IMouseWrapper mouse)
     {
@@ -89,22 +109,22 @@ public class MonsterDragger : MonoBehaviour
 
     public void PickUp()
     {
-        if (selected == null && mouse.IsOnMonster())
+        if (monster == null && mouse.IsOnMonster())
         {
-            selected = mouse.GetHitComponent<Monster>();
-            returnRoom = selected.GetComponentInParent<Room>();
+            monster = mouse.GetHitComponent<Monster>();
+            returnRoom = monster.GetComponentInParent<Room>();
         }
     }
 
     public void MoveSelected()
     {
         var mousePosition = mouse.GetPosition();
-        selected.transform.position = mousePosition;
+        monster.transform.position = mousePosition;
     }
 
     private void ReturnToRoom()
     {
-        selected = null;
+        monster = null;
         returnRoom.DisplayMonsters();
         returnRoom = null;
     }

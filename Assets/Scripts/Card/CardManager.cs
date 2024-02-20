@@ -217,6 +217,7 @@ public class CardManager : MonoBehaviour
 // TODO: Add something to reward adding cards to Deck.
 // TODO: Add incentive for getting a set of 4 cards.
 // TODO: Set Max Room Capacity to 9.
+// TODO: Add Move to Room mechnanics. (Blink and Knockback)
 
 //----------------
 // Refactors
@@ -225,7 +226,6 @@ public class CardManager : MonoBehaviour
 // TODO: Remove cards in Pack.cs
 // TODO: Make unittests for OptionInfos.
 // TODO: Split UI and Mechanics of various scripts
-// TODO: Refactor MonsterDragger.
 // TODO: Clean/refactor GameManager WalkThru().
 // TODO: Create common array container for Hand, Deck, Drop, etc.
 // TODO: Remove Temporary Monster if-statements.
