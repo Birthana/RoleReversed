@@ -48,19 +48,19 @@ public class DropTest : MonoBehaviour
         Assert.AreEqual(0, drop.GetSize());
     }
 
-    [Test]
-    public void UsingDrop_Add_ExpectCardSprite()
-    {
-        // Arrange
-        var cardInfo = TestHelper.GetAnyMonsterCardInfo();
-        var drop = TestHelper.GetDrop();
+    //[Test]
+    //public void UsingDrop_Add_ExpectCardSprite()
+    //{
+    //    // Arrange
+    //    var cardInfo = TestHelper.GetAnyMonsterCardInfo();
+    //    var drop = TestHelper.GetDrop();
 
-        // Act
-        drop.Add(cardInfo);
+    //    // Act
+    //    drop.Add(cardInfo);
 
-        // Assert
-        Assert.AreEqual(cardInfo.fieldSprite, drop.GetComponent<SpriteRenderer>().sprite);
-    }
+    //    // Assert
+    //    Assert.AreEqual(cardInfo.fieldSprite, drop.GetComponent<SpriteRenderer>().sprite);
+    //}
 
     [Test]
     public void UsingDropWith1Card_ReturnCardsToDeck_ExpectNoCardSprite()

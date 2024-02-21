@@ -6,6 +6,28 @@ public class Card : MonoBehaviour
     [SerializeField] private BasicUI cost;
     [SerializeField] private TextMeshPro description;
     [SerializeField] private SpriteRenderer cardSprite;
+    private ActionManager actionManager;
+    private Hand hand;
+
+    public ActionManager GetActionManager()
+    {
+        if (actionManager == null)
+        {
+            actionManager = FindObjectOfType<ActionManager>();
+        }
+
+        return actionManager;
+    }
+
+    public Hand GetHand()
+    {
+        if (hand == null)
+        {
+            hand = FindObjectOfType<Hand>();
+        }
+
+        return hand;
+    }
 
     public virtual void SetCardInfo(CardInfo newCardInfo) { }
 
@@ -22,13 +44,8 @@ public class Card : MonoBehaviour
 
     public virtual void Cast()
     {
-        ReduceActions();
-        FindObjectOfType<Hand>().Remove(this);
+        GetActionManager().ReduceActions(GetCost());
+        GetHand().Remove(this);
         Destroy(gameObject);
-    }
-
-    private void ReduceActions()
-    {
-        FindObjectOfType<ActionManager>().ReduceActions(GetCost());
     }
 }

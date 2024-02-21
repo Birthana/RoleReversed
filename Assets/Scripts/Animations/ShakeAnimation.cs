@@ -54,10 +54,15 @@ public class ShakeAnimation
             currentTime += Time.deltaTime;
             currentPosition = lerp.GetCurrentPosition(currentTime / animationTime);
             transform.position = currentPosition;
-            var differenceX = currentPosition.x - lerp.GetStartPosition().x;
-            var differenceY = currentPosition.y - lerp.GetStartPosition().y;
-            differenceMovement = new Vector2(differenceX, differenceY);
+            SetDifference(lerp);
             yield return null;
         }
+    }
+
+    private void SetDifference(LerpPosition lerp)
+    {
+        var differenceX = currentPosition.x - lerp.GetStartPosition().x;
+        var differenceY = currentPosition.y - lerp.GetStartPosition().y;
+        differenceMovement = new Vector2(differenceX, differenceY);
     }
 }

@@ -33,12 +33,22 @@ public class FocusAnimation : MonoBehaviour
             yield return UnfocusOn();
         }
 
-        var distance = focusPosition - transformToFocus.position;
-        moveAnimation = new ShakeAnimation(transformToFocus, distance, FOCUS_TIME);
-        scaleAnimation = new ScaleAnimation(transformToFocus, focusScale, FOCUS_TIME);
-        yield return moveAnimation.AnimateFromStartToEnd();
-        yield return scaleAnimation.AnimateStartToEnd();
+        yield return MoveToPosition(transformToFocus, focusPosition);
+        yield return ScaleUp(transformToFocus, focusScale);
         previousTransform = transformToFocus;
+    }
+
+    private IEnumerator MoveToPosition(Transform transformToFocus, Vector3 positon)
+    {
+        var distance = positon - transformToFocus.position;
+        moveAnimation = new ShakeAnimation(transformToFocus, distance, FOCUS_TIME);
+        yield return moveAnimation.AnimateFromStartToEnd();
+    }
+
+    private IEnumerator ScaleUp(Transform transformToFocus, float scale)
+    {
+        scaleAnimation = new ScaleAnimation(transformToFocus, scale, FOCUS_TIME);
+        yield return scaleAnimation.AnimateStartToEnd();
     }
 
     public IEnumerator UnfocusOn()

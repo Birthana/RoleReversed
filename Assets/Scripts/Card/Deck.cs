@@ -8,18 +8,66 @@ public class Deck : DisplayObject
     public Sprite closedBox;
     public MonsterCard monsterCardPrefab;
     public RoomCard roomCardPrefab;
+    private SpriteRenderer spriteRenderer;
+    private DeckCount deckCount;
+    private Drop drop;
+    private Hand hand;
+
+    private SpriteRenderer GetSpriteRenderer()
+    {
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        return spriteRenderer;
+    }
+
+    private DeckCount GetDeckCount()
+    {
+        if (deckCount == null)
+        {
+            deckCount = GetComponent<DeckCount>();
+        }
+
+        return deckCount;
+    }
+
+    private Drop GetDrop()
+    {
+        if (drop == null)
+        {
+            drop = FindObjectOfType<Drop>();
+        }
+
+        return drop;
+    }
+
+    private Hand GetHand()
+    {
+        if (hand == null)
+        {
+            hand = FindObjectOfType<Hand>();
+        }
+
+        return hand;
+    }
 
     protected override bool PlayerClicksOnObject() { return mouse.PlayerPressesLeftClick() && mouse.IsOnDeck(); }
 
     public void Add(CardInfo cardInfo)
     {
+        ChangeSprite(openBox);
+        cardInfos.Add(cardInfo);
+        GetDeckCount().AddToDeck();
+    }
+
+    private void ChangeSprite(Sprite sprite)
+    {
         if (IsEmpty())
         {
-            GetComponent<SpriteRenderer>().sprite = openBox;
+            GetSpriteRenderer().sprite = sprite;
         }
-
-        cardInfos.Add(cardInfo);
-        GetComponent<DeckCount>().AddToDeck();
     }
 
     private bool IsEmpty() { return cardInfos.Count == 0; }
@@ -32,22 +80,11 @@ public class Deck : DisplayObject
         Shuffle();
     }
 
-    public void DrawSpecificCard(CardInfo cardInfo)
+    public void DrawSpecificCardToHand(CardInfo cardInfo)
     {
-        var hand = FindObjectOfType<Hand>();
-        if (hand.IsFull())
+        if (GetHand().IsFull())
         {
             return;
-        }
-
-        if (IsEmpty())
-        {
-            ShuffleDropToDeck();
-
-            if (IsEmpty())
-            {
-                return;
-            }
         }
 
         if (!Contains(cardInfo))
@@ -55,43 +92,31 @@ public class Deck : DisplayObject
             return;
         }
 
-        var newCard = CreateCardWith(cardInfo);
-        Remove(cardInfo);
-        GetComponent<DeckCount>().DrawFromDeck();
-
-        if (newCard != null)
-        {
-            hand.Add(newCard);
-        }
+        AddCardToHand(Draw(cardInfo));
     }
 
     public Card Draw()
     {
-        if (IsEmpty())
-        {
-            ShuffleDropToDeck();
+        return Draw(GetTopCard());
+    }
 
-            if (IsEmpty())
-            {
-                return null;
-            }
+    private Card Draw(CardInfo cardInfo)
+    {
+        if (cardInfo == null)
+        {
+            return null;
         }
 
-        var newCard = CreateCardWith(GetTopCard());
-        RemoveTopCard();
-        GetComponent<DeckCount>().DrawFromDeck();
-
-        if (IsEmpty())
-        {
-            GetComponent<SpriteRenderer>().sprite = closedBox;
-        }
-
+        var newCard = CreateCardWith(cardInfo);
+        Remove(cardInfo);
+        GetDeckCount().DrawFromDeck();
+        ChangeSprite(closedBox);
         return newCard;
     }
 
     private void ShuffleDropToDeck()
     {
-        FindObjectOfType<Drop>().ReturnCardsToDeck();
+        GetDrop().ReturnCardsToDeck();
         Shuffle();
     }
 
@@ -113,23 +138,40 @@ public class Deck : DisplayObject
         return newCard;
     }
 
-    private CardInfo GetTopCard() { return cardInfos[0]; }
+    private CardInfo GetTopCard()
+    {
+        if (IsEmpty())
+        {
+            ShuffleDropToDeck();
 
-    private void RemoveTopCard() { cardInfos.RemoveAt(0); }
+            if (IsEmpty())
+            {
+                return null;
+            }
+        }
+
+        return cardInfos[0];
+    }
 
     public void DrawCardToHand()
     {
-        var hand = FindObjectOfType<Hand>();
-        if (hand.IsFull())
+        if (GetHand().IsFull())
         {
             return;
         }
 
         var card = Draw();
-        if (card != null)
+        AddCardToHand(card);
+    }
+
+    private void AddCardToHand(Card card)
+    {
+        if (card == null)
         {
-            hand.Add(card);
+            return;
         }
+
+        GetHand().Add(card);
     }
 
     private Card CreateNewCard(CardInfo cardInfo) { return Instantiate(GetCardPrefab(cardInfo), transform); }
@@ -143,7 +185,6 @@ public class Deck : DisplayObject
 
         return roomCardPrefab;
     }
-
 
     public int GetSize() { return cardInfos.Count; }
 }

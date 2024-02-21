@@ -7,6 +7,6 @@ public class OrangeGraySlime : MonsterCardInfo
     {
         var room = self.GetComponentInParent<Room>();
         var monster = room.GetRandomMonster();
-        FindObjectOfType<Deck>().DrawSpecificCard(monster.cardInfo);
+        FindObjectOfType<Deck>().DrawSpecificCardToHand(monster.cardInfo);
     }
 }

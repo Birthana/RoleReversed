@@ -233,6 +233,7 @@ public class CardManager : MonoBehaviour
 // TODO: Organize Different Managers in a GameObject.
 // TODO: Change Mouse Raycast to look at component instead of Layer.
 // TODO: Combine Loot, DisplayCard, and DraftCard Prefabs.
+// TODO: Fix unittest to use new displayCard.
 
 //----------------
 // Bugs

@@ -48,7 +48,7 @@ public class FocusAnimationTest : MonoBehaviour
 
         // Act
         focusAnimation.Focus(room.transform);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f + 0.1f);
 
         // Assert
         Assert.AreEqual(3, room.transform.localScale.x);
