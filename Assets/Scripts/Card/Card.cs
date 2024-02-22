@@ -46,6 +46,6 @@ public class Card : MonoBehaviour
     {
         GetActionManager().ReduceActions(GetCost());
         GetHand().Remove(this);
-        Destroy(gameObject);
+        DestroyImmediate(gameObject);
     }
 }

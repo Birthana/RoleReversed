@@ -16,9 +16,22 @@ public class Room : MonoBehaviour
     private Capacity capacity;
     private RoomCardInfo cardInfo;
 
-    public void Awake()
+    private Capacity GetCapacityComponent()
     {
-        capacity = GetComponent<Capacity>();
+        if (capacity == null)
+        {
+            capacity = GetComponent<Capacity>();
+        }
+
+        return capacity;
+    }
+
+    public void Setup(RoomCardInfo roomCardInfo, Vector3 position)
+    {
+        GetComponent<SpriteRenderer>().sprite = roomCardInfo.fieldSprite;
+        SetCapacity(roomCardInfo.capacity);
+        SetCardInfo(roomCardInfo);
+        transform.position = position;
     }
 
     public IEnumerator MakeAttack(Character character)
@@ -52,22 +65,22 @@ public class Room : MonoBehaviour
 
     public void SetCapacity(int capacity)
     {
-        this.capacity.maxCount = capacity;
-        this.capacity.ResetMaxCapacity();
+        GetCapacityComponent().maxCount = capacity;
+        GetCapacityComponent().ResetMaxCapacity();
     }
 
     public int GetCapacity()
     {
-        return capacity.GetCount();
+        return GetCapacityComponent().GetCount();
     }
 
-    public bool HasCapacity() { return capacity.HasCapacity(); }
+    public bool HasCapacity() { return GetCapacityComponent().HasCapacity(); }
 
-    public void IncreaseCapacity(int increase) { capacity.IncreaseCapacity(increase); }
+    public void IncreaseCapacity(int increase) { GetCapacityComponent().IncreaseCapacity(increase); }
     
-    public void ReduceCapacity(int decrease) { capacity.DecreaseCapacity(decrease); }
+    public void ReduceCapacity(int decrease) { GetCapacityComponent().DecreaseCapacity(decrease); }
 
-    public bool CurrentCapacityIsMaxCapacity() { return capacity.CurrentCapacityIsMaxCapcity(); }
+    public bool CurrentCapacityIsMaxCapacity() { return GetCapacityComponent().CurrentCapacityIsMaxCapcity(); }
 
     public void Add(Monster monster)
     {
@@ -139,8 +152,7 @@ public class Room : MonoBehaviour
 
     public Room GetNextRoom()
     {
-        var roomTransform = new RoomTransform(transform);
-        var adjacentRooms = roomTransform.GetAdjacentRooms();
+        var adjacentRooms = new RoomTransform(transform).GetAdjacentRooms();
         var rngIndex = Random.Range(0, adjacentRooms.Count);
         return adjacentRooms[rngIndex];
     }

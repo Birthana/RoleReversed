@@ -74,7 +74,7 @@ public static class TestHelper
         return monsterCard;
     }
 
-    private static RoomCard GetRoomCard()
+    public static RoomCard GetRoomCard()
     {
         var roomCard = new GameObject().AddComponent<RoomCard>();
         roomCard.gameObject.AddComponent<RoomCardUI>();
@@ -135,7 +135,6 @@ public static class TestHelper
     {
         var room = new GameObject().AddComponent<Room>();
         room.gameObject.AddComponent<Capacity>();
-        room.Awake();
         room.SetCapacity(2);
         return room;
     }

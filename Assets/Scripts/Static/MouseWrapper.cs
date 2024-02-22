@@ -26,6 +26,8 @@ public class MouseWrapper : IMouseWrapper
 
     public ComponentType GetHitComponent<ComponentType>() { return Mouse.GetHitComponent<ComponentType>(); }
 
+    public Transform GetHitTransform() { return Mouse.GetHitTransform(); }
+
     public bool IsOnSelection() { return Mouse.IsOnSelection(); }
 
     public Vector2 GetPosition() { return Mouse.GetPosition(); }

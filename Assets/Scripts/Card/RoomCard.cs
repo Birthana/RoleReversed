@@ -9,6 +9,17 @@ public class RoomCard : Card
     private GameManager gameManager;
     private RoomTransform roomTransform;
     private RoomCardInfo roomCardInfo;
+    private IMouseWrapper mouseWrapper;
+
+    public void SetMouseWrapper(IMouseWrapper wrapper)
+    {
+        mouseWrapper = wrapper;
+    }
+
+    private void Awake()
+    {
+        SetMouseWrapper(new MouseWrapper());
+    }
 
     private RoomCardUI GetCardUI()
     {
@@ -20,16 +31,21 @@ public class RoomCard : Card
         return cardUI;
     }
 
-
-    private void Awake()
+    private GameManager GetGameManager()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+
+        return gameManager;
     }
 
     public override void SetCardInfo(CardInfo newCardInfo)
     {
         roomPrefab = Resources.Load<Room>(FIELD_ROOM_PREFAB);
         roomCardInfo = (RoomCardInfo)newCardInfo;
+        roomTransform = new RoomTransform(mouseWrapper.GetHitTransform());
         GetCardUI().SetCardInfo(roomCardInfo);
     }
 
@@ -52,7 +68,7 @@ public class RoomCard : Card
     {
         if (Mouse.IsOnSpace())
         {
-            roomTransform = new RoomTransform(Mouse.GetHitTransform());
+            roomTransform = new RoomTransform(mouseWrapper.GetHitTransform());
             if (!RoomIsAdjacentToRoom())
             {
                 return false;
@@ -66,7 +82,7 @@ public class RoomCard : Card
 
     public bool RoomIsAdjacentToRoom()
     {
-        if (gameManager.DoesNotHaveStartRoom())
+        if (GetGameManager().DoesNotHaveStartRoom())
         {
             return true;
         }
@@ -84,14 +100,11 @@ public class RoomCard : Card
     private void SpawnRoom()
     {
         var room = Instantiate(roomPrefab);
-        room.GetComponent<SpriteRenderer>().sprite = roomCardInfo.fieldSprite;
-        room.SetCapacity(roomCardInfo.capacity);
-        room.SetCardInfo(roomCardInfo);
-        room.transform.position = roomTransform.GetTransform().position;
-        Destroy(roomTransform.GetTransform().gameObject);
-        if (gameManager.DoesNotHaveStartRoom())
+        room.Setup(roomCardInfo, roomTransform.GetTransform().position);
+        DestroyImmediate(roomTransform.GetTransform().gameObject);
+        if (GetGameManager().DoesNotHaveStartRoom())
         {
-            gameManager.SetStartRoom(room);
+            GetGameManager().SetStartRoom(room);
         }
     }
 }
