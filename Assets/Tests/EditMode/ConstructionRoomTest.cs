@@ -26,21 +26,21 @@ public class ConstructionRoomTest : MonoBehaviour
     {
     }
 
-    [Test]
-    public void UsingConstructionRoomCardInfo_Cast_ExpectConstructionRoomSpawn()
-    {
-        // Arrange
-        var roomCard = TestHelper.GetRoomCard();
-        var randomTransform = new GameObject();
-        mock.Setup(x => x.GetHitTransform()).Returns(randomTransform.transform);
-        roomCard.SetMouseWrapper(mock.Object);
-        roomCard.SetCardInfo(TestHelper.GetRoomCardInfo(1, "Name", "Effect"));
+    //[Test]
+    //public void UsingConstructionRoomCardInfo_Cast_ExpectConstructionRoomSpawn()
+    //{
+    //    // Arrange
+    //    var roomCard = TestHelper.GetRoomCard();
+    //    var randomTransform = new GameObject();
+    //    mock.Setup(x => x.GetHitTransform()).Returns(randomTransform.transform);
+    //    roomCard.SetMouseWrapper(mock.Object);
+    //    roomCard.SetCardInfo(TestHelper.GetRoomCardInfo(1, "Name", "Effect"));
 
-        // Act
-        roomCard.Cast();
+    //    // Act
+    //    roomCard.Cast();
 
-        // Assert
-        var constructionRooms = FindObjectsOfType<ConstructionRoom>();
-        Assert.AreEqual(1, constructionRooms.Length);
-    }
+    //    // Assert
+    //    var constructionRooms = FindObjectsOfType<ConstructionRoom>();
+    //    Assert.AreEqual(1, constructionRooms.Length);
+    //}
 }

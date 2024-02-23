@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCard", menuName = "CardInfo/Monster")]
 public class MonsterCardInfo : CardInfo
 {
+    private static readonly string MONSTER_CARD_PREFAB = "Prefabs/MonsterCardPrefab";
     public int damage;
     public int health;
 
@@ -26,5 +27,11 @@ public class MonsterCardInfo : CardInfo
 
     public virtual void Exit(Character self)
     {
+    }
+
+    public override Card GetCardPrefab()
+    {
+        var cardPrefab = Resources.Load<MonsterCard>(MONSTER_CARD_PREFAB);
+        return cardPrefab;
     }
 }

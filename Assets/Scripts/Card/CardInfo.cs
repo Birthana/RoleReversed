@@ -34,4 +34,6 @@ public class CardInfo : ScriptableObject
     {
         return this is RoomCardInfo;
     }
+
+    public virtual Card GetCardPrefab() { return new Card(); }
 }

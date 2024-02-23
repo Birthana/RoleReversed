@@ -63,7 +63,7 @@ public class CardManager : MonoBehaviour
         return CardInfoIsMonster(cardInfo) && (cardInfo.cost < 3) && ListContainsCard(commons, cardInfo);
     }
 
-    public bool CardInfoIsMonster(CardInfo cardInfo) { return cardInfo.IsMonster(); }
+    public bool CardInfoIsMonster(CardInfo cardInfo) { return cardInfo is MonsterCardInfo; }
 
     public bool CardInfoIsLowCostRoom(CardInfo cardInfo)
     {

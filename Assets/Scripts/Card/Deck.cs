@@ -6,8 +6,6 @@ public class Deck : DisplayObject
 {
     public Sprite openBox;
     public Sprite closedBox;
-    public MonsterCard monsterCardPrefab;
-    public RoomCard roomCardPrefab;
     private SpriteRenderer spriteRenderer;
     private DeckCount deckCount;
     private Drop drop;
@@ -174,17 +172,7 @@ public class Deck : DisplayObject
         GetHand().Add(card);
     }
 
-    private Card CreateNewCard(CardInfo cardInfo) { return Instantiate(GetCardPrefab(cardInfo), transform); }
-
-    private Card GetCardPrefab(CardInfo cardInfo)
-    {
-        if (cardInfo.IsMonster())
-        {
-            return monsterCardPrefab;
-        }
-
-        return roomCardPrefab;
-    }
+    private Card CreateNewCard(CardInfo cardInfo) { return Instantiate(cardInfo.GetCardPrefab(), transform); }
 
     public int GetSize() { return cardInfos.Count; }
 }
