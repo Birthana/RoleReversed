@@ -1005,8 +1005,6 @@ MonoBehaviour:
   cardInfos: []
   openBox: {fileID: 868316767, guid: 9d4ade58d1bec51418dce328a63d87c6, type: 3}
   closedBox: {fileID: 768393613, guid: 9d4ade58d1bec51418dce328a63d87c6, type: 3}
-  monsterCardPrefab: {fileID: -6711869192912208744, guid: 109b5c9931efac248912025447cef8d2, type: 3}
-  roomCardPrefab: {fileID: -5276209314207143491, guid: 1ccabceff46f8404a8bf6328d70f8c1e, type: 3}
 --- !u!4 &815771742
 Transform:
   m_ObjectHideFlags: 0

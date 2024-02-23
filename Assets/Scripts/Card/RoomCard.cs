@@ -4,7 +4,6 @@ using TMPro;
 public class RoomCard : Card
 {
     [SerializeField] private RoomCardUI cardUI;
-    private static readonly string FIELD_ROOM_PREFAB = "Prefabs/FieldRoom";
     private Room roomPrefab;
     private GameManager gameManager;
     private RoomTransform roomTransform;
@@ -43,8 +42,8 @@ public class RoomCard : Card
 
     public override void SetCardInfo(CardInfo newCardInfo)
     {
-        roomPrefab = Resources.Load<Room>(FIELD_ROOM_PREFAB);
         roomCardInfo = (RoomCardInfo)newCardInfo;
+        roomPrefab = roomCardInfo.GetFieldRoomPrefab();
         roomTransform = new RoomTransform(mouseWrapper.GetHitTransform());
         GetCardUI().SetCardInfo(roomCardInfo);
     }
