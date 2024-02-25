@@ -40,7 +40,7 @@ public class ConstructionRoom : Room
 
     public bool CanBeBuilt()
     {
-        return GetCapacityComponent().GetCount() == 0;
+        return GetTimerComponent().GetCount() == 0;
     }
 
     public void SpawnRoom()

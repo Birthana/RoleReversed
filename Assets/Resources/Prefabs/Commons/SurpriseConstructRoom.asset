@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6db2441b1cc0850458ad1f88acc87bb2, type: 3}
-  m_Name: NewRoomCard
+  m_Name: SurpriseConstructRoom
   m_EditorClassIdentifier: 
-  cardName: Test
-  fieldSprite: {fileID: 21300000, guid: 14622c85750ff2342a9bd98da9bec148, type: 3}
+  cardName: Surprise Construct Room
+  fieldSprite: {fileID: -1534250167, guid: f6d8bd116986ee946830499f748b35d3, type: 3}
   cost: 1
-  effectDescription: Test
-  capacity: 2
-  timer: 1
+  effectDescription: '2 Turns & 1 Monster
+
+    [Battle Start] Make a random attack'
+  capacity: 1
+  timer: 2
   roomCardInfo: {fileID: 11400000, guid: c4cba4e4ff4891d4590762ede3ed42bb, type: 2}

@@ -60,14 +60,16 @@ public class CardManager : MonoBehaviour
 
     public bool CardInfoIsLowCostMonster(CardInfo cardInfo)
     {
-        return CardInfoIsMonster(cardInfo) && (cardInfo.cost < 3) && ListContainsCard(commons, cardInfo);
+        return CardInfoIsMonster(cardInfo) && (cardInfo.cost < 3) && ListContainsCard(commons, cardInfo) 
+                && !(cardInfo is ConstructionRoomCardInfo);
     }
 
     public bool CardInfoIsMonster(CardInfo cardInfo) { return cardInfo is MonsterCardInfo; }
 
     public bool CardInfoIsLowCostRoom(CardInfo cardInfo)
     {
-        return CardInfoIsRoom(cardInfo) && (cardInfo.cost < 3) && ListContainsCard(commons, cardInfo);
+        return CardInfoIsRoom(cardInfo) && (cardInfo.cost < 3) && ListContainsCard(commons, cardInfo)
+                && !(cardInfo is ConstructionRoomCardInfo);
     }
 
     public bool CardInfoIsRoom(CardInfo cardInfo) { return cardInfo.IsRoom(); }
@@ -198,12 +200,10 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Refactor Everything. Before moving on.
-
+// TODO: Add Construction Card Display UI.
 // TODO: Fix Orange Room & Pink Slime Interactions.
 // TODO: Refactor EffectText.cs
-// TODO: Make Construction Room & Deck UI Sprites.
-// TODO: Add Construction Room.
+// TODO: Make Construction Room Sprites.
 
 //----------------
 // Features
@@ -211,7 +211,6 @@ public class CardManager : MonoBehaviour
 // TODO: Add Tooltips
 // TODO: Add Option to remove a common card in deck to add a rare card to deck
 // TODO: Add Show BattleField Button In Draft Card Pick.
-// TODO: Add Text Icons for card effects
 // TODO: Add Transform Options.
 // TODO: Add Monster Soul mechnanic.
 // TODO: Add something to reward adding cards to Deck.
@@ -226,7 +225,6 @@ public class CardManager : MonoBehaviour
 // TODO: Remove cards in Pack.cs
 // TODO: Make unittests for OptionInfos.
 // TODO: Split UI and Mechanics of various scripts
-// TODO: Clean/refactor GameManager WalkThru().
 // TODO: Create common array container for Hand, Deck, Drop, etc.
 // TODO: Remove Temporary Monster if-statements.
 // TODO: Null Object in OrangeSlime.cs
@@ -242,7 +240,6 @@ public class CardManager : MonoBehaviour
 // TODO: Bug: Release with no card selected in CardDragger.cs
 // TODO: BUG: Reroll Option cannot be previously chosen option.
 // TODO: BUG: Player can get negative damage, and heal monsters.
-// TODO: BUG: When game over, focused room is still focused.
 
 //----------------
 // Animations

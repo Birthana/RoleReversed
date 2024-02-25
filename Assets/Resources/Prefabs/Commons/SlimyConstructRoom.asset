@@ -9,12 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7516a5876e832f945af35bcd31c27554, type: 3}
-  m_Name: SlimyRoom
+  m_Script: {fileID: 11500000, guid: 6db2441b1cc0850458ad1f88acc87bb2, type: 3}
+  m_Name: SlimyConstructRoom
   m_EditorClassIdentifier: 
-  cardName: Slimy Room
+  cardName: Slimy Construct Room
   fieldSprite: {fileID: 21300000, guid: 5a0a69efcd1ae8e4f87c218e129dc182, type: 3}
-  cost: 2
-  effectDescription: '[Battle Start] Spawn a 1/1 Slime'
-  capacity: 2
-  tempMonsterCardInfo: {fileID: 11400000, guid: 16c0ec62134bf2f42af7ec72e84e0131, type: 2}
+  cost: 1
+  effectDescription: '1 Turn & 1 Monster
+
+    [Battle Start] Spawn a 1/1 Slime'
+  capacity: 1
+  timer: 1
+  roomCardInfo: {fileID: 11400000, guid: f3bf00bc067fbeb42860a78106a84ae1, type: 2}

@@ -146,6 +146,12 @@ public class GameManager : MonoBehaviour, IGameManager
     private IEnumerator FocusOn(Room room)
     {
         yield return room.BattleStart();
+
+        if (player.IsDead())
+        {
+            yield break;
+        }
+
         new ChangeSortingLayer(room.gameObject).SetToCurrentRoom();
         yield return focusAnimation.FocusOn(room.transform);
     }
@@ -170,7 +176,7 @@ public class GameManager : MonoBehaviour, IGameManager
         }
     }
 
-    private IEnumerator UnfocusOnCurrentRoom()
+    public IEnumerator UnfocusOnCurrentRoom()
     {
         if (focusOnRoom)
         {

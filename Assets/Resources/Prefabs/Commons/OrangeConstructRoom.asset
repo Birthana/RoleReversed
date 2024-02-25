@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db2441b1cc0850458ad1f88acc87bb2, type: 3}
+  m_Name: OrangeConstructRoom
+  m_EditorClassIdentifier: 
+  cardName: Orange Construct Room
+  fieldSprite: {fileID: 21300000, guid: fb9f448a1286099489cf22796b837adb, type: 3}
+  cost: 1
+  effectDescription: '1 Turn & 1 Monster
+
+    [Battle Start] Use a random room monster
+    [Entrance].'
+  capacity: 1
+  timer: 1
+  roomCardInfo: {fileID: 11400000, guid: b3a59efdd1cce4042ad7226b4d6e1a12, type: 2}
