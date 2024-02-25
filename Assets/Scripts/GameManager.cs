@@ -74,7 +74,24 @@ public class GameManager : MonoBehaviour, IGameManager
         FindObjectOfType<DraftManager>().Draft();
         FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
         FindObjectOfType<Deck>().DrawCardToHand();
+        BuildConstructionRooms();
+    }
 
+    private void BuildConstructionRooms()
+    {
+        var constructionRooms = FindObjectsOfType<ConstructionRoom>();
+        if (constructionRooms.Length == 0)
+        {
+            return;
+        }
+
+        foreach (var room in constructionRooms)
+        {
+            if (room.CanBeBuilt())
+            {
+                room.SpawnRoom();
+            }
+        }
     }
 
     private void DestroyAllTempMonsters()
@@ -112,8 +129,10 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public IEnumerator WalkThruDungeon()
     {
+        ReduceTimerOnConstructionRooms();
+
         bool focusOnRoom = false;
-        if (!currentRoom.IsEmpty())
+        if (!currentRoom.IsEmpty() && !(currentRoom is ConstructionRoom))
         {
             yield return currentRoom.BattleStart();
             new ChangeSortingLayer(currentRoom.gameObject).SetToCurrentRoom();
@@ -125,7 +144,7 @@ public class GameManager : MonoBehaviour, IGameManager
         while (still_running)
         {
             yield return new WaitForSeconds(0.25f);
-            if (!currentRoom.IsEmpty())
+            if (!currentRoom.IsEmpty() && !(currentRoom is ConstructionRoom))
             {
                 yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster()));
                 yield return StartCoroutine(currentRoom.MakeAttack(player));
@@ -137,7 +156,7 @@ public class GameManager : MonoBehaviour, IGameManager
                 break;
             }
 
-            if (currentRoom.IsEmpty())
+            if (currentRoom.IsEmpty() || currentRoom is ConstructionRoom)
             {
                 if (focusOnRoom)
                 {
@@ -147,7 +166,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
                 GoToNextRoom();
                 PlayerMoveTo(currentRoom);
-                if (!currentRoom.IsEmpty())
+                if (!currentRoom.IsEmpty() && !(currentRoom is ConstructionRoom))
                 {
                     yield return currentRoom.BattleStart();
                     new ChangeSortingLayer(currentRoom.gameObject).SetToCurrentRoom();
@@ -158,10 +177,29 @@ public class GameManager : MonoBehaviour, IGameManager
         }
     }
 
+    private void ReduceTimerOnConstructionRooms()
+    {
+        var constructionRooms = FindObjectsOfType<ConstructionRoom>();
+        if (constructionRooms.Length == 0)
+        {
+            return;
+        }
+
+        foreach(var room in constructionRooms)
+        {
+            room.ReduceTimer();
+        }
+    }
+
     private bool NoMoreMonsters()
     {
         foreach (var monster in monsters)
         {
+            if (monster.transform.parent.GetComponent<Room>() is ConstructionRoom)
+            {
+                continue;
+            }
+
             if (!monster.IsDead())
             {
                 return false;

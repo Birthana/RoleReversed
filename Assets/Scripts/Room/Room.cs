@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Capacity))]
 public class Room : MonoBehaviour
 {
     private static readonly string FIELD_MONSTER_PREFAB = "Prefabs/FieldMonster";
@@ -14,9 +13,9 @@ public class Room : MonoBehaviour
     public float HORIZONTAL_SPACING;
     public float VERTICAL_SPACING;
     private Capacity capacity;
-    private RoomCardInfo cardInfo;
+    protected RoomCardInfo cardInfo;
 
-    private Capacity GetCapacityComponent()
+    protected Capacity GetCapacityComponent()
     {
         if (capacity == null)
         {
@@ -26,7 +25,12 @@ public class Room : MonoBehaviour
         return capacity;
     }
 
-    public void Setup(RoomCardInfo roomCardInfo, Vector3 position)
+    public RoomCardInfo GetCardInfo()
+    {
+        return cardInfo;
+    }
+
+    public virtual void Setup(RoomCardInfo roomCardInfo, Vector3 position)
     {
         GetComponent<SpriteRenderer>().sprite = roomCardInfo.fieldSprite;
         SetCapacity(roomCardInfo.capacity);
@@ -79,8 +83,6 @@ public class Room : MonoBehaviour
     public void IncreaseCapacity(int increase) { GetCapacityComponent().IncreaseCapacity(increase); }
     
     public void ReduceCapacity(int decrease) { GetCapacityComponent().DecreaseCapacity(decrease); }
-
-    public bool CurrentCapacityIsMaxCapacity() { return GetCapacityComponent().CurrentCapacityIsMaxCapcity(); }
 
     public void Add(Monster monster)
     {

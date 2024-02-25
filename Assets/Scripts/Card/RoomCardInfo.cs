@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCard", menuName = "CardInfo/Room")]
 public class RoomCardInfo : CardInfo
 {
-    private static readonly string FIELD_ROOM_PREFAB = "Prefabs/FieldRoom";
+    public static readonly string FIELD_ROOM_PREFAB = "Prefabs/FieldRoom";
     private static readonly string ROOM_CARD_PREFAB = "Prefabs/RoomCardPrefab";
     public int capacity;
 

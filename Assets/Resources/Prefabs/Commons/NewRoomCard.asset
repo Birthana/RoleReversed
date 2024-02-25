@@ -16,4 +16,6 @@ MonoBehaviour:
   fieldSprite: {fileID: 21300000, guid: 14622c85750ff2342a9bd98da9bec148, type: 3}
   cost: 1
   effectDescription: Test
-  capacity: 3
+  capacity: 2
+  timer: 1
+  roomCardInfo: {fileID: 11400000, guid: c4cba4e4ff4891d4590762ede3ed42bb, type: 2}

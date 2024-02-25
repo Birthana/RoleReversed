@@ -247,4 +247,15 @@ public static class TestHelper
         soulShop.optionInfos.Add(optionInfo);
         return soulShop;
     }
+
+    public static ConstructionRoomCardInfo GetConstructionRoomCardInfo()
+    {
+        var constructionRoomCardInfo = ScriptableObject.CreateInstance<ConstructionRoomCardInfo>();
+        constructionRoomCardInfo.cardName = "Any Name.";
+        constructionRoomCardInfo.cost = 2;
+        constructionRoomCardInfo.effectDescription = "Any Effect.";
+        constructionRoomCardInfo.timer = 2;
+        constructionRoomCardInfo.capacity = 1;
+        return constructionRoomCardInfo;
+    }
 }
