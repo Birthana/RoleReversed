@@ -38,8 +38,6 @@ public class ConstructionRoom : Room
         GetTimerComponent().DecreaseTimer(1);
     }
 
-
-
     public bool CanBeBuilt()
     {
         return GetCapacityComponent().GetCount() == 0;

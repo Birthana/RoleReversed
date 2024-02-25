@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private bool isRunning = false;
     private Coroutine coroutine;
     [SerializeField] private FocusAnimation focusAnimation;
+    private bool focusOnRoom = false;
 
     public void Awake()
     {
@@ -64,17 +65,32 @@ public class GameManager : MonoBehaviour, IGameManager
         StopCoroutine(coroutine);
         yield return focusAnimation.UnfocusOn();
         new ChangeSortingLayer(currentRoom.gameObject).SetToDefault();
-        SetRoom(startRoom);
-        PlayerMoveTo(currentRoom);
-        player.ResetStats();
-        player.GetStronger();
+        ResetPlayerToStartRoom();
+        ResetFieldMonsters();
         FindObjectOfType<ActionManager>().ResetActions();
-        ResetAllMonsterStats();
-        DestroyAllTempMonsters();
-        FindObjectOfType<DraftManager>().Draft();
         FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
         FindObjectOfType<Deck>().DrawCardToHand();
+        FindObjectOfType<DraftManager>().Draft();
         BuildConstructionRooms();
+    }
+
+    private void ResetPlayerToStartRoom()
+    {
+        SetRoom(startRoom);
+        PlayerMoveTo(currentRoom);
+        ResetPlayerStats();
+    }
+
+    private void ResetPlayerStats()
+    {
+        player.ResetStats();
+        player.GetStronger();
+    }
+
+    private void ResetFieldMonsters()
+    {
+        ResetAllMonsterStats();
+        DestroyAllTempMonsters();
     }
 
     private void BuildConstructionRooms()
@@ -127,53 +143,74 @@ public class GameManager : MonoBehaviour, IGameManager
         currentRoom = room;
     }
 
+    private IEnumerator FocusOn(Room room)
+    {
+        yield return room.BattleStart();
+        new ChangeSortingLayer(room.gameObject).SetToCurrentRoom();
+        yield return focusAnimation.FocusOn(room.transform);
+    }
+    private IEnumerator UnfocusOn(Room room)
+    {
+        yield return focusAnimation.UnfocusOn();
+        new ChangeSortingLayer(room.gameObject).SetToDefault();
+    }
+
+    private bool ShouldEnterRoom() { return !currentRoom.IsEmpty() && !(currentRoom is ConstructionRoom); }
+
+    private bool ShouldExitRoom() { return !ShouldEnterRoom(); }
+
+    private bool GameOver() { return currentRoom.IsEmpty() && NoMoreMonsters(); }
+
+    private IEnumerator FocusOnCurrentRoom()
+    {
+        if (ShouldEnterRoom())
+        {
+            yield return FocusOn(currentRoom);
+            focusOnRoom = true;
+        }
+    }
+
+    private IEnumerator UnfocusOnCurrentRoom()
+    {
+        if (focusOnRoom)
+        {
+            yield return UnfocusOn(currentRoom);
+        }
+    }
+
+    private IEnumerator MakeAttacks()
+    {
+        yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster()));
+        yield return StartCoroutine(currentRoom.MakeAttack(player));
+    }
+
     public IEnumerator WalkThruDungeon()
     {
         ReduceTimerOnConstructionRooms();
-
-        bool focusOnRoom = false;
-        if (!currentRoom.IsEmpty() && !(currentRoom is ConstructionRoom))
-        {
-            yield return currentRoom.BattleStart();
-            new ChangeSortingLayer(currentRoom.gameObject).SetToCurrentRoom();
-            yield return focusAnimation.FocusOn(currentRoom.transform);
-            focusOnRoom = true;
-        }
+        yield return FocusOnCurrentRoom();
 
         bool still_running = true;
         while (still_running)
         {
             yield return new WaitForSeconds(0.25f);
-            if (!currentRoom.IsEmpty() && !(currentRoom is ConstructionRoom))
-            {
-                yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster()));
-                yield return StartCoroutine(currentRoom.MakeAttack(player));
-            }
 
-            if (currentRoom.IsEmpty() && NoMoreMonsters())
+            if (GameOver())
             {
+                yield return UnfocusOnCurrentRoom();
                 gameOverScreen.SetActive(true);
                 break;
             }
 
-            if (currentRoom.IsEmpty() || currentRoom is ConstructionRoom)
+            if (ShouldExitRoom())
             {
-                if (focusOnRoom)
-                {
-                    yield return focusAnimation.UnfocusOn();
-                    new ChangeSortingLayer(currentRoom.gameObject).SetToDefault();
-                }
-
+                yield return UnfocusOnCurrentRoom();
                 GoToNextRoom();
                 PlayerMoveTo(currentRoom);
-                if (!currentRoom.IsEmpty() && !(currentRoom is ConstructionRoom))
-                {
-                    yield return currentRoom.BattleStart();
-                    new ChangeSortingLayer(currentRoom.gameObject).SetToCurrentRoom();
-                    yield return focusAnimation.FocusOn(currentRoom.transform);
-                    focusOnRoom = true;
-                }
+                yield return FocusOnCurrentRoom();
+                continue;
             }
+
+            yield return MakeAttacks();
         }
     }
 
