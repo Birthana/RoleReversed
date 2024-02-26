@@ -9,6 +9,7 @@ public class ConstructionRoomTest : MonoBehaviour
     private Hand hand;
     private Mock<IMouseWrapper> mock;
     private Mock<ICardDragger> cardDraggerMock;
+    private CardManager cardManager;
 
     [SetUp]
     public void Setup()
@@ -19,6 +20,7 @@ public class ConstructionRoomTest : MonoBehaviour
         cardDraggerMock.Setup(x => x.UpdateLoop());
         cardDraggerMock.Setup(x => x.ResetHover());
         hand.SetCardDragger(cardDraggerMock.Object);
+        cardManager = TestHelper.GetCardManager();
     }
 
     [TearDown]
@@ -26,6 +28,7 @@ public class ConstructionRoomTest : MonoBehaviour
     {
         FindObjectsOfType<ConstructionRoom>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
         FindObjectsOfType<Room>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+        FindObjectsOfType<CardManager>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
     [Test]
@@ -36,6 +39,7 @@ public class ConstructionRoomTest : MonoBehaviour
         mock.Setup(x => x.GetHitTransform()).Returns(new GameObject().transform);
         roomCard.SetMouseWrapper(mock.Object);
         roomCard.SetCardInfo(TestHelper.GetConstructionRoomCardInfo());
+        roomCard.SetRoomTransform();
 
         // Act
         roomCard.Cast();
@@ -53,6 +57,7 @@ public class ConstructionRoomTest : MonoBehaviour
         mock.Setup(x => x.GetHitTransform()).Returns(new GameObject().transform);
         roomCard.SetMouseWrapper(mock.Object);
         roomCard.SetCardInfo(TestHelper.GetConstructionRoomCardInfo());
+        roomCard.SetRoomTransform();
 
         // Act
         roomCard.Cast();
@@ -70,6 +75,7 @@ public class ConstructionRoomTest : MonoBehaviour
         mock.Setup(x => x.GetHitTransform()).Returns(new GameObject().transform);
         roomCard.SetMouseWrapper(mock.Object);
         roomCard.SetCardInfo(TestHelper.GetConstructionRoomCardInfo());
+        roomCard.SetRoomTransform();
 
         // Act
         roomCard.Cast();
@@ -87,6 +93,7 @@ public class ConstructionRoomTest : MonoBehaviour
         mock.Setup(x => x.GetHitTransform()).Returns(new GameObject().transform);
         roomCard.SetMouseWrapper(mock.Object);
         roomCard.SetCardInfo(TestHelper.GetConstructionRoomCardInfo());
+        roomCard.SetRoomTransform();
         roomCard.Cast();
         var constructionRoom = FindObjectOfType<ConstructionRoom>();
         constructionRoom.SpawnMonster(TestHelper.GetAnyMonsterCardInfo());
@@ -106,6 +113,7 @@ public class ConstructionRoomTest : MonoBehaviour
         mock.Setup(x => x.GetHitTransform()).Returns(new GameObject().transform);
         roomCard.SetMouseWrapper(mock.Object);
         roomCard.SetCardInfo(TestHelper.GetConstructionRoomCardInfo());
+        roomCard.SetRoomTransform();
         roomCard.Cast();
         var constructionRoom = FindObjectOfType<ConstructionRoom>();
 
@@ -124,6 +132,7 @@ public class ConstructionRoomTest : MonoBehaviour
         mock.Setup(x => x.GetHitTransform()).Returns(new GameObject().transform);
         roomCard.SetMouseWrapper(mock.Object);
         roomCard.SetCardInfo(TestHelper.GetConstructionRoomCardInfo());
+        roomCard.SetRoomTransform();
         roomCard.Cast();
         var constructionRoom = FindObjectOfType<ConstructionRoom>();
         constructionRoom.transform.position = new Vector3(3, 5, 0);
@@ -135,7 +144,7 @@ public class ConstructionRoomTest : MonoBehaviour
         var rooms = FindObjectsOfType<Room>();
         Assert.AreEqual(1, rooms.Length);
         Assert.AreEqual(new Vector3(3, 5, 0), rooms[0].transform.position);
-        Assert.AreEqual(TestHelper.GetAnyMonsterCardInfo(), rooms[0].GetCardInfo());
+        Assert.AreEqual(TestHelper.GetRoomCardInfo(2, "Any Name.", "Any Effect."), rooms[0].GetCardInfo());
     }
 
     [Test]
@@ -146,6 +155,7 @@ public class ConstructionRoomTest : MonoBehaviour
         mock.Setup(x => x.GetHitTransform()).Returns(new GameObject().transform);
         roomCard.SetMouseWrapper(mock.Object);
         roomCard.SetCardInfo(TestHelper.GetConstructionRoomCardInfo());
+        roomCard.SetRoomTransform();
         roomCard.Cast();
         var constructionRoom = FindObjectOfType<ConstructionRoom>();
         constructionRoom.transform.position = new Vector3(3, 5, 0);

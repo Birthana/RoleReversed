@@ -9,6 +9,7 @@ public class RoomCard : Card
     private RoomTransform roomTransform;
     private RoomCardInfo roomCardInfo;
     private IMouseWrapper mouseWrapper;
+    private CardManager cardManager;
 
     public void SetMouseWrapper(IMouseWrapper wrapper)
     {
@@ -40,11 +41,21 @@ public class RoomCard : Card
         return gameManager;
     }
 
+    private CardManager GetCardManager()
+    {
+        if (cardManager == null)
+        {
+            cardManager = FindObjectOfType<CardManager>();
+        }
+
+        return cardManager;
+    }
+
     public override void SetCardInfo(CardInfo newCardInfo)
     {
         roomCardInfo = (RoomCardInfo)newCardInfo;
         roomPrefab = roomCardInfo.GetFieldRoomPrefab();
-        roomTransform = new RoomTransform(mouseWrapper.GetHitTransform());
+        roomTransform = new RoomTransform();
         GetCardUI().SetCardInfo(roomCardInfo);
     }
 
@@ -63,11 +74,16 @@ public class RoomCard : Card
         return roomCardInfo.cardName;
     }
 
+    public void SetRoomTransform()
+    {
+        roomTransform = new RoomTransform(mouseWrapper.GetHitTransform());
+    }
+
     public override bool HasTarget()
     {
         if (Mouse.IsOnSpace())
         {
-            roomTransform = new RoomTransform(mouseWrapper.GetHitTransform());
+            SetRoomTransform();
             if (!RoomIsAdjacentToRoom())
             {
                 return false;
@@ -91,7 +107,7 @@ public class RoomCard : Card
 
     public override void Cast()
     {
-        FindObjectOfType<CardManager>().IncreaseRarity();
+        GetCardManager().IncreaseRarity();
         SpawnRoom();
         base.Cast();
     }

@@ -20,6 +20,7 @@ public class MonsterDraggerTest : MonoBehaviour
         expectedMonster = gameObject.AddComponent<Monster>();
         gameObject = new GameObject();
         expectedRoom = gameObject.AddComponent<Room>();
+        expectedRoom.gameObject.AddComponent<Capacity>();
         expectedMonster.transform.SetParent(expectedRoom.transform);
         var basicUI = new GameObject().AddComponent<BasicUI>();
         gameObject.AddComponent<Damage>().ui = basicUI;
@@ -62,6 +63,7 @@ public class MonsterDraggerTest : MonoBehaviour
     private Room CreateRoom(int capacity)
     {
         var newRoom = new GameObject().AddComponent<Room>();
+        newRoom.gameObject.AddComponent<Capacity>();
         newRoom.transform.position = Vector3.left;
         newRoom.SetCapacity(capacity);
         return newRoom;

@@ -256,6 +256,7 @@ public static class TestHelper
         constructionRoomCardInfo.effectDescription = "Any Effect.";
         constructionRoomCardInfo.timer = 2;
         constructionRoomCardInfo.capacity = 1;
+        constructionRoomCardInfo.roomCardInfo = GetRoomCardInfo(2, "Any Name.", "Any Effect.");
         return constructionRoomCardInfo;
     }
 }

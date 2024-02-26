@@ -7,6 +7,12 @@ public class RoomTransform
     private float horizontalSpacing;
     private float verticalSpacing;
 
+    public RoomTransform()
+    {
+        horizontalSpacing = 5.0f;
+        verticalSpacing = 5.0f;
+    }
+
     public RoomTransform(Transform selectedTransform)
     {
         this.selectedTransform = selectedTransform;

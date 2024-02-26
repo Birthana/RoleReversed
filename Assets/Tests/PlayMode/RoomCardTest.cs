@@ -7,14 +7,18 @@ using UnityEngine.TestTools;
 
 public class RoomCardTest : MonoBehaviour
 {
+    private Deck deck;
+
     [SetUp]
     public void Setup()
     {
+        deck = TestHelper.GetDeck();
     }
 
     [TearDown]
     public void TearDown()
     {
+        FindObjectsOfType<Deck>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
     [UnityTest]

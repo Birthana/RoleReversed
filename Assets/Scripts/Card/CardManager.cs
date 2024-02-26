@@ -203,7 +203,6 @@ public class CardManager : MonoBehaviour
 // TODO: Add Construction Card Display UI.
 // TODO: Fix Orange Room & Pink Slime Interactions.
 // TODO: Refactor EffectText.cs
-// TODO: Make Construction Room Sprites.
 
 //----------------
 // Features

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SlimyConstructRoom
   m_EditorClassIdentifier: 
   cardName: Slimy Construct Room
-  fieldSprite: {fileID: 21300000, guid: 5a0a69efcd1ae8e4f87c218e129dc182, type: 3}
+  fieldSprite: {fileID: 816830599, guid: d9276957f44e8a14d9a191335dcdb286, type: 3}
   cost: 1
   effectDescription: '1 Turn & 1 Monster
 
