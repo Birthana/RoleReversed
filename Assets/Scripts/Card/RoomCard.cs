@@ -3,7 +3,7 @@ using TMPro;
 
 public class RoomCard : Card
 {
-    [SerializeField] private RoomCardUI cardUI;
+    private RoomCardUI cardUI;
     private Room roomPrefab;
     private GameManager gameManager;
     private RoomTransform roomTransform;

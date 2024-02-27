@@ -82,6 +82,8 @@ public class DraftManager : MonoBehaviour
     {
         var newDraftCard = Instantiate(draftCardPrefab, transform);
         newDraftCard.SetCardInfo(cardInfo);
+        var cardUI = Instantiate(cardInfo.GetCardUI(), newDraftCard.transform);
+        cardUI.SetCardInfo(cardInfo);
         draftCards.Add(newDraftCard);
     }
 

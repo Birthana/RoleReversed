@@ -3,9 +3,6 @@ using TMPro;
 
 public class Card : MonoBehaviour
 {
-    [SerializeField] private BasicUI cost;
-    [SerializeField] private TextMeshPro description;
-    [SerializeField] private SpriteRenderer cardSprite;
     private ActionManager actionManager;
     private Hand hand;
 

@@ -1,11 +1,7 @@
 using UnityEngine;
-using TMPro;
 
-public class MonsterCardUI : MonoBehaviour
+public class MonsterCardUI : CardUI
 {
-    [SerializeField] private BasicUI cost;
-    [SerializeField] private TextMeshPro description;
-    [SerializeField] private SpriteRenderer cardSprite;
     [SerializeField] private BasicUI damage;
     [SerializeField] private BasicUI health;
 
@@ -13,15 +9,12 @@ public class MonsterCardUI : MonoBehaviour
 
     public BasicUI GetHealthUI() { return health; }
 
-    public SpriteRenderer GetCardSprite() { return cardSprite; }
-
-    public void SetCardInfo(MonsterCardInfo newCardInfo)
+    public override void SetCardInfo(CardInfo newCardInfo)
     {
-        SetDamage(newCardInfo.damage);
-        SetHealth(newCardInfo.health);
-        SetCost(newCardInfo.cost);
-        SetDescription(newCardInfo.effectDescription);
-        SetCardSprite(newCardInfo.fieldSprite);
+        var monsterCardInfo = (MonsterCardInfo)newCardInfo;
+        SetDamage(monsterCardInfo.damage);
+        SetHealth(monsterCardInfo.health);
+        base.SetCardInfo(newCardInfo);
     }
 
     private void SetDamage(int cardDamage)
@@ -42,36 +35,5 @@ public class MonsterCardUI : MonoBehaviour
         }
 
         health.Display(cardHealth);
-    }
-
-    private void SetCost(int cardCost)
-    {
-        if (cost == null)
-        {
-            return;
-        }
-
-        cost.Display(cardCost);
-    }
-
-    private void SetCardSprite(Sprite sprite)
-    {
-        if (cardSprite == null)
-        {
-            return;
-        }
-
-        cardSprite.sprite = sprite;
-    }
-
-    private void SetDescription(string cardDescription)
-    {
-        if (description == null)
-        {
-            return;
-        }
-
-        var effectText = new EffectText();
-        description.text = effectText.GetText(cardDescription);
     }
 }

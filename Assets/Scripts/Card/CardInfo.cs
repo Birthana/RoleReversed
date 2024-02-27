@@ -36,4 +36,6 @@ public class CardInfo : ScriptableObject
     }
 
     public virtual Card GetCardPrefab() { return new Card(); }
+
+    public virtual CardUI GetCardUI() { return new CardUI(); }
 }

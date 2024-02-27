@@ -3,7 +3,7 @@ using TMPro;
 
 public class MonsterCard : Card
 {
-    [SerializeField] private MonsterCardUI cardUI;
+    private MonsterCardUI cardUI;
     private Transform selectedRoom;
     private MonsterCardInfo monsterCardInfo;
 

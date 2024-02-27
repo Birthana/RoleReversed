@@ -4,6 +4,7 @@ using UnityEngine;
 public class MonsterCardInfo : CardInfo
 {
     private static readonly string MONSTER_CARD_PREFAB = "Prefabs/MonsterCardPrefab";
+    private static readonly string MONSTER_CARD_UI_PREFAB = "Prefabs/MonsterCardUI";
     public int damage;
     public int health;
 
@@ -33,5 +34,11 @@ public class MonsterCardInfo : CardInfo
     {
         var cardPrefab = Resources.Load<MonsterCard>(MONSTER_CARD_PREFAB);
         return cardPrefab;
+    }
+
+    public override CardUI GetCardUI()
+    {
+        var cardUI = Resources.Load<MonsterCardUI>(MONSTER_CARD_UI_PREFAB);
+        return cardUI;
     }
 }
