@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class LootAnimation : DisplayCard
+public class LootAnimation : MonoBehaviour
 {
     public static readonly float SHOW_TIME = 0.30f;
     public static readonly float MOVE_TIME = 0.20f;
@@ -34,39 +34,27 @@ public class LootAnimation : DisplayCard
 
     public void SetDelay(float delayTime) { delay = delayTime; }
 
-    public void AnimateLoot(CardInfo cardInfo)
+    public void AnimateLoot()
     {
-        StartCoroutine(Animate(cardInfo));
+        StartCoroutine(Animate());
     }
 
-    private IEnumerator Animate(CardInfo cardInfo)
+    private IEnumerator Animate()
     {
-        yield return ShowCard(cardInfo);
+        yield return ShowCard();
         yield return MoveToDeck();
         yield return HideCard();
         DestroyImmediate(gameObject);
     }
 
-    private void ChangeCard(CardInfo cardInfo)
+    private IEnumerator ShowCard()
     {
-        if (cardInfo == null)
-        {
-            return;
-        }
-
-        SetCardInfo(cardInfo);
-    }
-
-    private IEnumerator ShowCard(CardInfo cardInfo)
-    {
-        ChangeCard(cardInfo);
         yield return new WaitForSeconds(delay);
         yield return new WaitForSeconds(SHOW_TIME);
     }
 
     private IEnumerator HideCard()
     {
-        ChangeCard(null);
         yield return new WaitForSeconds(0.1f);
     }
 

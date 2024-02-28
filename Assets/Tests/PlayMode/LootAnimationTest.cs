@@ -30,7 +30,7 @@ public class LootAnimationTest : MonoBehaviour
         var monsterCardInfo = TestHelper.GetAnyMonsterCardInfo();
 
         // Act
-        lootAnimation.AnimateLoot(monsterCardInfo);
+        lootAnimation.AnimateLoot();
         yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME + 0.1f);
 
         // Assert
@@ -44,7 +44,7 @@ public class LootAnimationTest : MonoBehaviour
         var monsterCardInfo = TestHelper.GetAnyMonsterCardInfo();
 
         // Act
-        lootAnimation.AnimateLoot(monsterCardInfo);
+        lootAnimation.AnimateLoot();
         yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME + 0.1f);
 
         // Assert
@@ -58,7 +58,7 @@ public class LootAnimationTest : MonoBehaviour
         var monsterCardInfo = TestHelper.GetAnyMonsterCardInfo();
 
         // Act
-        lootAnimation.AnimateLoot(monsterCardInfo);
+        lootAnimation.AnimateLoot();
         yield return new WaitForSeconds(LootAnimation.SHOW_TIME);
 
         // Assert
@@ -74,7 +74,7 @@ public class LootAnimationTest : MonoBehaviour
         lootAnimation.SetDelay(delay * 1);
 
         // Act
-        lootAnimation.AnimateLoot(monsterCardInfo);
+        lootAnimation.AnimateLoot();
         yield return new WaitForSeconds(delay);
 
         // Assert

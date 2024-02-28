@@ -7,12 +7,7 @@ public class Drop : DisplayObject
     public Sprite openBox;
     public Sprite closedBox;
     public SpriteRenderer frontDeckBox;
-    [SerializeField] private DisplayCard displayCard;
-
-    public void SetDisplayCard(DisplayCard displayCard)
-    {
-        this.displayCard = displayCard;
-    }
+    private CardUI cardUI;
 
     protected override bool PlayerClicksOnObject() { return mouse.PlayerPressesLeftClick() && mouse.IsOnDrop(); }
 
@@ -27,8 +22,15 @@ public class Drop : DisplayObject
         }
 
         cardInfos.Add(cardInfo);
-        displayCard.gameObject.SetActive(true);
-        displayCard.SetCardInfo(cardInfo);
+
+        if (cardUI != null)
+        {
+            DestroyImmediate(cardUI.gameObject);
+        }
+
+        cardUI = Instantiate(cardInfo.GetCardUI(), transform);
+        cardUI.transform.localScale = new Vector3(0.65f, 0.65f, 1.0f);
+        cardUI.SetCardInfo(cardInfo);
         FindObjectOfType<DropCount>().AddToDrop();
     }
 
@@ -45,6 +47,10 @@ public class Drop : DisplayObject
         cardInfos = new List<CardInfo>();
         GetComponent<SpriteRenderer>().sprite = closedBox;
         frontDeckBox.gameObject.SetActive(false);
-        displayCard.gameObject.SetActive(false);
+
+        if (cardUI != null)
+        {
+            DestroyImmediate(cardUI.gameObject);
+        }
     }
 }

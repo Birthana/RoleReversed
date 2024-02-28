@@ -83,7 +83,9 @@ public class Pack : MonoBehaviour
         var animation = Instantiate(lootAnimation);
         animation.transform.position = position;
         animation.SetDelay(delay);
-        animation.AnimateLoot(cardInfo);
+        var cardUI = Instantiate(cardInfo.GetCardUI(), animation.transform);
+        cardUI.SetCardInfo(cardInfo);
+        animation.AnimateLoot();
     }
 
     private void AddPackCardsToDeck()

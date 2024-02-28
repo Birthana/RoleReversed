@@ -223,21 +223,9 @@ public static class TestHelper
     public static Drop GetDrop()
     {
         var drop = new GameObject().AddComponent<Drop>();
-        var displayCard = GetDisplayCard();
-        drop.SetDisplayCard(displayCard);
         drop.gameObject.AddComponent<SpriteRenderer>();
         drop.frontDeckBox = new GameObject().AddComponent<SpriteRenderer>();
         return drop;
-    }
-
-    public static DisplayCard GetDisplayCard()
-    {
-        var displayCard = new GameObject().AddComponent<DisplayCard>();
-        displayCard.gameObject.AddComponent<MonsterCardUI>();
-        displayCard.gameObject.AddComponent<RoomCardUI>();
-        displayCard.gameObject.AddComponent<SpriteRenderer>();
-        displayCard.gameObject.AddComponent<BoxCollider2D>();
-        return displayCard;
     }
 
     public static SoulShop GetSoulShop(Option option, OptionInfo optionInfo)

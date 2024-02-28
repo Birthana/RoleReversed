@@ -49,10 +49,11 @@ public class DraftManager : MonoBehaviour
         deck.DrawCardToHand();
     }
 
-    private void AnimateCard(CardInfo card)
+    private void AnimateCard(CardInfo cardInfo)
     {
         var animation = Instantiate(lootAnimation);
-        animation.AnimateLoot(card);
+        CreateCardUI(animation.transform, cardInfo);
+        animation.AnimateLoot();
     }
 
     private void ClearDraftCards()
@@ -82,9 +83,14 @@ public class DraftManager : MonoBehaviour
     {
         var newDraftCard = Instantiate(draftCardPrefab, transform);
         newDraftCard.SetCardInfo(cardInfo);
-        var cardUI = Instantiate(cardInfo.GetCardUI(), newDraftCard.transform);
-        cardUI.SetCardInfo(cardInfo);
+        CreateCardUI(newDraftCard.transform, cardInfo);
         draftCards.Add(newDraftCard);
+    }
+
+    private void CreateCardUI(Transform parent, CardInfo cardInfo)
+    {
+        var cardUI = Instantiate(cardInfo.GetCardUI(), parent);
+        cardUI.SetCardInfo(cardInfo);
     }
 
     private void DisplayDraftCards()

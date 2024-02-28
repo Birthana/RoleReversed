@@ -200,6 +200,10 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
+// TODO: Fix Deck Show Tests.
+// TODO: Fix Drop Card UI. Sprite Layers.
+// TODO: Use CardUI for MonsterCards & RoomCards.
+
 // TODO: Add Construction Card Display UI.
 // TODO: Fix Orange Room & Pink Slime Interactions.
 // TODO: Fix 1 Room and Monster option to have construction rooms.
