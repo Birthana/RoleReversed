@@ -25,7 +25,8 @@ public class RoomCard : Card
     {
         if (cardUI == null)
         {
-            cardUI = GetComponent<RoomCardUI>();
+            cardUI = (RoomCardUI)Instantiate(roomCardInfo.GetCardUI(), transform);
+            cardUI.SetCardInfo(roomCardInfo);
         }
 
         return cardUI;

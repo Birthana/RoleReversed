@@ -13,6 +13,22 @@ public class Drop : DisplayObject
 
     public int GetSize() { return cardInfos.Count; }
 
+    private void RemoveTopOfDropCard()
+    {
+        if (cardUI != null)
+        {
+            DestroyImmediate(cardUI.gameObject);
+        }
+    }
+
+    private void CreateTopOfDeckCard(CardInfo cardInfo)
+    {
+        RemoveTopOfDropCard();
+        cardUI = Instantiate(cardInfo.GetCardUI(), transform);
+        cardUI.transform.localScale = new Vector3(0.65f, 0.65f, 1.0f);
+        cardUI.SetCardInfo(cardInfo);
+    }
+
     public void Add(CardInfo cardInfo)
     {
         if (GetSize() == 0)
@@ -22,15 +38,7 @@ public class Drop : DisplayObject
         }
 
         cardInfos.Add(cardInfo);
-
-        if (cardUI != null)
-        {
-            DestroyImmediate(cardUI.gameObject);
-        }
-
-        cardUI = Instantiate(cardInfo.GetCardUI(), transform);
-        cardUI.transform.localScale = new Vector3(0.65f, 0.65f, 1.0f);
-        cardUI.SetCardInfo(cardInfo);
+        CreateTopOfDeckCard(cardInfo);
         FindObjectOfType<DropCount>().AddToDrop();
     }
 
@@ -47,10 +55,6 @@ public class Drop : DisplayObject
         cardInfos = new List<CardInfo>();
         GetComponent<SpriteRenderer>().sprite = closedBox;
         frontDeckBox.gameObject.SetActive(false);
-
-        if (cardUI != null)
-        {
-            DestroyImmediate(cardUI.gameObject);
-        }
+        RemoveTopOfDropCard();
     }
 }

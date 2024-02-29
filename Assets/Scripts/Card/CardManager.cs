@@ -202,7 +202,6 @@ public class CardManager : MonoBehaviour
 
 // TODO: Fix Deck Show Tests.
 // TODO: Fix Drop Card UI. Sprite Layers.
-// TODO: Use CardUI for MonsterCards & RoomCards.
 
 // TODO: Add Construction Card Display UI.
 // TODO: Fix Orange Room & Pink Slime Interactions.
@@ -212,6 +211,8 @@ public class CardManager : MonoBehaviour
 //----------------
 // Features
 //----------------
+// TODO: Clean up the start of the game. Enable and disable functions to simply the beginning/ tutorialize.
+// TODO: Add Build Phase & Collection Box.
 // TODO: Add Tooltips
 // TODO: Add Option to remove a common card in deck to add a rare card to deck
 // TODO: Add Show BattleField Button In Draft Card Pick.

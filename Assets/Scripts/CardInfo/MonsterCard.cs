@@ -11,7 +11,8 @@ public class MonsterCard : Card
     {
         if (cardUI == null)
         {
-            cardUI = GetComponent<MonsterCardUI>();
+            cardUI = (MonsterCardUI)Instantiate(monsterCardInfo.GetCardUI(), transform);
+            cardUI.SetCardInfo(monsterCardInfo);
         }
 
         return cardUI;
