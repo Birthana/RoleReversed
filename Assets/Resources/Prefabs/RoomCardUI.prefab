@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 2196941387684797198}
   - component: {fileID: 2196941387684797197}
   - component: {fileID: 1339589061606432813}
+  - component: {fileID: 5215962291108035616}
   m_Layer: 20
   m_Name: RoomCardUI
   m_TagString: Untagged
@@ -133,6 +134,7 @@ Transform:
   - {fileID: 5947164647426973102}
   - {fileID: 6106184478902697084}
   - {fileID: 7121448884309084937}
+  - {fileID: 6897735091004183787}
   - {fileID: 1455039336977817709}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -205,6 +207,17 @@ MonoBehaviour:
   description: {fileID: 5430804817238451421}
   cardSprite: {fileID: 5227417338984079950}
   capacity: {fileID: 8815043653860613951}
+--- !u!210 &5215962291108035616
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2196941387684797194}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 3
 --- !u!1 &3442775766331877151
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +248,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2196941387684797198}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5227417338984079950
 SpriteRenderer:
@@ -319,13 +332,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7121448884309084937}
-  m_RootOrder: 0
+  m_Father: {fileID: 2196941387684797198}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.9506, y: 2.0451}
+  m_AnchoredPosition: {x: 0, y: -2}
+  m_SizeDelta: {x: 3, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4519935486346763754
 MeshRenderer:
@@ -659,11 +672,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8072664011382550522}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.75, y: -2.75, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6897735091004183787}
+  m_Children: []
   m_Father: {fileID: 2196941387684797198}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -708,7 +720,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 91
-  m_Sprite: {fileID: -825728468, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
+  m_Sprite: {fileID: 1874769046, guid: 505a71bce98191d43a39899192ace668, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -200,28 +200,26 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Fix Deck Show Tests.
-// TODO: Fix Drop Card UI. Sprite Layers.
-
 // TODO: Add Construction Card Display UI.
 // TODO: Fix Orange Room & Pink Slime Interactions.
 // TODO: Fix 1 Room and Monster option to have construction rooms.
 // TODO: Refactor EffectText.cs
+// TODO: Sorting Layers/Groups
+// TODO: Clean up the start of the game. Enable and disable functions to simply the beginning/ tutorialize.
+// TODO: Add Tooltips
+// TODO: Set Max Room Capacity to 9.
+// TODO: Add Show BattleField Button In Draft Card Pick.
 
 //----------------
 // Features
 //----------------
-// TODO: Clean up the start of the game. Enable and disable functions to simply the beginning/ tutorialize.
-// TODO: Add Build Phase & Collection Box.
-// TODO: Add Tooltips
 // TODO: Add Option to remove a common card in deck to add a rare card to deck
-// TODO: Add Show BattleField Button In Draft Card Pick.
 // TODO: Add Transform Options.
 // TODO: Add Monster Soul mechnanic.
 // TODO: Add something to reward adding cards to Deck.
 // TODO: Add incentive for getting a set of 4 cards.
-// TODO: Set Max Room Capacity to 9.
 // TODO: Add Move to Room mechnanics. (Blink and Knockback)
+// TODO: Add Build Phase & Collection Box.
 
 //----------------
 // Refactors
@@ -236,15 +234,14 @@ public class CardManager : MonoBehaviour
 // TODO: Organize Different Managers in a GameObject.
 // TODO: Change Mouse Raycast to look at component instead of Layer.
 // TODO: Combine Loot, DisplayCard, and DraftCard Prefabs.
-// TODO: Fix unittest to use new displayCard.
 
 //----------------
 // Bugs
 //----------------
-// TODO: Fix Room Monsters Display when Monsters are dead.
-// TODO: Bug: Release with no card selected in CardDragger.cs
 // TODO: BUG: Reroll Option cannot be previously chosen option.
+// TODO: Fix Room Monsters Display when Monsters are dead.
 // TODO: BUG: Player can get negative damage, and heal monsters.
+// TODO: Bug: Release with no card selected in CardDragger.cs
 
 //----------------
 // Animations

@@ -15,9 +15,7 @@ MonoBehaviour:
   cardName: Surprise Construct Room
   fieldSprite: {fileID: 1386347575, guid: d9276957f44e8a14d9a191335dcdb286, type: 3}
   cost: 1
-  effectDescription: '2 Turns & 1 Monster
-
-    [Battle Start] Make a random attack'
+  effectDescription: '[Battle Start] Make a random attack'
   capacity: 1
   timer: 2
   roomCardInfo: {fileID: 11400000, guid: c4cba4e4ff4891d4590762ede3ed42bb, type: 2}

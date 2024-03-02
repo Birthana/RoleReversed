@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 1515028002328291751}
   - component: {fileID: 3549005378203713389}
   m_Layer: 0
-  m_Name: HealthUI
+  m_Name: CapacityUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,13 +130,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7273159951347992619}
-  m_RootOrder: 0
+  m_Father: {fileID: 2196941387684797198}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.7648, y: 2.0451}
+  m_AnchoredPosition: {x: 0.75, y: -2}
+  m_SizeDelta: {x: 2.75, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1515028002328291751
 MeshRenderer:
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 6173011308996468050}
   - component: {fileID: 4965129187624474263}
   m_Layer: 0
-  m_Name: Health
+  m_Name: Capacity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,13 +298,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784105342211481221}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -2.75, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1452770966637692931}
+  m_Children: []
   m_Father: {fileID: 2196941387684797198}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6173011308996468050
 SpriteRenderer:
@@ -347,7 +346,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 91
-  m_Sprite: {fileID: 1982090640, guid: 8a8036b5446304b47866d66b25723755, type: 3}
+  m_Sprite: {fileID: 1874769046, guid: 505a71bce98191d43a39899192ace668, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -371,7 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 3549005378203713389}
-  color: {r: 0, g: 1, b: 0, a: 1}
+  color: {r: 0.9866247, g: 1, b: 0, a: 1}
 --- !u!1 &2196941387684797194
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,10 +381,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2196941387684797198}
   - component: {fileID: 2196941387684797197}
-  - component: {fileID: 946462128274730783}
+  - component: {fileID: 6022907612592246523}
   - component: {fileID: 865133203066660069}
   m_Layer: 20
-  m_Name: MonsterCardUI
+  m_Name: ConstructionRoomCardUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -406,7 +405,9 @@ Transform:
   - {fileID: 5947164647426973102}
   - {fileID: 6106184478902697084}
   - {fileID: 2333530927544045050}
+  - {fileID: 5658811665120004028}
   - {fileID: 7273159951347992619}
+  - {fileID: 1452770966637692931}
   - {fileID: 1455039336977817709}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -463,7 +464,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &946462128274730783
+--- !u!114 &6022907612592246523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -472,14 +473,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2196941387684797194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6dc9ad366824454a87134a537a13ad2, type: 3}
+  m_Script: {fileID: 11500000, guid: 81c171e4a2395584caeae646793897c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cost: {fileID: 5504998979885721291}
   description: {fileID: 5430804817238451421}
   cardSprite: {fileID: 5227417338984079950}
-  damage: {fileID: 5174910777478706610}
-  health: {fileID: 4965129187624474263}
+  capacity: {fileID: 4965129187624474263}
+  timer: {fileID: 5174910777478706610}
 --- !u!210 &865133203066660069
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -517,11 +518,11 @@ Transform:
   m_GameObject: {fileID: 3442775766331877151}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.85, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2196941387684797198}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5227417338984079950
 SpriteRenderer:
@@ -587,7 +588,7 @@ GameObject:
   - component: {fileID: 8724896738595316500}
   - component: {fileID: 5174910777478706610}
   m_Layer: 0
-  m_Name: Damage
+  m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -601,11 +602,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6795927157453939255}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.75, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.5, y: -2.75, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5658811665120004028}
+  m_Children: []
   m_Father: {fileID: 2196941387684797198}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -650,7 +650,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 91
-  m_Sprite: {fileID: 986106953, guid: 8a8036b5446304b47866d66b25723755, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec43beef0580ac34db42b5766c508b2d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 6225034704912176130}
-  color: {r: 1, g: 0, b: 0, a: 1}
+  color: {r: 0, g: 0.07410216, b: 1, a: 1}
 --- !u!1 &7912380892469565613
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,7 +1031,7 @@ GameObject:
   - component: {fileID: 7709546828458208755}
   - component: {fileID: 6225034704912176130}
   m_Layer: 0
-  m_Name: DamageUI
+  m_Name: TimerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1049,13 +1049,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2333530927544045050}
-  m_RootOrder: 0
+  m_Father: {fileID: 2196941387684797198}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.9506, y: 2.0451}
+  m_AnchoredPosition: {x: -0.75, y: -2}
+  m_SizeDelta: {x: 3, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &7709546828458208755
 MeshRenderer:

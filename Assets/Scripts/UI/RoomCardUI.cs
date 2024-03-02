@@ -7,7 +7,6 @@ public class RoomCardUI : CardUI
 
     public BasicUI GetCapacity() { return capacity; }
 
-
     public override void SetCardInfo(CardInfo newCardInfo)
     {
         var roomCardInfo = (RoomCardInfo)newCardInfo;
@@ -15,7 +14,7 @@ public class RoomCardUI : CardUI
         base.SetCardInfo(newCardInfo);
     }
 
-    private void SetCapacity(int cardCapacity)
+    protected void SetCapacity(int cardCapacity)
     {
         if (capacity == null)
         {

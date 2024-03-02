@@ -208,6 +208,7 @@ public static class TestHelper
         var deck = new GameObject().AddComponent<Deck>();
         deck.gameObject.AddComponent<DeckCount>();
         deck.gameObject.AddComponent<SpriteRenderer>();
+        deck.Add(GetAnyMonsterCardInfo());
         return deck;
     }
 
