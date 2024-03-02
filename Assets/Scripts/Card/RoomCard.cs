@@ -117,6 +117,7 @@ public class RoomCard : Card
     {
         var room = Instantiate(roomPrefab);
         room.Setup(roomCardInfo, roomTransform.GetTransform().position);
+        FindObjectOfType<SpaceManager>().SpawnSpaces(roomTransform.GetTransform().localPosition);
         DestroyImmediate(roomTransform.GetTransform().gameObject);
         if (GetGameManager().DoesNotHaveStartRoom())
         {
