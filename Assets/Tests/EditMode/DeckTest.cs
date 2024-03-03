@@ -41,10 +41,8 @@ public class DeckTest : MonoBehaviour
     {
         // Arrange
         var deck = TestHelper.GetDeck();
-        var cardInfo = TestHelper.GetAnyMonsterCardInfo();
 
         // Act
-        deck.Add(cardInfo);
 
         // Assert
         Assert.AreEqual(1, deck.GetSize());
@@ -55,6 +53,7 @@ public class DeckTest : MonoBehaviour
     {
         // Arrange
         var deck = TestHelper.GetDeck();
+        deck.Draw();
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
         deck.Add(cardInfo);
 
@@ -71,6 +70,7 @@ public class DeckTest : MonoBehaviour
     {
         // Arrange
         var deck = TestHelper.GetDeck();
+        deck.Draw();
         var drop = TestHelper.GetDrop();
 
         // Act
@@ -86,6 +86,7 @@ public class DeckTest : MonoBehaviour
         // Arrange
         FillHand();
         var deck = TestHelper.GetDeck();
+        deck.Draw();
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
         deck.Add(cardInfo);
 

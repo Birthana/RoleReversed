@@ -4,7 +4,6 @@ using TMPro;
 public class IconText
 {
     private Color color = Color.white;
-    private static readonly string NUMBERS_SPRITE_ASSET_FILE_PATH = "SpriteAssets/Numbers";
 
     public IconText(Color color)
     {
@@ -13,17 +12,19 @@ public class IconText
 
     public string GetNumbersText(string text)
     {
-        var result = text;
-        var numbers = Resources.Load<TMP_SpriteAsset>(NUMBERS_SPRITE_ASSET_FILE_PATH);
+        return GetNumbersTextThruReplacement(text);
+    }
 
-        foreach (var number in numbers.spriteCharacterTable)
+    private string GetNumbersTextThruReplacement(string text)
+    {
+        var result = "";
+        var charArray = text.ToCharArray();
+        for(int i = 0; i < charArray.Length; i++)
         {
-            if (result.Contains(number.name))
-            {
-                result = result.Replace(number.name, $"<sprite name=\"{number.name}\" PLACEHOLDER>");
-            }
+            var replace = "" + charArray[i];
+            result += $"<sprite name=\"{replace}\" color=#{ColorUtility.ToHtmlStringRGBA(color)}>";
         }
 
-        return result.Replace("PLACEHOLDER", $"color=#{ColorUtility.ToHtmlStringRGBA(color)}");
+        return result;
     }
 }

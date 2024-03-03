@@ -200,7 +200,6 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Refactor EffectText.cs
 // TODO: Sorting Layers/Groups
 // TODO: Add Show BattleField Button In Draft Card Pick.
 // TODO: Add Tooltips
@@ -221,7 +220,6 @@ public class CardManager : MonoBehaviour
 // Refactors
 //----------------
 // TODO: Move Player is dead checks inside Player.cs.
-// TODO: Optiminize IconText to not for loop after first time Getting text.
 // TODO: Remove cards in Pack.cs
 // TODO: Make unittests for OptionInfos.
 // TODO: Split UI and Mechanics of various scripts

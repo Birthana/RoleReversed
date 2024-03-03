@@ -10,6 +10,7 @@ public class CardManagerTest
         // Arrange
         var cardManager = TestHelper.GetCardManager();
         var deck = TestHelper.GetDeck();
+        deck.Draw();
 
         // Act
         deck.Add(cardManager.GetCommonCardInfo());
@@ -25,6 +26,7 @@ public class CardManagerTest
         // Arrange
         var cardManager = TestHelper.GetCardManager();
         var deck = TestHelper.GetDeck();
+        deck.Draw();
 
         // Act
         deck.Add(cardManager.GetRareCardInfo());

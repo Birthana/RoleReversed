@@ -13,8 +13,8 @@ public class EffectText
 
     public string GetText(string text)
     {
-        var result = text;
         styleSheet = Resources.Load<TMP_StyleSheet>(EFFECT_TEXT_ASSET_FILE_PATH);
+        var result = text;
 
         foreach (var keyword in keywords)
         {
@@ -23,28 +23,36 @@ public class EffectText
                 continue;
             }
 
-            var plural = keyword + "s";
-            if (result.Contains(plural))
-            {
-                result = result.Replace(plural, $"<style=\"{keyword}\"></style>");
-                continue;
-            }
-
-            var style = styleSheet.GetStyle(keyword);
-            if (result.Contains(keyword))
-            {
-                result = result.Replace(keyword, $"<style=\"{keyword}\"></style>");
-                continue;
-            }
-
-            var lowerCase = keyword.ToLower();
-            if (result.Contains(lowerCase))
-            {
-                result = result.Replace(lowerCase, $"<style=\"{keyword}\"></style>");
-                continue;
-            }
+            result = GetStyleText(result, keyword);
         }
 
         return result;
+    }
+
+    private string GetStyleText(string text, string keyword)
+    {
+        var plural = keyword + "s";
+        if (text.Contains(plural))
+        {
+            return ReplaceWordWithStyleText(text, plural, keyword);
+        }
+
+        if (text.Contains(keyword))
+        {
+            return ReplaceWordWithStyleText(text, keyword, keyword);
+        }
+
+        var lowerCase = keyword.ToLower();
+        if (text.Contains(lowerCase))
+        {
+            return ReplaceWordWithStyleText(text, lowerCase, keyword);
+        }
+
+        return text;
+    }
+
+    private string ReplaceWordWithStyleText(string text, string wordToReplace, string stylename)
+    {
+        return text.Replace(wordToReplace, $"<style=\"{stylename}\"></style>");
     }
 }
