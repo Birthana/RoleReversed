@@ -200,11 +200,11 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Fix 1 Room and Monster option to have construction rooms.
 // TODO: Refactor EffectText.cs
 // TODO: Sorting Layers/Groups
 // TODO: Add Show BattleField Button In Draft Card Pick.
 // TODO: Add Tooltips
+// TODO: Add End Screen with Stats: Player Damage Dealt & Taken. Monster Damage Dealt & Monsters Died.
 
 //----------------
 // Features

@@ -44,8 +44,8 @@ public class Pack : MonoBehaviour
 
     public void LoadBasicPack()
     {
-        var rngCards = FindObjectOfType<CardManager>();
-        cardInfos = rngCards.GetValidStarterCardInfos(TotalCostIsGreaterThanThree);
+        LoadRandomMonster();
+        LoadRandomRoom();
     }
 
     public void LoadRandomRarePack()
