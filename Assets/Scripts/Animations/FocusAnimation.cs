@@ -2,7 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FocusAnimation : MonoBehaviour
+public interface IFocusAnimation
+{
+    public void SetFocusPosition(Vector3 position);
+
+    public void SetFocusScale(float scale);
+
+    public IEnumerator FocusOn(Transform transformToFocus);
+
+    public IEnumerator UnfocusOn();
+}
+
+
+public class FocusAnimation : MonoBehaviour, IFocusAnimation
 {
     private static readonly float FOCUS_TIME = 0.25f;
     private Vector3 focusPosition;

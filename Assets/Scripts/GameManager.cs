@@ -16,21 +16,50 @@ public class GameManager : MonoBehaviour, IGameManager
     public Vector2 PLAYER_OFFSET;
     public GameObject respawnCounter;
     public GameObject gameOverScreen;
+    public GameObject shopButton;
+    public GameObject startButton;
     private Room startRoom;
     private Player player;
     private Room currentRoom;
     private Monster[] monsters;
     private bool isRunning = false;
     private Coroutine coroutine;
-    [SerializeField] private FocusAnimation focusAnimation;
+    [SerializeField] private IFocusAnimation focusAnimation;
     private bool focusOnRoom = false;
+
+    private IFocusAnimation GetFocusAnimation()
+    {
+        if (focusAnimation == null)
+        {
+            focusAnimation = GetComponent<FocusAnimation>();
+        }
+
+        return focusAnimation;
+    }
 
     public void Awake()
     {
         gameOverScreen.SetActive(false);
+        shopButton.SetActive(false);
+        startButton.SetActive(false);
         SpawnPackInRandomSpot();
-        focusAnimation.SetFocusPosition(Vector3.up * 3);
-        focusAnimation.SetFocusScale(2.5f);
+        GetFocusAnimation().SetFocusPosition(Vector3.up * 3);
+        GetFocusAnimation().SetFocusScale(2.5f);
+    }
+
+    public void EnableShopButton()
+    {
+        shopButton.SetActive(true);
+    }
+
+    public void EnableStartButton()
+    {
+        startButton.SetActive(true);
+    }
+
+    public void SetFocusAnimation(IFocusAnimation animation)
+    {
+        focusAnimation = animation;
     }
 
     public bool IsRunning() { return isRunning; }
@@ -55,6 +84,7 @@ public class GameManager : MonoBehaviour, IGameManager
         startRoom = room;
         SetRoom(startRoom);
         PlayerMoveTo(room);
+        EnableStartButton();
     }
 
     public void ResetPlayer() { StartCoroutine(Reset()); }
@@ -68,6 +98,7 @@ public class GameManager : MonoBehaviour, IGameManager
         ResetPlayerToStartRoom();
         ResetFieldMonsters();
         FindObjectOfType<ActionManager>().ResetActions();
+        EnableShopButton();
         FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
         FindObjectOfType<Deck>().DrawCardToHand();
         FindObjectOfType<DraftManager>().Draft();

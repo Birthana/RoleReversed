@@ -18,6 +18,17 @@ public static class TestHelper
         return Mathf.Round(floatPointNumber * 100) / 100;
     }
 
+    public static GameManager GetGameManager()
+    {
+        var gameManager = new GameObject().AddComponent<GameManager>();
+        gameManager.gameOverScreen = new GameObject();
+        gameManager.shopButton = new GameObject();
+        gameManager.startButton = new GameObject();
+        gameManager.packPrefab = GetPack();
+        gameManager.playerPrefab = new GameObject().AddComponent<Player>();
+        return gameManager;
+    }
+
     public static Hand GetHand()
     {
         var hand = new GameObject().AddComponent<Hand>();
