@@ -200,12 +200,12 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
+// TODO: Refactor card effects.
 // TODO: Sorting Layers/Groups
 // TODO: Refactor EffectText.cs
 // TODO: Add Tooltips
 // TODO: Set Max Room Capacity to 9.
 // TODO: Add Show BattleField Button In Draft Card Pick.
-// TODO: Fix Orange Room & Pink Slime Interactions.
 // TODO: Fix 1 Room and Monster option to have construction rooms.
 
 //----------------

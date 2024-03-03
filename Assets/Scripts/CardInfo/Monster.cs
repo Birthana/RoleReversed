@@ -21,10 +21,21 @@ public class Monster : Character
             isTemporary = true;
         }
 
-        GetDamageComponent().maxCount = damage;
+        SetMaxStats(damage, health);
         GetDamageComponent().ResetDamage();
-        GetHealthComponent().maxCount = health;
         GetHealthComponent().RestoreFullHealth();
+    }
+
+    private void SetMaxStats(int damage, int health)
+    {
+        GetDamageComponent().maxCount = damage;
+        GetHealthComponent().maxCount = health;
+    }
+
+    public void IncreaseStats(int damage, int health)
+    {
+        GetDamageComponent().IncreaseMaxDamageWithoutReset(damage);
+        GetHealthComponent().IncreaseMaxHealthWithoutReset(health);
     }
 
     public void Entrance()
