@@ -352,6 +352,51 @@ public class CardTest : MonoBehaviour
         Assert.AreEqual(3, redBrownSlime.GetHealth());
     }
 
+    [Test]
+    public void UsingGoblinBuilderInRoomCapacity9_Entrance_ExpectRoomCapacityIs8Plus2AndStatIs5_3()
+    {
+        // Arrange
+        room.SetCapacity(9);
+
+        // Act
+        var goblinBuilder = room.SpawnMonster(goblinBuilderInfo);
+
+        // Assert
+        Assert.AreEqual(9 - 1, room.GetCapacity());
+        Assert.AreEqual(5, goblinBuilder.GetDamage());
+        Assert.AreEqual(3, goblinBuilder.GetHealth());
+    }
+
+    [Test]
+    public void UsingGoblinBuilderInRoomCapacity8_Entrance_ExpectRoomCapacityIs8Plus2AndStatIs5_3()
+    {
+        // Arrange
+        room.SetCapacity(8);
+
+        // Act
+        var goblinBuilder = room.SpawnMonster(goblinBuilderInfo);
+
+        // Assert
+        Assert.AreEqual(9 - 1, room.GetCapacity());
+        Assert.AreEqual(5, goblinBuilder.GetDamage());
+        Assert.AreEqual(3, goblinBuilder.GetHealth());
+    }
+
+    [Test]
+    public void UsingGoblinBuilderInRoomCapacityLessThan7_Entrance_ExpectRoomCapacityIs6Plus2AndStatIs5_3()
+    {
+        // Arrange
+        room.SetCapacity(5);
+
+        // Act
+        var goblinBuilder = room.SpawnMonster(goblinBuilderInfo);
+
+        // Assert
+        Assert.AreEqual(7 - 1, room.GetCapacity());
+        Assert.AreEqual(5, goblinBuilder.GetDamage());
+        Assert.AreEqual(3, goblinBuilder.GetHealth());
+    }
+
     //[Test]
     //public void UsingOrangeGraySlime_Entrance_ExpectStatIs1_2()
     //{

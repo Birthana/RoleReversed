@@ -5,8 +5,9 @@ public class RedSlime : MonsterCardInfo
 {
     public override void Exit(Character self)
     {
-        FindObjectOfType<Player>().TakeDamage(2);
-        if (FindObjectOfType<Player>().IsDead())
+        var player = FindObjectOfType<Player>();
+        player.TakeDamage(2);
+        if (player.IsDead())
         {
             FindObjectOfType<GameManager>().ResetPlayer();
         }

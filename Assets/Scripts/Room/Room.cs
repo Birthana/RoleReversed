@@ -6,6 +6,7 @@ public class Room : MonoBehaviour
 {
     private static readonly string FIELD_MONSTER_PREFAB = "Prefabs/FieldMonster";
     private static readonly int MAX_NUMBER_OF_MONSTERS_IN_COLUMN = 3;
+    private static readonly int MAX_ROOM_CAPACITY = 9;
     private static readonly float COLUMN_SPACING = 2.0f;
     public List<Monster> monsters = new List<Monster>();
     public Vector2 MONSTER_OFFSET = new Vector2(2, 0);
@@ -80,7 +81,16 @@ public class Room : MonoBehaviour
 
     public bool HasCapacity() { return GetCapacityComponent().HasCapacity(); }
 
-    public void IncreaseCapacity(int increase) { GetCapacityComponent().IncreaseCapacity(increase); }
+    public void IncreaseCapacity(int increase)
+    {
+        if (GetCapacity() >= MAX_ROOM_CAPACITY)
+        {
+            return;
+        }
+
+        var capacityCheck = Mathf.Min(increase, MAX_ROOM_CAPACITY - GetCapacity());
+        GetCapacityComponent().IncreaseCapacity(capacityCheck);
+    }
     
     public void ReduceCapacity(int decrease) { GetCapacityComponent().DecreaseCapacity(decrease); }
 

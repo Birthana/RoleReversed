@@ -28,6 +28,7 @@ public class GoblinGatherer : MonsterCardInfo
             FindObjectOfType<ActionManager>().AddActions(1);
             newDamage = damage + 1;
             newHealth = health + 1;
+            ((Monster)self).IncreaseStats(1, 1);
         }
     }
 }

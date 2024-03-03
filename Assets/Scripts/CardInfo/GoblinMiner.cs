@@ -10,8 +10,7 @@ public class GoblinMiner : MonsterCardInfo
         {
             room.ReduceCapacity(1);
             FindObjectOfType<Deck>().DrawCardToHand();
-            self.GetComponent<Damage>().IncreaseMaxDamageWithoutReset(2);
-            self.GetComponent<Health>().IncreaseMaxHealthWithoutReset(2);
+            ((Monster)self).IncreaseStats(2, 2);
         }
     }
 }

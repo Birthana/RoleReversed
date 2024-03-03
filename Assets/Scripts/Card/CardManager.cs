@@ -200,13 +200,11 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Refactor card effects.
-// TODO: Sorting Layers/Groups
-// TODO: Refactor EffectText.cs
-// TODO: Add Tooltips
-// TODO: Set Max Room Capacity to 9.
-// TODO: Add Show BattleField Button In Draft Card Pick.
 // TODO: Fix 1 Room and Monster option to have construction rooms.
+// TODO: Refactor EffectText.cs
+// TODO: Sorting Layers/Groups
+// TODO: Add Show BattleField Button In Draft Card Pick.
+// TODO: Add Tooltips
 
 //----------------
 // Features
@@ -222,6 +220,7 @@ public class CardManager : MonoBehaviour
 //----------------
 // Refactors
 //----------------
+// TODO: Move Player is dead checks inside Player.cs.
 // TODO: Optiminize IconText to not for loop after first time Getting text.
 // TODO: Remove cards in Pack.cs
 // TODO: Make unittests for OptionInfos.

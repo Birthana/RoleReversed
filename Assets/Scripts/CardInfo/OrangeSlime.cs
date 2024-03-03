@@ -15,8 +15,7 @@ public class OrangeSlime : MonsterCardInfo
                 continue;
             }
 
-            monster.gameObject.GetComponent<Damage>().IncreaseMaxDamageWithoutReset(1);
-            monster.gameObject.GetComponent<Health>().IncreaseMaxHealthWithoutReset(1);
+            monster.IncreaseStats(1, 1);
         }
     }
 }
