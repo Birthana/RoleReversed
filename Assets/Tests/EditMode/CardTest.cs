@@ -25,6 +25,7 @@ public class CardTest : MonoBehaviour
     private GoblinGatherer goblinGathererInfo;
     private RedBrownSlime redBrownSlimeInfo;
     private OrangeGraySlime orangeGraySlimeInfo;
+    private GreenOrangeSlime greenOrangeSlimeInfo;
     private TemporaryMonster temporarySlimeInfo;
     private readonly int ANY_MAX_DAMAGE = 3;
     private readonly int ANY_MAX_HEALTH = 5;
@@ -113,8 +114,12 @@ public class CardTest : MonoBehaviour
         redBrownSlimeInfo.health = 2;
 
         orangeGraySlimeInfo = ScriptableObject.CreateInstance<OrangeGraySlime>();
-        orangeGraySlimeInfo.damage = 2;
-        orangeGraySlimeInfo.health = 3;
+        orangeGraySlimeInfo.damage = 4;
+        orangeGraySlimeInfo.health = 10;
+
+        greenOrangeSlimeInfo = ScriptableObject.CreateInstance<GreenOrangeSlime>();
+        greenOrangeSlimeInfo.damage = 3;
+        greenOrangeSlimeInfo.health = 5;
     }
     public bool RoomMonstersAreInCorrectLayer(Room room, string layer)
     {
@@ -238,10 +243,9 @@ public class CardTest : MonoBehaviour
     public void UsingOrangeSlime_SetStats_ExpectAndStatIs2_4()
     {
         // Arrange
-        var orangeSlime = room.SpawnMonster(orangeSlimeInfo);
 
         // Act
-        orangeSlime.Setup(orangeSlimeInfo.GetDamage(), orangeSlimeInfo.GetHealth());
+        var orangeSlime = room.SpawnMonster(orangeSlimeInfo);
 
         // Assert 
         Assert.AreEqual(2, orangeSlime.GetDamage());
@@ -397,18 +401,30 @@ public class CardTest : MonoBehaviour
         Assert.AreEqual(3, goblinBuilder.GetHealth());
     }
 
-    //[Test]
-    //public void UsingOrangeGraySlime_Entrance_ExpectStatIs1_2()
-    //{
-    //    // Arrange
-    //    room.SpawnMonster(graySlimeInfo);
+    [Test]
+    public void UsingOrangeGraySlime_Entrance_ExpectStatIs2_3()
+    {
+        // Arrange
 
-    //    // Act
-    //    var orangeGray = room.SpawnMonster(orangeGraySlimeInfo);
+        // Act
+        var orangeGraySlime = room.SpawnMonster(orangeGraySlimeInfo);
 
-    //    // Assert
-    //    Assert.AreEqual(1, hand.GetSize());
-    //    Assert.AreEqual(2, orangeGray.GetDamage());
-    //    Assert.AreEqual(3, orangeGray.GetHealth());
-    //}
+        // Assert
+        Assert.AreEqual(4, orangeGraySlime.GetDamage());
+        Assert.AreEqual(10, orangeGraySlime.GetHealth());
+    }
+
+    [Test]
+    public void UsingGreenOrangeSlime_Entrance_ExpectStatIs2_3()
+    {
+        // Arrange
+        var greenOrangeSlime = room.SpawnMonster(greenOrangeSlimeInfo);
+
+        // Act
+        greenOrangeSlime.Exit();
+
+        // Assert
+        Assert.AreEqual(3, greenOrangeSlime.GetDamage());
+        Assert.AreEqual(5, greenOrangeSlime.GetHealth());
+    }
 }

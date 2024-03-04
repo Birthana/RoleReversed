@@ -200,10 +200,13 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Sorting Layers/Groups
+// TODO: Change RoomTransform to use SpaceManager.cs
 // TODO: Add Show BattleField Button In Draft Card Pick.
+// TODO: Sorting Layers/Groups
 // TODO: Add Tooltips
 // TODO: Add End Screen with Stats: Player Damage Dealt & Taken. Monster Damage Dealt & Monsters Died.
+// TODO: Add cannot attack animation. Lerp Alpha.
+// TODO: Add Action Room Effects.
 
 //----------------
 // Features
