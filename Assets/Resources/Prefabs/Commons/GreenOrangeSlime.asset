@@ -17,5 +17,5 @@ MonoBehaviour:
   cost: 3
   effectDescription: '[Exit] Spawn 1 1/1 Slime in adjacent rooms'
   damage: 3
-  health: 5
+  health: 3
   tempMonsterCardInfo: {fileID: 11400000, guid: 16c0ec62134bf2f42af7ec72e84e0131, type: 2}

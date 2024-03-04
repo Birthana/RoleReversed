@@ -13,6 +13,7 @@ public class OrangeGraySlime : MonsterCardInfo
             if (room.IsEmpty())
             {
                 deck.DrawCardToHand();
+                break;
             }
         }
     }

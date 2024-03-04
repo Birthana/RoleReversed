@@ -30,14 +30,37 @@ public class RoomTransform
         foreach (var position in GetAdjacentPositions())
         {
             var ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(position));
-            var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Room"));
-            if (hit)
+            var hits = Physics2D.RaycastAll(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Room"));
+            if (hits.Length == 0)
             {
-                adjacentRooms.Add(hit.transform.GetComponent<Room>());
+                continue;
             }
+
+            var room = IgnoreCurrentFocusedRoom(hits);
+            if (room == null)
+            {
+                continue;
+            }
+
+            adjacentRooms.Add(room);
         }
 
         return adjacentRooms;
+    }
+
+    private Room IgnoreCurrentFocusedRoom(RaycastHit2D[] hits)
+    {
+        foreach (var room in hits)
+        {
+            if (room.transform.GetComponent<SpriteRenderer>().sortingLayerName == "CurrentRoom")
+            {
+                continue;
+            }
+
+            return room.transform.GetComponent<Room>();
+        }
+
+        return null;
     }
 
     private List<Vector3> GetAdjacentPositions()
