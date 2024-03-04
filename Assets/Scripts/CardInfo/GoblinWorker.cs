@@ -6,6 +6,6 @@ public class GoblinWorker : MonsterCardInfo
     public override void Entrance(Character self)
     {
         var room = self.GetComponentInParent<Room>();
-        room.IncreaseCapacity(1);
+        room.IncreaseMaxCapacity(1);
     }
 }

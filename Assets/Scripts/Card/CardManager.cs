@@ -200,6 +200,7 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
+// TODO: Fix Green Orange Slime Room Transforms.
 // TODO: Add Show BattleField Button In Draft Card Pick.
 // TODO: Fix Sprite Layers. Sorting Layers/Groups
 // TODO: Add Tooltips

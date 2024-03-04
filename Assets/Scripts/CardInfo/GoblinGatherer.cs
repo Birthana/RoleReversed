@@ -24,7 +24,7 @@ public class GoblinGatherer : MonsterCardInfo
         var room = self.GetComponentInParent<Room>();
         if (room.GetCapacity() > 1)
         {
-            room.ReduceCapacity(1);
+            room.ReduceMaxCapacity(1);
             FindObjectOfType<ActionManager>().AddActions(1);
             newDamage = damage + 1;
             newHealth = health + 1;

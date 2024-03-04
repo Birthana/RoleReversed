@@ -74,6 +74,11 @@ public class Room : MonoBehaviour
         GetCapacityComponent().ResetMaxCapacity();
     }
 
+    public int GetMaxCapacity()
+    {
+        return GetCapacityComponent().maxCount;
+    }
+
     public int GetCapacity()
     {
         return GetCapacityComponent().GetCount();
@@ -83,16 +88,23 @@ public class Room : MonoBehaviour
 
     public void IncreaseCapacity(int increase)
     {
-        if (GetCapacity() >= MAX_ROOM_CAPACITY)
+        GetCapacityComponent().IncreaseCapacity(increase);
+    }
+
+    public void IncreaseMaxCapacity(int increase)
+    {
+        if (GetMaxCapacity() >= MAX_ROOM_CAPACITY)
         {
             return;
         }
 
-        var capacityCheck = Mathf.Min(increase, MAX_ROOM_CAPACITY - GetCapacity());
-        GetCapacityComponent().IncreaseCapacity(capacityCheck);
+        var capacityCheck = Mathf.Min(increase, MAX_ROOM_CAPACITY - GetMaxCapacity());
+        GetCapacityComponent().IncreaseMaxCapacity(capacityCheck);
     }
     
     public void ReduceCapacity(int decrease) { GetCapacityComponent().DecreaseCapacity(decrease); }
+
+    public void ReduceMaxCapacity(int decrease) { GetCapacityComponent().DecreaseMaxCapacity(decrease); }
 
     public void Add(Monster monster)
     {

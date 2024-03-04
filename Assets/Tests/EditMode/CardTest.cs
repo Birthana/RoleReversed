@@ -26,6 +26,7 @@ public class CardTest : MonoBehaviour
     private RedBrownSlime redBrownSlimeInfo;
     private OrangeGraySlime orangeGraySlimeInfo;
     private GreenOrangeSlime greenOrangeSlimeInfo;
+    private GoblinTailor goblinTailorInfo;
     private TemporaryMonster temporarySlimeInfo;
     private readonly int ANY_MAX_DAMAGE = 3;
     private readonly int ANY_MAX_HEALTH = 5;
@@ -120,6 +121,10 @@ public class CardTest : MonoBehaviour
         greenOrangeSlimeInfo = ScriptableObject.CreateInstance<GreenOrangeSlime>();
         greenOrangeSlimeInfo.damage = 3;
         greenOrangeSlimeInfo.health = 5;
+
+        goblinTailorInfo = ScriptableObject.CreateInstance<GoblinTailor>();
+        goblinTailorInfo.damage = 1;
+        goblinTailorInfo.health = 2;
     }
     public bool RoomMonstersAreInCorrectLayer(Room room, string layer)
     {
@@ -415,7 +420,7 @@ public class CardTest : MonoBehaviour
     }
 
     [Test]
-    public void UsingGreenOrangeSlime_Entrance_ExpectStatIs2_3()
+    public void UsingGreenOrangeSlime_Exit_ExpectStatIs2_3()
     {
         // Arrange
         var greenOrangeSlime = room.SpawnMonster(greenOrangeSlimeInfo);
@@ -426,5 +431,22 @@ public class CardTest : MonoBehaviour
         // Assert
         Assert.AreEqual(3, greenOrangeSlime.GetDamage());
         Assert.AreEqual(5, greenOrangeSlime.GetHealth());
+    }
+
+
+    [Test]
+    public void UsingGoblinTailorSlime_Exit_ExpectStatIs1_2()
+    {
+        // Arrange
+        room.SetCapacity(0);
+        var goblinTailor = room.SpawnMonster(goblinTailorInfo);
+
+        // Act
+        goblinTailor.Exit();
+
+        // Assert
+        Assert.AreEqual(1, room.GetCapacity());
+        Assert.AreEqual(1, goblinTailor.GetDamage());
+        Assert.AreEqual(2, goblinTailor.GetHealth());
     }
 }

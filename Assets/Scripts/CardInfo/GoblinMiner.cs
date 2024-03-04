@@ -8,7 +8,7 @@ public class GoblinMiner : MonsterCardInfo
         var room = self.GetComponentInParent<Room>();
         if(room.HasCapacity())
         {
-            room.ReduceCapacity(1);
+            room.ReduceMaxCapacity(1);
             FindObjectOfType<Deck>().DrawCardToHand();
             ((Monster)self).IncreaseStats(2, 2);
         }
