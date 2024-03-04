@@ -6,7 +6,7 @@ public class GoblinTailor : MonsterCardInfo
     public override void Exit(Character self)
     {
         var room = self.GetComponentInParent<Room>();
-        if (room.GetCapacity() == 0)
+        if (room.GetCapacity() == 0 && room.GetMaxCapacity() < 4)
         {
             room.IncreaseMaxCapacity(1);
         }

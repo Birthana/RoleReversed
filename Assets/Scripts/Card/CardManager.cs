@@ -200,17 +200,18 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Fix Green Orange Slime Room Transforms.
+// TODO: Bug: Green Orange Slime only works in first room. Bc of Room Transform and Focused Room.
+// TODO: Bug: Game ends even if Temporary Monsters are alive.
 // TODO: Add Show BattleField Button In Draft Card Pick.
 // TODO: Fix Sprite Layers. Sorting Layers/Groups
 // TODO: Add Tooltips
 // TODO: Add End Screen with Stats: Player Damage Dealt & Taken. Monster Damage Dealt & Monsters Died.
 // TODO: Add cannot attack animation. Lerp Alpha.
-// TODO: Add Action Room Effects.
 
 //----------------
 // Features
 //----------------
+// TODO: Add Action Room Effects.
 // TODO: Add Option to remove a common card in deck to add a rare card to deck
 // TODO: Add Transform Options.
 // TODO: Add Monster Soul mechnanic.
