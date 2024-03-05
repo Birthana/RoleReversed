@@ -5,10 +5,7 @@ public class RedBrownSlime : MonsterCardInfo
 {
     public override void Exit(Character self)
     {
-        var monsters = self.transform.parent.GetComponentsInChildren<Monster>();
-        foreach (var monster in monsters)
-        {
-            monster.IncreaseStats(1, 1);
-        }
+        var parentRoom = self.transform.parent.GetComponent<Room>();
+        parentRoom.GetRandomMonster().IncreaseStats(1, 1);
     }
 }

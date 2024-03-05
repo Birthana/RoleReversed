@@ -8,10 +8,21 @@ public class MonsterDragger : MonoBehaviour
     private Room returnRoom;
     private IMouseWrapper mouse;
     private IGameManager gameManager;
+    private DraftManager draftManager;
 
     public void SetGameManager(IGameManager newGameManager)
     {
         gameManager = newGameManager;
+    }
+
+    public DraftManager GetDraftManager()
+    {
+        if (draftManager == null)
+        {
+            draftManager = FindObjectOfType<DraftManager>();
+        }
+
+        return draftManager;
     }
 
     private void Awake()
@@ -32,7 +43,7 @@ public class MonsterDragger : MonoBehaviour
 
     public void UpdateLoop()
     {
-        if (gameManager.IsRunning())
+        if (gameManager.IsRunning() || GetDraftManager().IsRunning())
         {
             return;
         }

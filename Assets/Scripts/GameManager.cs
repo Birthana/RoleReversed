@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private Room startRoom;
     private Player player;
     private Room currentRoom;
-    private Monster[] monsters;
+    private List<Monster> monsters;
     private bool isRunning = false;
     private Coroutine coroutine;
     [SerializeField] private IFocusAnimation focusAnimation;
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour, IGameManager
         }
 
         isRunning = true;
-        monsters = FindObjectsOfType<Monster>();
+        monsters = new List<Monster>(FindObjectsOfType<Monster>());
         coroutine = StartCoroutine(WalkThruDungeon());
     }
 
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void DestroyAllTempMonsters()
     {
-        monsters = FindObjectsOfType<Monster>();
+        monsters = new List<Monster>(FindObjectsOfType<Monster>());
         foreach (var monster in monsters)
         {
             if (monster.isTemporary)

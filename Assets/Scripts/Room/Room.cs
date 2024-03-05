@@ -15,6 +15,7 @@ public class Room : MonoBehaviour
     public float VERTICAL_SPACING;
     private Capacity capacity;
     protected RoomCardInfo cardInfo;
+    private Vector3 startPosition;
 
     protected Capacity GetCapacityComponent()
     {
@@ -36,8 +37,11 @@ public class Room : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = roomCardInfo.fieldSprite;
         SetCapacity(roomCardInfo.capacity);
         SetCardInfo(roomCardInfo);
-        transform.position = position;
+        startPosition = position;
+        transform.position = startPosition;
     }
+
+    public Vector3 GetStartPosition() { return startPosition; }
 
     public IEnumerator MakeAttack(Character character)
     {
@@ -210,6 +214,13 @@ public class Room : MonoBehaviour
     {
         var monster = CreateMonster(monsterCardInfo);
         new ChangeSortingLayer(monster.gameObject).SetToCurrentRoom();
+        return monster;
+    }
+
+    public Monster SpawnTemporaryMonsterInDifferentRoom(MonsterCardInfo monsterCardInfo)
+    {
+        var monster = CreateMonster(monsterCardInfo);
+        new ChangeSortingLayer(monster.gameObject).SetToDefault();
         return monster;
     }
 

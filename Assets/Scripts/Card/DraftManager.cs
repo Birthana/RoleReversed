@@ -11,6 +11,7 @@ public class DraftManager : MonoBehaviour
     private static readonly string DRAFT_CARD_FILE_PATH = "Prefabs/DraftCard";
     private DraftCard draftCardPrefab;
     private IMouseWrapper mouseWrapper;
+    private bool isRunning;
 
     public void Awake()
     {
@@ -22,6 +23,8 @@ public class DraftManager : MonoBehaviour
     {
         mouseWrapper = wrapper;
     }
+
+    public bool IsRunning() { return isRunning; }
 
     private bool PlayerClicksOnDraftCard() { return mouseWrapper.PlayerPressesLeftClick() && mouseWrapper.IsOnDraft(); }
 
@@ -47,6 +50,7 @@ public class DraftManager : MonoBehaviour
         AnimateCard(chosenCard.GetCardInfo());
         yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME);
         deck.DrawCardToHand();
+        isRunning = false;
     }
 
     private void AnimateCard(CardInfo cardInfo)
@@ -77,6 +81,7 @@ public class DraftManager : MonoBehaviour
         }
 
         DisplayDraftCards();
+        isRunning = true;
     }
 
     private void CreateDraftCard(CardInfo cardInfo)

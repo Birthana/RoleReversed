@@ -200,8 +200,6 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Bug: Green Orange Slime only works in first room. Bc of Room Transform and Focused Room.
-// TODO: Bug: Game ends even if Temporary Monsters are alive.
 // TODO: Add Show BattleField Button In Draft Card Pick.
 // TODO: Fix Sprite Layers. Sorting Layers/Groups
 // TODO: Add Tooltips
@@ -241,6 +239,7 @@ public class CardManager : MonoBehaviour
 // TODO: Fix Room Monsters Display when Monsters are dead.
 // TODO: BUG: Player can get negative damage, and heal monsters.
 // TODO: Bug: Release with no card selected in CardDragger.cs
+// TODO: Bug: Game ends even if Temporary Monsters are alive.
 
 //----------------
 // Animations

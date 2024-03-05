@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Goblin Tailor
   fieldSprite: {fileID: 21300000, guid: 2a16cd0384b05af4ebe7afa19034f476, type: 3}
   cost: 2
-  effectDescription: '[Exit] Capacity +1 if Capacity is 0'
+  effectDescription: '[Exit] If Max Capacity less than 4, Capacity +1'
   damage: 1
   health: 2

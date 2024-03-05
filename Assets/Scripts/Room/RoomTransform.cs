@@ -26,8 +26,13 @@ public class RoomTransform
 
     public List<Room> GetAdjacentRooms()
     {
+        return GetAdjacentRooms(selectedTransform.position);
+    }
+
+    public List<Room> GetAdjacentRooms(Vector3 centerPosition)
+    {
         var adjacentRooms = new List<Room>();
-        foreach (var position in GetAdjacentPositions())
+        foreach (var position in GetAdjacentPositions(centerPosition))
         {
             var ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(position));
             var hits = Physics2D.RaycastAll(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Room"));
@@ -63,13 +68,13 @@ public class RoomTransform
         return null;
     }
 
-    private List<Vector3> GetAdjacentPositions()
+    private List<Vector3> GetAdjacentPositions(Vector3 position)
     {
         var adjacentPositions = new List<Vector3>();
-        adjacentPositions.Add(selectedTransform.position + new Vector3(horizontalSpacing, 0, -10));
-        adjacentPositions.Add(selectedTransform.position + new Vector3(-horizontalSpacing, 0, -10));
-        adjacentPositions.Add(selectedTransform.position + new Vector3(0, verticalSpacing, -10));
-        adjacentPositions.Add(selectedTransform.position + new Vector3(0, -verticalSpacing, -10));
+        adjacentPositions.Add(position + new Vector3(horizontalSpacing, 0, -10));
+        adjacentPositions.Add(position + new Vector3(-horizontalSpacing, 0, -10));
+        adjacentPositions.Add(position + new Vector3(0, verticalSpacing, -10));
+        adjacentPositions.Add(position + new Vector3(0, -verticalSpacing, -10));
         return adjacentPositions;
     }
 }
