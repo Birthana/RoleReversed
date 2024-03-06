@@ -64,6 +64,7 @@ public class CardDraggerTest : MonoBehaviour
     {
         // Arrange
         var card = new GameObject().AddComponent<Card>();
+        var draftManager = TestHelper.GetDraftManager(2);
         var mock = new TestSetup().WithPlayerDoesNotSelectCard().WithPlayerHoversCard(card).Get();
         var cardDragger = TestHelper.GetCardDragger();
         cardDragger.SetMouseWrapper(mock.Object);

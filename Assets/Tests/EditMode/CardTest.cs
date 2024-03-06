@@ -438,7 +438,7 @@ public class CardTest : MonoBehaviour
     public void UsingGoblinTailorSlime_Exit_ExpectStatIs1_2()
     {
         // Arrange
-        room.SetCapacity(0);
+        room.SetCapacity(1);
         var goblinTailor = room.SpawnMonster(goblinTailorInfo);
 
         // Act
@@ -446,6 +446,7 @@ public class CardTest : MonoBehaviour
 
         // Assert
         Assert.AreEqual(1, room.GetCapacity());
+        Assert.AreEqual(1, hand.GetSize());
         Assert.AreEqual(1, goblinTailor.GetDamage());
         Assert.AreEqual(2, goblinTailor.GetHealth());
     }

@@ -200,7 +200,7 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Add Show BattleField Button In Draft Card Pick.
+// TODO: Refactor DraftManager.
 // TODO: Fix Sprite Layers. Sorting Layers/Groups
 // TODO: Add Tooltips
 // TODO: Add End Screen with Stats: Player Damage Dealt & Taken. Monster Damage Dealt & Monsters Died.
@@ -230,7 +230,6 @@ public class CardManager : MonoBehaviour
 // TODO: Null Object in OrangeSlime.cs
 // TODO: Organize Different Managers in a GameObject.
 // TODO: Change Mouse Raycast to look at component instead of Layer.
-// TODO: Combine Loot, DisplayCard, and DraftCard Prefabs.
 
 //----------------
 // Bugs

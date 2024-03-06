@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void StartPlayerRun()
     {
-        if(startRoom == null || isRunning)
+        if (startRoom == null || isRunning || FindObjectOfType<DraftManager>().IsRunning())
         {
             return;
         }

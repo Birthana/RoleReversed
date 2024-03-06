@@ -35,6 +35,14 @@ public class DraftManager : MonoBehaviour
             AddDraftCardToDeck();
             ClearDraftCards();
         }
+
+        if (mouseWrapper.PlayerPressesLeftClick() && !mouseWrapper.IsOnDraft())
+        {
+            foreach (var draftCard in draftCards)
+            {
+                draftCard.gameObject.SetActive(!draftCard.gameObject.activeInHierarchy);
+            }
+        }
     }
 
     private void AddDraftCardToDeck()

@@ -17,6 +17,7 @@ public class CardDragger : MonoBehaviour, ICardDragger
     private Drop drop;
 
     private IMouseWrapper mouseWrapper;
+    private DraftManager draftManager;
 
     public void SetMouseWrapper(IMouseWrapper wrapper)
     {
@@ -36,8 +37,23 @@ public class CardDragger : MonoBehaviour, ICardDragger
         UpdateLoop();
     }
 
+    public DraftManager GetDraftManager()
+    {
+        if (draftManager == null)
+        {
+            draftManager = FindObjectOfType<DraftManager>();
+        }
+
+        return draftManager;
+    }
+
     public void UpdateLoop()
     {
+        if (GetDraftManager().IsRunning())
+        {
+            return;
+        }
+
         CheckToSelectCard();
         HoverCard();
         if (CardIsNotSelected())

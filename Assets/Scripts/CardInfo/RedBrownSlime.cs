@@ -6,6 +6,10 @@ public class RedBrownSlime : MonsterCardInfo
     public override void Exit(Character self)
     {
         var parentRoom = self.transform.parent.GetComponent<Room>();
-        parentRoom.GetRandomMonster().IncreaseStats(1, 1);
+        var randomMonster = parentRoom.GetRandomMonster();
+        if (randomMonster != null)
+        {
+            randomMonster.IncreaseStats(1, 1);
+        }
     }
 }
