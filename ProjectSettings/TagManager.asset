@@ -50,3 +50,6 @@ TagManager:
   - name: DamageNumber
     uniqueID: 2667337567
     locked: 0
+  - name: Buttons
+    uniqueID: 1423370855
+    locked: 0

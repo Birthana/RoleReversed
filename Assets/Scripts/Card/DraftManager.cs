@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DraftManager : MonoBehaviour
 {
+    [SerializeField] private Button showFieldButton;
+    [SerializeField] private Sprite draftShow;
+    [SerializeField] private Sprite draftHide;
     public float SPACING = 10;
     public LootAnimation lootAnimation;
     private List<DraftCard> draftCards = new List<DraftCard>();
@@ -17,7 +21,23 @@ public class DraftManager : MonoBehaviour
     {
         draftCardPrefab = Resources.Load<DraftCard>(DRAFT_CARD_FILE_PATH);
         SetMouseWrapper(new MouseWrapper());
+        SetupShowFieldButton();
     }
+
+    private void SetupShowFieldButton()
+    {
+        if (showFieldButton == null)
+        {
+            return;
+        }
+
+        showFieldButton.onClick.AddListener(ToggleDraftCards);
+        SetShowFieldButtonState(false);
+    }
+
+    public void SetupShowFieldButton(Button button) { showFieldButton = button; }
+
+    public Button GetShowFieldButton() { return showFieldButton; }
 
     public void SetMouseWrapper(IMouseWrapper wrapper)
     {
@@ -32,17 +52,41 @@ public class DraftManager : MonoBehaviour
     {
         if (PlayerClicksOnDraftCard())
         {
+            SetShowFieldButtonState(false);
             AddDraftCardToDeck();
             ClearDraftCards();
         }
+    }
 
-        if (mouseWrapper.PlayerPressesLeftClick() && !mouseWrapper.IsOnDraft())
+    public void ToggleDraftCards()
+    {
+        foreach (var draftCard in draftCards)
         {
-            foreach (var draftCard in draftCards)
-            {
-                draftCard.gameObject.SetActive(!draftCard.gameObject.activeInHierarchy);
-            }
+            draftCard.gameObject.SetActive(!draftCard.gameObject.activeInHierarchy);
         }
+
+        ChangeButtonSprite(draftCards[0]);
+    }
+
+    private void ChangeButtonSprite(DraftCard draftCard)
+    {
+        if (draftCard.gameObject.activeInHierarchy)
+        {
+            ChangeShowFieldButtonSprite(draftShow);
+            return;
+        }
+
+        ChangeShowFieldButtonSprite(draftHide);
+    }
+
+    private void ChangeShowFieldButtonSprite(Sprite sprite)
+    {
+        showFieldButton.GetComponent<Image>().sprite = sprite;
+    }
+
+    private void SetShowFieldButtonState(bool state)
+    {
+        showFieldButton.gameObject.SetActive(state);
     }
 
     private void AddDraftCardToDeck()
@@ -90,6 +134,8 @@ public class DraftManager : MonoBehaviour
 
         DisplayDraftCards();
         isRunning = true;
+        SetShowFieldButtonState(true);
+        ChangeShowFieldButtonSprite(draftShow);
     }
 
     private void CreateDraftCard(CardInfo cardInfo)

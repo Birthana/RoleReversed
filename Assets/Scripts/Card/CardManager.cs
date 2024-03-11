@@ -200,7 +200,7 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Refactor DraftManager.
+// TODO: Fix TooltipManager unittests.
 // TODO: Fix Sprite Layers. Sorting Layers/Groups
 // TODO: Add Tooltips
 // TODO: Add End Screen with Stats: Player Damage Dealt & Taken. Monster Damage Dealt & Monsters Died.

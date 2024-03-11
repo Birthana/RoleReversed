@@ -445,7 +445,7 @@ public class CardTest : MonoBehaviour
         goblinTailor.Exit();
 
         // Assert
-        Assert.AreEqual(1, room.GetCapacity());
+        Assert.AreEqual(2, room.GetMaxCapacity());
         Assert.AreEqual(1, hand.GetSize());
         Assert.AreEqual(1, goblinTailor.GetDamage());
         Assert.AreEqual(2, goblinTailor.GetHealth());

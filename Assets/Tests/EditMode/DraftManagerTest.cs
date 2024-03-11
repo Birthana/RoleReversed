@@ -2,6 +2,7 @@ using Moq;
 using NUnit.Framework;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DraftManagerTest : MonoBehaviour
@@ -28,6 +29,7 @@ public class DraftManagerTest : MonoBehaviour
     {
         FindObjectsOfType<DraftCard>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
         FindObjectsOfType<CardManager>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+        FindObjectsOfType<DraftManager>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
     [Test]
@@ -115,7 +117,7 @@ public class DraftManagerTest : MonoBehaviour
         draftManager.Draft();
 
         // Act
-        draftManager.Update();
+        draftManager.GetShowFieldButton().onClick.Invoke();
 
         // Assert
         var draftCards = FindObjectsOfType<DraftCard>();

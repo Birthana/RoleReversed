@@ -14,7 +14,9 @@ public class DeckShowTest : MonoBehaviour
     public void Setup()
     {
         display = new GameObject().AddComponent<DisplayCardInfos>();
-        deck = TestHelper.GetDeck();
+        deck = new GameObject().AddComponent<Deck>();
+        deck.gameObject.AddComponent<DeckCount>();
+        deck.gameObject.AddComponent<SpriteRenderer>();
     }
 
     [TearDown]
@@ -28,6 +30,7 @@ public class DeckShowTest : MonoBehaviour
     public IEnumerator UsingDeck_Clicks_ExpectDeckCardIs1()
     {
         // Arrange
+        deck.Add(TestHelper.GetAnyMonsterCardInfo());
         var mock = new Mock<IMouseWrapper>(MockBehavior.Strict);
         mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
         mock.Setup(x => x.IsOnDeck()).Returns(true);

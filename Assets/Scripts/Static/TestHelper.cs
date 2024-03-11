@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public static class TestHelper
@@ -41,6 +42,8 @@ public static class TestHelper
         var draftManager = new GameObject().AddComponent<DraftManager>();
         draftManager.lootAnimation = GetLootAnimation();
         draftManager.SPACING = spacing;
+        var button = new GameObject().AddComponent<Button>();
+        draftManager.SetupShowFieldButton(button);
         draftManager.Awake();
         return draftManager;
     }

@@ -84,10 +84,13 @@ public class CardDragger : MonoBehaviour, ICardDragger
 
             if (hoverCard != null)
             {
+                FindObjectOfType<ToolTipManager>().Clear();
                 hoverAnimation.PerformReturn();
             }
 
             hoverCard = mouseWrapper.GetHitComponent<Card>();
+            var position = hoverCard.transform.position + (Vector3.up * 5.0f);
+            FindObjectOfType<ToolTipManager>().SetToolTipText(hoverCard.GetCardInfo().effectDescription, position);
             hoverAnimation.Hover(hoverCard, new Vector2(0, 0.5f), 0.1f);
         }
     }
@@ -133,6 +136,7 @@ public class CardDragger : MonoBehaviour, ICardDragger
     public void ResetHover()
     {
         hoverAnimation.ResetHoverAnimation();
+        FindObjectOfType<ToolTipManager>().Clear();
         hoverCard = null;
     }
 
