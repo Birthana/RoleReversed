@@ -200,9 +200,8 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Fix TooltipManager unittests.
-// TODO: Fix Sprite Layers. Sorting Layers/Groups
 // TODO: Add Tooltips
+// TODO: Fix Sprite Layers. Sorting Layers/Groups
 // TODO: Add End Screen with Stats: Player Damage Dealt & Taken. Monster Damage Dealt & Monsters Died.
 // TODO: Add cannot attack animation. Lerp Alpha.
 

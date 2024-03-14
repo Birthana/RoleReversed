@@ -5,43 +5,36 @@ using TMPro;
 
 public class ToolTipManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshPro toolTipText;
+    public GameObject toolTipPrefab;
+    private TextMeshPro toolTip;
 
-    public void Awake()
+    private TextMeshPro GetText()
     {
-        GetToolTip().transform.parent.gameObject.SetActive(false);
-    }
-
-    private TextMeshPro GetToolTip()
-    {
-        if (toolTipText == null)
+        if (toolTip == null)
         {
-            toolTipText = GetComponentInChildren<TextMeshPro>();
+            var toolTipObject = Instantiate(toolTipPrefab, transform);
+            toolTip = toolTipObject.GetComponentInChildren<TextMeshPro>();
         }
 
-        return toolTipText;
+        return toolTip;
     }
 
-    public void SetToolTipText(string description)
+    private Transform GetTextParent() { return GetText().transform.parent; }
+
+    public void SetText(string text)
     {
-        GetToolTip().text = description;
+        GetText().text = text;
     }
 
-    public void SetToolTipText(string description, Vector2 position)
+    public void SetText(string text, Vector3 positon)
     {
-        GetToolTip().transform.parent.gameObject.SetActive(true);
-        SetToolTipText(description);
-        transform.position = position;
-    }
-
-    public string GetText()
-    {
-        return toolTipText.text;
+        GetTextParent().gameObject.SetActive(true);
+        GetText().text = text;
+        GetTextParent().position = positon;
     }
 
     public void Clear()
     {
-        GetToolTip().transform.parent.gameObject.SetActive(false);
-        SetToolTipText("");
+        GetTextParent().gameObject.SetActive(false);
     }
 }
