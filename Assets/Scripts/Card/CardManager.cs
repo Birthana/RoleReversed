@@ -203,11 +203,11 @@ public class CardManager : MonoBehaviour
 // TODO: Add Tooltips
 // TODO: Fix Sprite Layers. Sorting Layers/Groups
 // TODO: Add End Screen with Stats: Player Damage Dealt & Taken. Monster Damage Dealt & Monsters Died.
-// TODO: Add cannot attack animation. Lerp Alpha.
 
 //----------------
 // Features
 //----------------
+// TODO: Add cannot attack animation. Lerp Alpha.
 // TODO: Add Action Room Effects.
 // TODO: Add Option to remove a common card in deck to add a rare card to deck
 // TODO: Add Transform Options.

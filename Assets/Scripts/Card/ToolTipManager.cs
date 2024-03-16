@@ -23,13 +23,23 @@ public class ToolTipManager : MonoBehaviour
 
     public void SetText(string text)
     {
+        if (text.Equals(""))
+        {
+            return;
+        }
+
         GetText().text = text;
     }
 
     public void SetText(string text, Vector3 positon)
     {
+        if (text.Equals(""))
+        {
+            return;
+        }
+
         GetTextParent().gameObject.SetActive(true);
-        GetText().text = text;
+        SetText(text);
         GetTextParent().position = positon;
     }
 

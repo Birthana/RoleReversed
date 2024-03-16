@@ -100,4 +100,42 @@ public class ToolTipTest : MonoBehaviour
         var expectedToolTip = FindObjectsOfType<TextMeshPro>();
         Assert.AreEqual(true, expectedToolTip[0].transform.parent.gameObject.activeInHierarchy);
     }
+
+    [UnityTest]
+    public IEnumerator UsingToolTipManager_SetEmpty_ExpectNoToolTip()
+    {
+        // Arrange
+        var toolTip = new GameObject().AddComponent<ToolTipManager>();
+        var parent = new GameObject();
+        var text = new GameObject().AddComponent<TextMeshPro>();
+        text.transform.SetParent(parent.transform);
+        toolTip.toolTipPrefab = parent;
+
+        // Act
+        toolTip.SetText("");
+        yield return null;
+
+        // Assert
+        var expectedToolTip = FindObjectsOfType<TextMeshPro>();
+        Assert.AreEqual(1, expectedToolTip.Length);
+    }
+
+    [UnityTest]
+    public IEnumerator UsingToolTipManager_SetEmptyPosition_ExpectNoToolTip()
+    {
+        // Arrange
+        var toolTip = new GameObject().AddComponent<ToolTipManager>();
+        var parent = new GameObject();
+        var text = new GameObject().AddComponent<TextMeshPro>();
+        text.transform.SetParent(parent.transform);
+        toolTip.toolTipPrefab = parent;
+
+        // Act
+        toolTip.SetText("", new Vector3(3, 5));
+        yield return null;
+
+        // Assert
+        var expectedToolTip = FindObjectsOfType<TextMeshPro>();
+        Assert.AreEqual(1, expectedToolTip.Length);
+    }
 }
