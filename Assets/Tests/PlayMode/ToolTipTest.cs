@@ -8,27 +8,25 @@ using TMPro;
 
 public class ToolTipTest : MonoBehaviour
 {
+    private ToolTipManager toolTip;
 
     [SetUp]
     public void Setup()
     {
+        toolTip = TestHelper.GetToolTipManager();
     }
 
     [TearDown]
     public void TearDown()
     {
         FindObjectsOfType<TextMeshPro>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
+        FindObjectsOfType<ToolTipManager>().ToList().ForEach(o => DestroyImmediate(o.gameObject));
     }
 
     [UnityTest]
     public IEnumerator UsingToolTipManager_GetText_ExpectCardDescription()
     {
         // Arrange
-        var toolTip = new GameObject().AddComponent<ToolTipManager>();
-        var parent = new GameObject();
-        var text = new GameObject().AddComponent<TextMeshPro>();
-        text.transform.SetParent(parent.transform);
-        toolTip.toolTipPrefab = parent;
 
         // Act
         toolTip.SetText("ANY_CARD_DESCRIPTION");
@@ -44,11 +42,6 @@ public class ToolTipTest : MonoBehaviour
     public IEnumerator UsingToolTipManagerWithPosition_GetText_ExpectPosition()
     {
         // Arrange
-        var toolTip = new GameObject().AddComponent<ToolTipManager>();
-        var parent = new GameObject();
-        var text = new GameObject().AddComponent<TextMeshPro>();
-        text.transform.SetParent(parent.transform);
-        toolTip.toolTipPrefab = parent;
         var position = new Vector3(3, 5, 0);
 
         // Act
@@ -64,11 +57,6 @@ public class ToolTipTest : MonoBehaviour
     public IEnumerator UsingToolTipManager_Clear_ExpectPosition()
     {
         // Arrange
-        var toolTip = new GameObject().AddComponent<ToolTipManager>();
-        var parent = new GameObject();
-        var text = new GameObject().AddComponent<TextMeshPro>();
-        text.transform.SetParent(parent.transform);
-        toolTip.toolTipPrefab = parent;
         toolTip.SetText("ANY_CARD_DESCRIPTION");
 
         // Act
@@ -84,11 +72,6 @@ public class ToolTipTest : MonoBehaviour
     public IEnumerator UsingToolTipManagerWithClear_Set_ExpectPosition()
     {
         // Arrange
-        var toolTip = new GameObject().AddComponent<ToolTipManager>();
-        var parent = new GameObject();
-        var text = new GameObject().AddComponent<TextMeshPro>();
-        text.transform.SetParent(parent.transform);
-        toolTip.toolTipPrefab = parent;
         toolTip.SetText("ANY_CARD_DESCRIPTION");
         toolTip.Clear();
 
@@ -105,11 +88,6 @@ public class ToolTipTest : MonoBehaviour
     public IEnumerator UsingToolTipManager_SetEmpty_ExpectNoToolTip()
     {
         // Arrange
-        var toolTip = new GameObject().AddComponent<ToolTipManager>();
-        var parent = new GameObject();
-        var text = new GameObject().AddComponent<TextMeshPro>();
-        text.transform.SetParent(parent.transform);
-        toolTip.toolTipPrefab = parent;
 
         // Act
         toolTip.SetText("");
@@ -124,11 +102,6 @@ public class ToolTipTest : MonoBehaviour
     public IEnumerator UsingToolTipManager_SetEmptyPosition_ExpectNoToolTip()
     {
         // Arrange
-        var toolTip = new GameObject().AddComponent<ToolTipManager>();
-        var parent = new GameObject();
-        var text = new GameObject().AddComponent<TextMeshPro>();
-        text.transform.SetParent(parent.transform);
-        toolTip.toolTipPrefab = parent;
 
         // Act
         toolTip.SetText("", new Vector3(3, 5));

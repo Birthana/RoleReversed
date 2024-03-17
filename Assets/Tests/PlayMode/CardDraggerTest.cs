@@ -44,11 +44,13 @@ public class TestSetup
 public class CardDraggerTest : MonoBehaviour
 {
     private Hand hand;
+    private ToolTipManager toolTip;
 
     [SetUp]
     public void Setup()
     {
         hand = TestHelper.GetHand();
+        toolTip = TestHelper.GetToolTipManager();
     }
 
     [TearDown]
@@ -63,7 +65,7 @@ public class CardDraggerTest : MonoBehaviour
     public IEnumerator GivenNoSelectedCards_Update_ExpectNoErrors()
     {
         // Arrange
-        var card = new GameObject().AddComponent<Card>();
+        var card = TestHelper.GetMonsterCard();
         var draftManager = TestHelper.GetDraftManager(2);
         var mock = new TestSetup().WithPlayerDoesNotSelectCard().WithPlayerHoversCard(card).Get();
         var cardDragger = TestHelper.GetCardDragger();

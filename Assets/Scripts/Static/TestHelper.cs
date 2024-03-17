@@ -79,13 +79,14 @@ public static class TestHelper
         return cardManager;
     }
 
-    private static MonsterCard GetMonsterCard()
+    public static MonsterCard GetMonsterCard()
     {
         var monsterCard = new GameObject().AddComponent<MonsterCard>();
         monsterCard.gameObject.AddComponent<MonsterCardUI>();
         monsterCard.gameObject.AddComponent<SpriteRenderer>();
         var cardDescription = new GameObject().AddComponent<TextMeshPro>();
         cardDescription.transform.SetParent(monsterCard.transform);
+        monsterCard.SetCardInfo(GetAnyMonsterCardInfo());
         return monsterCard;
     }
 
@@ -262,5 +263,15 @@ public static class TestHelper
         constructionRoomCardInfo.capacity = 1;
         constructionRoomCardInfo.roomCardInfo = GetRoomCardInfo(2, "Any Name.", "Any Effect.");
         return constructionRoomCardInfo;
+    }
+
+    public static ToolTipManager GetToolTipManager()
+    {
+        var toolTip = new GameObject().AddComponent<ToolTipManager>();
+        var parent = new GameObject();
+        var text = new GameObject().AddComponent<TextMeshPro>();
+        text.transform.SetParent(parent.transform);
+        toolTip.toolTipPrefab = parent;
+        return toolTip;
     }
 }
