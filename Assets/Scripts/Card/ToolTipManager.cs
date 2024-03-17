@@ -21,6 +21,11 @@ public class ToolTipManager : MonoBehaviour
 
     private Transform GetTextParent() { return GetText().transform.parent; }
 
+    public string GetToolTip()
+    {
+        return GetText().text;
+    }
+
     public void SetText(string text)
     {
         if (text.Equals(""))

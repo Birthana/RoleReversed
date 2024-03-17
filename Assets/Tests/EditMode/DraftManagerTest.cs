@@ -124,4 +124,22 @@ public class DraftManagerTest : MonoBehaviour
         Assert.AreEqual(1, draftCards.Length);
     }
 
+    [Test]
+    public void XXX()
+    {
+        // Arrange
+        var toolTip = TestHelper.GetToolTipManager();
+        var draftCard = TestHelper.GetRoomDraftCard();
+        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(false);
+        mock.Setup(x => x.IsOnDraft()).Returns(true);
+        mock.Setup(x => x.GetHitComponent<DraftCard>()).Returns(draftCard);
+        draftManager.SetMouseWrapper(mock.Object);
+
+        // Act
+        draftManager.Update();
+
+        // Assert
+        var toolTipManager = FindObjectOfType<ToolTipManager>();
+        Assert.AreEqual(TestHelper.ANY_CARD_TEXT, toolTipManager.GetToolTip());
+    }
 }
