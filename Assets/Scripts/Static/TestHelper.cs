@@ -43,6 +43,7 @@ public static class TestHelper
         draftManager.lootAnimation = GetLootAnimation();
         draftManager.SPACING = spacing;
         var button = new GameObject().AddComponent<Button>();
+        button.gameObject.AddComponent<Image>();
         draftManager.SetupShowFieldButton(button);
         draftManager.Awake();
         return draftManager;
