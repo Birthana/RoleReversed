@@ -125,7 +125,7 @@ public class DraftManagerTest : MonoBehaviour
     }
 
     [Test]
-    public void XXX()
+    public void UsingDraftManager_HoverDraftCard_ExpectToolTip()
     {
         // Arrange
         var toolTip = TestHelper.GetToolTipManager();
@@ -141,5 +141,22 @@ public class DraftManagerTest : MonoBehaviour
         // Assert
         var toolTipManager = FindObjectOfType<ToolTipManager>();
         Assert.AreEqual(TestHelper.ANY_CARD_TEXT, toolTipManager.GetToolTip());
+    }
+
+    [Test]
+    public void UsingDraftManager_NotHoverDraftCard_ExpectNoToolTip()
+    {
+        // Arrange
+        var toolTip = TestHelper.GetToolTipManager();
+        mock.Setup(x => x.PlayerPressesLeftClick()).Returns(false);
+        mock.Setup(x => x.IsOnDraft()).Returns(false);
+        draftManager.SetMouseWrapper(mock.Object);
+
+        // Act
+        draftManager.Update();
+
+        // Assert
+        var toolTipManager = FindObjectOfType<ToolTipManager>();
+        Assert.AreEqual("", toolTipManager.GetToolTip());
     }
 }

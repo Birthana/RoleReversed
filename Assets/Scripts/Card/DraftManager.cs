@@ -50,15 +50,22 @@ public class DraftManager : MonoBehaviour
 
     public void Update()
     {
+        if (!mouseWrapper.IsOnDraft())
+        {
+            return;
+        }
+
         if (!mouseWrapper.PlayerPressesLeftClick() && mouseWrapper.IsOnDraft())
         {
             var draftCard = mouseWrapper.GetHitComponent<DraftCard>();
             var position = draftCard.gameObject.transform.position + (Vector3.up * 7.0f);
+            FindObjectOfType<ToolTipManager>().Clear();
             FindObjectOfType<ToolTipManager>().SetText(draftCard.GetCardInfo().effectDescription, position);
         }
 
         if (PlayerClicksOnDraftCard())
         {
+            FindObjectOfType<ToolTipManager>().Clear();
             SetShowFieldButtonState(false);
             AddDraftCardToDeck();
             ClearDraftCards();
