@@ -174,4 +174,21 @@ public class MonsterDraggerTest : MonoBehaviour
         Assert.AreEqual(0, expectedRoom.GetCapacity());
         Assert.AreEqual(0, newRoom.GetCapacity());
     }
+
+    [UnityTest]
+    public IEnumerator XXX()
+    {
+        // Arrange
+        var monsterDragger = SetupMonsterDragger();
+        var toolTip = TestHelper.GetToolTipManager();
+
+        // Act
+        monsterDragger.UpdateLoop();
+        yield return null;
+
+        // Assert
+        mock.VerifyAll();
+        var toolTipManager = FindObjectOfType<ToolTipManager>();
+        Assert.AreEqual(TestHelper.ANY_CARD_TEXT, toolTipManager.GetToolTip());
+    }
 }

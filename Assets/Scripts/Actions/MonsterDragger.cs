@@ -41,9 +41,19 @@ public class MonsterDragger : MonoBehaviour
         UpdateLoop();
     }
 
+    private bool DraftManagerIsRunning()
+    {
+        if (GetDraftManager() == null)
+        {
+            return false;
+        }
+
+        return GetDraftManager().IsRunning();
+    }
+
     public void UpdateLoop()
     {
-        if (gameManager.IsRunning() || GetDraftManager().IsRunning())
+        if (gameManager.IsRunning() || DraftManagerIsRunning())
         {
             return;
         }
@@ -61,6 +71,13 @@ public class MonsterDragger : MonoBehaviour
 
     private void TryToPickUpMonster()
     {
+        if (mouse.IsOnMonster())
+        {
+            var monster = mouse.GetHitComponent<Monster>();
+            var position = monster.gameObject.transform.position + (Vector3.up * 3);
+            FindObjectOfType<ToolTipManager>().SetText(monster.cardInfo.effectDescription, position);
+        }
+
         if (mouse.PlayerPressesLeftClick())
         {
             PickUp();
