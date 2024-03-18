@@ -146,6 +146,7 @@ public class MonsterDragger : MonoBehaviour
 
     public void MoveSelected()
     {
+        FindObjectOfType<ToolTipManager>().Clear();
         var mousePosition = mouse.GetPosition();
         monster.transform.position = mousePosition;
     }
