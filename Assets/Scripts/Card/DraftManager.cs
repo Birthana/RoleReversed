@@ -74,6 +74,8 @@ public class DraftManager : MonoBehaviour
 
     public void ToggleDraftCards()
     {
+        FindObjectOfType<ToolTipManager>().Clear();
+
         foreach (var draftCard in draftCards)
         {
             draftCard.gameObject.SetActive(!draftCard.gameObject.activeInHierarchy);

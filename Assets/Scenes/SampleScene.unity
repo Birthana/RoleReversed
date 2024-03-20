@@ -2774,6 +2774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0178daccda3f9424da968e7b84e2dcd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soulShop: {fileID: 2085048932}
 --- !u!1 &1933600790
 GameObject:
   m_ObjectHideFlags: 0

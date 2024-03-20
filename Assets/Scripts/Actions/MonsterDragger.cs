@@ -9,6 +9,7 @@ public class MonsterDragger : MonoBehaviour
     private IMouseWrapper mouse;
     private IGameManager gameManager;
     private DraftManager draftManager;
+    [SerializeField] private SoulShop soulShop;
 
     public void SetGameManager(IGameManager newGameManager)
     {
@@ -23,6 +24,16 @@ public class MonsterDragger : MonoBehaviour
         }
 
         return draftManager;
+    }
+
+    private SoulShop GetSoulShop()
+    {
+        if (soulShop == null)
+        {
+            soulShop = FindObjectOfType<SoulShop>();
+        }
+
+        return soulShop;
     }
 
     private void Awake()
@@ -53,7 +64,7 @@ public class MonsterDragger : MonoBehaviour
 
     public void UpdateLoop()
     {
-        if (gameManager.IsRunning() || DraftManagerIsRunning())
+        if (gameManager.IsRunning() || DraftManagerIsRunning() || GetSoulShop().IsOpen())
         {
             return;
         }
