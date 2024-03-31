@@ -155,6 +155,14 @@ public static class TestHelper
         return room;
     }
 
+    public static Player GetPlayerInRoom(int damage, int health)
+    {
+        var player = GetPlayer(damage, health);
+        var room = GetRoom();
+        player.transform.SetParent(room.transform);
+        return player;
+    }
+
     public static Option GetOption()
     {
         var option = new GameObject().AddComponent<Option>();

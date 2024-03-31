@@ -200,8 +200,6 @@ public class CardManager : MonoBehaviour
 // Current Things
 //----------------
 
-// TODO: Add tooltip unittests.
-// TODO: Disable Shop and MonsterDragger during each other.
 // TODO: Fix Sprite Layers. Sorting Layers/Groups
 // TODO: Add End Screen with Stats: Player Damage Dealt & Taken. Monster Damage Dealt & Monsters Died.
 
