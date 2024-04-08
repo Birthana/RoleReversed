@@ -6,6 +6,7 @@ using TMPro;
 public class Player : Character
 {
     public event Action OnRespawn;
+    public SkillInfo skill;
     private Respawn respawnCounter;
 
     public override void Awake()
@@ -28,6 +29,8 @@ public class Player : Character
         hoverAnimation.PerformReturn();
         yield return new WaitForSeconds(0.1f);
         yield return TakeDamage(character);
+        FindObjectOfType<PlayerSkillManager>().ReduceSkills(1);
+        yield return new WaitForSeconds(0.1f);
     }
 
     private IEnumerator TakeDamage(Character character)
@@ -49,6 +52,12 @@ public class Player : Character
         OnRespawn?.Invoke();
         int timesDied = respawnCounter.GetNumberOfTimesDied();
         int numberOfBuffs = (timesDied / 2) + 1;
+        if (timesDied % 3 == 0)
+        {
+            Debug.Log("Added new Player Skill.");
+            FindObjectOfType<PlayerSkillManager>().Add(new PlayerSkill(2, skill));
+        }
+
         for (int i = 0; i < numberOfBuffs; i++)
         {
             GainRandomStats();

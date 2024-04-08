@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PlayerSkill
 {
     private int timer;
@@ -18,6 +20,10 @@ public class PlayerSkill
     }
 
     public int GetTimer() { return currentTimer; }
+
+    public string GetDescription() { return info.description; }
+
+    public Sprite GetSprite() { return info.sprite; }
 
     public void ReduceTimer(int reduceAmount, Room room)
     {
