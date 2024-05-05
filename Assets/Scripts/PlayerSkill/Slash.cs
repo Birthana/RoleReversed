@@ -1,16 +1,17 @@
 using System.Linq;
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Slash", menuName = "PlayerSkill/Slash")]
 public class Slash : SkillInfo
 {
-    public override void Cast(Room room)
+    public override IEnumerator Cast(Room room)
     {
         var monsters = room.monsters;
 
         if (monsters.Count == 0)
         {
-            return;
+            yield break;
         }
 
         foreach (var monster in monsters.ToList())
@@ -21,6 +22,7 @@ public class Slash : SkillInfo
             }
             
             monster.TakeDamage(1);
+            yield return new WaitForSeconds(0.1f);
 
             if (monster.IsDead())
             {

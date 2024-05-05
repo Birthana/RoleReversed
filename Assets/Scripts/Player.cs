@@ -20,6 +20,11 @@ public class Player : Character
         base.Awake();
     }
 
+    public void MakeAttackOn(Character character)
+    {
+        StartCoroutine(MakeAttack(character));
+    }
+
     public IEnumerator MakeAttack(Character character)
     {
         var hoverAnimation = GetComponent<HoverAnimation>();
@@ -29,8 +34,11 @@ public class Player : Character
         hoverAnimation.PerformReturn();
         yield return new WaitForSeconds(0.1f);
         yield return TakeDamage(character);
-        FindObjectOfType<PlayerSkillManager>().ReduceSkills(1);
-        yield return new WaitForSeconds(0.1f);
+        var playerSkills = FindObjectOfType<PlayerSkillManager>();
+        if(playerSkills.skills.Count != 0)
+        {
+            yield return playerSkills.ShowSkills(1);
+        }
     }
 
     private IEnumerator TakeDamage(Character character)
@@ -54,8 +62,7 @@ public class Player : Character
         int numberOfBuffs = (timesDied / 2) + 1;
         if (timesDied % 3 == 0)
         {
-            Debug.Log("Added new Player Skill.");
-            FindObjectOfType<PlayerSkillManager>().Add(new PlayerSkill(2, skill));
+            FindObjectOfType<PlayerSkillManager>().Add(new PlayerSkill(skill));
         }
 
         for (int i = 0; i < numberOfBuffs; i++)

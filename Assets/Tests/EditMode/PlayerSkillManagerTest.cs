@@ -13,7 +13,9 @@ public class PlayerSkillManagerTest : MonoBehaviour
     public void Setup()
     {
         slashInfo = ScriptableObject.CreateInstance<Slash>();
-        decayInfo = ScriptableObject.CreateInstance<Decay>();
+        slashInfo.timer = 3;
+        decayInfo = ScriptableObject.CreateInstance<Cleave>();
+        decayInfo.timer = 3;
     }
 
     [TearDown]
@@ -39,7 +41,7 @@ public class PlayerSkillManagerTest : MonoBehaviour
     {
         // Arrange
         var playerSkillManager = new GameObject().AddComponent<PlayerSkillManager>();
-        var playerSkill = new PlayerSkill(2, slashInfo);
+        var playerSkill = new PlayerSkill(slashInfo);
         playerSkillManager.Add(playerSkill);
 
         // Act
@@ -54,7 +56,7 @@ public class PlayerSkillManagerTest : MonoBehaviour
     {
         // Arrange
         var playerSkillManager = new GameObject().AddComponent<PlayerSkillManager>();
-        var playerSkill = new PlayerSkill(2, slashInfo);
+        var playerSkill = new PlayerSkill(slashInfo);
         playerSkillManager.Add(playerSkill);
         var player = TestHelper.GetPlayerInRoom(1, 2);
 
@@ -70,7 +72,7 @@ public class PlayerSkillManagerTest : MonoBehaviour
     {
         // Arrange
         var playerSkillManager = new GameObject().AddComponent<PlayerSkillManager>();
-        var playerSkill = new PlayerSkill(2, slashInfo);
+        var playerSkill = new PlayerSkill(slashInfo);
         playerSkillManager.Add(playerSkill);
         var player = TestHelper.GetPlayerInRoom(1, 2);
         player.transform.parent.GetComponent<Room>().SpawnMonster(TestHelper.GetAnyMonsterCardInfo());
@@ -89,7 +91,7 @@ public class PlayerSkillManagerTest : MonoBehaviour
     {
         // Arrange
         var playerSkillManager = new GameObject().AddComponent<PlayerSkillManager>();
-        var playerSkill = new PlayerSkill(2, decayInfo);
+        var playerSkill = new PlayerSkill(decayInfo);
         playerSkillManager.Add(playerSkill);
         var player = TestHelper.GetPlayerInRoom(1, 2);
         player.transform.parent.GetComponent<Room>().SpawnMonster(TestHelper.GetAnyMonsterCardInfo());

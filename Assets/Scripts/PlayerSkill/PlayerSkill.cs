@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerSkill
@@ -12,9 +13,9 @@ public class PlayerSkill
         currentTimer = timer;
     }
 
-    public PlayerSkill(int timer, SkillInfo skillInfo)
+    public PlayerSkill(SkillInfo skillInfo)
     {
-        this.timer = timer;
+        timer = skillInfo.timer;
         currentTimer = timer;
         info = skillInfo;
     }
@@ -25,14 +26,16 @@ public class PlayerSkill
 
     public Sprite GetSprite() { return info.sprite; }
 
-    public void ReduceTimer(int reduceAmount, Room room)
+    public IEnumerator ReduceTimer(int reduceAmount, Room room)
     {
         currentTimer -= reduceAmount;
 
         if (GetTimer() == 0)
         {
             currentTimer = timer;
-            info.Cast(room);
+            yield return info.Cast(room);
         }
+
+        yield break;
     }
 }

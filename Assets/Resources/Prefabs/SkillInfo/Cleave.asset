@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e3997acd75746244ab3d62a93cbfe31, type: 3}
-  m_Name: Slash
+  m_Script: {fileID: 11500000, guid: f7a7a6bb3af6e0f4490b32f1dcae28e8, type: 3}
+  m_Name: Cleave
   m_EditorClassIdentifier: 
   timer: 3
-  sprite: {fileID: 21300000, guid: 49203e40eed36624d89e0b72262a74c7, type: 3}
-  description: Deal 1 damage to all Room Monsters
+  sprite: {fileID: 21300000, guid: 8b905568eccd9e3418c7b240cd8015f1, type: 3}
+  description: Deal 3 damage to a Room Monster
