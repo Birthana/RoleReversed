@@ -76,4 +76,29 @@ public class RoomCardTest : MonoBehaviour
         // Assert
         Assert.AreEqual(5, room.GetCapacity());
     }
+
+    public IEnumerator Test(Room room)
+    {
+        var player = FindObjectOfType<Player>();
+        yield return room.MakeRandomAttack(player);
+    }
+
+    [UnityTest]
+    public IEnumerator UsingRoomWithAddedEffect_BattleStart_ExpectTestToRun()
+    {
+        // Arrange
+        var surpriseRoom = ScriptableObject.CreateInstance<SurpriseRoom>();
+        var room = TestHelper.GetRoom();
+        room.SetCardInfo(surpriseRoom);
+        room.SpawnMonster(TestHelper.GetAnyMonsterCardInfo());
+        var drawGift = ScriptableObject.CreateInstance<DrawGift>();
+        room.AddRoommateEffect(drawGift);
+        var player = TestHelper.GetPlayer(0, 10);
+
+        // Act
+        yield return room.BattleStart();
+
+        // Assert
+        Assert.AreEqual(8, player.GetComponent<Health>().GetCount());
+    }
 }

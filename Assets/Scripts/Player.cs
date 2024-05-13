@@ -6,7 +6,6 @@ using TMPro;
 public class Player : Character
 {
     public event Action OnRespawn;
-    public SkillInfo skill;
     private Respawn respawnCounter;
 
     public override void Awake()
@@ -62,7 +61,7 @@ public class Player : Character
         int numberOfBuffs = (timesDied / 2) + 1;
         if (timesDied % 3 == 0)
         {
-            FindObjectOfType<PlayerSkillManager>().Add(new PlayerSkill(skill));
+            FindObjectOfType<PlayerSkillManager>().AddRandomSkill();
         }
 
         for (int i = 0; i < numberOfBuffs; i++)

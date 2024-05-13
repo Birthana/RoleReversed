@@ -9,8 +9,22 @@ public interface IGameManager
     public bool IsRunning();
 }
 
+public struct RoommateRoom
+{
+    public Room room;
+    public List<Monster> monsters;
+
+    public RoommateRoom(Room room, List<Monster> monsters)
+    {
+        this.room = room;
+        this.monsters = monsters;
+    }
+}
+
 public class GameManager : MonoBehaviour, IGameManager
 {
+    private static readonly string GIFTS_FILE_PATH = "Prefabs/RoommateGifts";
+    public GameObject requestPrefab;
     public Player playerPrefab;
     public Pack packPrefab;
     public Vector2 PLAYER_OFFSET;
@@ -26,6 +40,10 @@ public class GameManager : MonoBehaviour, IGameManager
     private Coroutine coroutine;
     [SerializeField] private IFocusAnimation focusAnimation;
     private bool focusOnRoom = false;
+    private Roommates request;
+    private List<GameObject> requestBubbles = new List<GameObject>();
+    private List<RoommateRoom> roommateRooms = new List<RoommateRoom>();
+    private List<RoommateEffectInfo> giftInfos = new List<RoommateEffectInfo>();
 
     private IFocusAnimation GetFocusAnimation()
     {
@@ -45,6 +63,16 @@ public class GameManager : MonoBehaviour, IGameManager
         SpawnPackInRandomSpot();
         GetFocusAnimation().SetFocusPosition(Vector3.up * 3);
         GetFocusAnimation().SetFocusScale(2.5f);
+        LoadRoommateGifts();
+    }
+
+    private void LoadRoommateGifts()
+    {
+        var gifts = Resources.LoadAll<RoommateEffectInfo>(GIFTS_FILE_PATH);
+        foreach (var gift in gifts)
+        {
+            giftInfos.Add(gift);
+        }
     }
 
     public void EnableShopButton()
@@ -71,9 +99,66 @@ public class GameManager : MonoBehaviour, IGameManager
             return;
         }
 
+        GiveRoommateBonus();
+        CheckRoommateBonusActive();
         isRunning = true;
         monsters = new List<Monster>(FindObjectsOfType<Monster>());
         coroutine = StartCoroutine(WalkThruDungeon());
+    }
+
+    private void GiveRoommateBonus()
+    {
+        if (request == null)
+        {
+            return;
+        }
+
+        var roommates = request.GetRequest();
+
+        ClearRequestBubbles();
+
+        if (roommates.Count == 0)
+        {
+            return;
+        }
+
+        if (!request.MonstersAreInTheSameRoom(roommates))
+        {
+            return;
+        }
+
+        foreach (var roommate in roommates)
+        {
+            roommate.IncreaseStats(1, 1);
+        }
+
+        var room = roommates[0].transform.parent.GetComponent<Room>();
+        room.AddRoommateEffect(giftInfos[Random.Range(0, giftInfos.Count)]);
+        roommateRooms.Add(new RoommateRoom(room, roommates));
+    }
+
+    private void CheckRoommateBonusActive()
+    {
+        foreach(var room in roommateRooms)
+        {
+            var monsterRoom = room.monsters[0].transform.parent.GetComponent<Room>();
+            if (room.room.Equals(monsterRoom))
+            {
+                continue;
+            }
+            
+            room.room.RemoveAllRoommateEffects();
+        }
+    }
+
+    private void ClearRequestBubbles()
+    {
+        foreach (var requestBubble in requestBubbles)
+        {
+            Destroy(requestBubble);
+        }
+
+        requestBubbles = new List<GameObject>();
     }
 
     public bool DoesNotHaveStartRoom() { return startRoom == null; }
@@ -103,6 +188,18 @@ public class GameManager : MonoBehaviour, IGameManager
         FindObjectOfType<Deck>().DrawCardToHand();
         FindObjectOfType<DraftManager>().Draft();
         BuildConstructionRooms();
+        CreateRoommateRequests();
+    }
+
+    public void CreateRoommateRequests()
+    {
+        request = new Roommates(monsters);
+        var requestMates = request.CreateRequest();
+        foreach (var monster in requestMates)
+        {
+            var requestBubble = Instantiate(requestPrefab, monster.transform);
+            requestBubbles.Add(requestBubble);
+        }
     }
 
     private void ResetPlayerToStartRoom()
@@ -151,6 +248,7 @@ public class GameManager : MonoBehaviour, IGameManager
                 monster.transform.parent.GetComponent<Room>().Remove(monster);
             }
         }
+        monsters = new List<Monster>(FindObjectsOfType<Monster>());
     }
 
     private void ResetAllMonsterStats()

@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Room : MonoBehaviour
 {
+    private event Func<Room, IEnumerator> OnBattleStart;
+    private List<RoommateEffectInfo> addedBattleStartEffects = new List<RoommateEffectInfo>();
     private static readonly string FIELD_MONSTER_PREFAB = "Prefabs/FieldMonster";
     private static readonly int MAX_NUMBER_OF_MONSTERS_IN_COLUMN = 3;
     private static readonly int MAX_ROOM_CAPACITY = 9;
@@ -16,6 +20,19 @@ public class Room : MonoBehaviour
     private Capacity capacity;
     protected RoomCardInfo cardInfo;
     private Vector3 startPosition;
+
+    private void Update()
+    {
+        if (Mouse.PlayerPressesLeftClick() && Mouse.IsOnRoom())
+        {
+            if (Mouse.GetHitComponent<Room>() != this)
+            {
+                return;
+            }
+
+            DisplayEffects();
+        }
+    }
 
     protected Capacity GetCapacityComponent()
     {
@@ -235,11 +252,53 @@ public class Room : MonoBehaviour
 
     public IEnumerator BattleStart()
     {
+        if (OnBattleStart != null)
+        {
+            foreach (var function in OnBattleStart.GetInvocationList())
+            {
+                yield return function?.DynamicInvoke(this);
+            }
+        }
+
         yield return cardInfo.BattleStart(this);
     }
 
     public void SetCardInfo(RoomCardInfo roomCardInfo)
     {
         cardInfo = roomCardInfo;
+    }
+
+    public void DisplayEffects()
+    {
+        if (addedBattleStartEffects.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var roommateEffect in addedBattleStartEffects)
+        {
+            Debug.Log($"{roommateEffect.cardDescription}");
+        }
+    }
+
+    public void AddRoommateEffect(RoommateEffectInfo roommateInfo)
+    {
+        OnBattleStart += roommateInfo.BattleStart;
+        addedBattleStartEffects.Add(roommateInfo);
+    }
+
+    public void RemoveAllRoommateEffects()
+    {
+        if (addedBattleStartEffects.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var roommateEffect in addedBattleStartEffects)
+        {
+            OnBattleStart -= roommateEffect.BattleStart;
+        }
+
+        addedBattleStartEffects = new List<RoommateEffectInfo>();
     }
 }

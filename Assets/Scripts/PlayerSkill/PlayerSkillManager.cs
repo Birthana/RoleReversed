@@ -4,14 +4,35 @@ using UnityEngine;
 
 public class PlayerSkillManager : MonoBehaviour
 {
+    private static readonly string SKILLS_FILE_PATH = "Prefabs/SkillInfo";
+    private List<SkillInfo> skillInfos = new List<SkillInfo>();
     public List<PlayerSkill> skills = new List<PlayerSkill>();
     public SkillDisplay skillPrefab;
     [SerializeField] private List<SkillDisplay> skillDisplays = new List<SkillDisplay>();
     [SerializeField] private Vector3 uiOffset = Vector3.zero;
 
+    private void Awake()
+    {
+        LoadRoommateGifts();
+    }
+
+    private void LoadRoommateGifts()
+    {
+        var playerSkills = Resources.LoadAll<SkillInfo>(SKILLS_FILE_PATH);
+        foreach (var skill in playerSkills)
+        {
+            skillInfos.Add(skill);
+        }
+    }
+
     public void Add(PlayerSkill playerSkill)
     {
         skills.Add(playerSkill);
+    }
+
+    public void AddRandomSkill()
+    {
+        skills.Add(new PlayerSkill(skillInfos[Random.Range(0, skillInfos.Count)]));
     }
 
     public int GetNumberOfSkills()

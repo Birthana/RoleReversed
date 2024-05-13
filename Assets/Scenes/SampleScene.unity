@@ -3409,6 +3409,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c6d0abd1fcf594e9c7750d7bd26ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  giftInfo: {fileID: 11400000, guid: c68269d5f5ef0fd4ca0d3f3c3e323595, type: 2}
+  requestPrefab: {fileID: 8517101122772031486, guid: eb332cde7258e6645ac0a7e08fa97b89, type: 3}
   playerPrefab: {fileID: 6768144512010663591, guid: acc7389f0b27ea44f8d457cbcb62b334, type: 3}
   packPrefab: {fileID: 4177456929125811513, guid: ba3070f0221f9e143b8c78e828e45009, type: 3}
   PLAYER_OFFSET: {x: -2, y: 0}

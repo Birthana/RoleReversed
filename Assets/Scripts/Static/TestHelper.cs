@@ -103,6 +103,11 @@ public static class TestHelper
         return GetMonsterCardInfo(ANY_CARD_NAME_1, ANY_CARD_TEXT);
     }
 
+    public static MonsterCardInfo GetAnyOtherMonsterCardInfo()
+    {
+        return GetMonsterCardInfo(ANY_CARD_NAME_2, ANY_CARD_TEXT);
+    }
+
     public static MonsterCardInfo GetMonsterCardInfo(string cardName, string cardEffect)
     {
         var monsterCardInfo = ScriptableObject.CreateInstance<MonsterCardInfo>();
