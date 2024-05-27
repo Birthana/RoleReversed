@@ -8,6 +8,7 @@ public class PlayerSkillManager : MonoBehaviour
     private List<SkillInfo> skillInfos = new List<SkillInfo>();
     public List<PlayerSkill> skills = new List<PlayerSkill>();
     public SkillDisplay skillPrefab;
+    public SkillDisplay skillStackPrefab;
     [SerializeField] private List<SkillDisplay> skillDisplays = new List<SkillDisplay>();
     [SerializeField] private Vector3 uiOffset = Vector3.zero;
 
@@ -32,7 +33,17 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void AddRandomSkill()
     {
-        skills.Add(new PlayerSkill(skillInfos[Random.Range(0, skillInfos.Count)]));
+        var skill = new PlayerSkill(skillInfos[Random.Range(0, skillInfos.Count)]);
+        skill.OnCast += SpawnCardLog;
+        skills.Add(skill);
+    }
+
+    public void SpawnCardLog(PlayerSkill skill)
+    {
+        var skillDisplay = Instantiate(skillStackPrefab);
+        skillDisplay.transform.position = new Vector3(-11.75f, 0.0f, 0.0f);
+        skillDisplay.SetSkill(skill);
+        Destroy(skillDisplay.gameObject, 1.0f);
     }
 
     public int GetNumberOfSkills()

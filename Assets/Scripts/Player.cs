@@ -33,6 +33,7 @@ public class Player : Character
         hoverAnimation.PerformReturn();
         yield return new WaitForSeconds(0.1f);
         yield return TakeDamage(character);
+
         var playerSkills = FindObjectOfType<PlayerSkillManager>();
         if(playerSkills.skills.Count != 0)
         {

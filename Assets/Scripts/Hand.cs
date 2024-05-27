@@ -16,6 +16,36 @@ public class Hand : MonoBehaviour
 
     public int GetSize() { return hand.Count; }
 
+    public Card GetRandomMonsterCard()
+    {
+        if (hand.Count == 0 || NoMonsters())
+        {
+            return null;
+        }
+
+        Card card;
+        do
+        {
+            card = hand[Random.Range(0, hand.Count)];
+        } while (!(card.GetCardInfo() is MonsterCardInfo));
+
+        return card;
+    }
+
+    private bool NoMonsters()
+    {
+        foreach (var card in hand)
+        {
+            if (card.GetCardInfo() is MonsterCardInfo)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
     public void Add(Card card)
     {
         if (IsFull())

@@ -14,15 +14,22 @@ public class Cleave : SkillInfo
         }
 
         var monster = room.GetRandomMonster();
-        var animation = Instantiate(animationPrefab);
-        animation.transform.position = monster.transform.position;
+        var animation = SpawnAnimation(monster.transform.position);
         monster.TakeDamage(3);
         yield return new WaitForSeconds(0.2f);
-        Destroy(animation.gameObject);
 
         if (monster.IsDead())
         {
             room.Remove(monster);
         }
+
+        Destroy(animation.gameObject);
+    }
+
+    private Animator SpawnAnimation(Vector3 position)
+    {
+        var animation = Instantiate(animationPrefab);
+        animation.transform.position = position;
+        return animation;
     }
 }

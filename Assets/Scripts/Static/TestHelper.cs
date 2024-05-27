@@ -108,6 +108,19 @@ public static class TestHelper
         return GetMonsterCardInfo(ANY_CARD_NAME_2, ANY_CARD_TEXT);
     }
 
+    public static MonsterCardInfo GetTemporaryMonsterCardInfo()
+    {
+        var temporaryMonsterCardInfo = ScriptableObject.CreateInstance<TemporaryMonster>();
+        temporaryMonsterCardInfo.cardName = ANY_CARD_NAME_2;
+        temporaryMonsterCardInfo.cost = 1;
+        temporaryMonsterCardInfo.effectDescription = ANY_CARD_TEXT;
+        temporaryMonsterCardInfo.damage = 1;
+        temporaryMonsterCardInfo.health = 1;
+        Sprite sprite = Resources.Load<Sprite>("Sprites/card");
+        temporaryMonsterCardInfo.fieldSprite = sprite;
+        return temporaryMonsterCardInfo;
+    }
+
     public static MonsterCardInfo GetMonsterCardInfo(string cardName, string cardEffect)
     {
         var monsterCardInfo = ScriptableObject.CreateInstance<MonsterCardInfo>();

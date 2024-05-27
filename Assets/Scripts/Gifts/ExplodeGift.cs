@@ -11,6 +11,7 @@ public class ExplodeGift : RoommateEffectInfo
         if (player.IsDead())
         {
             FindObjectOfType<GameManager>().ResetPlayer();
+            yield break;
         }
 
         yield return null;

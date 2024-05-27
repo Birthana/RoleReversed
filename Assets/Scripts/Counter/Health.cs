@@ -8,6 +8,11 @@ public class Health : Counter
 
     public void RestoreFullHealth() { ResetMaxCount(); }
 
+    public void RestoreHealth(int health)
+    {
+        IncreaseCount(health);
+    }
+
     public void TakeDamage(int damage)
     {
         DecreaseCount(damage);

@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class PlayerSkill
 {
+    public event Action<PlayerSkill> OnCast;
     private int timer;
     private int currentTimer;
     private SkillInfo info;
@@ -33,6 +35,8 @@ public class PlayerSkill
         if (GetTimer() == 0)
         {
             currentTimer = timer;
+            OnCast?.Invoke(this);
+            yield return new WaitForSeconds(0.25f);
             yield return info.Cast(room);
         }
 

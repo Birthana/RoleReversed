@@ -10,6 +10,7 @@ public class RedSlime : MonsterCardInfo
         if (player.IsDead())
         {
             FindObjectOfType<GameManager>().ResetPlayer();
+            return;
         }
     }
 }

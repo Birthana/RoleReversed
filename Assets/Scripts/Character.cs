@@ -33,9 +33,11 @@ public class Character : MonoBehaviour
         GetHealthComponent().RestoreFullHealth();
     }
 
-    public bool IsDead() { return GetHealthComponent().GetCurrentHealth() == 0; }
+    public bool IsDead() { return GetHealthComponent().GetCurrentHealth() <= 0; }
 
     public void TakeDamage(int damage) { GetHealthComponent().TakeDamage(damage); }
+
+    public void RestoreHealth(int damage) { GetHealthComponent().RestoreHealth(damage); }
 
     public int GetDamage() { return GetDamageComponent().GetDamage(); }
 

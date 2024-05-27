@@ -23,7 +23,7 @@ public struct RoommateRoom
 
 public class GameManager : MonoBehaviour, IGameManager
 {
-    private static readonly string GIFTS_FILE_PATH = "Prefabs/RoommateGifts";
+    private static readonly string GIFTS_FILE_PATH = "Prefabs/Gifts";
     public GameObject requestPrefab;
     public Player playerPrefab;
     public Pack packPrefab;
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private Room startRoom;
     private Player player;
     private Room currentRoom;
-    private List<Monster> monsters;
+    private ResetMonster resetMonster;
     private bool isRunning = false;
     private Coroutine coroutine;
     [SerializeField] private IFocusAnimation focusAnimation;
@@ -55,12 +55,23 @@ public class GameManager : MonoBehaviour, IGameManager
         return focusAnimation;
     }
 
+    private ResetMonster GetResetMonster()
+    {
+        if (resetMonster == null)
+        {
+            resetMonster = GetComponent<ResetMonster>();
+        }
+
+        return resetMonster;
+    }
+
     public void Awake()
     {
         gameOverScreen.SetActive(false);
         shopButton.SetActive(false);
         startButton.SetActive(false);
         SpawnPackInRandomSpot();
+        GetResetMonster();
         GetFocusAnimation().SetFocusPosition(Vector3.up * 3);
         GetFocusAnimation().SetFocusScale(2.5f);
         LoadRoommateGifts();
@@ -102,7 +113,7 @@ public class GameManager : MonoBehaviour, IGameManager
         GiveRoommateBonus();
         CheckRoommateBonusActive();
         isRunning = true;
-        monsters = new List<Monster>(FindObjectsOfType<Monster>());
+        resetMonster.SetMonsters(new List<Monster>(FindObjectsOfType<Monster>()));
         coroutine = StartCoroutine(WalkThruDungeon());
     }
 
@@ -178,10 +189,9 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         isRunning = false;
         StopCoroutine(coroutine);
-        yield return focusAnimation.UnfocusOn();
-        new ChangeSortingLayer(currentRoom.gameObject).SetToDefault();
+        yield return UnfocusOn(currentRoom);
         ResetPlayerToStartRoom();
-        ResetFieldMonsters();
+        resetMonster.ResetFieldMonsters();
         FindObjectOfType<ActionManager>().ResetActions();
         EnableShopButton();
         FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
@@ -193,7 +203,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void CreateRoommateRequests()
     {
-        request = new Roommates(monsters);
+        request = new Roommates(resetMonster.GetMonsters());
         var requestMates = request.CreateRequest();
         foreach (var monster in requestMates)
         {
@@ -215,12 +225,6 @@ public class GameManager : MonoBehaviour, IGameManager
         player.GetStronger();
     }
 
-    private void ResetFieldMonsters()
-    {
-        ResetAllMonsterStats();
-        DestroyAllTempMonsters();
-    }
-
     private void BuildConstructionRooms()
     {
         var constructionRooms = FindObjectsOfType<ConstructionRoom>();
@@ -235,28 +239,6 @@ public class GameManager : MonoBehaviour, IGameManager
             {
                 room.SpawnRoom();
             }
-        }
-    }
-
-    private void DestroyAllTempMonsters()
-    {
-        monsters = new List<Monster>(FindObjectsOfType<Monster>());
-        foreach (var monster in monsters)
-        {
-            if (monster.isTemporary)
-            {
-                monster.transform.parent.GetComponent<Room>().Remove(monster);
-            }
-        }
-        monsters = new List<Monster>(FindObjectsOfType<Monster>());
-    }
-
-    private void ResetAllMonsterStats()
-    {
-        foreach (var monster in monsters)
-        {
-            monster.gameObject.SetActive(true);
-            monster.ResetStats();
         }
     }
 
@@ -276,7 +258,7 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         yield return room.BattleStart();
 
-        if (player.IsDead())
+        if (player.IsDead() || !isRunning)
         {
             yield break;
         }
@@ -365,7 +347,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private bool NoMoreMonsters()
     {
-        foreach (var monster in monsters)
+        foreach (var monster in resetMonster.GetMonsters())
         {
             if (monster.transform.parent.GetComponent<Room>() is ConstructionRoom)
             {

@@ -167,7 +167,7 @@ public class Room : MonoBehaviour
     private void RemoveTemporaryMonster(Monster monster)
     {
         monsters.Remove(monster);
-        Destroy(monster.gameObject);
+        DestroyImmediate(monster.gameObject);
         DisplayMonsters();
     }
 
@@ -300,5 +300,10 @@ public class Room : MonoBehaviour
         }
 
         addedBattleStartEffects = new List<RoommateEffectInfo>();
+    }
+
+    public List<RoommateEffectInfo> GetRoommateEffects()
+    {
+        return addedBattleStartEffects;
     }
 }
