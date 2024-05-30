@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -63,5 +64,24 @@ public class MonsterCard : Card
     {
         var room = selectedRoom.GetComponent<Room>();
         room.SpawnMonster(monsterCardInfo);
+    }
+
+    public void PlayChosenAnim()
+    {
+        StartCoroutine(PlayChosenAnimation());
+    }
+
+    private IEnumerator PlayChosenAnimation()
+    {
+        var chosenAnimation = new DamageAnimation(GetCardUI().GetComponent<SpriteRenderer>(), Color.green, 0.1f);
+        var hoverAnimation = GetComponent<HoverAnimation>();
+        hoverAnimation.ResetHoverAnimation();
+        yield return StartCoroutine(chosenAnimation.AnimateFromStartToEnd());
+        hoverAnimation.Hover(transform, new Vector2(0, 3.0f), 0.1f);
+        yield return new WaitForSeconds(0.1f);
+        hoverAnimation.PerformReturn();
+        yield return StartCoroutine(chosenAnimation.AnimateFromEndToStart());
+        yield return new WaitForSeconds(0.1f);
+
     }
 }

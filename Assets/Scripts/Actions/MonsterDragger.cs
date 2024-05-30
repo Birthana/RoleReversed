@@ -92,8 +92,11 @@ public class MonsterDragger : MonoBehaviour
         if (mouse.IsOnRoom())
         {
             var room = mouse.GetHitComponent<Room>();
-            var position = room.gameObject.transform.position + (Vector3.up * 3);
-            FindObjectOfType<ToolTipManager>().SetText(room.GetCardInfo().effectDescription, position, room.GetRoommateEffects());
+            var position = room.gameObject.transform.position + (Vector3.up * 4.5f);
+            FindObjectOfType<ToolTipManager>().SetText(room.GetCardInfo().effectDescription, 
+                                                       position,
+                                                       room.GetRoommateEffects(),
+                                                       gameManager.GetRoommateRoom(room));
         }
 
         if (mouse.PlayerPressesLeftClick())

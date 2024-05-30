@@ -93,9 +93,9 @@ public class CardDragger : MonoBehaviour, ICardDragger
             hoverCard = mouseWrapper.GetHitComponent<Card>();
             var position = hoverCard.transform.position + (Vector3.up * 5.0f);
             FindObjectOfType<ToolTipManager>().SetText(hoverCard.GetCardInfo().effectDescription, position);
-            hoverAnimation.Hover(hoverCard, new Vector2(0, 0.5f), 0.1f);
+            hoverAnimation.Hover(hoverCard, new Vector2(0, 3.0f), 0.1f);
         }
-        else
+        else if (FindObjectOfType<ToolTipManager>().IsActive())
         {
             FindObjectOfType<ToolTipManager>().Clear();
             FindObjectOfType<ToolTipManager>().SetText("", Vector3.zero);

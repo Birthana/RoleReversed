@@ -7,6 +7,8 @@ public interface IGameManager
     public void Awake();
 
     public bool IsRunning();
+
+    public RoommateRoom GetRoommateRoom(Room room);
 }
 
 public struct RoommateRoom
@@ -148,6 +150,19 @@ public class GameManager : MonoBehaviour, IGameManager
         roommateRooms.Add(new RoommateRoom(room, roommates));
     }
 
+    public RoommateRoom GetRoommateRoom(Room room)
+    {
+        foreach (var currentRoom in roommateRooms)
+        {
+            if (currentRoom.room.Equals(room))
+            {
+                return currentRoom;
+            }
+        }
+
+        return new RoommateRoom();
+    }
+
     private void CheckRoommateBonusActive()
     {
         foreach(var room in roommateRooms)
@@ -208,6 +223,7 @@ public class GameManager : MonoBehaviour, IGameManager
         foreach (var monster in requestMates)
         {
             var requestBubble = Instantiate(requestPrefab, monster.transform);
+            requestBubble.transform.localPosition = new Vector3(-1.5f, 1.0f, 0.0f);
             requestBubbles.Add(requestBubble);
         }
     }

@@ -18,6 +18,7 @@ public class RatSoldier : MonsterCardInfo
             return;
         }
 
+        monsterCard.PlayChosenAnim();
         MonsterCardInfo monsterCardInfo = (MonsterCardInfo)monsterCard.GetCardInfo();
         player.TakeDamage(monsterCardInfo.damage);
         if (player.IsDead())
