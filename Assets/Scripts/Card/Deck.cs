@@ -129,7 +129,7 @@ public class Deck : DisplayObject
         }
     }
 
-    private Card CreateCardWith(CardInfo cardInfo)
+    public Card CreateCardWith(CardInfo cardInfo)
     {
         var newCard = CreateNewCard(cardInfo);
         newCard.SetCardInfo(cardInfo);

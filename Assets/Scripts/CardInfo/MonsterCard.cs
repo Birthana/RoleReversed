@@ -71,7 +71,7 @@ public class MonsterCard : Card
         StartCoroutine(PlayChosenAnimation());
     }
 
-    private IEnumerator PlayChosenAnimation()
+    public IEnumerator PlayChosenAnimation()
     {
         var chosenAnimation = new DamageAnimation(GetCardUI().GetComponent<SpriteRenderer>(), Color.green, 0.1f);
         var hoverAnimation = GetComponent<HoverAnimation>();

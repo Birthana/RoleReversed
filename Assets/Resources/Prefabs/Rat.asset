@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e69bff4a800c640b4acfd96992c44c, type: 3}
+  m_Name: Rat
+  m_EditorClassIdentifier: 
+  cardName: Rat
+  fieldSprite: {fileID: 21300000, guid: 138ef4fe146588b4e8df55f5f7e75e07, type: 3}
+  cost: 1
+  effectDescription: 
+  damage: 3
+  health: 1

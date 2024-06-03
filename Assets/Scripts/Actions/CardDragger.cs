@@ -71,11 +71,11 @@ public class CardDragger : MonoBehaviour, ICardDragger
         CheckToReturnSelectCard();
     }
 
-    private bool NotHoveringACard() { return mouseWrapper.IsOnHand() && CardIsNotSelected(); }
+    private bool NotSelectingACard() { return mouseWrapper.IsOnHand() && CardIsNotSelected(); }
 
     private void HoverCard()
     {
-        if (NotHoveringACard())
+        if (NotSelectingACard())
         {
             if (!CardIsNotTheSame(hoverCard))
             {
@@ -90,15 +90,11 @@ public class CardDragger : MonoBehaviour, ICardDragger
                 hoverAnimation.PerformReturn();
             }
 
+            FindObjectOfType<ToolTipManager>().Clear();
             hoverCard = mouseWrapper.GetHitComponent<Card>();
             var position = hoverCard.transform.position + (Vector3.up * 5.0f);
             FindObjectOfType<ToolTipManager>().SetText(hoverCard.GetCardInfo().effectDescription, position);
             hoverAnimation.Hover(hoverCard, new Vector2(0, 3.0f), 0.1f);
-        }
-        else if (FindObjectOfType<ToolTipManager>().IsActive())
-        {
-            FindObjectOfType<ToolTipManager>().Clear();
-            FindObjectOfType<ToolTipManager>().SetText("", Vector3.zero);
         }
     }
 
@@ -133,6 +129,7 @@ public class CardDragger : MonoBehaviour, ICardDragger
 
     public void PickUpCard()
     {
+        FindObjectOfType<ToolTipManager>().Toggle();
         selectedCard = mouseWrapper.GetHitComponent<Card>();
     }
 
@@ -143,7 +140,6 @@ public class CardDragger : MonoBehaviour, ICardDragger
     public void ResetHover()
     {
         hoverAnimation.ResetHoverAnimation();
-        FindObjectOfType<ToolTipManager>().Clear();
         hoverCard = null;
     }
 
@@ -158,6 +154,7 @@ public class CardDragger : MonoBehaviour, ICardDragger
     {
         if (PlayerCanCastSelectedCard())
         {
+            FindObjectOfType<ToolTipManager>().Toggle();
             CastSelectedCard();
         }
     }
@@ -180,6 +177,7 @@ public class CardDragger : MonoBehaviour, ICardDragger
     {
         if (mouseWrapper.PlayerReleasesLeftClick())
         {
+            FindObjectOfType<ToolTipManager>().Toggle();
             ReturnSelectedCard();
         }
     }

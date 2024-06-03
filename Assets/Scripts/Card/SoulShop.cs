@@ -69,6 +69,8 @@ public class SoulShop : MonoBehaviour
 
     public void OpenShop()
     {
+        FindObjectOfType<ToolTipManager>().Clear();
+
         if (!ShopIsEmpty())
         {
             ShowOptions();

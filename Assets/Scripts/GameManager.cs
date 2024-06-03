@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour, IGameManager
             return;
         }
 
+        FindObjectOfType<ToolTipManager>().Clear();
         GiveRoommateBonus();
         CheckRoommateBonusActive();
         isRunning = true;

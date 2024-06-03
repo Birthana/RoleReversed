@@ -59,7 +59,6 @@ public class DraftManager : MonoBehaviour
         {
             var draftCard = mouseWrapper.GetHitComponent<DraftCard>();
             var position = draftCard.gameObject.transform.position + (Vector3.up * 7.0f);
-            FindObjectOfType<ToolTipManager>().Clear();
             FindObjectOfType<ToolTipManager>().SetText(draftCard.GetCardInfo().effectDescription, position);
         }
 

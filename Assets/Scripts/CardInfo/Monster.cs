@@ -5,6 +5,7 @@ public class Monster : Character
 {
     public bool isTemporary = false;
     public MonsterCardInfo cardInfo;
+    private DamageAnimation damageAnim;
 
     public void Setup(MonsterCardInfo monsterCardInfo)
     {
@@ -91,5 +92,24 @@ public class Monster : Character
         yield return new WaitForSeconds(0.1f);
         hoverAnimation.PerformReturn();
         yield return new WaitForSeconds(0.1f);
+    }
+
+    public void Highlight()
+    {
+        var spriteRender = GetComponent<SpriteRenderer>();
+        damageAnim = new DamageAnimation(spriteRender, Color.green, 0.1f);
+        StartCoroutine(damageAnim.AnimateFromStartToEnd());
+    }
+
+    public void UnHighlight()
+    {
+        if (damageAnim == null)
+        {
+            return;
+        }
+
+        Debug.Log($"Unhighlighting.");
+        StartCoroutine(damageAnim.AnimateFromEndToStart());
+        damageAnim = null;
     }
 }

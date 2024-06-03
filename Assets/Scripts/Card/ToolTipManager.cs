@@ -8,8 +8,12 @@ public class ToolTipManager : MonoBehaviour
     public GameObject toolTipPrefab;
     private TextMeshPro toolTip;
     private TextMeshPro effectTip;
-    private DamageAnimation roommate1;
-    private DamageAnimation roommate2;
+    private bool isDisabled = false;
+
+    public void Toggle()
+    {
+        isDisabled = !isDisabled;
+    }
 
     private TextMeshPro GetText()
     {
@@ -51,21 +55,26 @@ public class ToolTipManager : MonoBehaviour
         GetText().text = text;
     }
 
-    public void SetText(string text, Vector3 positon)
+    private bool IsSamePosition(Vector3 positon)
     {
-        if (text.Equals(""))
+        return GetTextParent().position == positon;
+    }
+
+    public void SetText(string text, Vector3 position)
+    {
+        if (text.Equals("") || isDisabled || IsSamePosition(position))
         {
             return;
         }
 
         GetTextParent().gameObject.SetActive(true);
         SetText(text);
-        GetTextParent().position = positon;
+        GetTextParent().position = position;
     }
 
-    public void SetText(string text, Vector3 positon, List<RoommateEffectInfo> effects)
+    public void SetText(string text, Vector3 position, List<RoommateEffectInfo> effects)
     {
-        SetText(text, positon);
+        SetText(text, position);
         if (effects.Count == 0)
         {
             return;
@@ -73,59 +82,13 @@ public class ToolTipManager : MonoBehaviour
 
         GetEffectText().transform.parent.gameObject.SetActive(true);
         GetEffectText().text = effects[0].cardDescription;
-        GetEffectText().transform.parent.position = positon + (Vector3.right * 5);
-    }
-
-    public void SetText(string text, Vector3 positon, List<RoommateEffectInfo> effects, RoommateRoom room)
-    {
-        UnHighlightRoommates();
-        SetText(text, positon);
-        if (effects.Count == 0)
-        {
-            return;
-        }
-
-        GetEffectText().transform.parent.gameObject.SetActive(true);
-        GetEffectText().text = effects[0].cardDescription;
-        GetEffectText().transform.parent.position = positon + (Vector3.right * 5);
-        HighlightRoommates(room);
-    }
-
-    private void HighlightRoommates(RoommateRoom room)
-    {
-        if (room.room == null)
-        {
-            return;
-        }
-
-        roommate1 = new DamageAnimation(room.monsters[0].GetComponent<SpriteRenderer>(), Color.green, 0.1f);
-        StartCoroutine(roommate1.AnimateFromStartToEnd());
-        roommate2 = new DamageAnimation(room.monsters[1].GetComponent<SpriteRenderer>(), Color.green, 0.1f);
-        StartCoroutine(roommate2.AnimateFromStartToEnd());
+        GetEffectText().transform.parent.position = position + (Vector3.right * 5);
     }
 
     public void Clear()
     {
+        Debug.Log($"Clearing.");
         GetTextParent().gameObject.SetActive(false);
         GetEffectText().transform.parent.gameObject.SetActive(false);
-        UnHighlightRoommates();
-    }
-
-    public bool IsActive()
-    {
-        return GetTextParent().gameObject.activeInHierarchy;
-    }
-
-    private void UnHighlightRoommates()
-    {
-        if (roommate1 == null || roommate2 == null)
-        {
-            return;
-        }
-
-        StartCoroutine(roommate1.AnimateFromEndToStart());
-        StartCoroutine(roommate2.AnimateFromEndToStart());
-        roommate1 = null;
-        roommate2 = null;
     }
 }

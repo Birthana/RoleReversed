@@ -93,10 +93,9 @@ public class MonsterDragger : MonoBehaviour
         {
             var room = mouse.GetHitComponent<Room>();
             var position = room.gameObject.transform.position + (Vector3.up * 4.5f);
-            FindObjectOfType<ToolTipManager>().SetText(room.GetCardInfo().effectDescription, 
+            FindObjectOfType<ToolTipManager>().SetText(room.GetCardInfo().effectDescription,
                                                        position,
-                                                       room.GetRoommateEffects(),
-                                                       gameManager.GetRoommateRoom(room));
+                                                       room.GetRoommateEffects());
         }
 
         if (mouse.PlayerPressesLeftClick())
@@ -130,6 +129,7 @@ public class MonsterDragger : MonoBehaviour
 
     private void DropMonsterTo(Room room)
     {
+        FindObjectOfType<ToolTipManager>().Toggle();
         LeaveCurrentRoom();
         MoveTo(room);
         monster = null;
@@ -162,18 +162,19 @@ public class MonsterDragger : MonoBehaviour
         {
             monster = mouse.GetHitComponent<Monster>();
             returnRoom = monster.GetComponentInParent<Room>();
+            FindObjectOfType<ToolTipManager>().Toggle();
         }
     }
 
     public void MoveSelected()
     {
-        FindObjectOfType<ToolTipManager>().Clear();
         var mousePosition = mouse.GetPosition();
         monster.transform.position = mousePosition;
     }
 
     private void ReturnToRoom()
     {
+        FindObjectOfType<ToolTipManager>().Toggle();
         monster = null;
         returnRoom.DisplayMonsters();
         returnRoom = null;
