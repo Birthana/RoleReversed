@@ -63,41 +63,68 @@ public class Player : Character
         if (timesDied % 3 == 0)
         {
             FindObjectOfType<PlayerSkillManager>().AddRandomSkill();
+            GainRandomHealth();
+            return;
         }
 
+        GainRandomDamage();
         for (int i = 0; i < numberOfBuffs; i++)
         {
-            GainRandomStats();
-            if(timesDied > 4)
+            GainRandomHealth();
+
+            if (timesDied > 4)
             {
-                health.IncreaseMaxHealth(1);
+                GainRandomStats();
             }
 
             if (timesDied > 9)
             {
-                IncreaseDamage(1);
-                health.IncreaseMaxHealth(1);
+                GainRandomStats();
+                GainRandomHealth();
             }
         }
     }
 
     private void GainRandomStats()
     {
-        var rngIndex = UnityEngine.Random.Range(0, 3);
+        var rngIndex = UnityEngine.Random.Range(0, 10);
         if (rngIndex == 0)
         {
-            IncreaseDamage(1);
+            GainRandomDamage();
+            GainRandomDamage();
+            return;
         }
 
         if (rngIndex == 1)
         {
-            health.IncreaseMaxHealth(2);
+            GainRandomDamage();
+            GainRandomHealth();
+            return;
         }
 
-        if (rngIndex == 2)
+        GainRandomHealth();
+    }
+
+    private void GainRandomDamage()
+    {
+        var rngIndex = UnityEngine.Random.Range(0, 4);
+        if (rngIndex == 1)
         {
-            IncreaseDamage(1);
-            health.IncreaseMaxHealth(1);
+            return;
         }
+
+        IncreaseDamage(1);
+    }
+
+    private void GainRandomHealth()
+    {
+        var rngIndex = UnityEngine.Random.Range(0, 10);
+        if (rngIndex == 1 || rngIndex == 2 || rngIndex == 3)
+        {
+            health.IncreaseMaxHealth(1);
+            return;
+        }
+
+        health.IncreaseMaxHealth(2);
     }
 }

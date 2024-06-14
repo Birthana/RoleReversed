@@ -96,6 +96,7 @@ public class Monster : Character
 
     public void Highlight()
     {
+        Debug.Log($"Highlighting.");
         var spriteRender = GetComponent<SpriteRenderer>();
         damageAnim = new DamageAnimation(spriteRender, Color.green, 0.1f);
         StartCoroutine(damageAnim.AnimateFromStartToEnd());

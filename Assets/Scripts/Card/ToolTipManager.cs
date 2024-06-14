@@ -8,10 +8,12 @@ public class ToolTipManager : MonoBehaviour
     public GameObject toolTipPrefab;
     private TextMeshPro toolTip;
     private TextMeshPro effectTip;
+    private List<Monster> monsters;
     private bool isDisabled = false;
 
     public void Toggle()
     {
+        Clear();
         isDisabled = !isDisabled;
     }
 
@@ -40,10 +42,7 @@ public class ToolTipManager : MonoBehaviour
 
     private Transform GetTextParent() { return GetText().transform.parent; }
 
-    public string GetToolTip()
-    {
-        return GetText().text;
-    }
+    public string GetToolTip() { return GetText().text; }
 
     public void SetText(string text)
     {
@@ -55,10 +54,7 @@ public class ToolTipManager : MonoBehaviour
         GetText().text = text;
     }
 
-    private bool IsSamePosition(Vector3 positon)
-    {
-        return GetTextParent().position == positon;
-    }
+    private bool IsSamePosition(Vector3 positon) { return GetTextParent().position == positon; }
 
     public void SetText(string text, Vector3 position)
     {
@@ -85,10 +81,27 @@ public class ToolTipManager : MonoBehaviour
         GetEffectText().transform.parent.position = position + (Vector3.right * 5);
     }
 
+    public void SetText(string text, Vector3 position, List<RoommateEffectInfo> effects, RoommateRoom roommateRoom)
+    {
+        SetText(text, position, effects);
+
+        if (roommateRoom.room != null && monsters == null)
+        {
+            monsters = roommateRoom.monsters;
+            monsters[0].Highlight();
+            monsters[1].Highlight();
+        }
+    }
+
     public void Clear()
     {
-        Debug.Log($"Clearing.");
         GetTextParent().gameObject.SetActive(false);
         GetEffectText().transform.parent.gameObject.SetActive(false);
+        if (monsters != null)
+        {
+            monsters[0].UnHighlight();
+            monsters[1].UnHighlight();
+            monsters = null;
+        }
     }
 }

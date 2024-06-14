@@ -15,7 +15,6 @@ MonoBehaviour:
   cardName: RatRoom
   fieldSprite: {fileID: 21300000, guid: f7a2df474bee499468be49ed0431a865, type: 3}
   cost: 1
-  effectDescription: '[Battle Start] For each Room Monster, draw a 1A 3/1 Rat that
-    makes an attack.'
+  effectDescription: '[Battle Start] Draw a 1A 3/1 Rat that makes an attack.'
   capacity: 3
   ratCardInfo: {fileID: 11400000, guid: 3c1b6872232f3564f8fef8b0cf86d48a, type: 2}

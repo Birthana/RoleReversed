@@ -10,7 +10,6 @@ public interface ICardDragger
 public class CardDragger : MonoBehaviour, ICardDragger
 {
     private Card selectedCard;
-    private Card hoverCard;
     private HoverAnimation hoverAnimation;
 
     private Hand hand;
@@ -18,6 +17,8 @@ public class CardDragger : MonoBehaviour, ICardDragger
 
     private IMouseWrapper mouseWrapper;
     private DraftManager draftManager;
+
+    private HoverCard hoverCard_;
 
     public void SetMouseWrapper(IMouseWrapper wrapper)
     {
@@ -30,6 +31,8 @@ public class CardDragger : MonoBehaviour, ICardDragger
         hand = FindObjectOfType<Hand>();
         hoverAnimation = GetComponent<HoverAnimation>();
         drop = FindObjectOfType<Drop>();
+        var toolTip = FindObjectOfType<ToolTipManager>();
+        hoverCard_ = new HoverCard(toolTip, hoverAnimation);
     }
 
     private void Update()
@@ -55,7 +58,7 @@ public class CardDragger : MonoBehaviour, ICardDragger
         }
 
         CheckToSelectCard();
-        HoverCard();
+        TryToHoverCard();
         if (CardIsNotSelected())
         {
             return;
@@ -71,32 +74,30 @@ public class CardDragger : MonoBehaviour, ICardDragger
         CheckToReturnSelectCard();
     }
 
-    private bool NotSelectingACard() { return mouseWrapper.IsOnHand() && CardIsNotSelected(); }
+    private bool PlayerIsHoveringHand() { return mouseWrapper.IsOnHand() && CardIsNotSelected(); }
 
-    private void HoverCard()
+    private bool PlayerIsNotHoveringHand() { return !PlayerIsHoveringHand(); }
+
+    private bool CardIsNotSelected() { return selectedCard == null; }
+
+    private void TryToHoverCard()
     {
-        if (NotSelectingACard())
+        if (PlayerIsNotHoveringHand())
         {
-            if (!CardIsNotTheSame(hoverCard))
-            {
-                var hoverPosition = hoverCard.transform.position + (Vector3.up * 5.0f);
-                FindObjectOfType<ToolTipManager>().SetText(hoverCard.GetCardInfo().effectDescription, hoverPosition);
-                return;
-            }
-
-            if (hoverCard != null)
-            {
-                FindObjectOfType<ToolTipManager>().Clear();
-                hoverAnimation.PerformReturn();
-            }
-
-            FindObjectOfType<ToolTipManager>().Clear();
-            hoverCard = mouseWrapper.GetHitComponent<Card>();
-            var position = hoverCard.transform.position + (Vector3.up * 5.0f);
-            FindObjectOfType<ToolTipManager>().SetText(hoverCard.GetCardInfo().effectDescription, position);
-            hoverAnimation.Hover(hoverCard, new Vector2(0, 3.0f), 0.1f);
+            return;
         }
+
+        if (CardIsTheSame(hoverCard_.Get()))
+        {
+            hoverCard_.ShowCardInToolTip();
+            return;
+        }
+
+        var card = mouseWrapper.GetHitComponent<Card>();
+        hoverCard_.Hover(card);
     }
+
+    private bool CardIsTheSame(Card card) { return !CardIsNotTheSame(card); }
 
     private bool CardIsNotTheSame(Card card)
     {
@@ -117,7 +118,6 @@ public class CardDragger : MonoBehaviour, ICardDragger
         return false;
     }
 
-    private bool CardIsNotSelected() { return selectedCard == null; }
 
     private void CheckToSelectCard()
     {
@@ -140,7 +140,7 @@ public class CardDragger : MonoBehaviour, ICardDragger
     public void ResetHover()
     {
         hoverAnimation.ResetHoverAnimation();
-        hoverCard = null;
+        hoverCard_.Reset();
     }
 
     private void MoveSelectedCardToMouse()
