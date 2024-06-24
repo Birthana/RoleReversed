@@ -43,9 +43,11 @@ public class ToolTipTest : MonoBehaviour
     {
         // Arrange
         var position = new Vector3(3, 5, 0);
-
+        var cardInfo = TestHelper.GetAnyMonsterCardInfo();
+        cardInfo.effectDescription = "ANY_CARD_DESCRIPTION";
+        
         // Act
-        toolTip.SetText("ANY_CARD_DESCRIPTION", position);
+        toolTip.SetText(cardInfo, position);
         yield return null;
 
         // Assert
@@ -102,9 +104,27 @@ public class ToolTipTest : MonoBehaviour
     public IEnumerator UsingToolTipManager_SetEmptyPosition_ExpectNoToolTip()
     {
         // Arrange
+        var cardInfo = TestHelper.GetAnyMonsterCardInfo();
+        cardInfo.effectDescription = "";
 
         // Act
-        toolTip.SetText("", new Vector3(3, 5));
+        toolTip.SetText(cardInfo, new Vector3(3, 5));
+        yield return null;
+
+        // Assert
+        var expectedToolTip = FindObjectsOfType<TextMeshPro>();
+        Assert.AreEqual(1, expectedToolTip.Length);
+    }
+
+    [UnityTest]
+    public IEnumerator XXX()
+    {
+        // Arrange
+        var cardInfo = TestHelper.GetAnyMonsterCardInfo();
+        cardInfo.effectDescription = "";
+
+        // Act
+        toolTip.SetText(cardInfo, new Vector3(3, 5));
         yield return null;
 
         // Assert

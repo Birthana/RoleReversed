@@ -89,7 +89,6 @@ public class CardDragger : MonoBehaviour, ICardDragger
 
         if (CardIsTheSame(hoverCard_.Get()))
         {
-            hoverCard_.ShowCardInToolTip();
             return;
         }
 

@@ -82,23 +82,29 @@ public class MonsterDragger : MonoBehaviour
 
     private void TryToPickUpMonster()
     {
+        if (!mouse.IsOnMonster() && !mouse.IsOnHand())
+        {
+            FindObjectOfType<ToolTipManager>().Clear();
+            return;
+        }
+
         if (mouse.IsOnMonster())
         {
             var monster = mouse.GetHitComponent<Monster>();
             var position = monster.gameObject.transform.position + (Vector3.up * 3);
-            FindObjectOfType<ToolTipManager>().SetText(monster.cardInfo.effectDescription, position);
+            FindObjectOfType<ToolTipManager>().SetText(monster.cardInfo, position);
         }
 
-        if (mouse.IsOnRoom())
-        {
-            var room = mouse.GetHitComponent<Room>();
-            var position = room.gameObject.transform.position + (Vector3.up * 4.5f);
-            var roommate = gameManager.GetRoommateRoom(room);
-            FindObjectOfType<ToolTipManager>().SetText(room.GetCardInfo().effectDescription,
-                                                       position,
-                                                       room.GetRoommateEffects(),
-                                                       roommate);
-        }
+        //if (mouse.IsOnRoom())
+        //{
+        //    var room = mouse.GetHitComponent<Room>();
+        //    var position = room.gameObject.transform.position + (Vector3.up * 4f);
+        //    var roommate = gameManager.GetRoommateRoom(room);
+        //    FindObjectOfType<ToolTipManager>().SetText(room.GetCardInfo().effectDescription,
+        //                                               position,
+        //                                               room.GetRoommateEffects(),
+        //                                               roommate);
+        //}
 
         if (mouse.PlayerPressesLeftClick())
         {
