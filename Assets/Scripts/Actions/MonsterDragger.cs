@@ -82,6 +82,11 @@ public class MonsterDragger : MonoBehaviour
 
     private void TryToPickUpMonster()
     {
+        if (monster != null)
+        {
+            return;
+        }
+
         if (!mouse.IsOnMonster() && !mouse.IsOnHand())
         {
             FindObjectOfType<ToolTipManager>().Clear();

@@ -61,11 +61,16 @@ public class ToolTipManager : MonoBehaviour
 
     private bool CurrentCardHasNoEffect() { return currentlyDisplay.effectDescription.Equals(""); }
 
-    private bool ShouldNotDisplay() { return CurrentCardHasNoEffect() || isDisabled; }
+    private bool ShouldNotDisplay() { return CurrentCardHasNoEffect(); }
 
     public void SetText(CardInfo cardInfo, Vector3 position)
     {
-        if (IsSamePosition(position) && CardToDisplayIsSameAsCurrent(cardInfo))
+        if (isDisabled)
+        {
+            return;
+        }
+
+        if ((IsSamePosition(position) && CardToDisplayIsSameAsCurrent(cardInfo)))
         {
             return;
         }
