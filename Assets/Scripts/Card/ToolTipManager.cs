@@ -7,7 +7,7 @@ public class ToolTipManager : MonoBehaviour
 {
     public GameObject toolTipPrefab;
     private TextMeshPro toolTip;
-    //private TextMeshPro effectTip;
+    private TextMeshPro effectTip;
     private List<Monster> monsters;
     private bool isDisabled = false;
     [SerializeField] private CardInfo currentlyDisplay;
@@ -29,17 +29,17 @@ public class ToolTipManager : MonoBehaviour
         return toolTip;
     }
 
-    //private TextMeshPro GetEffectText()
-    //{
-    //    if (effectTip == null)
-    //    {
-    //        var effectTipObject = Instantiate(toolTipPrefab, transform);
-    //        effectTipObject.GetComponent<SpriteRenderer>().color = Color.green;
-    //        effectTip = effectTipObject.GetComponentInChildren<TextMeshPro>();
-    //    }
+    private TextMeshPro GetEffectText()
+    {
+        if (effectTip == null)
+        {
+            var effectTipObject = Instantiate(toolTipPrefab, transform);
+            effectTipObject.GetComponent<SpriteRenderer>().color = Color.green;
+            effectTip = effectTipObject.GetComponentInChildren<TextMeshPro>();
+        }
 
-    //    return effectTip;
-    //}
+        return effectTip;
+    }
 
     private Transform GetTextParent() { return GetText().transform.parent; }
 
@@ -91,30 +91,30 @@ public class ToolTipManager : MonoBehaviour
         GetTextParent().position = position;
     }
 
-    //public void SetText(string text, Vector3 position, List<RoommateEffectInfo> effects)
-    //{
-    //    SetText(text, position);
-    //    if (effects.Count == 0)
-    //    {
-    //        return;
-    //    }
+    public void SetText(CardInfo cardInfo, Vector3 position, List<RoommateEffectInfo> effects)
+    {
+        SetText(cardInfo, position);
+        if (effects.Count == 0)
+        {
+            return;
+        }
 
-    //    GetEffectText().transform.parent.gameObject.SetActive(true);
-    //    GetEffectText().text = effects[0].cardDescription;
-    //    GetEffectText().transform.parent.position = position + (Vector3.right * 5);
-    //}
+        GetEffectText().transform.parent.gameObject.SetActive(true);
+        GetEffectText().text = effects[0].cardDescription;
+        GetEffectText().transform.parent.position = position + (Vector3.right * 5);
+    }
 
-    //public void SetText(string text, Vector3 position, List<RoommateEffectInfo> effects, RoommateRoom roommateRoom)
-    //{
-    //    SetText(text, position, effects);
+    public void SetText(CardInfo cardInfo, Vector3 position, List<RoommateEffectInfo> effects, RoommateRoom roommateRoom)
+    {
+        SetText(cardInfo, position, effects);
 
-    //    if (roommateRoom.room != null && monsters == null)
-    //    {
-    //        monsters = roommateRoom.monsters;
-    //        monsters[0].Highlight();
-    //        monsters[1].Highlight();
-    //    }
-    //}
+        if (roommateRoom.room != null && monsters == null)
+        {
+            monsters = roommateRoom.monsters;
+            monsters[0].Highlight();
+            monsters[1].Highlight();
+        }
+    }
 
     public void Clear()
     {
@@ -126,7 +126,7 @@ public class ToolTipManager : MonoBehaviour
         Debug.Log($"Clearing {currentlyDisplay} from currentlydisplay");
         currentlyDisplay = null;
         GetTextParent().gameObject.SetActive(false);
-        //GetEffectText().transform.parent.gameObject.SetActive(false);
+        GetEffectText().transform.parent.gameObject.SetActive(false);
         if (monsters != null)
         {
             monsters[0].UnHighlight();
@@ -135,9 +135,3 @@ public class ToolTipManager : MonoBehaviour
         }
     }
 }
-
-// Tool tip System:
-// - Draft Cards
-// - Hand Cards
-// - Monsters in Rooms
-// - Rooms / Construction Rooms

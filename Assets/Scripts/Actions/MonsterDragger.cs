@@ -87,7 +87,7 @@ public class MonsterDragger : MonoBehaviour
             return;
         }
 
-        if (!mouse.IsOnMonster() && !mouse.IsOnHand())
+        if (!mouse.IsOnMonster() && !mouse.IsOnHand() && !mouse.IsOnRoom())
         {
             FindObjectOfType<ToolTipManager>().Clear();
             return;
@@ -100,16 +100,16 @@ public class MonsterDragger : MonoBehaviour
             FindObjectOfType<ToolTipManager>().SetText(monster.cardInfo, position);
         }
 
-        //if (mouse.IsOnRoom())
-        //{
-        //    var room = mouse.GetHitComponent<Room>();
-        //    var position = room.gameObject.transform.position + (Vector3.up * 4f);
-        //    var roommate = gameManager.GetRoommateRoom(room);
-        //    FindObjectOfType<ToolTipManager>().SetText(room.GetCardInfo().effectDescription,
-        //                                               position,
-        //                                               room.GetRoommateEffects(),
-        //                                               roommate);
-        //}
+        if (!mouse.IsOnMonster() && !mouse.IsOnHand() && mouse.IsOnRoom())
+        {
+            var room = mouse.GetHitComponent<Room>();
+            var position = room.gameObject.transform.position + (Vector3.up * 4f);
+            var roommate = gameManager.GetRoommateRoom(room);
+            FindObjectOfType<ToolTipManager>().SetText(room.GetCardInfo(),
+                                                       position,
+                                                       room.GetRoommateEffects(),
+                                                       roommate);
+        }
 
         if (mouse.PlayerPressesLeftClick())
         {
