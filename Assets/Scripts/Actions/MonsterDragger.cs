@@ -97,7 +97,7 @@ public class MonsterDragger : MonoBehaviour
         {
             var monster = mouse.GetHitComponent<Monster>();
             var position = monster.gameObject.transform.position + (Vector3.up * 3);
-            FindObjectOfType<ToolTipManager>().SetText(monster.cardInfo, position);
+            FindObjectOfType<ToolTipManager>().Set(monster.cardInfo, position);
         }
 
         if (!mouse.IsOnMonster() && !mouse.IsOnHand() && mouse.IsOnRoom())

@@ -37,7 +37,7 @@ public class HoverCard
         var offset = TOOLTIP_AMOUNT + new Vector3(HOVER_AMOUNT.x, HOVER_AMOUNT.y, 0.0f);
         var toolTipPosition = currentCard.transform.position + offset;
         var currentCardInfo = GetInfo();
-        toolTipManager.SetText(currentCardInfo, toolTipPosition);
+        toolTipManager.Set(currentCardInfo, toolTipPosition);
     }
 
     private CardInfo GetInfo() { return currentCard.GetCardInfo(); }

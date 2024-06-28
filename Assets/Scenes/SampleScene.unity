@@ -3474,6 +3474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolTipPrefab: {fileID: 2403519383489544554, guid: f4bc3ed9c5dc18249b6ee488adfa2931, type: 3}
+  currentlyDisplay: {fileID: 0}
 --- !u!212 &2062370560
 SpriteRenderer:
   m_ObjectHideFlags: 0

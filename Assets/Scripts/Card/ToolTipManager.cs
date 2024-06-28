@@ -1,14 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class ToolTipManager : MonoBehaviour
 {
+    private static readonly Vector3 EFFECT_TEXT_POSITION_OFFSET = Vector3.right * 5;
     public GameObject toolTipPrefab;
     private TextMeshPro toolTip;
     private TextMeshPro effectTip;
-    private List<Monster> monsters;
+    private List<Monster> roommateMonsters;
     private bool isDisabled = false;
     [SerializeField] private CardInfo currentlyDisplay;
 
@@ -43,95 +43,131 @@ public class ToolTipManager : MonoBehaviour
 
     private Transform GetTextParent() { return GetText().transform.parent; }
 
+    private Transform GetEffectTextParent() { return GetEffectText().transform.parent; }
+
     public string GetToolTip() { return GetText().text; }
 
-    public void SetText(string text)
+    public void SetText(CardInfo cardInfo)
     {
-        if (text.Equals(""))
+        if (cardInfo.HasNoEffect())
         {
             return;
         }
 
-        GetText().text = text;
+        GetText().text = cardInfo.effectDescription;
     }
 
     private bool IsSamePosition(Vector3 positon) { return GetTextParent().position == positon; }
 
-    private bool CardToDisplayIsSameAsCurrent(CardInfo cardInfo) { return cardInfo.Equals(currentlyDisplay); }
-
-    private bool CurrentCardHasNoEffect() { return currentlyDisplay.effectDescription.Equals(""); }
-
-    private bool ShouldNotDisplay() { return CurrentCardHasNoEffect(); }
-
-    public void SetText(CardInfo cardInfo, Vector3 position)
+    private bool NewCardIsSameAsCurrent(CardInfo cardInfo, Vector3 position)
     {
-        if (isDisabled)
-        {
-            return;
-        }
-
-        if ((IsSamePosition(position) && CardToDisplayIsSameAsCurrent(cardInfo)))
-        {
-            return;
-        }
-
-        currentlyDisplay = cardInfo;
-        Debug.Log($"Setting: {cardInfo} as currentlydisplayed.");
-
-        if (ShouldNotDisplay())
-        {
-            GetTextParent().position = position;
-            GetTextParent().gameObject.SetActive(false);
-            return;
-        }
-
-        Debug.Log($"Displaying");
-        GetTextParent().gameObject.SetActive(true);
-        SetText(currentlyDisplay.effectDescription);
-        GetTextParent().position = position;
+        return IsSamePosition(position) && cardInfo.Equals(currentlyDisplay);
     }
+
+    private bool ShouldNotDisplayNewCard(CardInfo cardInfo, Vector3 position)
+    {
+        return isDisabled || NewCardIsSameAsCurrent(cardInfo, position);
+    }
+
+    private void SetCurrentlyDisplayed(CardInfo cardInfo) { currentlyDisplay = cardInfo; }
+
+    private void SetPosition(Vector3 position) { GetTextParent().position = position; }
+
+    private void SetEffectTextPosition(Vector3 position)
+    {
+        GetEffectTextParent().position = position + EFFECT_TEXT_POSITION_OFFSET;
+    }
+
+    private void Show() { GetTextParent().gameObject.SetActive(true); }
+
+    private void Hide() { GetTextParent().gameObject.SetActive(false); }
+
+    private void ShowEffect() { GetEffectTextParent().gameObject.SetActive(true); }
+
+    private void HideEffect() { GetEffectTextParent().gameObject.SetActive(false); }
+
+    public void Set(CardInfo cardInfo, Vector3 position)
+    {
+        if (ShouldNotDisplayNewCard(cardInfo, position))
+        {
+            return;
+        }
+
+        SetCurrentlyDisplayed(cardInfo);
+        SetPosition(position);
+
+        if (currentlyDisplay.HasNoEffect())
+        {
+            Hide();
+            return;
+        }
+
+        Show();
+        SetText(currentlyDisplay);
+    }
+
+    private void SetEffectText(List<RoommateEffectInfo> effects) { GetEffectText().text = effects[0].cardDescription; }
 
     public void SetText(CardInfo cardInfo, Vector3 position, List<RoommateEffectInfo> effects)
     {
-        SetText(cardInfo, position);
+        Set(cardInfo, position);
         if (effects.Count == 0)
         {
             return;
         }
 
-        GetEffectText().transform.parent.gameObject.SetActive(true);
-        GetEffectText().text = effects[0].cardDescription;
-        GetEffectText().transform.parent.position = position + (Vector3.right * 5);
+        ShowEffect();
+        SetEffectText(effects);
+        SetEffectTextPosition(position);
     }
+
+    private bool HasNoHighlightedMonsters() { return !HasHighlightedMonsters(); }
+
+    private bool HasHighlightedMonsters() { return roommateMonsters != null; }
 
     public void SetText(CardInfo cardInfo, Vector3 position, List<RoommateEffectInfo> effects, RoommateRoom roommateRoom)
     {
         SetText(cardInfo, position, effects);
-
-        if (roommateRoom.room != null && monsters == null)
-        {
-            monsters = roommateRoom.monsters;
-            monsters[0].Highlight();
-            monsters[1].Highlight();
-        }
+        HighlightMonsters(roommateRoom);
     }
+
+    private bool NothingIsDisplayed() { return currentlyDisplay == null; }
 
     public void Clear()
     {
-        if (currentlyDisplay == null)
+        if (NothingIsDisplayed())
         {
             return;
         }
 
-        Debug.Log($"Clearing {currentlyDisplay} from currentlydisplay");
         currentlyDisplay = null;
-        GetTextParent().gameObject.SetActive(false);
-        GetEffectText().transform.parent.gameObject.SetActive(false);
-        if (monsters != null)
+        Hide();
+        HideEffect();
+        ClearMonsterHighlight();
+    }
+
+    private void ClearMonsterHighlight()
+    {
+        if (HasNoHighlightedMonsters())
         {
-            monsters[0].UnHighlight();
-            monsters[1].UnHighlight();
-            monsters = null;
+            return;
         }
+
+        roommateMonsters[0].UnHighlight();
+        roommateMonsters[1].UnHighlight();
+        roommateMonsters = null;
+    }
+
+    private void HighlightMonsters(RoommateRoom roommateRoom)
+    {
+        if (roommateRoom.room == null || HasHighlightedMonsters())
+        {
+            return;
+        }
+
+        ClearMonsterHighlight();
+        roommateMonsters = roommateRoom.monsters;
+        roommateMonsters[0].Highlight();
+        roommateMonsters[1].Highlight();
     }
 }

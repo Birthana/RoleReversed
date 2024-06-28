@@ -27,9 +27,11 @@ public class ToolTipTest : MonoBehaviour
     public IEnumerator UsingToolTipManager_GetText_ExpectCardDescription()
     {
         // Arrange
+        var cardInfo = TestHelper.GetAnyMonsterCardInfo();
+        cardInfo.effectDescription = "ANY_CARD_DESCRIPTION";
 
         // Act
-        toolTip.SetText("ANY_CARD_DESCRIPTION");
+        toolTip.SetText(cardInfo);
         yield return null;
 
         // Assert
@@ -47,7 +49,7 @@ public class ToolTipTest : MonoBehaviour
         cardInfo.effectDescription = "ANY_CARD_DESCRIPTION";
         
         // Act
-        toolTip.SetText(cardInfo, position);
+        toolTip.Set(cardInfo, position);
         yield return null;
 
         // Assert
@@ -59,7 +61,9 @@ public class ToolTipTest : MonoBehaviour
     public IEnumerator UsingToolTipManager_Clear_ExpectPosition()
     {
         // Arrange
-        toolTip.SetText("ANY_CARD_DESCRIPTION");
+        var cardInfo = TestHelper.GetAnyMonsterCardInfo();
+        cardInfo.effectDescription = "ANY_CARD_DESCRIPTION";
+        toolTip.SetText(cardInfo);
 
         // Act
         toolTip.Clear();
@@ -67,18 +71,20 @@ public class ToolTipTest : MonoBehaviour
 
         // Assert
         var expectedToolTip = FindObjectsOfType<TextMeshPro>();
-        Assert.AreEqual(1, expectedToolTip.Length);
+        Assert.AreEqual(1 + 1, expectedToolTip.Length);
     }
 
     [UnityTest]
     public IEnumerator UsingToolTipManagerWithClear_Set_ExpectPosition()
     {
         // Arrange
-        toolTip.SetText("ANY_CARD_DESCRIPTION");
+        var cardInfo = TestHelper.GetAnyMonsterCardInfo();
+        cardInfo.effectDescription = "ANY_CARD_DESCRIPTION";
+        toolTip.SetText(cardInfo);
         toolTip.Clear();
 
         // Act
-        toolTip.SetText("ANY_CARD_DESCRIPTION");
+        toolTip.SetText(cardInfo);
         yield return null;
 
         // Assert
@@ -90,9 +96,11 @@ public class ToolTipTest : MonoBehaviour
     public IEnumerator UsingToolTipManager_SetEmpty_ExpectNoToolTip()
     {
         // Arrange
+        var cardInfo = TestHelper.GetAnyMonsterCardInfo();
+        cardInfo.effectDescription = "";
 
         // Act
-        toolTip.SetText("");
+        toolTip.SetText(cardInfo);
         yield return null;
 
         // Assert
@@ -108,7 +116,7 @@ public class ToolTipTest : MonoBehaviour
         cardInfo.effectDescription = "";
 
         // Act
-        toolTip.SetText(cardInfo, new Vector3(3, 5));
+        toolTip.Set(cardInfo, new Vector3(3, 5));
         yield return null;
 
         // Assert
@@ -124,7 +132,7 @@ public class ToolTipTest : MonoBehaviour
         cardInfo.effectDescription = "";
 
         // Act
-        toolTip.SetText(cardInfo, new Vector3(3, 5));
+        toolTip.Set(cardInfo, new Vector3(3, 5));
         yield return null;
 
         // Assert

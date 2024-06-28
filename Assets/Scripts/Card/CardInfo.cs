@@ -35,6 +35,8 @@ public class CardInfo : ScriptableObject
         return this is RoomCardInfo;
     }
 
+    public bool HasNoEffect() { return effectDescription.Equals(""); }
+
     public virtual Card GetCardPrefab() { return new Card(); }
 
     public virtual CardUI GetCardUI() { return new CardUI(); }
