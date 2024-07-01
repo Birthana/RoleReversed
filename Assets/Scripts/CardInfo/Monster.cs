@@ -10,9 +10,11 @@ public class Monster : Character
     public void Setup(MonsterCardInfo monsterCardInfo)
     {
         cardInfo = monsterCardInfo;
-        GetComponent<SpriteRenderer>().sprite = cardInfo.fieldSprite;
+        var spriteRender = GetComponent<SpriteRenderer>();
+        spriteRender.sprite = cardInfo.fieldSprite;
         Entrance();
         Setup(cardInfo.GetDamage(), cardInfo.GetHealth());
+        damageAnim = new DamageAnimation(spriteRender, Color.green, 0.01f);
     }
 
     public void Setup(int damage, int health)
@@ -96,21 +98,16 @@ public class Monster : Character
 
     public void Highlight()
     {
-        Debug.Log($"Highlighting.");
-        var spriteRender = GetComponent<SpriteRenderer>();
-        damageAnim = new DamageAnimation(spriteRender, Color.green, 0.1f);
+        if (!damageAnim.IsAtStart())
+        {
+            return;
+        }
+
         StartCoroutine(damageAnim.AnimateFromStartToEnd());
     }
 
     public void UnHighlight()
     {
-        if (damageAnim == null)
-        {
-            return;
-        }
-
-        Debug.Log($"Unhighlighting.");
         StartCoroutine(damageAnim.AnimateFromEndToStart());
-        damageAnim = null;
     }
 }

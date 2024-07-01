@@ -20,19 +20,7 @@ public class Room : MonoBehaviour
     private Capacity capacity;
     protected RoomCardInfo cardInfo;
     private Vector3 startPosition;
-
-    private void Update()
-    {
-        if (Mouse.PlayerPressesLeftClick() && Mouse.IsOnRoom())
-        {
-            if (Mouse.GetHitComponent<Room>() != this)
-            {
-                return;
-            }
-
-            DisplayEffects();
-        }
-    }
+    private List<Monster> roommateMonsters;
 
     protected Capacity GetCapacityComponent()
     {
@@ -268,19 +256,6 @@ public class Room : MonoBehaviour
         cardInfo = roomCardInfo;
     }
 
-    public void DisplayEffects()
-    {
-        if (addedBattleStartEffects.Count == 0)
-        {
-            return;
-        }
-
-        foreach (var roommateEffect in addedBattleStartEffects)
-        {
-            Debug.Log($"{roommateEffect.cardDescription}");
-        }
-    }
-
     public void AddRoommateEffect(RoommateEffectInfo roommateInfo)
     {
         OnBattleStart += roommateInfo.BattleStart;
@@ -306,4 +281,34 @@ public class Room : MonoBehaviour
     {
         return addedBattleStartEffects;
     }
+
+    public void HighlightMonsters()
+    {
+        var roommate = FindObjectOfType<GameManager>().GetRoommateRoom(this);
+        if (roommate.room == null || HasHighlightedMonsters())
+        {
+            return;
+        }
+
+        ClearMonsterHighlight();
+        roommateMonsters = roommate.monsters;
+        roommateMonsters[0].Highlight();
+        roommateMonsters[1].Highlight();
+    }
+
+    public void ClearMonsterHighlight()
+    {
+        if (HasNoHighlightedMonsters())
+        {
+            return;
+        }
+
+        roommateMonsters[0].UnHighlight();
+        roommateMonsters[1].UnHighlight();
+        roommateMonsters = null;
+    }
+
+    private bool HasNoHighlightedMonsters() { return !HasHighlightedMonsters(); }
+
+    private bool HasHighlightedMonsters() { return roommateMonsters != null; }
 }

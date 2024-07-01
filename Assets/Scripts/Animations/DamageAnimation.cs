@@ -10,6 +10,8 @@ public class DamageAnimation
     private Color startColor;
     private Color currentColor;
 
+    public bool IsAtStart() { return currentColor == startColor; }
+
     public DamageAnimation(SpriteRenderer renderer, Color endColor, float time)
     {
         this.renderer = renderer;

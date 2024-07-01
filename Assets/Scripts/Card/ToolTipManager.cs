@@ -8,7 +8,7 @@ public class ToolTipManager : MonoBehaviour
     public GameObject toolTipPrefab;
     private TextMeshPro toolTip;
     private TextMeshPro effectTip;
-    private List<Monster> roommateMonsters;
+    private Room currentRoom;
     private bool isDisabled = false;
     [SerializeField] private CardInfo currentlyDisplay;
 
@@ -108,27 +108,20 @@ public class ToolTipManager : MonoBehaviour
 
     private void SetEffectText(List<RoommateEffectInfo> effects) { GetEffectText().text = effects[0].cardDescription; }
 
-    public void SetText(CardInfo cardInfo, Vector3 position, List<RoommateEffectInfo> effects)
+    public void SetText(CardInfo cardInfo, Vector3 position, Room room)
     {
         Set(cardInfo, position);
-        if (effects.Count == 0)
+        if (room.GetRoommateEffects().Count == 0)
         {
             return;
         }
 
         ShowEffect();
-        SetEffectText(effects);
+        SetEffectText(room.GetRoommateEffects());
         SetEffectTextPosition(position);
-    }
 
-    private bool HasNoHighlightedMonsters() { return !HasHighlightedMonsters(); }
-
-    private bool HasHighlightedMonsters() { return roommateMonsters != null; }
-
-    public void SetText(CardInfo cardInfo, Vector3 position, List<RoommateEffectInfo> effects, RoommateRoom roommateRoom)
-    {
-        SetText(cardInfo, position, effects);
-        HighlightMonsters(roommateRoom);
+        currentRoom = room;
+        room.HighlightMonsters();
     }
 
     private bool NothingIsDisplayed() { return currentlyDisplay == null; }
@@ -143,31 +136,13 @@ public class ToolTipManager : MonoBehaviour
         currentlyDisplay = null;
         Hide();
         HideEffect();
-        ClearMonsterHighlight();
-    }
 
-    private void ClearMonsterHighlight()
-    {
-        if (HasNoHighlightedMonsters())
+        if (currentRoom == null)
         {
             return;
         }
 
-        roommateMonsters[0].UnHighlight();
-        roommateMonsters[1].UnHighlight();
-        roommateMonsters = null;
-    }
-
-    private void HighlightMonsters(RoommateRoom roommateRoom)
-    {
-        if (roommateRoom.room == null || HasHighlightedMonsters())
-        {
-            return;
-        }
-
-        ClearMonsterHighlight();
-        roommateMonsters = roommateRoom.monsters;
-        roommateMonsters[0].Highlight();
-        roommateMonsters[1].Highlight();
+        currentRoom.ClearMonsterHighlight();
+        currentRoom = null;
     }
 }
