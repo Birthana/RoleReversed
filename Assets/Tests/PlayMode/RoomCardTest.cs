@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
+using System.Collections.Generic;
 
 public class RoomCardTest : MonoBehaviour
 {
@@ -92,7 +93,7 @@ public class RoomCardTest : MonoBehaviour
         room.SetCardInfo(surpriseRoom);
         room.SpawnMonster(TestHelper.GetAnyMonsterCardInfo());
         var drawGift = ScriptableObject.CreateInstance<DrawGift>();
-        room.AddRoommateEffect(drawGift);
+        room.AddRoommateEffect(drawGift, new List<Monster>());
         var player = TestHelper.GetPlayer(0, 10);
 
         // Act

@@ -6,6 +6,7 @@ public class Monster : Character
     public bool isTemporary = false;
     public MonsterCardInfo cardInfo;
     private DamageAnimation damageAnim;
+    private bool isHighlighted = false;
 
     public void Setup(MonsterCardInfo monsterCardInfo)
     {
@@ -96,6 +97,8 @@ public class Monster : Character
         yield return new WaitForSeconds(0.1f);
     }
 
+    public bool IsHighlighted() { return isHighlighted; }
+
     public void Highlight()
     {
         if (!damageAnim.IsAtStart())
@@ -103,11 +106,13 @@ public class Monster : Character
             return;
         }
 
+        isHighlighted = true;
         StartCoroutine(damageAnim.AnimateFromStartToEnd());
     }
 
     public void UnHighlight()
     {
         StartCoroutine(damageAnim.AnimateFromEndToStart());
+        isHighlighted = false;
     }
 }

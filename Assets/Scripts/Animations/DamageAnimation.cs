@@ -18,6 +18,7 @@ public class DamageAnimation
         this.endColor = endColor;
         this.time = time;
         startColor = renderer.color;
+        currentColor = startColor;
     }
 
     public IEnumerator AnimateFromStartToEnd()

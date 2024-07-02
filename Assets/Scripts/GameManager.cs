@@ -7,8 +7,6 @@ public interface IGameManager
     public void Awake();
 
     public bool IsRunning();
-
-    public RoommateRoom GetRoommateRoom(Room room);
 }
 
 public struct RoommateRoom
@@ -45,6 +43,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private Roommates request;
     private List<GameObject> requestBubbles = new List<GameObject>();
     private List<RoommateRoom> roommateRooms = new List<RoommateRoom>();
+    private List<Room> rooms = new List<Room>();
     private List<RoommateEffectInfo> giftInfos = new List<RoommateEffectInfo>();
 
     private IFocusAnimation GetFocusAnimation()
@@ -147,34 +146,21 @@ public class GameManager : MonoBehaviour, IGameManager
         }
 
         var room = roommates[0].transform.parent.GetComponent<Room>();
-        room.AddRoommateEffect(giftInfos[Random.Range(0, giftInfos.Count)]);
-        roommateRooms.Add(new RoommateRoom(room, roommates));
-    }
-
-    public RoommateRoom GetRoommateRoom(Room room)
-    {
-        foreach (var currentRoom in roommateRooms)
-        {
-            if (currentRoom.room.Equals(room))
-            {
-                return currentRoom;
-            }
-        }
-
-        return new RoommateRoom();
+        room.AddRoommateEffect(giftInfos[Random.Range(0, giftInfos.Count)], roommates);
+        rooms.Add(room);
     }
 
     private void CheckRoommateBonusActive()
     {
-        foreach(var room in roommateRooms)
+        foreach(var room in rooms)
         {
             var monsterRoom = room.monsters[0].transform.parent.GetComponent<Room>();
-            if (room.room.Equals(monsterRoom))
+            if (room.Equals(monsterRoom))
             {
                 continue;
             }
             
-            room.room.RemoveAllRoommateEffects();
+            room.RemoveAllRoommateEffects();
         }
     }
 

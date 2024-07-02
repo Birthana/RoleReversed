@@ -256,10 +256,11 @@ public class Room : MonoBehaviour
         cardInfo = roomCardInfo;
     }
 
-    public void AddRoommateEffect(RoommateEffectInfo roommateInfo)
+    public void AddRoommateEffect(RoommateEffectInfo roommateInfo, List<Monster> roommates)
     {
         OnBattleStart += roommateInfo.BattleStart;
         addedBattleStartEffects.Add(roommateInfo);
+        roommateMonsters = roommates;
     }
 
     public void RemoveAllRoommateEffects()
@@ -284,14 +285,11 @@ public class Room : MonoBehaviour
 
     public void HighlightMonsters()
     {
-        var roommate = FindObjectOfType<GameManager>().GetRoommateRoom(this);
-        if (roommate.room == null || HasHighlightedMonsters())
+        if (HasHighlightedMonsters())
         {
             return;
         }
 
-        ClearMonsterHighlight();
-        roommateMonsters = roommate.monsters;
         roommateMonsters[0].Highlight();
         roommateMonsters[1].Highlight();
     }
@@ -305,10 +303,9 @@ public class Room : MonoBehaviour
 
         roommateMonsters[0].UnHighlight();
         roommateMonsters[1].UnHighlight();
-        roommateMonsters = null;
     }
 
     private bool HasNoHighlightedMonsters() { return !HasHighlightedMonsters(); }
 
-    private bool HasHighlightedMonsters() { return roommateMonsters != null; }
+    private bool HasHighlightedMonsters() { return roommateMonsters[0].IsHighlighted(); }
 }
