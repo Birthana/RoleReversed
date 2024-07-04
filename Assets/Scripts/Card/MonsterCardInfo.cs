@@ -22,7 +22,7 @@ public class MonsterCardInfo : CardInfo
     {
     }
 
-    public virtual void Engage(Character self)
+    public virtual void Engage(Character characterSelf, Card cardSelf)
     {
     }
 

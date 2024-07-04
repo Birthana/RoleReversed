@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public interface IGameManager
@@ -42,8 +43,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private bool focusOnRoom = false;
     private Roommates request;
     private List<GameObject> requestBubbles = new List<GameObject>();
-    private List<RoommateRoom> roommateRooms = new List<RoommateRoom>();
-    private List<Room> rooms = new List<Room>();
+    [SerializeField] private List<Room> rooms = new List<Room>();
     private List<RoommateEffectInfo> giftInfos = new List<RoommateEffectInfo>();
 
     private IFocusAnimation GetFocusAnimation()
@@ -152,15 +152,17 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void CheckRoommateBonusActive()
     {
-        foreach(var room in rooms)
+        foreach(var room in rooms.ToList())
         {
-            var monsterRoom = room.monsters[0].transform.parent.GetComponent<Room>();
-            if (room.Equals(monsterRoom))
+            var roommates = room.GetRoommateMonsters();
+            if (room.Equals(roommates[0].transform.parent.GetComponent<Room>()) &&
+                room.Equals(roommates[1].transform.parent.GetComponent<Room>()))
             {
                 continue;
             }
             
             room.RemoveAllRoommateEffects();
+            rooms.Remove(room);
         }
     }
 

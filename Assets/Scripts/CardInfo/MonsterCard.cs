@@ -7,6 +7,7 @@ public class MonsterCard : Card
     private MonsterCardUI cardUI;
     private Transform selectedRoom;
     private MonsterCardInfo monsterCardInfo;
+    private Coroutine currentAnim;
 
     private MonsterCardUI GetCardUI()
     {
@@ -68,7 +69,12 @@ public class MonsterCard : Card
 
     public void PlayChosenAnim()
     {
-        StartCoroutine(PlayChosenAnimation());
+        if (currentAnim != null)
+        {
+            StopAllCoroutines();
+        }
+
+        currentAnim = StartCoroutine(PlayChosenAnimation());
     }
 
     public IEnumerator PlayChosenAnimation()
@@ -82,6 +88,6 @@ public class MonsterCard : Card
         hoverAnimation.PerformReturn();
         yield return StartCoroutine(chosenAnimation.AnimateFromEndToStart());
         yield return new WaitForSeconds(0.1f);
-
+        currentAnim = null;
     }
 }

@@ -3,8 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RatSoldier", menuName = "CardInfo/RatSoldier")]
 public class RatSoldier : MonsterCardInfo
 {
-    public override void Engage(Character self)
+    public override void Engage(Character characterSelf, Card cardSelf)
     {
+        Debug.Log($"{((Monster)characterSelf).cardInfo.cardName} Engages");
         var player = FindObjectOfType<Player>();
         if (player.IsDead())
         {
@@ -21,16 +22,24 @@ public class RatSoldier : MonsterCardInfo
         monsterCard.PlayChosenAnim();
         MonsterCardInfo monsterCardInfo = (MonsterCardInfo)monsterCard.GetCardInfo();
         player.TakeDamage(monsterCardInfo.damage);
+        Debug.Log($"Deal {monsterCardInfo.damage} damage");
         if (player.IsDead())
         {
             return;
         }
 
-        if (monsterCard.transform.parent == hand.transform)
+        var position = monsterCard.transform.parent;
+        if (cardSelf != null)
+        {
+            position = cardSelf.transform.parent;
+        }
+
+        if (position == hand.transform)
         {
             return;
         }
 
-        monsterCardInfo.Engage(self);
+        Debug.Log($"Bonus Attack");
+        monsterCardInfo.Engage(characterSelf, monsterCard);
     }
 }

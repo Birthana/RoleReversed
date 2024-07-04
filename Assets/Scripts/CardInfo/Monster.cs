@@ -54,7 +54,7 @@ public class Monster : Character
     {
         if (cardInfo != null)
         {
-            cardInfo.Engage(this);
+            cardInfo.Engage(this, null);
         }
     }
 

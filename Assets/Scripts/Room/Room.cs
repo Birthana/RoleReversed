@@ -276,6 +276,7 @@ public class Room : MonoBehaviour
         }
 
         addedBattleStartEffects = new List<RoommateEffectInfo>();
+        roommateMonsters = null;
     }
 
     public List<RoommateEffectInfo> GetRoommateEffects()
@@ -308,4 +309,6 @@ public class Room : MonoBehaviour
     private bool HasNoHighlightedMonsters() { return !HasHighlightedMonsters(); }
 
     private bool HasHighlightedMonsters() { return roommateMonsters[0].IsHighlighted(); }
+
+    public List<Monster> GetRoommateMonsters() { return roommateMonsters; }
 }
