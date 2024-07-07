@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ResetMonster : MonoBehaviour
 {
-    private List<Monster> monsters;
+    [SerializeField] private List<Monster> monsters;
 
     public List<Monster> GetMonsters()
     {

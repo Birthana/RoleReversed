@@ -6,6 +6,7 @@ public class SurpriseRoom : RoomCardInfo
 {
     public override IEnumerator BattleStart(Room room)
     {
+        SpawnBattleStartIcon(room.transform.position);
         var player = FindObjectOfType<Player>();
         yield return room.MakeRandomAttack(player);
     }

@@ -34,6 +34,11 @@ public class Player : Character
         yield return new WaitForSeconds(0.1f);
         yield return TakeDamage(character);
 
+        if (IsDead())
+        {
+            yield break;
+        }
+
         var playerSkills = FindObjectOfType<PlayerSkillManager>();
         if(playerSkills.skills.Count != 0)
         {
@@ -70,11 +75,12 @@ public class Player : Character
         GainRandomDamage();
         for (int i = 0; i < numberOfBuffs; i++)
         {
-            GainRandomHealth();
+            health.IncreaseMaxHealth(1);
 
             if (timesDied > 4)
             {
                 GainRandomStats();
+                health.IncreaseMaxHealth(1);
             }
 
             if (timesDied > 9)
@@ -119,12 +125,12 @@ public class Player : Character
     private void GainRandomHealth()
     {
         var rngIndex = UnityEngine.Random.Range(0, 10);
-        if (rngIndex == 1 || rngIndex == 2 || rngIndex == 3)
+        if (rngIndex == 1 || rngIndex == 2)
         {
-            health.IncreaseMaxHealth(1);
+            health.IncreaseMaxHealth(2);
             return;
         }
 
-        health.IncreaseMaxHealth(2);
+        health.IncreaseMaxHealth(1);
     }
 }

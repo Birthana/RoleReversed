@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private Room startRoom;
     private Player player;
     private Room currentRoom;
-    private ResetMonster resetMonster;
+    [SerializeField] private ResetMonster resetMonster;
     private bool isRunning = false;
     private Coroutine coroutine;
     [SerializeField] private IFocusAnimation focusAnimation;
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void CreateRoommateRequests()
     {
-        request = new Roommates(resetMonster.GetMonsters());
+        request = new Roommates(resetMonster.GetMonsters(), rooms);
         var requestMates = request.CreateRequest();
         foreach (var monster in requestMates)
         {

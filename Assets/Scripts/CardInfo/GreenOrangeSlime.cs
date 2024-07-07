@@ -7,6 +7,7 @@ public class GreenOrangeSlime : MonsterCardInfo
 
     public override void Exit(Character self)
     {
+        SpawnExitIcon(self.transform.position);
         var parentRoom = self.transform.parent.GetComponent<Room>();
         var adjacentRooms = new RoomTransform().GetAdjacentRooms(parentRoom.GetStartPosition());
         foreach (var room in adjacentRooms)

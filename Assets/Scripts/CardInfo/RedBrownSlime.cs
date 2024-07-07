@@ -9,6 +9,7 @@ public class RedBrownSlime : MonsterCardInfo
         var randomMonster = parentRoom.GetRandomMonster();
         if (randomMonster != null)
         {
+            SpawnExitIcon(self.transform.position);
             randomMonster.IncreaseStats(1, 1);
         }
     }

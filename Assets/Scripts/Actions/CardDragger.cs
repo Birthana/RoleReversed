@@ -17,6 +17,7 @@ public class CardDragger : MonoBehaviour, ICardDragger
 
     private IMouseWrapper mouseWrapper;
     private DraftManager draftManager;
+    private GameManager gameManager;
 
     private HoverCard hoverCard_;
 
@@ -50,9 +51,19 @@ public class CardDragger : MonoBehaviour, ICardDragger
         return draftManager;
     }
 
+    public GameManager GetGameManager()
+    {
+        if (gameManager == null)
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+
+        return gameManager;
+    }
+
     public void UpdateLoop()
     {
-        if (GetDraftManager().IsRunning())
+        if (GetDraftManager().IsRunning() || GetGameManager().IsRunning())
         {
             return;
         }

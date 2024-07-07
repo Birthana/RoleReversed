@@ -233,8 +233,8 @@ public class Room : MonoBehaviour
     {
         var monsterPrefab = Resources.Load<Monster>(FIELD_MONSTER_PREFAB);
         var monster = Instantiate(monsterPrefab, transform);
-        monster.Setup(monsterCardInfo);
         Add(monster);
+        monster.Setup(monsterCardInfo);
         return monster;
     }
 

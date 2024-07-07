@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Roommates
@@ -17,6 +17,39 @@ public class Roommates
     {
         this.monsters = monsters;
         requests = new List<Monster>();
+    }
+
+    public Roommates(List<Monster> monsters, List<Room> rooms)
+    {
+        this.monsters = RemoveRoommateMonsters(monsters, rooms);
+        requests = new List<Monster>();
+    }
+
+    private List<Monster> RemoveRoommateMonsters(List<Monster> monsters, List<Room> rooms)
+    {
+        var monstersWithNoRoommates = monsters;
+        foreach(var monster in monsters.ToList())
+        {
+            if (MonsterIsInRoommateRoom(monster, rooms))
+            {
+                monstersWithNoRoommates.Remove(monster);
+            }
+        }
+
+        return monstersWithNoRoommates;
+    }
+
+    private bool MonsterIsInRoommateRoom(Monster monster, List<Room> rooms)
+    {
+        foreach(var room in rooms)
+        {
+            if (monster.transform.parent.position == room.transform.position)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public List<Monster> Get()

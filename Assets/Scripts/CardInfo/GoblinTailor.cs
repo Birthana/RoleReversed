@@ -8,6 +8,7 @@ public class GoblinTailor : MonsterCardInfo
         var room = self.GetComponentInParent<Room>();
         if (room.GetMaxCapacity() == 1)
         {
+            SpawnExitIcon(self.transform.position);
             room.IncreaseMaxCapacity(1);
             FindObjectOfType<Deck>().DrawCardToHand();
         }

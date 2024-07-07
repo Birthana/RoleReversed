@@ -1,10 +1,12 @@
 using UnityEngine;
+using TMPro;
 
 #pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 public class CardInfo : ScriptableObject
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 {
     public string cardName = "DEFAULT";
+    private string numberPrefabFilePath = "Prefabs/EffectIcon";
     public Sprite fieldSprite;
     public int cost;
     [TextArea(1, 2)]
@@ -40,4 +42,34 @@ public class CardInfo : ScriptableObject
     public virtual Card GetCardPrefab() { return new Card(); }
 
     public virtual CardUI GetCardUI() { return new CardUI(); }
+
+    public void SpawnEntranceIcon(Vector3 position)
+    {
+        SpawnEffectIcon(position, "Entrance");
+    }
+
+    public void SpawnExitIcon(Vector3 position)
+    {
+        SpawnEffectIcon(position, "Exit");
+    }
+
+    public void SpawnEngageIcon(Vector3 position)
+    {
+        SpawnEffectIcon(position, "Engage");
+    }
+
+    public void SpawnBattleStartIcon(Vector3 position)
+    {
+        SpawnEffectIcon(position, "Battle Start");
+    }
+
+    private void SpawnEffectIcon(Vector3 position, string iconName)
+    {
+        var damageNumberPrefab = Resources.Load<GameObject>(numberPrefabFilePath);
+        var damageNumber = Instantiate(damageNumberPrefab);
+        damageNumber.transform.position = position;
+        damageNumber.GetComponent<TextMeshPro>().text = $"{new EffectText().GetText($"{iconName}")}";
+        damageNumber.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 2) * 100);
+        Destroy(damageNumber.gameObject, 0.5f);
+    }
 }

@@ -14,13 +14,14 @@ public class RatRoom : RoomCardInfo
             yield break;
         }
 
-        var deck = FindObjectOfType<Deck>();
         var hand = FindObjectOfType<Hand>();
         if (hand.IsFull())
         {
             yield break;
         }
 
+        SpawnBattleStartIcon(room.transform.position);
+        var deck = FindObjectOfType<Deck>();
         var card = (MonsterCard)deck.CreateCardWith(ratCardInfo);
         hand.Add(card);
         yield return card.PlayChosenAnimation();

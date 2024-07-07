@@ -20,6 +20,7 @@ public class OrangeGraySlime : MonsterCardInfo
 
         if (emptyRoomCount >= numberOfEmptyRooms)
         {
+            SpawnEntranceIcon(self.transform.position);
             var deck = FindObjectOfType<Deck>();
             deck.DrawCardToHand();
         }

@@ -93,6 +93,8 @@ public class ToolTipManager : MonoBehaviour
             return;
         }
 
+        HideEffect();
+        UnHighlightCurrentRoom();
         SetCurrentlyDisplayed(cardInfo);
         SetPosition(position);
 
@@ -119,7 +121,6 @@ public class ToolTipManager : MonoBehaviour
         ShowEffect();
         SetEffectText(room.GetRoommateEffects());
         SetEffectTextPosition(position);
-
         currentRoom = room;
         room.HighlightMonsters();
     }
@@ -136,7 +137,11 @@ public class ToolTipManager : MonoBehaviour
         currentlyDisplay = null;
         Hide();
         HideEffect();
+        UnHighlightCurrentRoom();
+    }
 
+    private void UnHighlightCurrentRoom()
+    {
         if (currentRoom == null)
         {
             return;

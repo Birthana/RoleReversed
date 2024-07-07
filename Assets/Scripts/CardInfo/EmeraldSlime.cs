@@ -7,6 +7,7 @@ public class EmeraldSlime : MonsterCardInfo
 
     public override void Exit(Character self)
     {
+        SpawnExitIcon(self.transform.position);
         var player = FindObjectOfType<Player>();
         var room = player.gameObject.GetComponentInParent<Room>();
         room.SpawnTemporaryMonster(tempMonsterCardInfo);
