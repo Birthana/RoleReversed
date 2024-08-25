@@ -37,6 +37,10 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(int damage) { GetHealthComponent().TakeDamage(damage); }
 
+    public void TakeDamage(MonsterCardInfo monsterCardInfo) { GetHealthComponent().TakeDamage(monsterCardInfo.damage); }
+
+    public void TakeDamage(MonsterCard monsterCard) { TakeDamage((MonsterCardInfo)monsterCard.GetCardInfo()); }
+
     public void RestoreHealth(int damage) { GetHealthComponent().RestoreHealth(damage); }
 
     public int GetDamage() { return GetDamageComponent().GetDamage(); }
@@ -46,5 +50,4 @@ public class Character : MonoBehaviour
     public void IncreaseDamage(int increase) { GetDamageComponent().IncreaseMaxDamage(increase); }
 
     public void ReduceDamage(int decrease) { GetDamageComponent().DecreaseMaxDamage(decrease); }
-
 }

@@ -3,14 +3,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "OrangeSlime", menuName = "CardInfo/OrangeSlime")]
 public class OrangeSlime : MonsterCardInfo
 {
-    public override void Entrance(Character self)
+    public override void Entrance(Monster self)
     {
-        SpawnEntranceIcon(self.transform.position);
-        var parentRoom = self.transform.parent.GetComponent<Room>();
-        var adjacentRooms = new RoomTransform(parentRoom.transform).GetAdjacentRooms();
-        foreach(var room in adjacentRooms)
+        var adjacentRooms = self.GetCurrentRoom().GetAdjacentRooms();
+
+        if (adjacentRooms.Count == 0)
         {
-            var monster = room.GetRandomMonster();
+            return;
+        }
+
+        self.SpawnEntranceIcon();
+
+        foreach (var adjacentRoom in adjacentRooms)
+        {
+            var monster = adjacentRoom.GetRandomMonster();
             if (monster == null)
             {
                 continue;

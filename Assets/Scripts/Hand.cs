@@ -17,7 +17,20 @@ public class Hand : MonoBehaviour
 
     public int GetSize() { return hand.Count; }
 
-    public Card GetRandomMonsterCard()
+    public MonsterCard RandomMonsterAttacks()
+    {
+        var randomHandMonster = GetRandomMonsterCard();
+        if (randomHandMonster == null)
+        {
+            return null;
+        }
+
+        randomHandMonster.PlayChosenAnim();
+        FindObjectOfType<Player>().TakeDamage(randomHandMonster);
+        return randomHandMonster;
+    }
+
+    private MonsterCard GetRandomMonsterCard()
     {
         if (hand.Count == 0 || NoMonsters())
         {
@@ -30,7 +43,7 @@ public class Hand : MonoBehaviour
             card = hand[Random.Range(0, hand.Count)];
         } while (!(card.GetCardInfo() is MonsterCardInfo));
 
-        return card;
+        return (MonsterCard)card;
     }
 
     private bool NoMonsters()

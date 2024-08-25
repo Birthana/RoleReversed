@@ -3,9 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "VioletSlime", menuName = "CardInfo/VioletSlime")]
 public class VioletSlime : MonsterCardInfo
 {
-    public override void Entrance(Character self)
+    public override void Entrance(Monster self)
     {
-        SpawnEntranceIcon(self.transform.position);
+        self.SpawnEntranceIcon();
         FindObjectOfType<Player>().ReduceDamage(1);
     }
 }

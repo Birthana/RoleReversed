@@ -55,8 +55,7 @@ public class ConstructionRoom : Room
             foreach(var monster in monsters)
             {
                 monster.transform.SetParent(room.transform);
-                room.Add(monster);
-                room.ReduceCapacity(1);
+                room.Enter(monster);
             }
         }
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Orange Construct Room
   fieldSprite: {fileID: -322164552, guid: d9276957f44e8a14d9a191335dcdb286, type: 3}
   cost: 1
-  effectDescription: '[Battle Start] Use a random room monster [Entrance]'
+  effectDescription: '[Battle Start] Use a room monster [Entrance]'
   capacity: 1
   timer: 1
   roomCardInfo: {fileID: 11400000, guid: b3a59efdd1cce4042ad7226b4d6e1a12, type: 2}

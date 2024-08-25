@@ -16,12 +16,12 @@ public class PinkySlime : MonsterCardInfo
         return newHealth;
     }
 
-    public override void Entrance(Character self)
+    public override void Entrance(Monster self)
     {
-        SpawnEntranceIcon(self.transform.position);
+        self.SpawnEntranceIcon();
         int roomCount = FindObjectsOfType<Room>().Length;
         newDamage = damage + (2 * roomCount);
         newHealth = health + (2 * roomCount);
-        ((Monster)self).IncreaseStats(2 * roomCount, 2 * roomCount);
+        self.IncreaseStats(2 * roomCount, 2 * roomCount);
     }
 }

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class SpaceManager : MonoBehaviour
 {
+    public static readonly float HORIZONTAL_SPACING = 5.0f;
+    public static readonly float VERTICAL_SPACING = 5.0f;
+
     [SerializeField] private List<Vector3> spaces = new List<Vector3>();
     public GameObject spacePrefab;
     public Vector2 numberOfSpaces;
-    public float HORIZONTAL_SPACING;
-    public float VERTICAL_SPACING;
 
     private void Start()
     {

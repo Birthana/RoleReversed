@@ -5,11 +5,10 @@ public class GreenOrangeSlime : MonsterCardInfo
 {
     public TemporaryMonster tempMonsterCardInfo;
 
-    public override void Exit(Character self)
+    public override void Exit(Monster self)
     {
-        SpawnExitIcon(self.transform.position);
-        var parentRoom = self.transform.parent.GetComponent<Room>();
-        var adjacentRooms = new RoomTransform().GetAdjacentRooms(parentRoom.GetStartPosition());
+        self.SpawnExitIcon();
+        var adjacentRooms = self.GetCurrentRoom().GetAdjacentRooms();
         foreach (var room in adjacentRooms)
         {
             room.SpawnTemporaryMonsterInDifferentRoom(tempMonsterCardInfo);

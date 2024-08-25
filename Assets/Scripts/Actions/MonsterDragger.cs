@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterDragger : MonoBehaviour
@@ -139,23 +137,9 @@ public class MonsterDragger : MonoBehaviour
     private void DropMonsterTo(Room room)
     {
         FindObjectOfType<ToolTipManager>().Toggle();
-        LeaveCurrentRoom();
-        MoveTo(room);
-        monster = null;
-    }
-
-    private void LeaveCurrentRoom()
-    {
-        returnRoom.Leave(monster);
-        returnRoom.IncreaseCapacity(1);
+        monster.MoveTo(room);
         returnRoom = null;
-    }
-
-    private void MoveTo(Room room)
-    {
-        monster.transform.SetParent(room.transform);
-        room.Add(monster);
-        room.ReduceCapacity(1);
+        monster = null;
     }
 
     public Monster GetSelected() { return monster; }

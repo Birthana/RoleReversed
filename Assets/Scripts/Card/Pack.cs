@@ -48,6 +48,17 @@ public class Pack : MonoBehaviour
         LoadRandomRoom();
     }
 
+    public void LoadPack()
+    {
+        LoadStarterPack();
+        LoadRandomMonster();
+        LoadRandomMonster();
+        LoadRandomRoom();
+        SetDrawOnOpen();
+        SetDrawOnOpen();
+        SetDrawOnOpen();
+    }
+
     public void LoadRandomRarePack()
     {
         var rngCards = FindObjectOfType<CardManager>();

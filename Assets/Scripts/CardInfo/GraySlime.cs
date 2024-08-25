@@ -3,9 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GraySlime", menuName = "CardInfo/GraySlime")]
 public class GraySlime : MonsterCardInfo
 {
-    public override void Exit(Character self)
+    public override void Exit(Monster self)
     {
-        SpawnExitIcon(self.transform.position);
+        self.SpawnExitIcon();
         FindObjectOfType<Deck>().DrawCardToHand();
     }
 }

@@ -5,11 +5,10 @@ public class YellowSlime : MonsterCardInfo
 {
     public TemporaryMonster tempMonsterCardInfo;
 
-    public override void Exit(Character self)
+    public override void Exit(Monster self)
     {
-        SpawnExitIcon(self.transform.position);
-        var player = FindObjectOfType<Player>();
-        var room = player.gameObject.GetComponentInParent<Room>();
+        self.SpawnExitIcon();
+        var room = self.GetCurrentRoom();
         room.SpawnTemporaryMonster(tempMonsterCardInfo);
         room.SpawnTemporaryMonster(tempMonsterCardInfo);
     }

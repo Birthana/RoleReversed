@@ -12,6 +12,7 @@ public class SoulShop : MonoBehaviour
     private static readonly string OPTIONS_FILE_PATH = "Prefabs/Options";
     private List<Option> options = new List<Option>();
     private IMouseWrapper mouse;
+    private List<CardInfo> draftCards = new List<CardInfo>();
 
     public void SetMouseWrapper(IMouseWrapper wrapper) { mouse = wrapper; }
 

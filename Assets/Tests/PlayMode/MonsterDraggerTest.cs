@@ -116,7 +116,7 @@ public class MonsterDraggerTest : MonoBehaviour
     public IEnumerator GivenRelaseMouseClick_UpdateLoop_ExpectReturnToRoom()
     {
         // Arrange
-        expectedRoom.Add(expectedMonster);
+        expectedRoom.Enter(expectedMonster);
         var monsterDragger = SetupMonsterDragger();
         monsterDragger.UpdateLoop();
         mock.Setup(x => x.PlayerReleasesLeftClick()).Returns(true);
@@ -137,7 +137,7 @@ public class MonsterDraggerTest : MonoBehaviour
     public IEnumerator GivenRelaseMouseClickOnNewRoom_UpdateLoop_ExpectMoveToNewRoom()
     {
         // Arrange
-        expectedRoom.Add(expectedMonster);
+        expectedRoom.Enter(expectedMonster);
         expectedRoom.SetCapacity(0);
         var newRoom = CreateRoom(1);
         var monsterDragger = SetMouseDraggerMocksToDragTo(newRoom);
@@ -148,7 +148,7 @@ public class MonsterDraggerTest : MonoBehaviour
 
         // Assert
         mock.VerifyAll();
-        Assert.AreEqual(new Vector3(newRoom.MONSTER_OFFSET.x + newRoom.transform.position.x, 0, 0),
+        Assert.AreEqual(new Vector3(Room.MONSTER_OFFSET.x + newRoom.transform.position.x, 0, 0),
                         expectedMonster.transform.position);
         Assert.AreEqual(1, expectedRoom.GetCapacity());
         Assert.AreEqual(0, newRoom.GetCapacity());
@@ -158,7 +158,7 @@ public class MonsterDraggerTest : MonoBehaviour
     public IEnumerator GivenMonsterInFullRoomAndAnotherFullRoom_DragMonsterToOtherRoom_ExpectNoMove()
     {
         // Arrange
-        expectedRoom.Add(expectedMonster);
+        expectedRoom.Enter(expectedMonster);
         expectedRoom.SetCapacity(0);
         var newRoom = CreateRoom(0);
         var monsterDragger = SetMouseDraggerMocksToDragTo(newRoom);

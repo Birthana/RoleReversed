@@ -6,7 +6,7 @@ public class CardInfo : ScriptableObject
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 {
     public string cardName = "DEFAULT";
-    private string numberPrefabFilePath = "Prefabs/EffectIcon";
+    private readonly string EFFECT_ICON_PREFAB_FILE_PATH = "Prefabs/EffectIcon";
     public Sprite fieldSprite;
     public int cost;
     [TextArea(1, 2)]
@@ -43,21 +43,6 @@ public class CardInfo : ScriptableObject
 
     public virtual CardUI GetCardUI() { return new CardUI(); }
 
-    public void SpawnEntranceIcon(Vector3 position)
-    {
-        SpawnEffectIcon(position, "Entrance");
-    }
-
-    public void SpawnExitIcon(Vector3 position)
-    {
-        SpawnEffectIcon(position, "Exit");
-    }
-
-    public void SpawnEngageIcon(Vector3 position)
-    {
-        SpawnEffectIcon(position, "Engage");
-    }
-
     public void SpawnBattleStartIcon(Vector3 position)
     {
         SpawnEffectIcon(position, "Battle Start");
@@ -65,7 +50,7 @@ public class CardInfo : ScriptableObject
 
     private void SpawnEffectIcon(Vector3 position, string iconName)
     {
-        var damageNumberPrefab = Resources.Load<GameObject>(numberPrefabFilePath);
+        var damageNumberPrefab = Resources.Load<GameObject>(EFFECT_ICON_PREFAB_FILE_PATH);
         var damageNumber = Instantiate(damageNumberPrefab);
         damageNumber.transform.position = position;
         damageNumber.GetComponent<TextMeshPro>().text = $"{new EffectText().GetText($"{iconName}")}";

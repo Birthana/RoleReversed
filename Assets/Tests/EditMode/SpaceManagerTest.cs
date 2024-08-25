@@ -50,8 +50,6 @@ public class SpaceManagerTest : MonoBehaviour
         var spaceManager = new GameObject().AddComponent<SpaceManager>();
         spaceManager.spacePrefab = new GameObject();
         spaceManager.numberOfSpaces = new Vector2(5, 3);
-        spaceManager.HORIZONTAL_SPACING = 5.0f;
-        spaceManager.VERTICAL_SPACING = 5.0f;
         spaceManager.SetupSpaces();
 
         // Act
@@ -68,8 +66,6 @@ public class SpaceManagerTest : MonoBehaviour
         var spaceManager = new GameObject().AddComponent<SpaceManager>();
         spaceManager.spacePrefab = new GameObject();
         spaceManager.numberOfSpaces = new Vector2(5, 3);
-        spaceManager.HORIZONTAL_SPACING = 5.0f;
-        spaceManager.VERTICAL_SPACING = 5.0f;
         spaceManager.SetupSpaces();
 
         // Act

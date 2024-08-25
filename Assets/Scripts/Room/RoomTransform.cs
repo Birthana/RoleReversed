@@ -9,15 +9,15 @@ public class RoomTransform
 
     public RoomTransform()
     {
-        horizontalSpacing = 5.0f;
-        verticalSpacing = 5.0f;
+        horizontalSpacing = SpaceManager.HORIZONTAL_SPACING;
+        verticalSpacing = SpaceManager.VERTICAL_SPACING;
     }
 
     public RoomTransform(Transform selectedTransform)
     {
         this.selectedTransform = selectedTransform;
-        horizontalSpacing = 5.0f;
-        verticalSpacing = 5.0f;
+        horizontalSpacing = SpaceManager.HORIZONTAL_SPACING;
+        verticalSpacing = SpaceManager.VERTICAL_SPACING;
     }
 
     public Transform GetTransform() { return selectedTransform; }
@@ -34,14 +34,7 @@ public class RoomTransform
         var adjacentRooms = new List<Room>();
         foreach (var position in GetAdjacentPositions(centerPosition))
         {
-            var ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(position));
-            var hits = Physics2D.RaycastAll(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Room"));
-            if (hits.Length == 0)
-            {
-                continue;
-            }
-
-            var room = IgnoreCurrentFocusedRoom(hits);
+            var room = GetRoomAt(position);
             if (room == null)
             {
                 continue;
@@ -51,6 +44,24 @@ public class RoomTransform
         }
 
         return adjacentRooms;
+    }
+
+    private bool DoesNotContainsRoomAt(Vector3 position) { return GetHits(position).Length == 0; }
+
+    private RaycastHit2D[] GetHits(Vector3 position)
+    {
+        var ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(position));
+        return Physics2D.RaycastAll(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Room"));
+    }
+
+    private Room GetRoomAt(Vector3 position)
+    {
+        if (DoesNotContainsRoomAt(position))
+        {
+            return null;
+        }
+
+        return IgnoreCurrentFocusedRoom(GetHits(position));
     }
 
     private Room IgnoreCurrentFocusedRoom(RaycastHit2D[] hits)

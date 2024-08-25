@@ -6,17 +6,17 @@ using Random = UnityEngine.Random;
 
 public class Room : MonoBehaviour
 {
-    private event Func<Room, IEnumerator> OnBattleStart;
-    private List<RoommateEffectInfo> addedBattleStartEffects = new List<RoommateEffectInfo>();
+    public static readonly Vector2 MONSTER_OFFSET = new Vector2(2, 0);
     private static readonly string FIELD_MONSTER_PREFAB = "Prefabs/FieldMonster";
     private static readonly int MAX_NUMBER_OF_MONSTERS_IN_COLUMN = 3;
     private static readonly int MAX_ROOM_CAPACITY = 9;
+    private static readonly float MONSTER_SPACING = 10.0f;
     private static readonly float COLUMN_SPACING = 2.0f;
+
+    private event Func<Room, IEnumerator> OnBattleStart;
+    private List<RoommateEffectInfo> addedBattleStartEffects = new List<RoommateEffectInfo>();
     public List<Monster> monsters = new List<Monster>();
-    public Vector2 MONSTER_OFFSET = new Vector2(2, 0);
-    public float SPACING;
-    public float HORIZONTAL_SPACING;
-    public float VERTICAL_SPACING;
+    public List<Monster> movedMonsters = new List<Monster>();
     private Capacity capacity;
     protected RoomCardInfo cardInfo;
     private Vector3 startPosition;
@@ -115,10 +115,30 @@ public class Room : MonoBehaviour
 
     public void ReduceMaxCapacity(int decrease) { GetCapacityComponent().DecreaseMaxCapacity(decrease); }
 
+    public void Enter(Monster monster)
+    {
+        Add(monster);
+        ReduceCapacity(1);
+    }
+
     public void Add(Monster monster)
     {
+        monster.transform.parent = transform;
+        monster.transform.localScale = Vector3.one;
         monsters.Add(monster);
         DisplayMonsters();
+    }
+
+    public void LeaveEffectCapacity(Monster monster)
+    {
+        IncreaseCapacity(1);
+        Leave(monster);
+    }
+
+    public void LeaveTemporary(Monster monster)
+    {
+        movedMonsters.Add(monster);
+        Leave(monster);
     }
 
     public void Leave(Monster monster)
@@ -132,7 +152,7 @@ public class Room : MonoBehaviour
         var blockCenterPosition = new BlockCenterPosition(new Vector2(MONSTER_OFFSET.x, 0), 
                                                           monsters.Count,
                                                           MAX_NUMBER_OF_MONSTERS_IN_COLUMN,
-                                                          SPACING,
+                                                          MONSTER_SPACING,
                                                           COLUMN_SPACING);
         for (int i = 0; i < monsters.Count; i++)
         {
@@ -311,4 +331,9 @@ public class Room : MonoBehaviour
     private bool HasHighlightedMonsters() { return roommateMonsters[0].IsHighlighted(); }
 
     public List<Monster> GetRoommateMonsters() { return roommateMonsters; }
+
+    public List<Room> GetAdjacentRooms()
+    {
+        return new RoomTransform(transform).GetAdjacentRooms(GetStartPosition());
+    }
 }

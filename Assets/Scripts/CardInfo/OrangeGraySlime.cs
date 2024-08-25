@@ -6,13 +6,12 @@ public class OrangeGraySlime : MonsterCardInfo
     public int numberOfEmptyRooms;
     private int emptyRoomCount;
 
-    public override void Entrance(Character self)
+    public override void Entrance(Monster self)
     {
-        var parentRoom = self.transform.parent.GetComponent<Room>();
-        var adjacentRooms = new RoomTransform(parentRoom.transform).GetAdjacentRooms();
-        foreach (var room in adjacentRooms)
+        var adjacentRooms = self.GetCurrentRoom().GetAdjacentRooms();
+        foreach (var adjacentRoom in adjacentRooms)
         {
-            if (room.IsEmpty())
+            if (adjacentRoom.IsEmpty())
             {
                 emptyRoomCount++;
             }
@@ -20,7 +19,7 @@ public class OrangeGraySlime : MonsterCardInfo
 
         if (emptyRoomCount >= numberOfEmptyRooms)
         {
-            SpawnEntranceIcon(self.transform.position);
+            self.SpawnEntranceIcon();
             var deck = FindObjectOfType<Deck>();
             deck.DrawCardToHand();
         }

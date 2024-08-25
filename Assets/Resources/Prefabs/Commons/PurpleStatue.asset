@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14bb596f0c07d3040b566fd070bc228d, type: 3}
-  m_Name: OrangeSlime
+  m_Script: {fileID: 11500000, guid: 01955dd488079b749ba528bb67ccdbbc, type: 3}
+  m_Name: PurpleStatue
   m_EditorClassIdentifier: 
-  cardName: Orange Slime
-  fieldSprite: {fileID: 21300000, guid: 5f737b984595d2e438c5fa099d92b0ce, type: 3}
+  cardName: Purple Statue
+  fieldSprite: {fileID: 21300000, guid: 41552c05232a7ad4bbef5eb2d13404bc, type: 3}
   cost: 2
-  effectDescription: '[Entrance] +1/1 to a Monster in adjacent Rooms'
-  damage: 2
-  health: 4
+  effectDescription: '[Exit] [Pull] a monster
+
+    in an adjacent room'
+  damage: 1
+  health: 3

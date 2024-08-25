@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private List<GameObject> requestBubbles = new List<GameObject>();
     [SerializeField] private List<Room> rooms = new List<Room>();
     private List<RoommateEffectInfo> giftInfos = new List<RoommateEffectInfo>();
+    private List<Monster> movedMonsters = new List<Monster>();
 
     private IFocusAnimation GetFocusAnimation()
     {
@@ -196,14 +197,27 @@ public class GameManager : MonoBehaviour, IGameManager
         yield return UnfocusOn(currentRoom);
         ResetPlayerToStartRoom();
         resetMonster.ResetFieldMonsters();
+        ResetRooms();
         FindObjectOfType<ActionManager>().ResetActions();
         EnableShopButton();
         FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
         FindObjectOfType<Deck>().DrawCardToHand();
         FindObjectOfType<DraftManager>().Draft();
         BuildConstructionRooms();
-        CreateRoommateRequests();
+        //CreateRoommateRequests();
     }
+
+    private void ResetRooms()
+    {
+        foreach (var movedMonster in movedMonsters)
+        {
+            movedMonster.ResetToOriginRoom();
+        }
+
+        movedMonsters = new List<Monster>();
+    }
+
+    public void AddToTempMove(Monster movedMonster) { movedMonsters.Add(movedMonster); }
 
     public void CreateRoommateRequests()
     {
@@ -250,7 +264,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private void SpawnPackInRandomSpot()
     {
         var newPack = Instantiate(packPrefab);
-        newPack.LoadStarterPack();
+        newPack.LoadPack();
         newPack.transform.position = new Vector3(Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 0);
     }
 

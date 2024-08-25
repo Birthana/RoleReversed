@@ -3,13 +3,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RedBrownSlime", menuName = "CardInfo/RedBrownSlime")]
 public class RedBrownSlime : MonsterCardInfo
 {
-    public override void Exit(Character self)
+    public override void Exit(Monster self)
     {
-        var parentRoom = self.transform.parent.GetComponent<Room>();
-        var randomMonster = parentRoom.GetRandomMonster();
+        var randomMonster = self.GetCurrentRoom().GetRandomMonster();
         if (randomMonster != null)
         {
-            SpawnExitIcon(self.transform.position);
+            self.SpawnExitIcon();
             randomMonster.IncreaseStats(1, 1);
         }
     }

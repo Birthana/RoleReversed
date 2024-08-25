@@ -27,6 +27,7 @@ public class CardTest : MonoBehaviour
     private OrangeGraySlime orangeGraySlimeInfo;
     private GreenOrangeSlime greenOrangeSlimeInfo;
     private GoblinTailor goblinTailorInfo;
+    private PurpleStatue purpleStatueInfo;
     private TemporaryMonster temporarySlimeInfo;
     private readonly int ANY_MAX_DAMAGE = 3;
     private readonly int ANY_MAX_HEALTH = 5;
@@ -125,6 +126,10 @@ public class CardTest : MonoBehaviour
         goblinTailorInfo = ScriptableObject.CreateInstance<GoblinTailor>();
         goblinTailorInfo.damage = 1;
         goblinTailorInfo.health = 2;
+
+        purpleStatueInfo = ScriptableObject.CreateInstance<PurpleStatue>();
+        purpleStatueInfo.damage = 1;
+        purpleStatueInfo.health = 6;
     }
     public bool RoomMonstersAreInCorrectLayer(Room room, string layer)
     {
@@ -449,5 +454,18 @@ public class CardTest : MonoBehaviour
         Assert.AreEqual(1, hand.GetSize());
         Assert.AreEqual(1, goblinTailor.GetDamage());
         Assert.AreEqual(2, goblinTailor.GetHealth());
+    }
+
+    [Test]
+    public void UsingPurpleStatueInfo_Exit_ExpectStatIs1_6()
+    {
+        // Arrange
+        var purpleStatue = room.SpawnMonster(purpleStatueInfo);
+
+        // Act
+        purpleStatue.Exit();
+
+        // Assert
+        Assert.AreEqual(0, room.GetCapacity());
     }
 }

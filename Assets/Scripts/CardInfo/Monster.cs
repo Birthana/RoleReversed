@@ -1,12 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
+
 
 public class Monster : Character
 {
+    private readonly string EFFECT_ICON_PREFAB_FILE_PATH = "Prefabs/EffectIcon";
+    private readonly string PULL_INDICATOR_PREFAB_FILE_PATH = "Prefabs/PullIndicator";
+
     public bool isTemporary = false;
     public MonsterCardInfo cardInfo;
     private DamageAnimation damageAnim;
     private bool isHighlighted = false;
+    private Room origin;
 
     public void Setup(MonsterCardInfo monsterCardInfo)
     {
@@ -44,7 +50,7 @@ public class Monster : Character
 
     public void Entrance()
     {
-        if(cardInfo != null)
+        if (cardInfo != null)
         {
             cardInfo.Entrance(this);
         }
@@ -114,5 +120,84 @@ public class Monster : Character
     {
         StartCoroutine(damageAnim.AnimateFromEndToStart());
         isHighlighted = false;
+    }
+
+    public Room GetCurrentRoom() { return transform.GetComponentInParent<Room>(); }
+
+    public void MoveTo(Room newRoom)
+    {
+        GetCurrentRoom().LeaveEffectCapacity(this);
+        transform.SetParent(newRoom.transform);
+        newRoom.Enter(this);
+    }
+
+    public void Pull(Room newRoom)
+    {
+        if (origin == null)
+        {
+            origin = GetCurrentRoom();
+            FindObjectOfType<GameManager>().AddToTempMove(this);
+        }
+
+        TemporaryLeave();
+        transform.SetParent(newRoom.transform);
+        newRoom.Add(this);
+        Entrance();
+        SpawnPullIndicator(GetCurrentPosition());
+    }
+
+    private void SpawnPullIndicator(Vector3 position)
+    {
+        var pullIndicatorPrefab = Resources.Load<GameObject>(PULL_INDICATOR_PREFAB_FILE_PATH);
+        var pullIndicator = Instantiate(pullIndicatorPrefab);
+        pullIndicator.transform.position = position;
+        Destroy(pullIndicator, 0.5f);
+    }
+
+    private void TemporaryLeave()
+    {
+        if (MonsterHasMoved())
+        {
+            GetCurrentRoom().Leave(this);
+            return;
+        }
+
+        GetCurrentRoom().LeaveTemporary(this);
+    }
+
+    private bool MonsterHasMoved() { return origin != null; }
+
+    public Vector3 GetCurrentPosition() { return transform.position; }
+
+    public void SpawnEntranceIcon()
+    {
+        SpawnEffectIcon(GetCurrentPosition(), "Entrance");
+    }
+
+    public void SpawnExitIcon()
+    {
+        SpawnEffectIcon(GetCurrentPosition(), "Exit");
+    }
+
+    public void SpawnEngageIcon()
+    {
+        SpawnEffectIcon(GetCurrentPosition(), "Engage");
+    }
+
+    private void SpawnEffectIcon(Vector3 position, string iconName)
+    {
+        var damageNumberPrefab = Resources.Load<GameObject>(EFFECT_ICON_PREFAB_FILE_PATH);
+        var damageNumber = Instantiate(damageNumberPrefab);
+        damageNumber.transform.position = position;
+        damageNumber.GetComponent<TextMeshPro>().text = $"{new EffectText().GetText($"{iconName}")}";
+        damageNumber.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 2) * 100);
+        Destroy(damageNumber, 0.5f);
+    }
+
+    public void ResetToOriginRoom()
+    {
+        GetCurrentRoom().Leave(this);
+        origin.Add(this);
+        new ChangeSortingLayer(gameObject).SetToDefault();
     }
 }

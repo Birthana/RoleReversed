@@ -3,41 +3,59 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RatSoldier", menuName = "CardInfo/RatSoldier")]
 public class RatSoldier : MonsterCardInfo
 {
-    public override void Engage(Character characterSelf, Card cardSelf)
+    private Player player;
+    private Hand hand;
+
+    private Player GetPlayer()
     {
-        var player = FindObjectOfType<Player>();
-        if (player.IsDead())
+        if (player == null)
+        {
+            player = FindObjectOfType<Player>();
+        }
+
+        return player;
+    }
+
+    private Hand GetHand()
+    {
+        if (hand == null)
+        {
+            hand = FindObjectOfType<Hand>();
+        }
+
+        return hand;
+    }
+
+    private void TriggerHandMonsterEngage(MonsterCard randomHandMonster, Monster characterSelf)
+    {
+        var randomHandMonsterCardInfo = (MonsterCardInfo)randomHandMonster.GetCardInfo();
+        randomHandMonsterCardInfo.Engage(characterSelf, randomHandMonster);
+    }
+
+    private bool CardIsInHand(Card cardSelf)
+    {
+        return cardSelf.transform.parent == GetHand().transform;
+    }
+
+    private bool RatSoldierIsInHand(Card cardSelf)
+    {
+        return cardSelf != null && CardIsInHand(cardSelf);
+    }
+
+    public override void Engage(Monster characterSelf, Card cardSelf)
+    {
+        if (GetPlayer().IsDead() || RatSoldierIsInHand(cardSelf))
         {
             return;
         }
 
-        SpawnEngageIcon(characterSelf.transform.position);
-        var hand = FindObjectOfType<Hand>();
-        MonsterCard monsterCard = (MonsterCard)hand.GetRandomMonsterCard();
-        if (monsterCard == null)
+        var randomHandMonster = GetHand().RandomMonsterAttacks();
+        characterSelf.SpawnEngageIcon();
+        if (randomHandMonster == null || GetPlayer().IsDead())
         {
             return;
         }
 
-        monsterCard.PlayChosenAnim();
-        MonsterCardInfo monsterCardInfo = (MonsterCardInfo)monsterCard.GetCardInfo();
-        player.TakeDamage(monsterCardInfo.damage);
-        if (player.IsDead())
-        {
-            return;
-        }
-
-        var position = monsterCard.transform.parent;
-        if (cardSelf != null)
-        {
-            position = cardSelf.transform.parent;
-        }
-
-        if (position == hand.transform)
-        {
-            return;
-        }
-
-        monsterCardInfo.Engage(characterSelf, monsterCard);
+        TriggerHandMonsterEngage(randomHandMonster, characterSelf);
     }
 }

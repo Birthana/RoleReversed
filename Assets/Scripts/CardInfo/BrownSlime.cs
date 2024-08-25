@@ -3,10 +3,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BrownSlime", menuName = "CardInfo/BrownSlime")]
 public class BrownSlime : MonsterCardInfo
 {
-    public override void Engage(Character characterSelf, Card cardSelf)
+    public override void Engage(Monster characterSelf, Card cardSelf)
     {
-        SpawnEngageIcon(characterSelf.transform.position);
-        var monsters = characterSelf.transform.parent.GetComponentsInChildren<Monster>();
+        characterSelf.SpawnEngageIcon();
+        var player = FindObjectOfType<Player>();
+        var room = player.gameObject.GetComponentInParent<Room>();
+        var monsters = room.GetComponentsInChildren<Monster>();
         foreach(var monster in monsters)
         {
             monster.IncreaseStats(1, 1);

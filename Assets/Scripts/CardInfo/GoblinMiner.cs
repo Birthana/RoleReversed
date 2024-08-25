@@ -3,15 +3,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GoblinMiner", menuName = "CardInfo/GoblinMiner")]
 public class GoblinMiner : MonsterCardInfo
 {
-    public override void Engage(Character characterSelf, Card cardSelf)
+    public override void Engage(Monster characterSelf, Card cardSelf)
     {
         var room = characterSelf.GetComponentInParent<Room>();
         if(room.HasCapacity())
         {
-            SpawnEngageIcon(characterSelf.transform.position);
+            characterSelf.SpawnEngageIcon();
             room.ReduceMaxCapacity(1);
             FindObjectOfType<Deck>().DrawCardToHand();
-            ((Monster)characterSelf).IncreaseStats(2, 2);
+            characterSelf.IncreaseStats(2, 2);
         }
     }
 }

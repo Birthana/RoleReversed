@@ -3,12 +3,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GoblinTailor", menuName = "CardInfo/GoblinTailor")]
 public class GoblinTailor : MonsterCardInfo
 {
-    public override void Exit(Character self)
+    public override void Exit(Monster self)
     {
-        var room = self.GetComponentInParent<Room>();
+        var room = self.GetCurrentRoom();
         if (room.GetMaxCapacity() == 1)
         {
-            SpawnExitIcon(self.transform.position);
+            self.SpawnExitIcon();
             room.IncreaseMaxCapacity(1);
             FindObjectOfType<Deck>().DrawCardToHand();
         }
