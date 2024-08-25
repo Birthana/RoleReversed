@@ -274,8 +274,6 @@ public static class TestHelper
     public static SoulShop GetSoulShop(Option option, OptionInfo optionInfo)
     {
         var soulShop = new GameObject().AddComponent<SoulShop>();
-        soulShop.optionPrefab = option;
-        soulShop.optionInfos.Add(optionInfo);
         return soulShop;
     }
 

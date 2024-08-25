@@ -59,7 +59,7 @@ public class Option : MonoBehaviour
 
             optionInfo.Choose();
             optionInfo = null;
-            SetOptionInfo(FindObjectOfType<SoulShop>().GetRandomOptionInfo());
+            //SetOptionInfo(FindObjectOfType<SoulShop>().GetRandomOptionInfo());
         }
     }
 

@@ -6,31 +6,23 @@ public class SoulShop : MonoBehaviour
 {
     public Sprite openShop;
     public Sprite closeShop;
-    public List<OptionInfo> optionInfos = new List<OptionInfo>();
-    public Option optionPrefab;
     public float SPACING = 5.0f;
-    private static readonly string OPTIONS_FILE_PATH = "Prefabs/Options";
-    private List<Option> options = new List<Option>();
+    [SerializeField] private GameObject background;
+    [SerializeField] private Transform draftCardTransform;
     private IMouseWrapper mouse;
-    private List<CardInfo> draftCards = new List<CardInfo>();
+    private List<DraftCard> draftCards = new List<DraftCard>();
+    private static readonly string DRAFT_CARD_FILE_PATH = "Prefabs/DraftCard";
+    private DraftCard draftCardPrefab;
 
     public void SetMouseWrapper(IMouseWrapper wrapper) { mouse = wrapper; }
 
     private void Awake()
     {
+        draftCardPrefab = Resources.Load<DraftCard>(DRAFT_CARD_FILE_PATH);
         SetMouseWrapper(new MouseWrapper());
-        LoadOptionInfos(OPTIONS_FILE_PATH);
+        background.SetActive(false);
+        draftCardTransform.gameObject.SetActive(false);
     }
-
-    private void LoadOptionInfos(string path)
-    {
-        var resourceOptionInfos = Resources.LoadAll<OptionInfo>(path);
-        foreach (var resourceOptionInfo in resourceOptionInfos)
-        {
-            optionInfos.Add(resourceOptionInfo);
-        }
-    }
-
 
     public void Update()
     {
@@ -64,99 +56,26 @@ public class SoulShop : MonoBehaviour
 
     public void CloseShop()
     {
-        HideOptions();
+        background.SetActive(false);
+        draftCardTransform.gameObject.SetActive(false);
         SetSprite(openShop);
     }
 
     public void OpenShop()
     {
         FindObjectOfType<ToolTipManager>().Clear();
+        background.SetActive(true);
+        draftCardTransform.gameObject.SetActive(true);
 
         if (!ShopIsEmpty())
         {
-            ShowOptions();
             return;
         }
 
-        CreateNewOptions();
-        DisplayOptions();
+        GetDraftCards();
     }
 
-    private void ShowOptions() { SetOptionsActive(true); }
-
-    private void HideOptions() { SetOptionsActive(false); }
-
-    private void SetOptionsActive(bool state)
-    {
-        foreach (var option in options)
-        {
-            option.gameObject.SetActive(state);
-        }
-    }
-
-    private void CreateNewOptions()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            var newOption = CreateRandomOption();
-            options.Add(newOption);
-        }
-    }
-
-    private Option CreateRandomOption()
-    {
-        var newOption = Instantiate(optionPrefab, transform);
-        var rngOptionInfo = GetRandomOptionInfo();
-        newOption.SetOptionInfo(rngOptionInfo);
-        return newOption;
-    }
-
-    private bool OptionInfoIsNotUnique(OptionInfo newOptionInfo)
-    {
-        if (OptionsAreInValid())
-        {
-            return false;
-        }
-
-        foreach (var option in options)
-        {
-            if (OptionInfoIsSameAsOption(newOptionInfo, option))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private bool OptionsAreInValid() { return optionInfos.Count < 3 || options.Count == 0; }
-
-    private bool OptionInfoIsSameAsOption(OptionInfo optionInfo, Option option)
-    {
-        return optionInfo.description.Equals(option.GetDescription());
-    }
-
-    public OptionInfo GetRandomOptionInfo()
-    {
-        OptionInfo rngOptionInfo;
-        do
-        {
-            rngOptionInfo = optionInfos[Random.Range(0, optionInfos.Count)];
-        } while (OptionInfoIsNotUnique(rngOptionInfo));
-        
-        return rngOptionInfo;
-    }
-
-    private void DisplayOptions()
-    {
-        var centerPosition = new CenterPosition(Vector3.zero, options.Count, SPACING);
-        for (int i = 0; i < options.Count; i++)
-        {
-            options[i].transform.position = centerPosition.GetHorizontalOffsetPositionAt(i);
-        }
-    }
-
-    private bool ShopIsEmpty() { return options.Count == 0; }
+    private bool ShopIsEmpty() { return draftCards.Count == 0; }
 
     public bool IsOpen()
     {
@@ -165,6 +84,40 @@ public class SoulShop : MonoBehaviour
             return false;
         }
 
-        return options[0].gameObject.activeSelf;
+        return draftCardTransform.gameObject.activeSelf;
+    }
+
+    public void GetDraftCards()
+    {
+        var cardInfos = FindObjectOfType<CardManager>().GetUniqueCardInfos(5);
+        for (int i = 0; i < cardInfos.Count; i++)
+        {
+            CreateDraftCard(cardInfos[i]);
+        }
+
+        DisplayDraftCards();
+    }
+
+    private void CreateDraftCard(CardInfo cardInfo)
+    {
+        var newDraftCard = Instantiate(draftCardPrefab, draftCardTransform);
+        newDraftCard.SetCardInfo(cardInfo);
+        CreateCardUI(newDraftCard.transform, cardInfo);
+        draftCards.Add(newDraftCard);
+    }
+
+    private void CreateCardUI(Transform parent, CardInfo cardInfo)
+    {
+        var cardUI = Instantiate(cardInfo.GetCardUI(), parent);
+        cardUI.SetCardInfo(cardInfo);
+    }
+
+    private void DisplayDraftCards()
+    {
+        var centerPosition = new CenterPosition(draftCardTransform.position, draftCards.Count, SPACING);
+        for (int i = 0; i < draftCards.Count; i++)
+        {
+            draftCards[i].transform.position = centerPosition.GetHorizontalOffsetPositionAt(i);
+        }
     }
 }

@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviour, IGameManager
         EnableShopButton();
         FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
         FindObjectOfType<Deck>().DrawCardToHand();
-        FindObjectOfType<DraftManager>().Draft();
+        //FindObjectOfType<DraftManager>().Draft();
         BuildConstructionRooms();
         //CreateRoommateRequests();
     }

@@ -169,8 +169,6 @@ public class SoulShopTest : MonoBehaviour
     {
         // Arrange
         SetMocks();
-        soulShop.optionInfos.Add(TestHelper.GetRandomMonsterOptionInfo());
-        soulShop.optionInfos.Add(TestHelper.GetRandomRoomOptionInfo());
 
         // Act
         soulShop.Update();
