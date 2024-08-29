@@ -50,19 +50,9 @@ public class MonsterDragger : MonoBehaviour
         UpdateLoop();
     }
 
-    private bool DraftManagerIsRunning()
-    {
-        if (GetDraftManager() == null)
-        {
-            return false;
-        }
-
-        return GetDraftManager().IsRunning();
-    }
-
     public void UpdateLoop()
     {
-        if (gameManager.IsRunning() || DraftManagerIsRunning() || GetSoulShop().IsOpen())
+        if (gameManager.IsRunning() || GetSoulShop().IsOpen())
         {
             return;
         }

@@ -38,7 +38,7 @@ public class DraftManagerTest : MonoBehaviour
         // Arrange
 
         // Act
-        draftManager.Draft();
+        draftManager.Draft(transform);
 
         // Assert
         Assert.AreEqual(3, draftManager.GetCount());
@@ -50,7 +50,7 @@ public class DraftManagerTest : MonoBehaviour
         // Arrange
 
         // Act
-        draftManager.Draft();
+        draftManager.Draft(transform);
 
         // Assert
         var draftCards = FindObjectsOfType<DraftCard>();
@@ -63,7 +63,7 @@ public class DraftManagerTest : MonoBehaviour
         // Arrange
 
         // Act
-        draftManager.Draft();
+        draftManager.Draft(transform);
 
         // Assert
         var draftCards = FindObjectsOfType<DraftCard>();
@@ -80,10 +80,8 @@ public class DraftManagerTest : MonoBehaviour
         mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
         mock.Setup(x => x.IsOnDraft()).Returns(true);
         mock.Setup(x => x.GetHitComponent<DraftCard>()).Returns(draftCard);
-        draftManager.SetMouseWrapper(mock.Object);
 
         // Act
-        draftManager.Update();
 
         // Assert
         var draftCards = FindObjectsOfType<DraftCard>();
@@ -96,7 +94,7 @@ public class DraftManagerTest : MonoBehaviour
         // Arrange
 
         // Act
-        draftManager.Draft();
+        draftManager.Draft(transform);
 
         // Assert
         var draftCards = FindObjectsOfType<DraftCard>();
@@ -113,11 +111,9 @@ public class DraftManagerTest : MonoBehaviour
         mock.Setup(x => x.PlayerPressesLeftClick()).Returns(true);
         mock.Setup(x => x.IsOnDraft()).Returns(false);
         mock.Setup(x => x.GetHitComponent<DraftCard>()).Returns(draftCard);
-        draftManager.SetMouseWrapper(mock.Object);
-        draftManager.Draft();
+        draftManager.Draft(transform);
 
         // Act
-        draftManager.GetShowFieldButton().onClick.Invoke();
 
         // Assert
         var draftCards = FindObjectsOfType<DraftCard>();
@@ -133,10 +129,8 @@ public class DraftManagerTest : MonoBehaviour
         mock.Setup(x => x.PlayerPressesLeftClick()).Returns(false);
         mock.Setup(x => x.IsOnDraft()).Returns(true);
         mock.Setup(x => x.GetHitComponent<DraftCard>()).Returns(draftCard);
-        draftManager.SetMouseWrapper(mock.Object);
 
         // Act
-        draftManager.Update();
 
         // Assert
         var toolTipManager = FindObjectOfType<ToolTipManager>();
@@ -150,10 +144,8 @@ public class DraftManagerTest : MonoBehaviour
         var toolTip = TestHelper.GetToolTipManager();
         mock.Setup(x => x.PlayerPressesLeftClick()).Returns(false);
         mock.Setup(x => x.IsOnDraft()).Returns(false);
-        draftManager.SetMouseWrapper(mock.Object);
 
         // Act
-        draftManager.Update();
 
         // Assert
         var toolTipManager = FindObjectOfType<ToolTipManager>();

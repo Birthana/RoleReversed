@@ -297,11 +297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f75b668d48192648b694392aa756fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showFieldButton: {fileID: 2002695104}
-  draftShow: {fileID: -750290650, guid: 9bd2f1fabbb9251449f4ce9b385ac51f, type: 3}
-  draftHide: {fileID: -1945663263, guid: 9bd2f1fabbb9251449f4ce9b385ac51f, type: 3}
   SPACING: 65
   lootAnimation: {fileID: 1770659344784451318, guid: 33a78d01d7540c349806ddc26bb9153d, type: 3}
+  NUMBER_OF_DRAFT_CARDS: 3
 --- !u!4 &137727809
 Transform:
   m_ObjectHideFlags: 0
@@ -632,7 +630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &346605748
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3021,7 +3019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1763015610
 Transform:
   m_ObjectHideFlags: 0
@@ -3682,6 +3680,7 @@ GameObject:
   - component: {fileID: 2085048934}
   - component: {fileID: 2085048933}
   - component: {fileID: 2085048932}
+  - component: {fileID: 2085048936}
   m_Layer: 21
   m_Name: SoulShop
   m_TagString: Untagged
@@ -3703,7 +3702,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openShop: {fileID: 21300000, guid: 6f7984cf2892b054f876a7e95fc315c8, type: 3}
   closeShop: {fileID: 21300000, guid: 2350b3fb04564a04ea60fa051c4b1321, type: 3}
-  SPACING: 25
   background: {fileID: 346605747}
   draftCardTransform: {fileID: 1763015610}
 --- !u!61 &2085048933
@@ -3772,7 +3770,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 6f7984cf2892b054f876a7e95fc315c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3802,3 +3800,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2085048936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085048931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f75b668d48192648b694392aa756fd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SPACING: 25
+  lootAnimation: {fileID: 1770659344784451318, guid: 33a78d01d7540c349806ddc26bb9153d, type: 3}
+  NUMBER_OF_DRAFT_CARDS: 5

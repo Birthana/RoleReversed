@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour, IGameManager
     [SerializeField] private List<Room> rooms = new List<Room>();
     private List<RoommateEffectInfo> giftInfos = new List<RoommateEffectInfo>();
     private List<Monster> movedMonsters = new List<Monster>();
+    private SoulShop soulShop;
 
     private IFocusAnimation GetFocusAnimation()
     {
@@ -65,6 +66,16 @@ public class GameManager : MonoBehaviour, IGameManager
         }
 
         return resetMonster;
+    }
+
+    private SoulShop GetSoulShop()
+    {
+        if (soulShop == null)
+        {
+            soulShop = FindObjectOfType<SoulShop>(true);
+        }
+
+        return soulShop;
     }
 
     public void Awake()
@@ -107,7 +118,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void StartPlayerRun()
     {
-        if (startRoom == null || isRunning || FindObjectOfType<DraftManager>().IsRunning())
+        if (startRoom == null || isRunning || GetSoulShop().IsOpen())
         {
             return;
         }
@@ -204,6 +215,7 @@ public class GameManager : MonoBehaviour, IGameManager
         FindObjectOfType<Deck>().DrawCardToHand();
         //FindObjectOfType<DraftManager>().Draft();
         BuildConstructionRooms();
+        FindObjectOfType<SoulShop>().EnableDraft();
         //CreateRoommateRequests();
     }
 

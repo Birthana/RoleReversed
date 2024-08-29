@@ -1,31 +1,35 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public class SoulShop : MonoBehaviour
 {
     public Sprite openShop;
     public Sprite closeShop;
-    public float SPACING = 5.0f;
     [SerializeField] private GameObject background;
     [SerializeField] private Transform draftCardTransform;
+    private DraftManager draftManager;
     private IMouseWrapper mouse;
-    private List<DraftCard> draftCards = new List<DraftCard>();
-    private static readonly string DRAFT_CARD_FILE_PATH = "Prefabs/DraftCard";
-    private DraftCard draftCardPrefab;
+    private bool pickedDraftCard = false;
 
     public void SetMouseWrapper(IMouseWrapper wrapper) { mouse = wrapper; }
 
     private void Awake()
     {
-        draftCardPrefab = Resources.Load<DraftCard>(DRAFT_CARD_FILE_PATH);
         SetMouseWrapper(new MouseWrapper());
         background.SetActive(false);
+        draftManager = GetComponent<DraftManager>();
         draftCardTransform.gameObject.SetActive(false);
     }
 
     public void Update()
     {
+        if (PlayerClicksOnDraftCard() && !pickedDraftCard)
+        {
+            FindObjectOfType<ToolTipManager>().Clear();
+            AddDraftCardToDeck();
+        }
+
         if (PlayerDoesNotClickOnShop())
         {
             return;
@@ -39,6 +43,21 @@ public class SoulShop : MonoBehaviour
 
         OpenShop();
         SetSprite(closeShop);
+    }
+
+    public void EnableDraft() { pickedDraftCard = false; }
+
+    private bool PlayerClicksOnDraftCard() { return mouse.PlayerPressesLeftClick() && mouse.IsOnDraft(); }
+
+    private void AddDraftCardToDeck()
+    {
+        var draftCard = mouse.GetHitComponent<DraftCard>();
+        draftManager.AddDraftCardToDeck(draftCard);
+        pickedDraftCard = true;
+        if (draftManager.IsEmpty())
+        {
+            draftManager.Draft(draftCardTransform);
+        }
     }
 
     private void SetSprite(Sprite sprite)
@@ -72,10 +91,10 @@ public class SoulShop : MonoBehaviour
             return;
         }
 
-        GetDraftCards();
+        draftManager.Draft(draftCardTransform);
     }
 
-    private bool ShopIsEmpty() { return draftCards.Count == 0; }
+    private bool ShopIsEmpty() { return draftManager.IsEmpty(); }
 
     public bool IsOpen()
     {
@@ -85,39 +104,5 @@ public class SoulShop : MonoBehaviour
         }
 
         return draftCardTransform.gameObject.activeSelf;
-    }
-
-    public void GetDraftCards()
-    {
-        var cardInfos = FindObjectOfType<CardManager>().GetUniqueCardInfos(5);
-        for (int i = 0; i < cardInfos.Count; i++)
-        {
-            CreateDraftCard(cardInfos[i]);
-        }
-
-        DisplayDraftCards();
-    }
-
-    private void CreateDraftCard(CardInfo cardInfo)
-    {
-        var newDraftCard = Instantiate(draftCardPrefab, draftCardTransform);
-        newDraftCard.SetCardInfo(cardInfo);
-        CreateCardUI(newDraftCard.transform, cardInfo);
-        draftCards.Add(newDraftCard);
-    }
-
-    private void CreateCardUI(Transform parent, CardInfo cardInfo)
-    {
-        var cardUI = Instantiate(cardInfo.GetCardUI(), parent);
-        cardUI.SetCardInfo(cardInfo);
-    }
-
-    private void DisplayDraftCards()
-    {
-        var centerPosition = new CenterPosition(draftCardTransform.position, draftCards.Count, SPACING);
-        for (int i = 0; i < draftCards.Count; i++)
-        {
-            draftCards[i].transform.position = centerPosition.GetHorizontalOffsetPositionAt(i);
-        }
     }
 }

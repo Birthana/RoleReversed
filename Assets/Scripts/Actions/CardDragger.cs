@@ -18,6 +18,8 @@ public class CardDragger : MonoBehaviour, ICardDragger
     private IMouseWrapper mouseWrapper;
     private DraftManager draftManager;
     private GameManager gameManager;
+    private SoulShop soulShop;
+
 
     private HoverCard hoverCard_;
 
@@ -61,9 +63,19 @@ public class CardDragger : MonoBehaviour, ICardDragger
         return gameManager;
     }
 
+    public SoulShop GetSoulShop()
+    {
+        if (soulShop == null)
+        {
+            soulShop = FindObjectOfType<SoulShop>(true);
+        }
+
+        return soulShop;
+    }
+
     public void UpdateLoop()
     {
-        if (GetDraftManager().IsRunning() || GetGameManager().IsRunning())
+        if (GetGameManager().IsRunning() || GetSoulShop().IsOpen())
         {
             return;
         }
