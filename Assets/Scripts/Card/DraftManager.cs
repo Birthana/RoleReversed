@@ -42,6 +42,17 @@ public class DraftManager : MonoBehaviour
         animation.AnimateLoot();
     }
 
+    public void Reroll(Transform draftTransform)
+    {
+        foreach (var draftCard in draftCards)
+        {
+            Destroy(draftCard.gameObject);
+        }
+
+        draftCards = new List<DraftCard>();
+        Draft(draftTransform);
+    }
+
     public void Draft(Transform draftTransform)
     {
         var cardInfos = FindObjectOfType<CardManager>().GetUniqueCardInfos(NUMBER_OF_DRAFT_CARDS);

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -9,6 +8,8 @@ public class SoulShop : MonoBehaviour
     [SerializeField] private GameObject background;
     [SerializeField] private Transform draftCardTransform;
     private DraftManager draftManager;
+    private RerollButton reRollButton;
+    private PlayerSoulCounter playerSouls;
     private IMouseWrapper mouse;
     private bool pickedDraftCard = false;
 
@@ -17,9 +18,24 @@ public class SoulShop : MonoBehaviour
     private void Awake()
     {
         SetMouseWrapper(new MouseWrapper());
-        background.SetActive(false);
         draftManager = GetComponent<DraftManager>();
+        reRollButton = GetComponentInChildren<RerollButton>();
+        playerSouls = FindObjectOfType<PlayerSoulCounter>();
+        Hide();
+    }
+
+    private void Show()
+    {
+        background.SetActive(true);
+        draftCardTransform.gameObject.SetActive(true);
+        reRollButton.gameObject.SetActive(true);
+    }
+
+    private void Hide()
+    {
+        background.SetActive(false);
         draftCardTransform.gameObject.SetActive(false);
+        reRollButton.gameObject.SetActive(false);
     }
 
     public void Update()
@@ -28,6 +44,13 @@ public class SoulShop : MonoBehaviour
         {
             FindObjectOfType<ToolTipManager>().Clear();
             AddDraftCardToDeck();
+        }
+
+        if (!mouse.PlayerPressesLeftClick() && mouse.IsOnDraft() && IsOpen())
+        {
+            var draftCard = mouse.GetHitComponent<DraftCard>();
+            var position = draftCard.gameObject.transform.position + (Vector3.up * 5.0f);
+            FindObjectOfType<ToolTipManager>().Set(draftCard.GetCardInfo(), position);
         }
 
         if (PlayerDoesNotClickOnShop())
@@ -75,16 +98,14 @@ public class SoulShop : MonoBehaviour
 
     public void CloseShop()
     {
-        background.SetActive(false);
-        draftCardTransform.gameObject.SetActive(false);
+        Hide();
         SetSprite(openShop);
     }
 
     public void OpenShop()
     {
         FindObjectOfType<ToolTipManager>().Clear();
-        background.SetActive(true);
-        draftCardTransform.gameObject.SetActive(true);
+        Show();
 
         if (!ShopIsEmpty())
         {
@@ -104,5 +125,16 @@ public class SoulShop : MonoBehaviour
         }
 
         return draftCardTransform.gameObject.activeSelf;
+    }
+
+    public void Reroll()
+    {
+        if (playerSouls.GetCurrentSouls() == 0)
+        {
+            return;
+        }
+
+        draftManager.Reroll(draftCardTransform);
+        playerSouls.DecreaseSouls();
     }
 }
