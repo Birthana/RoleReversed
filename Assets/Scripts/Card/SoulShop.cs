@@ -19,7 +19,7 @@ public class SoulShop : MonoBehaviour
     {
         SetMouseWrapper(new MouseWrapper());
         draftManager = GetComponent<DraftManager>();
-        reRollButton = GetComponentInChildren<RerollButton>();
+        reRollButton = GetComponentInChildren<RerollButton>(true);
         playerSouls = FindObjectOfType<PlayerSoulCounter>();
         Hide();
     }

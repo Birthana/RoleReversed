@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PurpleStatue", menuName = "CardInfo/PurpleStatue")]
-public class PurpleStatue : MonsterCardInfo
+[CreateAssetMenu(fileName = "RedStatue", menuName = "CardInfo/RedStatue")]
+public class RedStatue : MonsterCardInfo
 {
     public override void Exit(Monster self)
     {
@@ -13,6 +13,6 @@ public class PurpleStatue : MonsterCardInfo
 
         self.SpawnExitIcon();
         parentRoom.PullRandomAdjacentRoomMonster();
+        parentRoom.PullRandomAdjacentRoomMonster();
     }
 }
-

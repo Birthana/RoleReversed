@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -50,14 +51,14 @@ public class Room : MonoBehaviour
 
     public IEnumerator MakeAttack(Character character)
     {
-        foreach (var monster in monsters)
+        foreach (var monster in monsters.ToList())
         {
             if (FindObjectOfType<Player>().IsDead())
             {
                 break;
             }
 
-            if (monster.IsDead())
+            if (monster.IsDead() || monster.GetCurrentRoom() != this)
             {
                 continue;
             }
@@ -189,6 +190,21 @@ public class Room : MonoBehaviour
         return GetAliveRandomMonster();
     }
 
+    public Monster GetRandomMonsterNot(Monster exception)
+    {
+        if (IsEmpty())
+        {
+            return null;
+        }
+
+        if (monsters.Count == 1)
+        {
+            return GetAliveRandomMonster();
+        }
+
+        return GetAliveRandomMonsterNot(exception);
+    }
+
     private Monster GetAliveRandomMonster()
     {
         Monster monster;
@@ -197,6 +213,18 @@ public class Room : MonoBehaviour
             var rngIndex = Random.Range(0, monsters.Count);
             monster = monsters[rngIndex];
         } while (MonsterIsDead(monster));
+
+        return monster;
+    }
+
+    private Monster GetAliveRandomMonsterNot(Monster exception)
+    {
+        Monster monster;
+        do
+        {
+            var rngIndex = Random.Range(0, monsters.Count);
+            monster = monsters[rngIndex];
+        } while (MonsterIsDead(monster) || monster == exception);
 
         return monster;
     }
@@ -219,7 +247,7 @@ public class Room : MonoBehaviour
 
         foreach (var monster in monsters)
         {
-            if (!monster.IsDead())
+            if (!monster.IsDead() && monster.GetCurrentRoom() == this)
             {
                 return false;
             }
@@ -269,6 +297,11 @@ public class Room : MonoBehaviour
         }
 
         yield return cardInfo.BattleStart(this);
+    }
+
+    public IEnumerator BuildStart()
+    {
+        yield return cardInfo.BuildStart(this);
     }
 
     public void SetCardInfo(RoomCardInfo roomCardInfo)
@@ -335,5 +368,56 @@ public class Room : MonoBehaviour
     public List<Room> GetAdjacentRooms()
     {
         return new RoomTransform(transform).GetAdjacentRooms(GetStartPosition());
+    }
+
+    public void PullRandomAdjacentRoomMonster()
+    {
+        var roomMonster = GetRandomRoomMonster();
+        if (roomMonster == null)
+        {
+            return;
+        }
+
+        roomMonster.Pull(this);
+        new ChangeSortingLayer(roomMonster.gameObject).SetToCurrentRoom();
+    }
+
+    public Monster PushRandomRoomMonster(Monster exception)
+    {
+        var roomMonster = GetRandomMonsterNot(exception);
+        if (roomMonster == null)
+        {
+            return null;
+        }
+
+        var room = GetRandomAdjacentRoom();
+        if (room == null)
+        {
+            return null;
+        }
+
+        roomMonster.Push(GetRandomAdjacentRoom());
+        new ChangeSortingLayer(roomMonster.gameObject).SetToDefault();
+        return roomMonster;
+    }
+
+    private Monster GetRandomRoomMonster()
+    {
+        return new RandomMonster(GetAdjacentRooms()).Get();
+    }
+
+    public bool HasAdjacentRoom() { return GetAdjacentRooms().Count != 0; }
+
+    public bool HasNoAdjacentRoom() { return !HasAdjacentRoom(); }
+
+    private Room GetRandomAdjacentRoom()
+    {
+        var adjacentRooms = GetAdjacentRooms();
+        if (HasNoAdjacentRoom())
+        {
+            return null;
+        }
+
+        return adjacentRooms[Random.Range(0, adjacentRooms.Count)];
     }
 }

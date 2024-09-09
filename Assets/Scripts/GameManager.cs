@@ -213,16 +213,29 @@ public class GameManager : MonoBehaviour, IGameManager
         EnableShopButton();
         FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
         FindObjectOfType<Deck>().DrawCardToHand();
-        //FindObjectOfType<DraftManager>().Draft();
         BuildConstructionRooms();
         FindObjectOfType<SoulShop>().EnableDraft();
-        //CreateRoommateRequests();
+        BuildStart();
+    }
+
+    private void BuildStart()
+    {
+        var allRooms = FindObjectsOfType<Room>();
+        foreach (var room in allRooms)
+        {
+            StartCoroutine(room.BuildStart());
+        }
     }
 
     private void ResetRooms()
     {
         foreach (var movedMonster in movedMonsters)
         {
+            if (movedMonster.isTemporary)
+            {
+                continue;
+            }
+ 
             movedMonster.ResetToOriginRoom();
         }
 

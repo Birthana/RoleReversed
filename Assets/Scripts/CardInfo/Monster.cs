@@ -7,6 +7,7 @@ public class Monster : Character
 {
     private readonly string EFFECT_ICON_PREFAB_FILE_PATH = "Prefabs/EffectIcon";
     private readonly string PULL_INDICATOR_PREFAB_FILE_PATH = "Prefabs/PullIndicator";
+    private readonly string PUSH_INDICATOR_PREFAB_FILE_PATH = "Prefabs/PushIndicator";
 
     public bool isTemporary = false;
     public MonsterCardInfo cardInfo;
@@ -146,12 +147,35 @@ public class Monster : Character
         SpawnPullIndicator(GetCurrentPosition());
     }
 
+    public void Push(Room newRoom)
+    {
+        if (origin == null)
+        {
+            origin = GetCurrentRoom();
+            FindObjectOfType<GameManager>().AddToTempMove(this);
+        }
+
+        SpawnPushIndicator(GetCurrentPosition());
+        Exit();
+        TemporaryLeave();
+        transform.SetParent(newRoom.transform);
+        newRoom.Add(this);
+    }
+
     private void SpawnPullIndicator(Vector3 position)
     {
         var pullIndicatorPrefab = Resources.Load<GameObject>(PULL_INDICATOR_PREFAB_FILE_PATH);
         var pullIndicator = Instantiate(pullIndicatorPrefab);
         pullIndicator.transform.position = position;
         Destroy(pullIndicator, 0.5f);
+    }
+
+    private void SpawnPushIndicator(Vector3 position)
+    {
+        var pushIndicatorPrefab = Resources.Load<GameObject>(PUSH_INDICATOR_PREFAB_FILE_PATH);
+        var pushIndicator = Instantiate(pushIndicatorPrefab);
+        pushIndicator.transform.position = position;
+        Destroy(pushIndicator, 0.5f);
     }
 
     private void TemporaryLeave()
@@ -198,6 +222,7 @@ public class Monster : Character
     {
         GetCurrentRoom().Leave(this);
         origin.Add(this);
+        origin = null;
         new ChangeSortingLayer(gameObject).SetToDefault();
     }
 }

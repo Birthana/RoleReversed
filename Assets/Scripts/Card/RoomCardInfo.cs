@@ -10,6 +10,7 @@ public class RoomCardInfo : CardInfo
     public int capacity;
 
     public virtual IEnumerator BattleStart(Room room) { yield return null; }
+    public virtual IEnumerator BuildStart(Room room) { yield return null; }
 
     public virtual Room GetFieldRoomPrefab()
     {
