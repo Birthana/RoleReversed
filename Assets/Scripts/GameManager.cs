@@ -204,7 +204,10 @@ public class GameManager : MonoBehaviour, IGameManager
     private IEnumerator Reset()
     {
         isRunning = false;
-        StopCoroutine(coroutine);
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
         yield return UnfocusOn(currentRoom);
         ResetPlayerToStartRoom();
         resetMonster.ResetFieldMonsters();

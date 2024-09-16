@@ -21,7 +21,7 @@ public class Room : MonoBehaviour
     private Capacity capacity;
     protected RoomCardInfo cardInfo;
     private Vector3 startPosition;
-    private List<Monster> roommateMonsters;
+    private List<Monster> roommateMonsters = new List<Monster>();
 
     protected Capacity GetCapacityComponent()
     {
@@ -119,6 +119,11 @@ public class Room : MonoBehaviour
     public void Enter(Monster monster)
     {
         Add(monster);
+        if (ShouldNotTrackCapacity(monster))
+        {
+            return;
+        }
+
         ReduceCapacity(1);
     }
 
@@ -130,9 +135,23 @@ public class Room : MonoBehaviour
         DisplayMonsters();
     }
 
+    private bool ShouldTrackCapacity(Monster monster)
+    {
+        return !monster.isTemporary || (monster.isTemporary && this is ConstructionRoom);
+    }
+
+    private bool ShouldNotTrackCapacity(Monster monster)
+    {
+        return !ShouldTrackCapacity(monster);
+    }
+
     public void LeaveEffectCapacity(Monster monster)
     {
-        IncreaseCapacity(1);
+        if (ShouldTrackCapacity(monster))
+        {
+            IncreaseCapacity(1);
+        }
+
         Leave(monster);
     }
 
@@ -163,21 +182,14 @@ public class Room : MonoBehaviour
 
     public void Remove(Monster monster)
     {
-        if (monster.isTemporary)
-        {
-            RemoveTemporaryMonster(monster);
-            return;
-        }
-
         monster.gameObject.SetActive(false);
         monster.Exit();
     }
 
-    private void RemoveTemporaryMonster(Monster monster)
+    public void RemoveTemporary(Monster monster)
     {
-        monsters.Remove(monster);
+        LeaveEffectCapacity(monster);
         DestroyImmediate(monster.gameObject);
-        DisplayMonsters();
     }
 
     public Monster GetRandomMonster()
@@ -359,9 +371,25 @@ public class Room : MonoBehaviour
         roommateMonsters[1].UnHighlight();
     }
 
-    private bool HasNoHighlightedMonsters() { return !HasHighlightedMonsters(); }
+    private bool HasNoHighlightedMonsters()
+    {
+        if (roommateMonsters == null)
+        {
+            return true;
+        }
 
-    private bool HasHighlightedMonsters() { return roommateMonsters[0].IsHighlighted(); }
+        return !HasHighlightedMonsters();
+    }
+
+    private bool HasHighlightedMonsters()
+    {
+        if (roommateMonsters == null)
+        {
+            return true;
+        }
+
+        return roommateMonsters[0].IsHighlighted();
+    }
 
     public List<Monster> GetRoommateMonsters() { return roommateMonsters; }
 

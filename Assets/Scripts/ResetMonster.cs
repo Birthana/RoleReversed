@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,7 +37,7 @@ public class ResetMonster : MonoBehaviour
         {
             if (monster.isTemporary)
             {
-                monster.transform.parent.GetComponent<Room>().Remove(monster);
+                monster.transform.parent.GetComponent<Room>().RemoveTemporary(monster);
             }
         }
 

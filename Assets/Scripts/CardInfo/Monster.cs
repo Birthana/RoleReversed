@@ -20,6 +20,7 @@ public class Monster : Character
         cardInfo = monsterCardInfo;
         var spriteRender = GetComponent<SpriteRenderer>();
         spriteRender.sprite = cardInfo.fieldSprite;
+        AddToGlobal();
         Entrance();
         Setup(cardInfo.GetDamage(), cardInfo.GetHealth());
         damageAnim = new DamageAnimation(spriteRender, Color.green, 0.01f);
@@ -49,11 +50,20 @@ public class Monster : Character
         GetHealthComponent().IncreaseMaxHealthWithoutReset(health);
     }
 
+    public void AddToGlobal()
+    {
+        if (cardInfo != null)
+        {
+            cardInfo.Global(this);
+        }
+    }
+
     public void Entrance()
     {
         if (cardInfo != null)
         {
             cardInfo.Entrance(this);
+            FindObjectOfType<GlobalEffects>().Entrance(this);
         }
     }
 
@@ -62,6 +72,7 @@ public class Monster : Character
         if (cardInfo != null)
         {
             cardInfo.Engage(this, null);
+            FindObjectOfType<GlobalEffects>().Engage(this);
         }
     }
 
@@ -70,6 +81,7 @@ public class Monster : Character
         if (cardInfo != null)
         {
             cardInfo.Exit(this);
+            FindObjectOfType<GlobalEffects>().Exit(this);
         }
     }
 

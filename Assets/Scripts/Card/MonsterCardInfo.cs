@@ -18,6 +18,10 @@ public class MonsterCardInfo : CardInfo
         return health;
     }
 
+    public virtual void Global(Monster self)
+    {
+    }
+
     public virtual void Entrance(Monster self)
     {
     }
