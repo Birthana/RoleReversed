@@ -114,10 +114,28 @@ public class Pack : MonoBehaviour
         cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIsMonster));
     }
 
+    public void LoadRandomMonsterThatCostOne()
+    {
+        var rngCards = FindObjectOfType<CardManager>();
+        cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIsMonsterAndCostOne));
+    }
+
+    public void LoadRandomMonsterThatCostTwo()
+    {
+        var rngCards = FindObjectOfType<CardManager>();
+        cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIsMonsterAndCostTwo));
+    }
+
     public void LoadRandomRoom()
     {
         var rngCards = FindObjectOfType<CardManager>();
         cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIsRoom));
+    }
+
+    public void LoadRandomConstructionRoom()
+    {
+        var rngCards = FindObjectOfType<CardManager>();
+        cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIsConstructionRoom));
     }
 
     private bool TotalCostIsGreaterThanThree(List<CardInfo> cardInfos)

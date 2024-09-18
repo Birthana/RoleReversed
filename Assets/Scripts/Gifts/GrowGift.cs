@@ -9,7 +9,7 @@ public class GrowGift : RoommateEffectInfo
         var randomMonster = room.GetRandomMonster();
         if (randomMonster != null)
         {
-            randomMonster.IncreaseStats(1, 1);
+            randomMonster.IncreaseStats(2, 2);
         }
 
         yield return null;

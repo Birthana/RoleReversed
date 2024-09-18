@@ -66,6 +66,18 @@ public class CardManager : MonoBehaviour
 
     public bool CardInfoIsMonster(CardInfo cardInfo) { return cardInfo is MonsterCardInfo; }
 
+    public bool CardInfoIsMonsterAndCostOne(CardInfo cardInfo)
+    {
+        return CardInfoIsMonster(cardInfo, 1);
+    }
+
+    public bool CardInfoIsMonsterAndCostTwo(CardInfo cardInfo)
+    {
+        return CardInfoIsMonster(cardInfo, 2);
+    }
+
+    private bool CardInfoIsMonster(CardInfo cardInfo, int cost) { return cardInfo is MonsterCardInfo && (cardInfo.cost == cost); }
+
     public bool CardInfoIsLowCostRoom(CardInfo cardInfo)
     {
         return CardInfoIsRoom(cardInfo) && (cardInfo.cost < 3) && ListContainsCard(commons, cardInfo)
@@ -73,6 +85,11 @@ public class CardManager : MonoBehaviour
     }
 
     public bool CardInfoIsRoom(CardInfo cardInfo) { return cardInfo.IsRoom(); }
+
+    public bool CardInfoIsConstructionRoom(CardInfo cardInfo)
+    {
+        return cardInfo is ConstructionRoomCardInfo;
+    }
 
     public CardInfo GetValidCardInfo(Func<CardInfo, bool> requirementFunction)
     {
