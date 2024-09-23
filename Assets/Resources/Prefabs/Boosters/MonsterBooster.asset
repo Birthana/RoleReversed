@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e00f9152f8ab3438371f9ab3493627, type: 3}
   m_Name: MonsterBooster
   m_EditorClassIdentifier: 
-  packPrefab: {fileID: 4177456929125811513, guid: ba3070f0221f9e143b8c78e828e45009, type: 3}
+  description: A pack with 3 random cards, 2 Monsters guarantee.

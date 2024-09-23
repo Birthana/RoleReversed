@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5898c8e137d9fb4981d0e8097960468, type: 3}
+  m_Name: YellowSlime
+  m_EditorClassIdentifier: 
+  cardName: Yellow Slime
+  fieldSprite: {fileID: -99023764, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
+  cost: 3
+  effectDescription: '[Exit] Spawn 2 2/2 Slimes'
+  damage: 4
+  health: 4
+  tempMonsterCardInfo: {fileID: 11400000, guid: df214423dbd494645bdc26fa0fcdb924, type: 2}

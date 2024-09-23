@@ -13,11 +13,11 @@ public class CardManagerTest
         deck.Draw();
 
         // Act
-        deck.Add(cardManager.GetCommonCardInfo());
+        deck.Add(cardManager.GetEasyCardInfo());
         var monsterCard = deck.Draw();
 
         // Assert
-        Assert.AreEqual(true, cardManager.CardIsCommon(monsterCard));
+        Assert.AreEqual(true, cardManager.CardIsEasy(monsterCard));
     }
 
     [Test]

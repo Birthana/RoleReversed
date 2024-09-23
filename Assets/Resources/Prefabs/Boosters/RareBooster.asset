@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2f4e9e96552ad40acd46a5e4f114fd, type: 3}
   m_Name: RareBooster
   m_EditorClassIdentifier: 
-  packPrefab: {fileID: 4177456929125811513, guid: ba3070f0221f9e143b8c78e828e45009, type: 3}
+  description: A pack with 5 random cards, 1 Rare guarantee.

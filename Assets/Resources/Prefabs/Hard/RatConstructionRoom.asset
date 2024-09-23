@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db2441b1cc0850458ad1f88acc87bb2, type: 3}
+  m_Name: RatConstructionRoom
+  m_EditorClassIdentifier: 
+  cardName: RatConstructionRoom
+  fieldSprite: {fileID: 21300000, guid: bb2965092dba79d4fa20a7ebccb8d4ce, type: 3}
+  cost: 1
+  effectDescription: '[Battle Start] Draw a 1A 3/1 Rat.
+
+    Then, it attacks.'
+  capacity: 1
+  timer: 1
+  roomCardInfo: {fileID: 11400000, guid: 700489b6017009c449954c5c3ccebff4, type: 2}

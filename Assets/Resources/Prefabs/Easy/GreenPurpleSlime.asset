@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87f47cbdffb210479ecfd3624a31b38, type: 3}
+  m_Name: GreenPurpleSlime
+  m_EditorClassIdentifier: 
+  cardName: GreenPurpleSlime
+  fieldSprite: {fileID: 21300000, guid: 5418de3577c71194d9ad9120ac1b9e81, type: 3}
+  cost: 1
+  effectDescription: '[Entrance] Spawn 1 1/1 Slime'
+  damage: 1
+  health: 2
+  tempMonsterCardInfo: {fileID: 11400000, guid: 16c0ec62134bf2f42af7ec72e84e0131, type: 2}

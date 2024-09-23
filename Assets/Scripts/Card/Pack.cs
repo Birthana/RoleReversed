@@ -138,6 +138,20 @@ public class Pack : MonoBehaviour
         cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIsConstructionRoom));
     }
 
+    public void LoadRandomMediumCard()
+    {
+        var rngCards = FindObjectOfType<CardManager>();
+        rngCards.UnlockMediumCards();
+        cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIsMedium));
+    }
+
+    public void LoadRandomHardCard()
+    {
+        var rngCards = FindObjectOfType<CardManager>();
+        rngCards.UnlockHardCards();
+        cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIsHard));
+    }
+
     private bool TotalCostIsGreaterThanThree(List<CardInfo> cardInfos)
     {
         return GetTotalCost(cardInfos) > 3;
