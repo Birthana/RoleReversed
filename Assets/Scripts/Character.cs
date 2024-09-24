@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -50,4 +51,6 @@ public class Character : MonoBehaviour
     public void IncreaseDamage(int increase) { GetDamageComponent().IncreaseMaxDamage(increase); }
 
     public void ReduceDamage(int decrease) { GetDamageComponent().DecreaseMaxDamage(decrease); }
+
+    public virtual IEnumerator MakeAttack(Character character) { yield return null; }
 }

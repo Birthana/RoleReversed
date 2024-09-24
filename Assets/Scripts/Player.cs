@@ -19,12 +19,16 @@ public class Player : Character
         base.Awake();
     }
 
-    public void MakeAttackOn(Character character)
+    public void AddToBattleDeck()
     {
-        StartCoroutine(MakeAttack(character));
+        var battleDeck = FindObjectOfType<BattleDeck>();
+        var attack = ScriptableObject.CreateInstance<AttackMonster>();
+        attack.SetCharacter(this);
+        attack.SetRoom(transform.parent.GetComponent<Room>());
+        battleDeck.Add(attack);
     }
 
-    public IEnumerator MakeAttack(Character character)
+    public override IEnumerator MakeAttack(Character character)
     {
         var hoverAnimation = GetComponent<HoverAnimation>();
         hoverAnimation.ResetHoverAnimation();

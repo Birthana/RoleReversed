@@ -49,6 +49,17 @@ public class Room : MonoBehaviour
 
     public Vector3 GetStartPosition() { return startPosition; }
 
+    public void AddToBattleDeck()
+    {
+        var battleDeck = FindObjectOfType<BattleDeck>();
+        foreach (var monster in monsters)
+        {
+            var attack = ScriptableObject.CreateInstance<AttackPlayer>();
+            attack.SetCharacter(monster);
+            battleDeck.Add(attack);
+        }
+    }
+
     public IEnumerator MakeAttack(Character character)
     {
         foreach (var monster in monsters.ToList())
@@ -63,7 +74,7 @@ public class Room : MonoBehaviour
                 continue;
             }
 
-            yield return monster.Attack(character);
+            yield return monster.MakeAttack(character);
         }
     }
 
@@ -75,7 +86,7 @@ public class Room : MonoBehaviour
             yield break;
         }
 
-        yield return monsters[randomIndex].Attack(character);
+        yield return monsters[randomIndex].MakeAttack(character);
     }
 
     public void SetCapacity(int capacity)

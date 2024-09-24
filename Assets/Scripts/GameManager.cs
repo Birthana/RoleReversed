@@ -344,6 +344,9 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private IEnumerator MakeAttacks()
     {
+        FindObjectOfType<BattleDeck>().Clear();
+        player.AddToBattleDeck();
+        currentRoom.AddToBattleDeck();
         yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster()));
         yield return StartCoroutine(currentRoom.MakeAttack(player));
     }

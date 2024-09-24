@@ -85,7 +85,7 @@ public class Monster : Character
         }
     }
 
-    public IEnumerator Attack(Character character)
+    public override IEnumerator MakeAttack(Character character)
     {
         yield return PlayAttackAnimation();
         character.TakeDamage(GetDamage());
