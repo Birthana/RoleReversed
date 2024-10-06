@@ -9,4 +9,6 @@ public class Damage : Counter
     public void IncreaseMaxDamageWithoutReset(int increase) { IncreaseMaxCountWithoutReset(increase); }
 
     public void DecreaseMaxDamage(int decrease) { DecreaseMaxCount(decrease); }
+
+    public void TemporaryIncreaseDamage(int increase) { IncreaseCount(increase); }
 }

@@ -26,7 +26,7 @@ public class CardUI : MonoBehaviour
         cost.Display(cardCost);
     }
 
-    private void SetCardSprite(Sprite sprite)
+    protected void SetCardSprite(Sprite sprite)
     {
         if (cardSprite == null)
         {
@@ -36,7 +36,7 @@ public class CardUI : MonoBehaviour
         cardSprite.sprite = sprite;
     }
 
-    private void SetDescription(string cardDescription)
+    protected void SetDescription(string cardDescription)
     {
         if (description == null)
         {

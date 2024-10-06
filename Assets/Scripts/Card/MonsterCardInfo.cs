@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewCard", menuName = "CardInfo/Monster")]
@@ -7,6 +8,7 @@ public class MonsterCardInfo : CardInfo
     private static readonly string MONSTER_CARD_UI_PREFAB = "Prefabs/MonsterCardUI";
     public int damage;
     public int health;
+    public List<BattleCardInfo> attackDeck = new List<BattleCardInfo>();
 
     public virtual int GetDamage()
     {
@@ -32,6 +34,18 @@ public class MonsterCardInfo : CardInfo
 
     public virtual void Exit(Monster self)
     {
+    }
+
+    public virtual List<BattleCardInfo> GetAttackDeck()
+    {
+        var newCopyDeck = new List<BattleCardInfo>();
+        foreach (var card in attackDeck)
+        {
+            var newCopy = Instantiate(card);
+            newCopyDeck.Add(newCopy);
+        }
+
+        return newCopyDeck;
     }
 
     public override Card GetCardPrefab()

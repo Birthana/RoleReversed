@@ -16,5 +16,7 @@ MonoBehaviour:
   fieldSprite: {fileID: 21300000, guid: bb053d977b322ef4da496aea1a535111, type: 3}
   cost: 2
   effectDescription: '[Engage] +1/1 to all Room Monsters'
+  tags: 00000000
   damage: 1
   health: 4
+  attackDeck: []

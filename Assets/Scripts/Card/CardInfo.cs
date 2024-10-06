@@ -1,5 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
+public enum Tag
+{
+    Slime, Goblin, Rat, Statue, Room
+}
 
 #pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 public class CardInfo : ScriptableObject
@@ -11,6 +17,7 @@ public class CardInfo : ScriptableObject
     public int cost;
     [TextArea(1, 2)]
     public string effectDescription;
+    public List<Tag> tags;
 
     public override bool Equals(object other)
     {

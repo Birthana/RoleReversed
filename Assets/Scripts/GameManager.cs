@@ -24,6 +24,7 @@ public struct RoommateRoom
 
 public class GameManager : MonoBehaviour, IGameManager
 {
+    public static readonly float ATTACK_TIMER = 0.5f;
     private static readonly string GIFTS_FILE_PATH = "Prefabs/Gifts";
     public GameObject requestPrefab;
     public Player playerPrefab;
@@ -85,7 +86,9 @@ public class GameManager : MonoBehaviour, IGameManager
         startButton.SetActive(false);
         SpawnPackInRandomSpot();
         GetResetMonster();
-        GetFocusAnimation().SetFocusPosition(Vector3.up * 3);
+        var focusPosition = Vector3.left * 3;
+        focusPosition.y = 1;
+        GetFocusAnimation().SetFocusPosition(focusPosition);
         GetFocusAnimation().SetFocusScale(2.5f);
         LoadRoommateGifts();
     }
@@ -127,7 +130,7 @@ public class GameManager : MonoBehaviour, IGameManager
         GiveRoommateBonus();
         CheckRoommateBonusActive();
         isRunning = true;
-        resetMonster.SetMonsters(new List<Monster>(FindObjectsOfType<Monster>()));
+        resetMonster.SetMonstersLocked(new List<Monster>(FindObjectsOfType<Monster>()));
         coroutine = StartCoroutine(WalkThruDungeon());
     }
 
@@ -158,7 +161,7 @@ public class GameManager : MonoBehaviour, IGameManager
         }
 
         var room = roommates[0].transform.parent.GetComponent<Room>();
-        room.AddRoommateEffect(giftInfos[Random.Range(0, giftInfos.Count)], roommates);
+        room.AddRoommateEffect(giftInfos[UnityEngine.Random.Range(0, giftInfos.Count)], roommates);
         rooms.Add(room);
     }
 
@@ -208,6 +211,8 @@ public class GameManager : MonoBehaviour, IGameManager
         {
             StopCoroutine(coroutine);
         }
+
+        FindObjectOfType<BattleDeck>().Clear();
         yield return UnfocusOn(currentRoom);
         ResetPlayerToStartRoom();
         resetMonster.ResetFieldMonsters();
@@ -219,6 +224,7 @@ public class GameManager : MonoBehaviour, IGameManager
         BuildConstructionRooms();
         FindObjectOfType<SoulShop>().EnableDraft();
         BuildStart();
+        FindObjectOfType<SoulShop>().OpenShop();
     }
 
     private void BuildStart()
@@ -292,8 +298,8 @@ public class GameManager : MonoBehaviour, IGameManager
     private void SpawnPackInRandomSpot()
     {
         var newPack = Instantiate(packPrefab);
-        newPack.LoadPack();
-        newPack.transform.position = new Vector3(Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 0);
+        newPack.LoadStarterPack();
+        newPack.transform.position = new Vector3(UnityEngine.Random.Range(-3.0f, 3.0f), UnityEngine.Random.Range(-3.0f, 3.0f), 0);
     }
 
     private void SetRoom(Room room)
@@ -344,11 +350,23 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private IEnumerator MakeAttacks()
     {
-        FindObjectOfType<BattleDeck>().Clear();
-        player.AddToBattleDeck();
-        currentRoom.AddToBattleDeck();
-        yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster()));
-        yield return StartCoroutine(currentRoom.MakeAttack(player));
+        var battleDeck = FindObjectOfType<BattleDeck>();
+        if (battleDeck.IsEmpty())
+        {
+            player.AddToBattleDeck();
+            yield return new WaitForSeconds(ATTACK_TIMER);
+            yield return currentRoom.AddToBattleDeck();
+            battleDeck.Shuffle();
+            yield return new WaitForSeconds(ATTACK_TIMER / 1.5f);
+        }
+
+        yield return StartCoroutine(battleDeck.PlayTopCard());
+        if (ShouldExitRoom())
+        {
+            yield break;
+        }
+
+        yield return new WaitForSeconds(ATTACK_TIMER / 2);
     }
 
     public IEnumerator WalkThruDungeon()
@@ -359,7 +377,7 @@ public class GameManager : MonoBehaviour, IGameManager
         bool still_running = true;
         while (still_running)
         {
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(ATTACK_TIMER / 2);
 
             if (GameOver())
             {
@@ -370,6 +388,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
             if (ShouldExitRoom())
             {
+                FindObjectOfType<BattleDeck>().Clear();
                 yield return UnfocusOnCurrentRoom();
                 GoToNextRoom();
                 PlayerMoveTo(currentRoom);

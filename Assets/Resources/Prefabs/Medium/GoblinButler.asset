@@ -17,6 +17,8 @@ MonoBehaviour:
   cost: 3
   effectDescription: "[Entrance] Capacity -2 to give Room \n\"[Battle Start] A Room
     monster gets +2/2\""
+  tags: 01000000
   damage: 3
   health: 4
+  attackDeck: []
   growGift: {fileID: 11400000, guid: ef0ad03a2b6e5c8439dacd625dc36b2c, type: 2}

@@ -18,6 +18,8 @@ MonoBehaviour:
   effectDescription: '[Entrance] If 2 or more empty adjacent room,
 
     Draw 1 card'
+  tags: 00000000
   damage: 3
   health: 6
+  attackDeck: []
   numberOfEmptyRooms: 2

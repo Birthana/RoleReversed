@@ -16,4 +16,5 @@ MonoBehaviour:
   fieldSprite: {fileID: -302848885, guid: f6d8bd116986ee946830499f748b35d3, type: 3}
   cost: 1
   effectDescription: 
+  tags: 04000000
   capacity: 2

@@ -16,5 +16,7 @@ MonoBehaviour:
   fieldSprite: {fileID: 21300000, guid: bcf9224d81834d14f8957b268b9ad46e, type: 3}
   cost: 2
   effectDescription: Temp Slimes have "[Exit] Deal 2 damage"
+  tags: 00000000
   damage: 1
   health: 4
+  attackDeck: []

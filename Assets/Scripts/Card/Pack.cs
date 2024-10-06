@@ -36,27 +36,32 @@ public class Pack : MonoBehaviour
 
     public void LoadStarterPack()
     {
+        LoadCardsInPack(GetStarterPack());
+        SetDrawOnOpen();
+        SetDrawOnOpen();
+        SetDrawOnOpen();
+        SetDrawOnOpen();
+        SetDrawOnOpen();
+    }
+
+    private void LoadCardsInPack(List<CardInfo> cards)
+    {
+        foreach (var cardInfo in cards)
+        {
+            cardInfos.Add(cardInfo);
+        }
+    }
+
+    private List<CardInfo> GetStarterPack()
+    {
         var rngCards = FindObjectOfType<CardManager>();
-        cardInfos = rngCards.GetValidStarterCardInfos(TotalCostIsGreaterThanThree);
-        SetDrawOnOpen();
-        SetDrawOnOpen();
+        return rngCards.GetValidStarterCardInfos(TotalCostIsGreaterThanEight);
     }
 
     public void LoadBasicPack()
     {
         LoadRandomMonster();
         LoadRandomRoom();
-    }
-
-    public void LoadPack()
-    {
-        LoadStarterPack();
-        LoadRandomMonster();
-        LoadRandomMonster();
-        LoadRandomRoom();
-        SetDrawOnOpen();
-        SetDrawOnOpen();
-        SetDrawOnOpen();
     }
 
     public void LoadRandomRarePack()
@@ -152,9 +157,9 @@ public class Pack : MonoBehaviour
         cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIsHard));
     }
 
-    private bool TotalCostIsGreaterThanThree(List<CardInfo> cardInfos)
+    private bool TotalCostIsGreaterThanEight(List<CardInfo> cardInfos)
     {
-        return GetTotalCost(cardInfos) > 3;
+        return GetTotalCost(cardInfos) > 8;
     }
 
     private int GetTotalCost(List<CardInfo> cardInfos)

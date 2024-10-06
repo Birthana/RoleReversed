@@ -18,5 +18,7 @@ MonoBehaviour:
   effectDescription: '[Engage] [Push] a Room monster
 
     to adjacent Room with +0/2'
+  tags: 03000000
   damage: 1
   health: 5
+  attackDeck: []

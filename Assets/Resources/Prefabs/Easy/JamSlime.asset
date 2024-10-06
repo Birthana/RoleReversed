@@ -16,5 +16,7 @@ MonoBehaviour:
   fieldSprite: {fileID: 21300000, guid: 0625bc423474203448fb1a990f5a543f, type: 3}
   cost: 1
   effectDescription: '[Entrance] Deal 1 damage'
+  tags: 00000000
   damage: 2
   health: 1
+  attackDeck: []

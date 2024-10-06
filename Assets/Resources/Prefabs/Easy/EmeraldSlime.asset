@@ -16,6 +16,8 @@ MonoBehaviour:
   fieldSprite: {fileID: 21300000, guid: d0e2b782ae19b7e4ba7eca1b3d18d463, type: 3}
   cost: 1
   effectDescription: '[Exit] Spawn 1 1/1 Slime'
+  tags: 00000000
   damage: 1
   health: 1
+  attackDeck: []
   tempMonsterCardInfo: {fileID: 11400000, guid: 16c0ec62134bf2f42af7ec72e84e0131, type: 2}

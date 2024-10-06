@@ -141,12 +141,18 @@ public class MonsterDragger : MonoBehaviour
 
     public void PickUp()
     {
-        if (monster == null && mouse.IsOnMonster())
+        if (monster == null && mouse.IsOnMonster() && MonsterIsNotAssigned())
         {
             monster = mouse.GetHitComponent<Monster>();
             returnRoom = monster.GetComponentInParent<Room>();
             FindObjectOfType<ToolTipManager>().Toggle();
         }
+    }
+
+    private bool MonsterIsNotAssigned()
+    {
+        var hoveredMonster = mouse.GetHitComponent<Monster>();
+        return !hoveredMonster.IsAssigned();
     }
 
     public void MoveSelected()

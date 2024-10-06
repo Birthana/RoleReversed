@@ -18,5 +18,7 @@ MonoBehaviour:
   effectDescription: '[Engage] If in Room, a hand
 
     monster attacks'
+  tags: 02000000
   damage: 2
   health: 3
+  attackDeck: []

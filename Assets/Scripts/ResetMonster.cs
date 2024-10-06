@@ -15,6 +15,16 @@ public class ResetMonster : MonoBehaviour
         this.monsters = monsters;
     }
 
+    public void SetMonstersLocked(List<Monster> monsters)
+    {
+        foreach (var monster in monsters)
+        {
+            monster.Lock();
+        }
+
+        this.monsters = monsters;
+    }
+
     public void ResetFieldMonsters()
     {
         ResetAllMonsterStats();

@@ -1,10 +1,14 @@
 using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 
 
 public class Monster : Character
 {
+    private event Action OnLock;
+    private event Action OnUnlock;
     private readonly string EFFECT_ICON_PREFAB_FILE_PATH = "Prefabs/EffectIcon";
     private readonly string PULL_INDICATOR_PREFAB_FILE_PATH = "Prefabs/PullIndicator";
     private readonly string PUSH_INDICATOR_PREFAB_FILE_PATH = "Prefabs/PushIndicator";
@@ -14,6 +18,10 @@ public class Monster : Character
     private DamageAnimation damageAnim;
     private bool isHighlighted = false;
     private Room origin;
+    private bool isAssigned = false;
+
+    public void AddToOnLock(Action func) { OnLock += func; }
+    public void AddToOnUnlock(Action func) { OnUnlock += func; }
 
     public void Setup(MonsterCardInfo monsterCardInfo)
     {
@@ -50,6 +58,12 @@ public class Monster : Character
         GetHealthComponent().IncreaseMaxHealthWithoutReset(health);
     }
 
+    public void TemporaryIncreaseStats(int damage, int health)
+    {
+        GetDamageComponent().TemporaryIncreaseDamage(damage);
+        GetHealthComponent().TemporaryIncreaseHealth(health);
+    }
+
     public void AddToGlobal()
     {
         if (cardInfo != null)
@@ -83,6 +97,24 @@ public class Monster : Character
             cardInfo.Exit(this);
             FindObjectOfType<GlobalEffects>().Exit(this);
         }
+    }
+
+    public List<BattleCardInfo> GetAttackDeck()
+    {
+        var battleDeck = cardInfo.GetAttackDeck();
+        if (battleDeck.Count == 0)
+        {
+            var attack = ScriptableObject.CreateInstance<AttackPlayer>();
+            attack.effectDescription = "Attack the Player.";
+            battleDeck.Add(attack);
+        }
+
+        foreach (var attack in battleDeck)
+        {
+            attack.SetCharacter(this);
+        }
+
+        return battleDeck;
     }
 
     public override IEnumerator MakeAttack(Character character)
@@ -236,5 +268,21 @@ public class Monster : Character
         origin.Add(this);
         origin = null;
         new ChangeSortingLayer(gameObject).SetToDefault();
+    }
+
+    public bool IsAssigned() { return isAssigned; }
+
+    private void SetAssigned(bool assign) { isAssigned = assign; }
+
+    public void Lock()
+    {
+        SetAssigned(true);
+        OnLock?.Invoke();
+    }
+
+    public void Unlock()
+    {
+        SetAssigned(false);
+        OnUnlock?.Invoke();
     }
 }

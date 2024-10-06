@@ -33,7 +33,6 @@ public class CardManager : MonoBehaviour
     {
         mediumCardsUnlocked = true;
         UnlockObjects(unlockWhenMediumCards);
-
     }
 
     public void UnlockHardCards()
@@ -125,6 +124,8 @@ public class CardManager : MonoBehaviour
         return cardInfo is ConstructionRoomCardInfo;
     }
 
+    public bool CardInfoIsEasy(CardInfo cardInfo) { return ListContainsCard(easy, cardInfo); }
+
     public bool CardInfoIsMedium(CardInfo cardInfo) { return ListContainsCard(medium, cardInfo); }
 
     public bool CardInfoIsHard(CardInfo cardInfo) { return ListContainsCard(hard, cardInfo); }
@@ -186,6 +187,17 @@ public class CardManager : MonoBehaviour
         return cardInfo;
     }
 
+    private CardInfo GetUniqueRandomCardInfo(Func<CardInfo, bool> requirementFunction, List<CardInfo> cardInfos)
+    {
+        CardInfo cardInfo;
+        do
+        {
+            cardInfo = GetRandomCardInfo();
+        } while (CardInfoIsNotUnique(cardInfo, cardInfos) || !requirementFunction(cardInfo));
+
+        return cardInfo;
+    }
+
     private bool CardInfoIsNotUnique(CardInfo currentCardInfo, List<CardInfo> cardInfos)
     {
         if (cardInfos.Count == 0)
@@ -209,19 +221,14 @@ public class CardManager : MonoBehaviour
         List<CardInfo> cardInfos;
         do
         {
-            cardInfos = GetValidStarterCardInfos();
+            cardInfos = new List<CardInfo>();
+            cardInfos.Add(GetUniqueRandomCardInfo(CardInfoIsLowCostRoom, cardInfos));
+            cardInfos.Add(GetUniqueRandomCardInfo(CardInfoIsLowCostMonster, cardInfos));
+            cardInfos.Add(GetUniqueRandomCardInfo(CardInfoIsLowCostRoom, cardInfos));
+            cardInfos.Add(GetUniqueRandomCardInfo(CardInfoIsLowCostMonster, cardInfos));
+            cardInfos.Add(GetUniqueRandomCardInfo(CardInfoIsEasy, cardInfos));
         } while (requirementFunction(cardInfos));
 
-        return cardInfos;
-    }
-
-    private List<CardInfo> GetValidStarterCardInfos()
-    {
-        var cardInfos = new List<CardInfo>();
-        var newCardInfo = GetValidCardInfo(CardInfoIsLowCostRoom);
-        cardInfos.Add(newCardInfo);
-        newCardInfo = GetValidCardInfo(CardInfoIsLowCostMonster);
-        cardInfos.Add(newCardInfo);
         return cardInfos;
     }
 

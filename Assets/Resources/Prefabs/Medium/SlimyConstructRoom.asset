@@ -16,6 +16,7 @@ MonoBehaviour:
   fieldSprite: {fileID: 816830599, guid: d9276957f44e8a14d9a191335dcdb286, type: 3}
   cost: 1
   effectDescription: '[Battle Start] Spawn a 1/1 Slime'
+  tags: 04000000
   capacity: 1
   timer: 1
   roomCardInfo: {fileID: 11400000, guid: f3bf00bc067fbeb42860a78106a84ae1, type: 2}

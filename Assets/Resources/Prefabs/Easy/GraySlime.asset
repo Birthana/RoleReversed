@@ -16,5 +16,7 @@ MonoBehaviour:
   fieldSprite: {fileID: -774015681, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
   cost: 2
   effectDescription: '[Exit] Draw 1 card'
-  damage: 3
+  tags: 00000000
+  damage: 1
   health: 4
+  attackDeck: []

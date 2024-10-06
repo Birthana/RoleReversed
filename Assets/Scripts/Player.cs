@@ -25,6 +25,7 @@ public class Player : Character
         var attack = ScriptableObject.CreateInstance<AttackMonster>();
         attack.SetCharacter(this);
         attack.SetRoom(transform.parent.GetComponent<Room>());
+        attack.effectDescription = "Attack a Room Monster.";
         battleDeck.Add(attack);
     }
 

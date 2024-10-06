@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GreenSlime
   m_EditorClassIdentifier: 
   cardName: Green Slime
-  cardSprite: {fileID: 21300000, guid: 91da6d1589f70884b8b0fe41f101420d, type: 3}
   fieldSprite: {fileID: 1612410023, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
   cost: 2
-  prefab: {fileID: 26669088733083598, guid: 2264cfa19620d414e9c72d67f17e0bcd, type: 3}
   effectDescription: 
+  tags: 00000000
   damage: 5
   health: 5
+  attackDeck: []

@@ -18,5 +18,7 @@ MonoBehaviour:
   effectDescription: '[Exit] [Pull] a monster
 
     in an adjacent room'
+  tags: 03000000
   damage: 1
   health: 3
+  attackDeck: []
