@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6af1bd28d142f4ebc70b257aad3378, type: 3}
   m_Name: MediumBooster
   m_EditorClassIdentifier: 
+  sprite: {fileID: -1070278878, guid: 3f41a81e3b011d84c8b133fc438078cb, type: 3}
+  cost: 2
   description: Unlocks Medium Cards. A pack of 5 random Medium cards.

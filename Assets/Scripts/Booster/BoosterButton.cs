@@ -4,38 +4,15 @@ using UnityEngine;
 public class BoosterButton : MonoBehaviour
 {
     public event Action<int> OnSoulCostChange;
-    public BoosterInfo boosterInfo;
-    public int soulCost;
-    public bool isLocked = false;
-    public bool unlockOnMediumCards = false;
-    public bool unlockOnHardCards = false;
+    private BoosterInfo boosterInfo;
 
-    private void Awake()
+    public void Setup(BoosterInfo info)
     {
+        boosterInfo = info;
+        GetComponent<SpriteRenderer>().sprite = info.sprite;
         OnSoulCostChange += GetComponent<BasicUI>().Display;
-        OnSoulCostChange?.Invoke(soulCost);
-        if (isLocked)
-        {
-            Lock();
-        }
-
-        AddToUnlock();
+        OnSoulCostChange?.Invoke(boosterInfo.cost);
     }
-
-    private void AddToUnlock()
-    {
-        if (unlockOnMediumCards)
-        {
-            FindObjectOfType<CardManager>().AddToMediumCardsUnlock(gameObject);
-        }
-
-        if (unlockOnHardCards)
-        {
-            FindObjectOfType<CardManager>().AddToHardCardsUnlock(gameObject);
-        }
-    }
-
-    private void Lock() { gameObject.SetActive(false); }
 
     private void OnMouseEnter()
     {
@@ -51,12 +28,12 @@ public class BoosterButton : MonoBehaviour
     private void OnMouseDown()
     {
         var playerSouls = FindObjectOfType<PlayerSoulCounter>();
-        if (playerSouls.GetCurrentSouls() < soulCost)
+        if (playerSouls.GetCurrentSouls() < boosterInfo.cost)
         {
             return;
         }
 
-        playerSouls.DecreaseSouls(soulCost);
+        playerSouls.DecreaseSouls(boosterInfo.cost);
         boosterInfo.CreatePack();
     }
 }

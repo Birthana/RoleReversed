@@ -64,12 +64,6 @@ public class Pack : MonoBehaviour
         LoadRandomRoom();
     }
 
-    public void LoadRandomRarePack()
-    {
-        var rngCards = FindObjectOfType<CardManager>();
-        cardInfos.Add(rngCards.GetRareCardInfo());
-    }
-
     public void CreateStarterPack()
     {
         LoadStarterPack();
@@ -111,6 +105,12 @@ public class Pack : MonoBehaviour
         {
             deck.Add(cardInfos[index]);
         }
+    }
+
+    public void LoadRandomCard(Tag tag)
+    {
+        var rngCards = FindObjectOfType<CardManager>();
+        cardInfos.Add(rngCards.GetValidCardInfo(rngCards.CardInfoIs, tag));
     }
 
     public void LoadRandomMonster()

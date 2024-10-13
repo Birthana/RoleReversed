@@ -11,4 +11,6 @@ public class Damage : Counter
     public void DecreaseMaxDamage(int decrease) { DecreaseMaxCount(decrease); }
 
     public void TemporaryIncreaseDamage(int increase) { IncreaseCount(increase); }
+
+    public void TemporaryDecreaseDamage(int decrease) { DecreaseCount(decrease); }
 }

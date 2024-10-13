@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2f4e9e96552ad40acd46a5e4f114fd, type: 3}
   m_Name: RareBooster
   m_EditorClassIdentifier: 
+  sprite: {fileID: 1604669443, guid: 3f41a81e3b011d84c8b133fc438078cb, type: 3}
+  cost: 3
   description: A pack with 5 random cards, 1 Rare guarantee.

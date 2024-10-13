@@ -24,4 +24,6 @@ public class Health : Counter
     public void IncreaseMaxHealthWithoutReset(int increase) { IncreaseMaxCountWithoutReset(increase); }
 
     public void TemporaryIncreaseHealth(int increase) { IncreaseCount(increase); }
+
+    public void TemporaryDecreaseHealth(int decrease) { DecreaseCount(decrease); }
 }

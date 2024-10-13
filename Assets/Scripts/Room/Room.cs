@@ -49,9 +49,8 @@ public class Room : MonoBehaviour
 
     public Vector3 GetStartPosition() { return startPosition; }
 
-    public IEnumerator AddToBattleDeck()
+    public IEnumerator MakeAttacks(Player player)
     {
-        var battleDeck = FindObjectOfType<BattleDeck>();
         foreach (var monster in monsters)
         {
             if (monster.IsDead() || monster.GetCurrentRoom() != this)
@@ -59,14 +58,13 @@ public class Room : MonoBehaviour
                 continue;
             }
 
-            var attackDeck = monster.GetAttackDeck();
-            foreach (var attack in attackDeck)
+            if (FindObjectOfType<Player>().IsDead())
             {
-                battleDeck.Add(attack);
+                yield break;
             }
-        }
 
-        yield return new WaitForSeconds(GameManager.ATTACK_TIMER / 2);
+            yield return monster.MakeAttack(player);
+        }
     }
 
     public IEnumerator MakeRandomAttack(Character character)
@@ -408,7 +406,6 @@ public class Room : MonoBehaviour
             return;
         }
 
-        FindObjectOfType<BattleDeck>(true).Remove(roomMonster);
         roomMonster.Pull(this);
         new ChangeSortingLayer(roomMonster.gameObject).SetToCurrentRoom();
     }
@@ -427,7 +424,6 @@ public class Room : MonoBehaviour
             return null;
         }
 
-        FindObjectOfType<BattleDeck>(true).Remove(roomMonster);
         roomMonster.Push(GetRandomAdjacentRoom());
         new ChangeSortingLayer(roomMonster.gameObject).SetToDefault();
         return roomMonster;

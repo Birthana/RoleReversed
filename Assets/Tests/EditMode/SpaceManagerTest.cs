@@ -21,7 +21,6 @@ public class SpaceManagerTest : MonoBehaviour
     {
         // Arrange
         var spaceManager = new GameObject().AddComponent<SpaceManager>();
-        spaceManager.spacePrefab = new GameObject();
 
         // Act
 
@@ -34,10 +33,8 @@ public class SpaceManagerTest : MonoBehaviour
     {
         // Arrange
         var spaceManager = new GameObject().AddComponent<SpaceManager>();
-        spaceManager.spacePrefab = new GameObject();
 
         // Act
-        spaceManager.SpawnSpace(new Vector2(3, 5));
 
         // Assert
         Assert.AreEqual(0, spaceManager.GetCount());
@@ -48,12 +45,10 @@ public class SpaceManagerTest : MonoBehaviour
     {
         // Arrange
         var spaceManager = new GameObject().AddComponent<SpaceManager>();
-        spaceManager.spacePrefab = new GameObject();
         spaceManager.numberOfSpaces = new Vector2(5, 3);
         spaceManager.SetupSpaces();
 
         // Act
-        spaceManager.SpawnSpace(new Vector2(5, 5));
 
         // Assert
         Assert.AreEqual(14, spaceManager.GetCount());
@@ -64,12 +59,10 @@ public class SpaceManagerTest : MonoBehaviour
     {
         // Arrange
         var spaceManager = new GameObject().AddComponent<SpaceManager>();
-        spaceManager.spacePrefab = new GameObject();
         spaceManager.numberOfSpaces = new Vector2(5, 3);
         spaceManager.SetupSpaces();
 
         // Act
-        spaceManager.SpawnSpaces(new Vector2(5, 5));
 
         // Assert
         Assert.AreEqual(11, spaceManager.GetCount());

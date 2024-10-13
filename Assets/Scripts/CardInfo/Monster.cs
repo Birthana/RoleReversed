@@ -58,12 +58,6 @@ public class Monster : Character
         GetHealthComponent().IncreaseMaxHealthWithoutReset(health);
     }
 
-    public void TemporaryIncreaseStats(int damage, int health)
-    {
-        GetDamageComponent().TemporaryIncreaseDamage(damage);
-        GetHealthComponent().TemporaryIncreaseHealth(health);
-    }
-
     public void AddToGlobal()
     {
         if (cardInfo != null)
@@ -97,24 +91,6 @@ public class Monster : Character
             cardInfo.Exit(this);
             FindObjectOfType<GlobalEffects>().Exit(this);
         }
-    }
-
-    public List<BattleCardInfo> GetAttackDeck()
-    {
-        var battleDeck = cardInfo.GetAttackDeck();
-        if (battleDeck.Count == 0)
-        {
-            var attack = ScriptableObject.CreateInstance<AttackPlayer>();
-            attack.effectDescription = "Attack the Player.";
-            battleDeck.Add(attack);
-        }
-
-        foreach (var attack in battleDeck)
-        {
-            attack.SetCharacter(this);
-        }
-
-        return battleDeck;
     }
 
     public override IEnumerator MakeAttack(Character character)

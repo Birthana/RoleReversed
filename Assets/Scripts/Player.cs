@@ -19,16 +19,6 @@ public class Player : Character
         base.Awake();
     }
 
-    public void AddToBattleDeck()
-    {
-        var battleDeck = FindObjectOfType<BattleDeck>();
-        var attack = ScriptableObject.CreateInstance<AttackMonster>();
-        attack.SetCharacter(this);
-        attack.SetRoom(transform.parent.GetComponent<Room>());
-        attack.effectDescription = "Attack a Room Monster.";
-        battleDeck.Add(attack);
-    }
-
     public override IEnumerator MakeAttack(Character character)
     {
         var hoverAnimation = GetComponent<HoverAnimation>();

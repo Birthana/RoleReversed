@@ -12,5 +12,6 @@ public class MediumBooster : BoosterInfo
         pack.LoadRandomMediumCard();
         pack.LoadRandomMediumCard();
         pack.LoadRandomMediumCard();
+        FindObjectOfType<SoulShop>().CloseShop();
     }
 }

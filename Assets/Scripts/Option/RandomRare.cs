@@ -8,7 +8,6 @@ public class RandomRare : OptionInfo
     public override void Choose()
     {
         var pack = Instantiate(packPrefab);
-        pack.LoadRandomRarePack();
         base.Choose();
     }
 }

@@ -5,48 +5,19 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    private static readonly string RARE_CARDS_FILE_PATH = "Prefabs/Rares";
     private static readonly string EASY_FILE_PATH = "Prefabs/Easy";
     private static readonly string MEDIUM_CARDS_FILE_PATH = "Prefabs/Medium";
     private static readonly string HARD_FILE_PATH = "Prefabs/Hard";
-    private List<CardInfo> rares = new List<CardInfo>();
     private List<CardInfo> easy = new List<CardInfo>();
     private List<CardInfo> medium = new List<CardInfo>();
     private List<CardInfo> hard = new List<CardInfo>();
-    private bool mediumCardsUnlocked = false;
-    private bool hardCardsUnlocked = false;
-    private List<GameObject> unlockWhenMediumCards = new List<GameObject>();
-    private List<GameObject> unlockWhenHardCards = new List<GameObject>();
+    private List<CardInfo> cardPool = new List<CardInfo>();
 
     public void Awake()
     {
-        LoadCards(RARE_CARDS_FILE_PATH, AddRareCard);
         LoadCards(EASY_FILE_PATH, AddEasyCard);
         LoadCards(MEDIUM_CARDS_FILE_PATH, AddMediumCard);
         LoadCards(HARD_FILE_PATH, AddHardCard);
-    }
-
-    public void AddToMediumCardsUnlock(GameObject unlockObject) { unlockWhenMediumCards.Add(unlockObject); }
-    public void AddToHardCardsUnlock(GameObject unlockObject) { unlockWhenHardCards.Add(unlockObject); }
-
-    public void UnlockMediumCards()
-    {
-        mediumCardsUnlocked = true;
-        UnlockObjects(unlockWhenMediumCards);
-    }
-
-    public void UnlockHardCards()
-    {
-        hardCardsUnlocked = true;
-        UnlockObjects(unlockWhenHardCards);
-    }
-
-    private void UnlockObjects(List<GameObject> unlockObjects)
-    {
-        foreach (var unlock in unlockObjects)
-        {
-            unlock.SetActive(true);
-        }
     }
 
     private void LoadCards(string path, Action<CardInfo> addToCardList)
@@ -58,12 +29,61 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public void AddRareCard(CardInfo card) { rares.Add(card); }
-    public void AddEasyCard(CardInfo card) { easy.Add(card); }
+    public void UnlockMediumCards()
+    {
+        AddToCardPool(medium);
+    }
+
+    public void UnlockHardCards()
+    {
+        AddToCardPool(hard);
+    }
+
+    public void UnlockCards(Tag tag)
+    {
+        AddToCardPool(easy, CardInfoIs, tag);
+        AddToCardPool(medium, CardInfoIs, tag);
+        AddToCardPool(hard, CardInfoIs, tag);
+    }
+
+    private void AddToCardPool(List<CardInfo> cards)
+    {
+        foreach (var card in cards)
+        {
+            AddToCardPool(card);
+        }
+    }
+
+    private void AddToCardPool(List<CardInfo> cards, Func<CardInfo,Tag, bool> requirementFunction, Tag tag)
+    {
+        foreach (var card in cards)
+        {
+            if (requirementFunction(card, tag))
+            {
+                AddToCardPool(card);
+            }
+        }
+    }
+
+    private void AddToCardPool(CardInfo card)
+    {
+        if (cardPool.Contains(card))
+        {
+            return;
+        }
+
+        cardPool.Add(card);
+    }
+
+    public void AddEasyCard(CardInfo card)
+    {
+        cardPool.Add(card);
+        easy.Add(card);
+    }
+
     public void AddMediumCard(CardInfo card) { medium.Add(card); }
     public void AddHardCard(CardInfo card) { hard.Add(card); }
 
-    public bool CardIsRare(Card card) { return ListContainsCard(rares, card); }
     public bool CardIsEasy(Card card) { return ListContainsCard(easy, card); }
     public bool CardIsMedium(Card card) { return ListContainsCard(medium, card); }
     public bool CardIsHard(Card card) { return ListContainsCard(hard, card); }
@@ -111,6 +131,8 @@ public class CardManager : MonoBehaviour
 
     private bool CardInfoIsMonster(CardInfo cardInfo, int cost) { return cardInfo is MonsterCardInfo && (cardInfo.cost == cost); }
 
+    public bool CardInfoIs(CardInfo cardInfo, Tag tag) { return cardInfo.tags.Contains(tag); }
+
     public bool CardInfoIsLowCostRoom(CardInfo cardInfo)
     {
         return CardInfoIsRoom(cardInfo) && (cardInfo.cost < 3) && ListContainsCard(easy, cardInfo)
@@ -141,10 +163,32 @@ public class CardManager : MonoBehaviour
         return cardInfo;
     }
 
+    public CardInfo GetValidCardInfo(Func<CardInfo, Tag, bool> requirementFunction, Tag tag)
+    {
+        CardInfo cardInfo = null;
+        do
+        {
+            cardInfo = GetValidCard(requirementFunction, tag);
+        } while (cardInfo == null);
+
+        return cardInfo;
+    }
+
     public CardInfo GetValidCard(Func<CardInfo, bool> requirementFunction)
     {
         var rngCardInfo = GetRandomCardInfo();
         if (requirementFunction(rngCardInfo))
+        {
+            return rngCardInfo;
+        }
+
+        return null;
+    }
+
+    public CardInfo GetValidCard(Func<CardInfo, Tag, bool> requirementFunction, Tag tag)
+    {
+        var rngCardInfo = GetRandomCardInfo();
+        if (requirementFunction(rngCardInfo, tag))
         {
             return rngCardInfo;
         }
@@ -232,23 +276,6 @@ public class CardManager : MonoBehaviour
         return cardInfos;
     }
 
-    public CardInfo GetRandomCardInfo()
-    {
-        int rngIndex = UnityEngine.Random.Range(0, 3);
-
-        if (rngIndex == 0 && hardCardsUnlocked)
-        {
-            return GetHardCardInfo();
-        }
-
-        if (rngIndex == 1 && mediumCardsUnlocked)
-        {
-            return GetMediumCardInfo();
-        }
-
-        return GetEasyCardInfo();
-    }
-
     public CardInfo GetEasyCardInfo()
     {
         int rngIndex = UnityEngine.Random.Range(0, easy.Count);
@@ -267,10 +294,10 @@ public class CardManager : MonoBehaviour
         return hard[rngIndex];
     }
 
-    public CardInfo GetRareCardInfo()
+    public CardInfo GetRandomCardInfo()
     {
-        int rngIndex = UnityEngine.Random.Range(0, rares.Count);
-        return rares[rngIndex];
+        int rngIndex = UnityEngine.Random.Range(0, cardPool.Count);
+        return cardPool[rngIndex];
     }
 }
 

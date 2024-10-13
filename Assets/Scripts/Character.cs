@@ -52,5 +52,17 @@ public class Character : MonoBehaviour
 
     public void ReduceDamage(int decrease) { GetDamageComponent().DecreaseMaxDamage(decrease); }
 
+    public void TemporaryIncreaseStats(int damage, int health)
+    {
+        GetDamageComponent().TemporaryIncreaseDamage(damage);
+        GetHealthComponent().TemporaryIncreaseHealth(health);
+    }
+
+    public void TemporaryDecreaseStats(int damage, int health)
+    {
+        GetDamageComponent().TemporaryDecreaseDamage(damage);
+        GetHealthComponent().TemporaryDecreaseHealth(health);
+    }
+
     public virtual IEnumerator MakeAttack(Character character) { yield return null; }
 }

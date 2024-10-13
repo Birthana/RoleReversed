@@ -1,6 +1,3 @@
-using UnityEngine;
-using TMPro;
-
 public class RoomCard : Card
 {
     private RoomCardUI cardUI;
@@ -9,7 +6,7 @@ public class RoomCard : Card
     private RoomTransform roomTransform;
     private RoomCardInfo roomCardInfo;
     private IMouseWrapper mouseWrapper;
-    private CardManager cardManager;
+    private SpaceManager spaces;
 
     public void SetMouseWrapper(IMouseWrapper wrapper)
     {
@@ -42,14 +39,14 @@ public class RoomCard : Card
         return gameManager;
     }
 
-    private CardManager GetCardManager()
+    private SpaceManager GetSpaceManager()
     {
-        if (cardManager == null)
+        if (spaces == null)
         {
-            cardManager = FindObjectOfType<CardManager>();
+            spaces = FindObjectOfType<SpaceManager>();
         }
 
-        return cardManager;
+        return spaces;
     }
 
     public override void SetCardInfo(CardInfo newCardInfo)
@@ -116,8 +113,7 @@ public class RoomCard : Card
     {
         var room = Instantiate(roomPrefab);
         room.Setup(roomCardInfo, roomTransform.GetTransform().position);
-        FindObjectOfType<SpaceManager>().SpawnSpaces(roomTransform.GetTransform().localPosition);
-        DestroyImmediate(roomTransform.GetTransform().gameObject);
+        GetSpaceManager().RemoveSpace(roomTransform.GetTransform().localPosition);
         if (GetGameManager().DoesNotHaveStartRoom())
         {
             GetGameManager().SetStartRoom(room);

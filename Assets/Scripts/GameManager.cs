@@ -212,7 +212,6 @@ public class GameManager : MonoBehaviour, IGameManager
             StopCoroutine(coroutine);
         }
 
-        FindObjectOfType<BattleDeck>().Clear();
         yield return UnfocusOn(currentRoom);
         ResetPlayerToStartRoom();
         resetMonster.ResetFieldMonsters();
@@ -350,23 +349,8 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private IEnumerator MakeAttacks()
     {
-        var battleDeck = FindObjectOfType<BattleDeck>();
-        if (battleDeck.IsEmpty())
-        {
-            player.AddToBattleDeck();
-            yield return new WaitForSeconds(ATTACK_TIMER);
-            yield return currentRoom.AddToBattleDeck();
-            battleDeck.Shuffle();
-            yield return new WaitForSeconds(ATTACK_TIMER / 1.5f);
-        }
-
-        yield return StartCoroutine(battleDeck.PlayTopCard());
-        if (ShouldExitRoom())
-        {
-            yield break;
-        }
-
-        yield return new WaitForSeconds(ATTACK_TIMER / 2);
+        yield return StartCoroutine(player.MakeAttack(currentRoom.GetRandomMonster()));
+        yield return StartCoroutine(currentRoom.MakeAttacks(player));
     }
 
     public IEnumerator WalkThruDungeon()
@@ -388,7 +372,6 @@ public class GameManager : MonoBehaviour, IGameManager
 
             if (ShouldExitRoom())
             {
-                FindObjectOfType<BattleDeck>().Clear();
                 yield return UnfocusOnCurrentRoom();
                 GoToNextRoom();
                 PlayerMoveTo(currentRoom);

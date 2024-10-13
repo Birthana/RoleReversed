@@ -7,7 +7,6 @@ public class RareBooster : BoosterInfo
     {
         var packPrefab = Resources.Load<Pack>("Prefabs/Pack");
         var pack = Instantiate(packPrefab);
-        pack.LoadRandomRarePack();
         pack.LoadRandomMonster();
         pack.LoadRandomMonster();
         pack.LoadRandomRoom();
