@@ -7,11 +7,12 @@ public class TagBooster : BoosterInfo
 
     public override void CreatePack()
     {
-        var packPrefab = Resources.Load<Pack>("Prefabs/Pack");
-        var pack = Instantiate(packPrefab);
-        pack.LoadRandomCard(tag);
-        pack.LoadRandomCard(tag);
-        pack.LoadRandomCard(tag);
+        //var packPrefab = Resources.Load<Pack>("Prefabs/Pack");
+        //var pack = Instantiate(packPrefab);
+        //pack.LoadRandomCard(tag);
+        //pack.LoadRandomCard(tag);
+        //pack.LoadRandomCard(tag);
+        FindObjectOfType<DraftManager>().Draft(3, tag);
     }
 
     public override void Unlock()

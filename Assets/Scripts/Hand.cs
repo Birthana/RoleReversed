@@ -5,9 +5,10 @@ public class Hand : MonoBehaviour
 {
     public List<Card> hand = new List<Card>();
     public float SPACING;
+    public int HANDSIZE;
     private ICardDragger cardDragger;
 
-    public bool IsFull() { return hand.Count == 8; }
+    public bool IsFull() { return hand.Count == HANDSIZE; }
 
     public void SetCardDragger(ICardDragger newCardDragger)
     {
@@ -26,6 +27,7 @@ public class Hand : MonoBehaviour
 
         randomHandMonster.PlayChosenAnim();
         FindObjectOfType<Player>().TakeDamage(randomHandMonster);
+        FindObjectOfType<GlobalEffects>().HandEngage(null, randomHandMonster);
         return randomHandMonster;
     }
 

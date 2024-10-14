@@ -33,6 +33,8 @@ public class BoosterButton : MonoBehaviour
             return;
         }
 
+        FindObjectOfType<SoulShop>().CloseShop();
+        FindObjectOfType<BoosterToolTip>().Hide();
         playerSouls.DecreaseSouls(boosterInfo.cost);
         boosterInfo.CreatePack();
     }

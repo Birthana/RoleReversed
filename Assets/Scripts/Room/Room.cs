@@ -51,9 +51,13 @@ public class Room : MonoBehaviour
 
     public IEnumerator MakeAttacks(Player player)
     {
-        foreach (var monster in monsters)
+        var rngMonsters = new List<Monster>(monsters);
+        while (rngMonsters.Count != 0)
         {
-            if (monster.IsDead() || monster.GetCurrentRoom() != this)
+            var rngMonster = rngMonsters[Random.Range(0, rngMonsters.Count)];
+            rngMonsters.Remove(rngMonster);
+
+            if (rngMonster.IsDead() || rngMonster.GetCurrentRoom() != this)
             {
                 continue;
             }
@@ -63,7 +67,7 @@ public class Room : MonoBehaviour
                 yield break;
             }
 
-            yield return monster.MakeAttack(player);
+            yield return rngMonster.MakeAttack(player);
         }
     }
 
@@ -398,16 +402,17 @@ public class Room : MonoBehaviour
         return new RoomTransform(transform).GetAdjacentRooms(GetStartPosition());
     }
 
-    public void PullRandomAdjacentRoomMonster()
+    public Monster PullRandomAdjacentRoomMonster()
     {
         var roomMonster = GetRandomRoomMonster();
         if (roomMonster == null)
         {
-            return;
+            return null;
         }
 
         roomMonster.Pull(this);
         new ChangeSortingLayer(roomMonster.gameObject).SetToCurrentRoom();
+        return roomMonster;
     }
 
     public Monster PushRandomRoomMonster(Monster exception)

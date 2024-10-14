@@ -11,7 +11,6 @@ public class SoulShop : MonoBehaviour
     private RerollButton reRollButton;
     private PlayerSoulCounter playerSouls;
     private IMouseWrapper mouse;
-    private bool pickedDraftCard = false;
 
     public void SetMouseWrapper(IMouseWrapper wrapper) { mouse = wrapper; }
 
@@ -40,13 +39,20 @@ public class SoulShop : MonoBehaviour
 
     public void Update()
     {
-        if (PlayerClicksOnDraftCard() && !pickedDraftCard)
+        if (PlayerChoosesDraftCard())
         {
             FindObjectOfType<ToolTipManager>().Clear();
-            AddDraftCardToDeck();
+            playerSouls.DecreaseSouls(1);
+            var draftCard = mouse.GetHitComponent<DraftCard>();
+            if (draftCard.gameObject.transform.parent != draftCardTransform)
+            {
+                return;
+            }
+
+            AddDraftCardToDeck(draftCard);
         }
 
-        if (!mouse.PlayerPressesLeftClick() && mouse.IsOnDraft() && IsOpen())
+        if (PlayerHoversDraftCard())
         {
             var draftCard = mouse.GetHitComponent<DraftCard>();
             var position = draftCard.gameObject.transform.position + (Vector3.up * 5.0f);
@@ -68,19 +74,24 @@ public class SoulShop : MonoBehaviour
         SetSprite(closeShop);
     }
 
-    public void EnableDraft() { pickedDraftCard = false; }
+    private bool PlayerChoosesDraftCard()
+    {
+        return PlayerClicksOnDraftCard() && (playerSouls.GetCurrentSouls() > 0) && IsOpen();
+    }
+
+    private bool PlayerHoversDraftCard() { return !mouse.PlayerPressesLeftClick() && mouse.IsOnDraft() && IsOpen(); }
 
     private bool PlayerClicksOnDraftCard() { return mouse.PlayerPressesLeftClick() && mouse.IsOnDraft(); }
 
-    private void AddDraftCardToDeck()
+    private void AddDraftCardToDeck(DraftCard card)
     {
-        var draftCard = mouse.GetHitComponent<DraftCard>();
-        draftManager.AddDraftCardToDeck(draftCard);
-        pickedDraftCard = true;
+        draftManager.AddDraftCardToHand(card);
         if (draftManager.IsEmpty())
         {
             draftManager.Draft(draftCardTransform);
         }
+
+        CloseShop();
     }
 
     private void SetSprite(Sprite sprite)

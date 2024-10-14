@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48ad333b7a592d48aed4f306f27df9d, type: 3}
   m_Name: SlimeCardsBonus
   m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: f2ddbba0478e17a4faee5d08f0a3f9d7, type: 3}
   boosterInfo: {fileID: 11400000, guid: 4640030f3bd1cef49bd4e22f619dbf00, type: 2}

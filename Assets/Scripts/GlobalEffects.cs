@@ -4,12 +4,15 @@ using UnityEngine;
 public class GlobalEffects : MonoBehaviour
 {
     private event Action<Monster> OnEntrance;
-    private event Action<Monster> OnEngage;
+    private event Action<Monster, Card> OnEngage;
+    private event Action<Monster, Card> OnHandEngage;
     private event Action<Monster> OnExit;
 
     public void AddToEntrance(Action<Monster> function) { OnEntrance += function; }
 
-    public void AddToEngage(Action<Monster> function) { OnEngage += function; }
+    public void AddToEngage(Action<Monster, Card> function) { OnEngage += function; }
+
+    public void AddToHandEngage(Action<Monster, Card> function) { OnHandEngage += function; }
 
     public void AddToExit(Action<Monster> function) { OnExit += function; }
 
@@ -18,9 +21,14 @@ public class GlobalEffects : MonoBehaviour
         OnEntrance?.Invoke(monster);
     }
 
-    public void Engage(Monster monster)
+    public void Engage(Monster monster, Card cardSelf)
     {
-        OnEngage?.Invoke(monster);
+        OnEngage?.Invoke(monster, cardSelf);
+    }
+
+    public void HandEngage(Monster monster, Card cardSelf)
+    {
+        OnHandEngage?.Invoke(monster, cardSelf);
     }
 
     public void Exit(Monster monster)

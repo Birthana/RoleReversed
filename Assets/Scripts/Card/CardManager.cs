@@ -199,25 +199,23 @@ public class CardManager : MonoBehaviour
     public List<CardInfo> GetUniqueCardInfos(int numberOfDraftCards)
     {
         var cardInfos = new List<CardInfo>();
-        for (int i = 0; i < numberOfDraftCards - 1; i++)
+        for (int i = 0; i < numberOfDraftCards; i++)
         {
-            cardInfos.Add(GetUniqueCommonCardInfo(cardInfos));
+            cardInfos.Add(GetUniqueRandomCardInfo(cardInfos));
         }
-
-        cardInfos.Add(GetUniqueRandomCardInfo(cardInfos));
 
         return cardInfos;
     }
 
-    private CardInfo GetUniqueCommonCardInfo(List<CardInfo> cardInfos)
+    public List<CardInfo> GetUniqueCardInfos(int numberOfDraftCards, Tag tag)
     {
-        CardInfo cardInfo;
-        do
+        var cardInfos = new List<CardInfo>();
+        for (int i = 0; i < numberOfDraftCards; i++)
         {
-            cardInfo = GetEasyCardInfo();
-        } while (CardInfoIsNotUnique(cardInfo, cardInfos));
+            cardInfos.Add(GetUniqueRandomCardInfo(cardInfos, tag));
+        }
 
-        return cardInfo;
+        return cardInfos;
     }
 
     private CardInfo GetUniqueRandomCardInfo(List<CardInfo> cardInfos)
@@ -230,6 +228,18 @@ public class CardManager : MonoBehaviour
 
         return cardInfo;
     }
+
+    private CardInfo GetUniqueRandomCardInfo(List<CardInfo> cardInfos, Tag tag)
+    {
+        CardInfo cardInfo;
+        do
+        {
+            cardInfo = GetRandomCardInfo();
+        } while (CardInfoIsNotUnique(cardInfo, cardInfos) || !CardInfoIs(cardInfo, tag));
+
+        return cardInfo;
+    }
+
 
     private CardInfo GetUniqueRandomCardInfo(Func<CardInfo, bool> requirementFunction, List<CardInfo> cardInfos)
     {

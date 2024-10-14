@@ -221,7 +221,6 @@ public class GameManager : MonoBehaviour, IGameManager
         FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
         FindObjectOfType<Deck>().DrawCardToHand();
         BuildConstructionRooms();
-        FindObjectOfType<SoulShop>().EnableDraft();
         BuildStart();
         FindObjectOfType<SoulShop>().OpenShop();
     }

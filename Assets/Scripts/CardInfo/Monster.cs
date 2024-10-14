@@ -80,7 +80,7 @@ public class Monster : Character
         if (cardInfo != null)
         {
             cardInfo.Engage(this, null);
-            FindObjectOfType<GlobalEffects>().Engage(this);
+            FindObjectOfType<GlobalEffects>().Engage(this, null);
         }
     }
 

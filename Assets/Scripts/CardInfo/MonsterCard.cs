@@ -60,6 +60,14 @@ public class MonsterCard : Card
         base.Cast();
     }
 
+    public void CastForFreeAt(Room room)
+    {
+        selectedRoom = room.transform;
+        SpawnMonster();
+        GetHand().Remove(this);
+        DestroyImmediate(gameObject);
+    }
+
     private void SpawnMonster()
     {
         var room = selectedRoom.GetComponent<Room>();

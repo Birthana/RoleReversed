@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48ad333b7a592d48aed4f306f27df9d, type: 3}
   m_Name: RatCardsBonus
   m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 27f42650f6db0174daa52b0178809d84, type: 3}
   boosterInfo: {fileID: 11400000, guid: d9470b70c0b7bd049956f20c77986694, type: 2}
