@@ -5,7 +5,7 @@ public class RedSlime : MonsterCardInfo
 {
     public override void Exit(Monster self)
     {
-        self.SpawnExitIcon();
+        FindObjectOfType<EffectIcons>().SpawnExitIcon(self.GetCurrentPosition());
         var player = FindObjectOfType<Player>();
         player.TakeDamage(2);
         if (player.IsDead())

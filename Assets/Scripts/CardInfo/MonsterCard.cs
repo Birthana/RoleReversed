@@ -25,6 +25,19 @@ public class MonsterCard : Card
         GetCardUI().SetCardInfo(monsterCardInfo);
     }
 
+    public void IncreaseStats(int damage, int health)
+    {
+        monsterCardInfo.damage += damage;
+        monsterCardInfo.health += health;
+        GetCardUI().SetCardInfo(monsterCardInfo);
+    }
+
+    public void ReduceCost(int cost)
+    {
+        monsterCardInfo.cost = Mathf.Max(0, monsterCardInfo.cost - cost);
+        GetCardUI().SetCardInfo(monsterCardInfo);
+    }
+
     public override CardInfo GetCardInfo()
     {
         return monsterCardInfo;
@@ -56,6 +69,7 @@ public class MonsterCard : Card
 
     public override void Cast()
     {
+        GetHand().Remove(this);
         SpawnMonster();
         base.Cast();
     }
@@ -63,8 +77,9 @@ public class MonsterCard : Card
     public void CastForFreeAt(Room room)
     {
         selectedRoom = room.transform;
-        SpawnMonster();
         GetHand().Remove(this);
+        FindObjectOfType<Drop>().Add(GetCardInfo());
+        SpawnMonster();
         DestroyImmediate(gameObject);
     }
 

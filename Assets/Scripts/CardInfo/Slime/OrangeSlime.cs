@@ -12,7 +12,7 @@ public class OrangeSlime : MonsterCardInfo
             return;
         }
 
-        self.SpawnEntranceIcon();
+        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
 
         foreach (var adjacentRoom in adjacentRooms)
         {

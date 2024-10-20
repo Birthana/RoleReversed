@@ -8,7 +8,7 @@ public class RedBrownSlime : MonsterCardInfo
         var randomMonster = self.GetCurrentRoom().GetRandomMonster();
         if (randomMonster != null)
         {
-            self.SpawnExitIcon();
+            FindObjectOfType<EffectIcons>().SpawnExitIcon(self.GetCurrentPosition());
             randomMonster.IncreaseStats(1, 1);
         }
     }

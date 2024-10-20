@@ -7,7 +7,7 @@ public class YellowSlime : MonsterCardInfo
 
     public override void Exit(Monster self)
     {
-        self.SpawnExitIcon();
+        FindObjectOfType<EffectIcons>().SpawnExitIcon(self.GetCurrentPosition());
         var room = self.GetCurrentRoom();
         room.SpawnTemporaryMonster(tempMonsterCardInfo);
         room.SpawnTemporaryMonster(tempMonsterCardInfo);

@@ -5,7 +5,7 @@ public class VioletSlime : MonsterCardInfo
 {
     public override void Entrance(Monster self)
     {
-        self.SpawnEntranceIcon();
+        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
         FindObjectOfType<Player>().TemporaryDecreaseStats(1, 0);
     }
 }

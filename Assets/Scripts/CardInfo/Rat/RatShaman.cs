@@ -11,12 +11,16 @@ public class RatShaman : MonsterCardInfo
         FindObjectOfType<GlobalEffects>().AddToHandEngage(OnHandEngagePlayCard);
     }
 
-    public void OnHandEngagePlayCard(Monster self, Card cardSelf)
+    public void OnHandEngagePlayCard(EffectInput input)
     {
-        var room = monsterSelf.GetCurrentRoom();
-        if (room.HasCapacity())
+        if (monsterSelf.IsDead())
         {
-            ((MonsterCard)cardSelf).CastForFreeAt(room);
+            return;
+        }
+
+        if (input.room.HasCapacity())
+        {
+            input.card.CastForFreeAt(input.room);
         }
     }
 }

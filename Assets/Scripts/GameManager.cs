@@ -223,6 +223,7 @@ public class GameManager : MonoBehaviour, IGameManager
         BuildConstructionRooms();
         BuildStart();
         FindObjectOfType<SoulShop>().OpenShop();
+        FindObjectOfType<SoulShop>().FreeReroll();
     }
 
     private void BuildStart()

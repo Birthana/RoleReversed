@@ -18,7 +18,7 @@ public class DonutSlime : MonsterCardInfo
             return;
         }
 
-        self.SpawnExitIcon();
+        FindObjectOfType<EffectIcons>().SpawnExitIcon(self.GetCurrentPosition());
         var player = FindObjectOfType<Player>();
         player.TakeDamage(2);
         if (player.IsDead())

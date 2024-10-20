@@ -298,7 +298,8 @@ public class Room : MonoBehaviour
         var monsterPrefab = Resources.Load<Monster>(FIELD_MONSTER_PREFAB);
         var monster = Instantiate(monsterPrefab, transform);
         Add(monster);
-        monster.Setup(monsterCardInfo);
+        var copy = Instantiate(monsterCardInfo);
+        monster.Setup(copy);
         return monster;
     }
 
@@ -432,6 +433,19 @@ public class Room : MonoBehaviour
         roomMonster.Push(GetRandomAdjacentRoom());
         new ChangeSortingLayer(roomMonster.gameObject).SetToDefault();
         return roomMonster;
+    }
+
+    public Monster PushRoomMonster(Monster monster)
+    {
+        var room = GetRandomAdjacentRoom();
+        if (room == null)
+        {
+            return null;
+        }
+
+        monster.Push(GetRandomAdjacentRoom());
+        new ChangeSortingLayer(monster.gameObject).SetToDefault();
+        return monster;
     }
 
     private Monster GetRandomRoomMonster()

@@ -43,7 +43,9 @@ public class Card : MonoBehaviour
     public virtual void Cast()
     {
         GetActionManager().ReduceActions(GetCost());
-        GetHand().Remove(this);
-        DestroyImmediate(gameObject);
+        if (gameObject != null)
+        {
+            DestroyImmediate(gameObject);
+        }
     }
 }

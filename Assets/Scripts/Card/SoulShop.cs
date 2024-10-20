@@ -140,12 +140,23 @@ public class SoulShop : MonoBehaviour
 
     public void Reroll()
     {
-        if (playerSouls.GetCurrentSouls() == 0)
+        if (playerSouls.GetCurrentSouls() < reRollButton.GetCost())
         {
             return;
         }
 
         draftManager.Reroll(draftCardTransform);
+
+        if (reRollButton.GetCost() == 0)
+        {
+            return;
+        }
+
         playerSouls.DecreaseSouls();
+    }
+
+    public void FreeReroll()
+    {
+        draftManager.Reroll(draftCardTransform);
     }
 }

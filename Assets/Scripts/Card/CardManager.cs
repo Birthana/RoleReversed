@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +24,8 @@ public class CardManager : MonoBehaviour
         var resourceCards = Resources.LoadAll<CardInfo>(path);
         foreach (var card in resourceCards)
         {
-            addToCardList(card);
+            var newCardInfo = Instantiate(card);
+            addToCardList(newCardInfo);
         }
     }
 
@@ -289,79 +289,24 @@ public class CardManager : MonoBehaviour
     public CardInfo GetEasyCardInfo()
     {
         int rngIndex = UnityEngine.Random.Range(0, easy.Count);
-        return easy[rngIndex];
+        return Instantiate(easy[rngIndex]);
     }
 
     public CardInfo GetMediumCardInfo()
     {
         int rngIndex = UnityEngine.Random.Range(0, medium.Count);
-        return medium[rngIndex];
+        return Instantiate(medium[rngIndex]);
     }
 
     public CardInfo GetHardCardInfo()
     {
         int rngIndex = UnityEngine.Random.Range(0, hard.Count);
-        return hard[rngIndex];
+        return Instantiate(hard[rngIndex]);
     }
 
     public CardInfo GetRandomCardInfo()
     {
         int rngIndex = UnityEngine.Random.Range(0, cardPool.Count);
-        return cardPool[rngIndex];
+        return Instantiate(cardPool[rngIndex]);
     }
 }
-
-//----------------
-// Current Things
-//----------------
-
-// TODO: Fix Sprite Layers. Sorting Layers/Groups
-// TODO: Add End Screen with Stats: Player Damage Dealt & Taken. Monster Damage Dealt & Monsters Died.
-
-//----------------
-// Features
-//----------------
-// TODO: Add cannot attack animation. Lerp Alpha.
-// TODO: Add Action Room Effects.
-// TODO: Add Option to remove a common card in deck to add a rare card to deck
-// TODO: Add Transform Options.
-// TODO: Add Monster Soul mechnanic.
-// TODO: Add something to reward adding cards to Deck.
-// TODO: Add incentive for getting a set of 4 cards.
-// TODO: Add Move to Room mechnanics. (Blink and Knockback)
-// TODO: Add Build Phase & Collection Box.
-
-//----------------
-// Refactors
-//----------------
-// TODO: Move Player is dead checks inside Player.cs.
-// TODO: Remove cards in Pack.cs
-// TODO: Make unittests for OptionInfos.
-// TODO: Split UI and Mechanics of various scripts
-// TODO: Create common array container for Hand, Deck, Drop, etc.
-// TODO: Remove Temporary Monster if-statements.
-// TODO: Null Object in OrangeSlime.cs
-// TODO: Organize Different Managers in a GameObject.
-// TODO: Change Mouse Raycast to look at component instead of Layer.
-
-//----------------
-// Bugs
-//----------------
-// TODO: BUG: Reroll Option cannot be previously chosen option.
-// TODO: Fix Room Monsters Display when Monsters are dead.
-// TODO: BUG: Player can get negative damage, and heal monsters.
-// TODO: Bug: Release with no card selected in CardDragger.cs
-// TODO: Bug: Game ends even if Temporary Monsters are alive.
-
-//----------------
-// Animations
-//----------------
-// TODO: Animation: Flip Animation.
-// TODO: Animation: Drawing Cards from Deck. Opening Pack.
-// TODO: Loot Animation for Pack.cs. When Open Start Pack.
-
-//----------------
-// Sprites
-//----------------
-// TODO: Create Shop Option BackGround.
-// TODO: Create DisplayCard Background.

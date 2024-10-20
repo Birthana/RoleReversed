@@ -6,7 +6,7 @@ public class GoblinArchitect : MonsterCardInfo
     public override void Entrance(Monster self)
     {
         var room = self.GetCurrentRoom();
-        self.SpawnEntranceIcon();
+        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
         var monsters = room.monsters;
         foreach (var monster in monsters)
         {

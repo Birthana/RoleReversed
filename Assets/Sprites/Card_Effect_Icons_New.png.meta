@@ -117,253 +117,337 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Card_Effect_Icons_0
+      name: Card_Effect_Icons_New_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 973ef5d7625adc045a16b5c1f3ba13d8
-      internalID: -476991579
+      spriteID: 0138c9dbe42304a46aa5351444bbb044
+      internalID: -1614096540
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Effect_Icons_1
+      name: Card_Effect_Icons_New_1
       rect:
         serializedVersion: 2
         x: 16
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a3775ca240404b46a5105290ceae72f
-      internalID: -1964831386
+      spriteID: 77a8a6db6eff2964b88001d286cf0812
+      internalID: -143261710
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Effect_Icons_2
+      name: Card_Effect_Icons_New_2
       rect:
         serializedVersion: 2
         x: 32
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a71e76de9237b4e4681d69b41e92ac8a
-      internalID: 845698276
+      spriteID: c72acc4edb0684a4aa33f4769a91699e
+      internalID: 1745231362
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Effect_Icons_3
+      name: Card_Effect_Icons_New_3
       rect:
         serializedVersion: 2
         x: 48
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41524aba0f2cfed4489567b8875c58a1
-      internalID: -519913192
+      spriteID: 5b1dfaa9cf91302449e7a647abbb9bfb
+      internalID: -557987101
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Effect_Icons_4
+      name: Card_Effect_Icons_New_4
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b251f3f4006d57f4f8a696cf21ad7547
-      internalID: -110950930
+      spriteID: 0223e67d53ce3664780aea060b6aad6f
+      internalID: 2048660526
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Effect_Icons_5
+      name: Card_Effect_Icons_New_5
       rect:
         serializedVersion: 2
         x: 80
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31c25d1ee76d1d24e9e761794fe63e49
-      internalID: -540404453
+      spriteID: 34a11e56c12f05c4ababbbd3e4d59139
+      internalID: 1972189455
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Effect_Icons_6
+      name: Card_Effect_Icons_New_6
       rect:
         serializedVersion: 2
         x: 96
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b7f0043cd5d1cf46a4a969603b7d129
-      internalID: -258257581
+      spriteID: 17de19235154e1a4d96466a39547b8bd
+      internalID: -635768760
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Effect_Icons_7
+      name: Card_Effect_Icons_New_7
       rect:
         serializedVersion: 2
         x: 112
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ecf5eac76f629a46984cab8b528f00f
-      internalID: 1874769046
+      spriteID: d23010ca096e13f438794c32e66b2382
+      internalID: -1066952544
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Effect_Icons_8
+      name: Card_Effect_Icons_New_8
       rect:
         serializedVersion: 2
         x: 128
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ff928134ea53a441bc0b9e7006f4ab9
-      internalID: 1037065049
+      spriteID: 08097ca7175cabc4d8dd03095c0635d5
+      internalID: 314828725
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Effect_Icons_9
+      name: Card_Effect_Icons_New_9
       rect:
         serializedVersion: 2
         x: 144
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd76c3b3f02f7e3469284f6d099f9acd
-      internalID: -1212075496
+      spriteID: e9cb5053988ea1d40ba609b6cb34230f
+      internalID: 1076881899
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Effect_Icons_10
+      name: Card_Effect_Icons_New_10
       rect:
         serializedVersion: 2
         x: 160
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1af751fffc5c14d4db844db8c68198ec
-      internalID: 1741134455
+      spriteID: a55375d3b14aa4c45b63ff76b10a255c
+      internalID: -184304677
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Card_Effect_Icons_11
+      name: Card_Effect_Icons_New_11
       rect:
         serializedVersion: 2
         x: 176
         y: 0
         width: 16
         height: 16
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68fdbfda82ae74744a58b5dee0513402
-      internalID: -1751936628
+      spriteID: 889f1b6215411d14db1ab7e2e4943415
+      internalID: -93686474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_Effect_Icons_New_12
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 16
+        height: 16
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd1b630bdd8224b4d8227dfda00f3a69
+      internalID: 93851765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_Effect_Icons_New_13
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 0
+        width: 16
+        height: 16
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d73077906c21724988be57002e9bc15
+      internalID: 249786928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_Effect_Icons_New_14
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 16
+        height: 16
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b70f556a5f3c32d48a4cac0891da865c
+      internalID: -648365445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_Effect_Icons_New_15
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 16
+        height: 16
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0da55905f1cdc8744bb7cdd4349bb43a
+      internalID: -1764399160
       vertices: []
       indices: 
       edges: []
@@ -379,18 +463,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Card_Effect_Icons_9: -1212075496
-      Card_Effect_Icons_11: -1751936628
-      Card_Effect_Icons_6: -258257581
-      Card_Effect_Icons_0: -476991579
-      Card_Effect_Icons_10: 1741134455
-      Card_Effect_Icons_3: -519913192
-      Card_Effect_Icons_1: -1964831386
-      Card_Effect_Icons_4: -110950930
-      Card_Effect_Icons_5: -540404453
-      Card_Effect_Icons_8: 1037065049
-      Card_Effect_Icons_7: 1874769046
-      Card_Effect_Icons_2: 845698276
+      Card_Effect_Icons_New_12: 93851765
+      Card_Effect_Icons_New_9: 1076881899
+      Card_Effect_Icons_New_5: 1972189455
+      Card_Effect_Icons_New_11: -93686474
+      Card_Effect_Icons_New_15: -1764399160
+      Card_Effect_Icons_New_4: 2048660526
+      Card_Effect_Icons_New_2: 1745231362
+      Card_Effect_Icons_New_10: -184304677
+      Card_Effect_Icons_New_6: -635768760
+      Card_Effect_Icons_New_7: -1066952544
+      Card_Effect_Icons_New_0: -1614096540
+      Card_Effect_Icons_New_13: 249786928
+      Card_Effect_Icons_New_14: -648365445
+      Card_Effect_Icons_New_1: -143261710
+      Card_Effect_Icons_New_8: 314828725
+      Card_Effect_Icons_New_3: -557987101
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

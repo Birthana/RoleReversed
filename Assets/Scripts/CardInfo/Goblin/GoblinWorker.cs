@@ -5,7 +5,7 @@ public class GoblinWorker : MonsterCardInfo
 {
     public override void Entrance(Monster self)
     {
-        self.SpawnEntranceIcon();
+        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
         self.GetCurrentRoom().IncreaseMaxCapacity(1);
     }
 }

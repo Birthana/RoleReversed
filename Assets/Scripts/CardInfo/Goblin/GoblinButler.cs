@@ -11,7 +11,7 @@ public class GoblinButler : MonsterCardInfo
 
         if (room.GetCapacity() > 2)
         {
-            self.SpawnEntranceIcon();
+            FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
             room.ReduceMaxCapacity(2);
             room.AddRoommateEffect(growGift, null);
         }

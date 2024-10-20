@@ -17,7 +17,7 @@ public class Hand : MonoBehaviour
 
     public int GetSize() { return hand.Count; }
 
-    public MonsterCard RandomMonsterAttacks()
+    public MonsterCard RandomMonsterAttacks(EffectInput input)
     {
         var randomHandMonster = GetRandomMonsterCard();
         if (randomHandMonster == null)
@@ -26,9 +26,22 @@ public class Hand : MonoBehaviour
         }
 
         randomHandMonster.PlayChosenAnim();
-        FindObjectOfType<Player>().TakeDamage(randomHandMonster);
-        FindObjectOfType<GlobalEffects>().HandEngage(null, randomHandMonster);
+        input.player.TakeDamage(randomHandMonster);
+        input.monster = null;
+        input.card = randomHandMonster;
+        FindObjectOfType<GlobalEffects>().HandEngage(input);
         return randomHandMonster;
+    }
+
+    public void RandomMonsterIncreaseStats(int damage, int health)
+    {
+        var randomHandMonster = GetRandomMonsterCard();
+        if (randomHandMonster == null)
+        {
+            return;
+        }
+
+        randomHandMonster.IncreaseStats(damage, health);
     }
 
     private MonsterCard GetRandomMonsterCard()

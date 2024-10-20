@@ -105,6 +105,7 @@ public class RoomCard : Card
 
     public override void Cast()
     {
+        GetHand().Remove(this);
         SpawnRoom();
         base.Cast();
     }

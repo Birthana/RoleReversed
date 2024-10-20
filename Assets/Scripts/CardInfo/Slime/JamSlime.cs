@@ -5,7 +5,7 @@ public class JamSlime : MonsterCardInfo
 {
     public override void Entrance(Monster self)
     {
-        self.SpawnEntranceIcon();
+        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
         var player = FindObjectOfType<Player>();
         player.TakeDamage(1);
         if (player.IsDead())

@@ -6,7 +6,7 @@ public class EffectText
 {
     private static readonly List<string> keywords =
         new List<string>() { "Room", "Monster", "Slime" , "Action", "Draw", "Random", "Capacity", "Damage"
-            , "Battle Start", "Entrance", "Exit", "Engage" };
+            , "Battle Start", "Entrance", "Exit", "Engage", "Push", "Pull", "Unlock", " Lock", "Enter"  };
     private static readonly string EFFECT_TEXT_ASSET_FILE_PATH = "SpriteAssets/Effect_Text";
     private TMP_StyleSheet styleSheet;
 

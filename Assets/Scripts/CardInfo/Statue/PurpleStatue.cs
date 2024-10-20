@@ -11,8 +11,9 @@ public class PurpleStatue : MonsterCardInfo
             return;
         }
 
-        self.SpawnExitIcon();
-        parentRoom.PullRandomAdjacentRoomMonster();
+        FindObjectOfType<EffectIcons>().SpawnExitIcon(self.GetCurrentPosition());
+        var pulledMonster = parentRoom.PullRandomAdjacentRoomMonster();
+        FindObjectOfType<EffectIcons>().SpawnPullIcon(pulledMonster.GetCurrentPosition());
     }
 }
 

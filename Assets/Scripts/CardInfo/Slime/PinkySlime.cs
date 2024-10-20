@@ -3,25 +3,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PinkySlime", menuName = "CardInfo/Slime/PinkySlime")]
 public class PinkySlime : MonsterCardInfo
 {
-    private int newDamage;
-    private int newHealth;
+    private Monster monsterSelf;
+    public TemporaryMonster tempMonsterCardInfo;
 
-    public override int GetDamage()
+    public override void Global(Monster self)
     {
-        return newDamage;
+        monsterSelf = self;
+        FindObjectOfType<GlobalEffects>().AddToExit(OnExitSpawnSlime);
     }
 
-    public override int GetHealth()
+    public void OnExitSpawnSlime(Monster self)
     {
-        return newHealth;
-    }
+        if (!self.cardInfo.tags.Contains(Tag.Slime) || self.cardInfo is TemporaryMonster || monsterSelf.IsDead())
+        {
+            return;
+        }
 
-    public override void Entrance(Monster self)
-    {
-        self.SpawnEntranceIcon();
-        int roomCount = FindObjectsOfType<Room>().Length;
-        newDamage = damage + (2 * roomCount);
-        newHealth = health + (2 * roomCount);
-        self.IncreaseStats(2 * roomCount, 2 * roomCount);
+        FindObjectOfType<EffectIcons>().SpawnExitIcon(self.GetCurrentPosition());
+        self.GetCurrentRoom().SpawnTemporaryMonster(tempMonsterCardInfo);
     }
 }

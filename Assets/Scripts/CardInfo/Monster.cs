@@ -9,9 +9,6 @@ public class Monster : Character
 {
     private event Action OnLock;
     private event Action OnUnlock;
-    private readonly string EFFECT_ICON_PREFAB_FILE_PATH = "Prefabs/EffectIcon";
-    private readonly string PULL_INDICATOR_PREFAB_FILE_PATH = "Prefabs/PullIndicator";
-    private readonly string PUSH_INDICATOR_PREFAB_FILE_PATH = "Prefabs/PushIndicator";
 
     public bool isTemporary = false;
     public MonsterCardInfo cardInfo;
@@ -29,8 +26,8 @@ public class Monster : Character
         var spriteRender = GetComponent<SpriteRenderer>();
         spriteRender.sprite = cardInfo.fieldSprite;
         AddToGlobal();
-        Entrance();
         Setup(cardInfo.GetDamage(), cardInfo.GetHealth());
+        Entrance();
         damageAnim = new DamageAnimation(spriteRender, Color.green, 0.01f);
     }
 
@@ -79,8 +76,12 @@ public class Monster : Character
     {
         if (cardInfo != null)
         {
-            cardInfo.Engage(this, null);
-            FindObjectOfType<GlobalEffects>().Engage(this, null);
+            var input = new EffectInput(FindObjectOfType<Player>(),
+                                        GetCurrentRoom(),
+                                        transform.position,
+                                        this);
+            cardInfo.Engage(input);
+            FindObjectOfType<GlobalEffects>().Engage(input);
         }
     }
 
@@ -164,7 +165,6 @@ public class Monster : Character
         transform.SetParent(newRoom.transform);
         newRoom.Add(this);
         Entrance();
-        SpawnPullIndicator(GetCurrentPosition());
     }
 
     public void Push(Room newRoom)
@@ -175,27 +175,10 @@ public class Monster : Character
             FindObjectOfType<GameManager>().AddToTempMove(this);
         }
 
-        SpawnPushIndicator(GetCurrentPosition());
         Exit();
         TemporaryLeave();
         transform.SetParent(newRoom.transform);
         newRoom.Add(this);
-    }
-
-    private void SpawnPullIndicator(Vector3 position)
-    {
-        var pullIndicatorPrefab = Resources.Load<GameObject>(PULL_INDICATOR_PREFAB_FILE_PATH);
-        var pullIndicator = Instantiate(pullIndicatorPrefab);
-        pullIndicator.transform.position = position;
-        Destroy(pullIndicator, 0.5f);
-    }
-
-    private void SpawnPushIndicator(Vector3 position)
-    {
-        var pushIndicatorPrefab = Resources.Load<GameObject>(PUSH_INDICATOR_PREFAB_FILE_PATH);
-        var pushIndicator = Instantiate(pushIndicatorPrefab);
-        pushIndicator.transform.position = position;
-        Destroy(pushIndicator, 0.5f);
     }
 
     private void TemporaryLeave()
@@ -212,31 +195,6 @@ public class Monster : Character
     private bool MonsterHasMoved() { return origin != null; }
 
     public Vector3 GetCurrentPosition() { return transform.position; }
-
-    public void SpawnEntranceIcon()
-    {
-        SpawnEffectIcon(GetCurrentPosition(), "Entrance");
-    }
-
-    public void SpawnExitIcon()
-    {
-        SpawnEffectIcon(GetCurrentPosition(), "Exit");
-    }
-
-    public void SpawnEngageIcon()
-    {
-        SpawnEffectIcon(GetCurrentPosition(), "Engage");
-    }
-
-    private void SpawnEffectIcon(Vector3 position, string iconName)
-    {
-        var damageNumberPrefab = Resources.Load<GameObject>(EFFECT_ICON_PREFAB_FILE_PATH);
-        var damageNumber = Instantiate(damageNumberPrefab);
-        damageNumber.transform.position = position;
-        damageNumber.GetComponent<TextMeshPro>().text = $"{new EffectText().GetText($"{iconName}")}";
-        damageNumber.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 2) * 100);
-        Destroy(damageNumber, 0.5f);
-    }
 
     public void ResetToOriginRoom()
     {

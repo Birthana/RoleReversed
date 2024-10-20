@@ -7,7 +7,7 @@ public class GreenPurpleSlime : MonsterCardInfo
 
     public override void Entrance(Monster self)
     {
-        self.SpawnEntranceIcon();
+        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
         self.GetCurrentRoom().SpawnTemporaryMonsterInDifferentRoom(tempMonsterCardInfo);
     }
 }

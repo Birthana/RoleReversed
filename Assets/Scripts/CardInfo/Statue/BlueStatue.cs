@@ -12,9 +12,10 @@ public class BlueStatue : MonsterCardInfo
             return;
         }
 
-        self.SpawnEntranceIcon();
+        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
         new ChangeSortingLayer(pushedMonster.gameObject).SetToDefault();
+        FindObjectOfType<EffectIcons>().SpawnPushIcon(pushedMonster.GetCurrentPosition());
         pushedMonster.Lock();
-        pushedMonster.TemporaryIncreaseStats(2, 0);
+        pushedMonster.TemporaryIncreaseStats(0, 2);
     }
 }

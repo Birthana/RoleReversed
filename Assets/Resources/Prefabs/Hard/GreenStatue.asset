@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: GreenStatue
   fieldSprite: {fileID: 21300000, guid: 6478fc34474b90148a8258466fde3e83, type: 3}
   cost: 2
-  effectDescription: '[Engage] [Push] a Room monster.
+  effectDescription: '[Engage] Push a Room monster.
 
     Then, give it +0/2'
   tags: 03000000

@@ -3,9 +3,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GoblinGuard", menuName = "CardInfo/Goblin/GoblinGuard")]
 public class GoblinGuard : MonsterCardInfo
 {
-    public override void Engage(Monster characterSelf, Card cardSelf)
+    public override void Engage(EffectInput input)
     {
-        characterSelf.SpawnEntranceIcon();
-        characterSelf.Unlock();
+        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(input.position);
+        if (input.monster != null)
+        {
+            input.monster.Unlock();
+        }
     }
 }

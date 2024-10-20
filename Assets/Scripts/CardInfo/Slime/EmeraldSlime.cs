@@ -7,7 +7,7 @@ public class EmeraldSlime : MonsterCardInfo
 
     public override void Exit(Monster self)
     {
-        self.SpawnExitIcon();
+        FindObjectOfType<EffectIcons>().SpawnExitIcon(self.GetCurrentPosition());
         self.GetCurrentRoom().SpawnTemporaryMonster(tempMonsterCardInfo);
     }
 }

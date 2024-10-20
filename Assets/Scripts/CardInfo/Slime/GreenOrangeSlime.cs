@@ -7,7 +7,7 @@ public class GreenOrangeSlime : MonsterCardInfo
 
     public override void Exit(Monster self)
     {
-        self.SpawnExitIcon();
+        FindObjectOfType<EffectIcons>().SpawnExitIcon(self.GetCurrentPosition());
         var adjacentRooms = self.GetCurrentRoom().GetAdjacentRooms();
         foreach (var room in adjacentRooms)
         {

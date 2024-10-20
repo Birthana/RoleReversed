@@ -3,25 +3,26 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "OrangeGraySlime", menuName = "CardInfo/Slime/OrangeGraySlime")]
 public class OrangeGraySlime : MonsterCardInfo
 {
-    public int numberOfEmptyRooms;
-    private int emptyRoomCount;
+    private Monster monsterSelf;
 
-    public override void Entrance(Monster self)
+    public override void Global(Monster self)
     {
-        var adjacentRooms = self.GetCurrentRoom().GetAdjacentRooms();
-        foreach (var adjacentRoom in adjacentRooms)
+        monsterSelf = self;
+        FindObjectOfType<GlobalEffects>().AddToEngage(OnEngage);
+    }
+
+    public void OnEngage(EffectInput input)
+    {
+        if (input.monster.cardInfo is not TemporaryMonster || monsterSelf.IsDead())
         {
-            if (adjacentRoom.IsEmpty())
-            {
-                emptyRoomCount++;
-            }
+            return;
         }
 
-        if (emptyRoomCount >= numberOfEmptyRooms)
+        FindObjectOfType<EffectIcons>().SpawnEngageIcon(input.position);
+        var randomMonster = input.room.GetRandomMonsterNot(input.monster);
+        if (randomMonster != null)
         {
-            self.SpawnEntranceIcon();
-            var deck = FindObjectOfType<Deck>();
-            deck.DrawCardToHand();
+            randomMonster.TemporaryIncreaseStats(2, 2);
         }
     }
 }
