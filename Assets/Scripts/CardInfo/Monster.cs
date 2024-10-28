@@ -27,7 +27,6 @@ public class Monster : Character
         spriteRender.sprite = cardInfo.fieldSprite;
         AddToGlobal();
         Setup(cardInfo.GetDamage(), cardInfo.GetHealth());
-        Entrance();
         damageAnim = new DamageAnimation(spriteRender, Color.green, 0.01f);
     }
 
@@ -39,14 +38,14 @@ public class Monster : Character
         }
 
         SetMaxStats(damage, health);
-        GetDamageComponent().ResetDamage();
-        GetHealthComponent().RestoreFullHealth();
     }
 
-    private void SetMaxStats(int damage, int health)
+    public void SetMaxStats(int damage, int health)
     {
         GetDamageComponent().maxCount = damage;
         GetHealthComponent().maxCount = health;
+        GetDamageComponent().ResetDamage();
+        GetHealthComponent().RestoreFullHealth();
     }
 
     public void IncreaseStats(int damage, int health)
@@ -219,4 +218,6 @@ public class Monster : Character
         SetAssigned(false);
         OnUnlock?.Invoke();
     }
+
+    public bool HasOrigin() { return origin != null; }
 }

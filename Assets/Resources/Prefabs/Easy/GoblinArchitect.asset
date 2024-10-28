@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Goblin Architect
   fieldSprite: {fileID: 21300000, guid: 2e309bdf7040e3f4c8686ebf8e29a4c8, type: 3}
-  cost: 3
+  cost: 1
   effectDescription: '[Entrance] Unlock all Room Monsters.'
+  effect:
+    text: '[Entrance] Unlock all Room Monsters.'
+    fontSize: 4
   tags: 01000000
-  damage: 3
-  health: 4
-  attackDeck: []
+  damage: 1
+  health: 2

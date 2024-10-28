@@ -59,7 +59,7 @@ public class CardTest : MonoBehaviour
         graySlimeInfo = ScriptableObject.CreateInstance<GraySlime>();
         graySlimeInfo.damage = 3;
         graySlimeInfo.health = 3;
-        graySlimeInfo.effectDescription = "1";
+        graySlimeInfo.SetDescription("1");
 
         pinkySlimeInfo = ScriptableObject.CreateInstance<PinkySlime>();
         pinkySlimeInfo.damage = 2;

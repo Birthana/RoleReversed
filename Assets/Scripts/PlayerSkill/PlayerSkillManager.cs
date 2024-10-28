@@ -31,11 +31,12 @@ public class PlayerSkillManager : MonoBehaviour
         skills.Add(playerSkill);
     }
 
-    public void AddRandomSkill()
+    public PlayerSkill AddRandomSkill()
     {
         var skill = new PlayerSkill(skillInfos[Random.Range(0, skillInfos.Count)]);
         skill.OnCast += SpawnCardLog;
         skills.Add(skill);
+        return skill;
     }
 
     public void SpawnCardLog(PlayerSkill skill)

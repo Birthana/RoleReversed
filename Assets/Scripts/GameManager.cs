@@ -25,7 +25,6 @@ public struct RoommateRoom
 public class GameManager : MonoBehaviour, IGameManager
 {
     public static readonly float ATTACK_TIMER = 0.5f;
-    private static readonly string GIFTS_FILE_PATH = "Prefabs/Gifts";
     public GameObject requestPrefab;
     public Player playerPrefab;
     public Pack packPrefab;
@@ -42,10 +41,6 @@ public class GameManager : MonoBehaviour, IGameManager
     private Coroutine coroutine;
     [SerializeField] private IFocusAnimation focusAnimation;
     private bool focusOnRoom = false;
-    private Roommates request;
-    private List<GameObject> requestBubbles = new List<GameObject>();
-    [SerializeField] private List<Room> rooms = new List<Room>();
-    private List<RoommateEffectInfo> giftInfos = new List<RoommateEffectInfo>();
     private List<Monster> movedMonsters = new List<Monster>();
     private SoulShop soulShop;
 
@@ -90,16 +85,6 @@ public class GameManager : MonoBehaviour, IGameManager
         focusPosition.y = 1;
         GetFocusAnimation().SetFocusPosition(focusPosition);
         GetFocusAnimation().SetFocusScale(2.5f);
-        LoadRoommateGifts();
-    }
-
-    private void LoadRoommateGifts()
-    {
-        var gifts = Resources.LoadAll<RoommateEffectInfo>(GIFTS_FILE_PATH);
-        foreach (var gift in gifts)
-        {
-            giftInfos.Add(gift);
-        }
     }
 
     public void EnableShopButton()
@@ -127,68 +112,9 @@ public class GameManager : MonoBehaviour, IGameManager
         }
 
         FindObjectOfType<ToolTipManager>().Clear();
-        GiveRoommateBonus();
-        CheckRoommateBonusActive();
         isRunning = true;
-        resetMonster.SetMonstersLocked(new List<Monster>(FindObjectsOfType<Monster>()));
+        resetMonster.SetMonstersLocked();
         coroutine = StartCoroutine(WalkThruDungeon());
-    }
-
-    private void GiveRoommateBonus()
-    {
-        if (request == null)
-        {
-            return;
-        }
-
-        var roommates = request.GetRequest();
-
-        ClearRequestBubbles();
-
-        if (roommates.Count == 0)
-        {
-            return;
-        }
-
-        if (!request.MonstersAreInTheSameRoom(roommates))
-        {
-            return;
-        }
-
-        foreach (var roommate in roommates)
-        {
-            roommate.IncreaseStats(1, 1);
-        }
-
-        var room = roommates[0].transform.parent.GetComponent<Room>();
-        room.AddRoommateEffect(giftInfos[UnityEngine.Random.Range(0, giftInfos.Count)], roommates);
-        rooms.Add(room);
-    }
-
-    private void CheckRoommateBonusActive()
-    {
-        foreach(var room in rooms.ToList())
-        {
-            var roommates = room.GetRoommateMonsters();
-            if (room.Equals(roommates[0].transform.parent.GetComponent<Room>()) &&
-                room.Equals(roommates[1].transform.parent.GetComponent<Room>()))
-            {
-                continue;
-            }
-            
-            room.RemoveAllRoommateEffects();
-            rooms.Remove(room);
-        }
-    }
-
-    private void ClearRequestBubbles()
-    {
-        foreach (var requestBubble in requestBubbles)
-        {
-            Destroy(requestBubble);
-        }
-
-        requestBubbles = new List<GameObject>();
     }
 
     public bool DoesNotHaveStartRoom() { return startRoom == null; }
@@ -214,6 +140,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
         yield return UnfocusOn(currentRoom);
         ResetPlayerToStartRoom();
+        ResetMovedMonsters();
         resetMonster.ResetFieldMonsters();
         ResetRooms();
         FindObjectOfType<ActionManager>().ResetActions();
@@ -235,7 +162,7 @@ public class GameManager : MonoBehaviour, IGameManager
         }
     }
 
-    private void ResetRooms()
+    private void ResetMovedMonsters()
     {
         foreach (var movedMonster in movedMonsters)
         {
@@ -250,19 +177,16 @@ public class GameManager : MonoBehaviour, IGameManager
         movedMonsters = new List<Monster>();
     }
 
-    public void AddToTempMove(Monster movedMonster) { movedMonsters.Add(movedMonster); }
-
-    public void CreateRoommateRequests()
+    private void ResetRooms()
     {
-        request = new Roommates(resetMonster.GetMonsters(), rooms);
-        var requestMates = request.CreateRequest();
-        foreach (var monster in requestMates)
+        var allRooms = FindObjectsOfType<Room>();
+        foreach (var room in allRooms)
         {
-            var requestBubble = Instantiate(requestPrefab, monster.transform);
-            requestBubble.transform.localPosition = new Vector3(-1.5f, 1.0f, 0.0f);
-            requestBubbles.Add(requestBubble);
+            room.DisplayMonsters();
         }
     }
+
+    public void AddToTempMove(Monster movedMonster) { movedMonsters.Add(movedMonster); }
 
     private void ResetPlayerToStartRoom()
     {
@@ -425,4 +349,11 @@ public class GameManager : MonoBehaviour, IGameManager
         player.transform.SetParent(room.transform);
         player.transform.localPosition = PLAYER_OFFSET;
     }
+
+    public void AddToMonsters(Monster monster)
+    {
+        resetMonster.Add(monster);
+    }
+
+    public int GetNumberOfTempSlimes() { return resetMonster.GetNumberOfTempSlimes(); }
 }

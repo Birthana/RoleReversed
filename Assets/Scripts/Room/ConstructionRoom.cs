@@ -35,7 +35,7 @@ public class ConstructionRoom : Room
             return;
         }
 
-        GetTimerComponent().DecreaseTimer(1);
+        GetTimerComponent().DecreaseTimer(monsters.Count);
     }
 
     public bool CanBeBuilt()

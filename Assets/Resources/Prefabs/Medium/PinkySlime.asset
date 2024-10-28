@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Pink Slime
   fieldSprite: {fileID: -2126126351, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
-  cost: 3
+  cost: 4
   effectDescription: Slimes get "[Exit] Spawn 1 1/1 Temp Slime"
+  effect:
+    text: Slimes get "[Exit] Spawn 1 1/1 Temp Slime"
+    fontSize: 4
   tags: 00000000
   damage: 3
   health: 3

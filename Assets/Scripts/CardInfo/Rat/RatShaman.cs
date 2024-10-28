@@ -18,9 +18,9 @@ public class RatShaman : MonsterCardInfo
             return;
         }
 
-        if (input.room.HasCapacity())
+        if (monsterSelf.GetCurrentRoom().HasCapacity())
         {
-            input.card.CastForFreeAt(input.room);
+            input.card.CastForFreeAt(monsterSelf.GetCurrentRoom());
         }
     }
 }

@@ -48,6 +48,8 @@ public class Character : MonoBehaviour
 
     public int GetHealth() { return GetHealthComponent().GetCount(); }
 
+    public int GetMaxHealth() { return GetHealthComponent().GetMaxHealth(); }
+
     public void IncreaseDamage(int increase) { GetDamageComponent().IncreaseMaxDamage(increase); }
 
     public void ReduceDamage(int decrease) { GetDamageComponent().DecreaseMaxDamage(decrease); }

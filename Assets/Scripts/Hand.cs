@@ -25,23 +25,21 @@ public class Hand : MonoBehaviour
             return null;
         }
 
-        randomHandMonster.PlayChosenAnim();
-        input.player.TakeDamage(randomHandMonster);
-        input.monster = null;
-        input.card = randomHandMonster;
-        FindObjectOfType<GlobalEffects>().HandEngage(input);
+        randomHandMonster.MakeHandAttack(input);
         return randomHandMonster;
     }
 
-    public void RandomMonsterIncreaseStats(int damage, int health)
+    public void IncreaseStats()
     {
-        var randomHandMonster = GetRandomMonsterCard();
-        if (randomHandMonster == null)
+        foreach (var card in hand)
         {
-            return;
-        }
+            if (!(card.GetCardInfo() is MonsterCardInfo))
+            {
+                return;
+            }
 
-        randomHandMonster.IncreaseStats(damage, health);
+            ((MonsterCard)card).IncreaseStats(1, 1);
+        }
     }
 
     private MonsterCard GetRandomMonsterCard()

@@ -16,8 +16,10 @@ MonoBehaviour:
   fieldSprite: {fileID: -99023764, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
   cost: 3
   effectDescription: '[Exit] Spawn 2 2/2 Slimes'
+  effect:
+    text: '[Exit] Spawn 2 2/2 Slimes'
+    fontSize: 4
   tags: 00000000
   damage: 4
   health: 4
-  attackDeck: []
   tempMonsterCardInfo: {fileID: 11400000, guid: df214423dbd494645bdc26fa0fcdb924, type: 2}

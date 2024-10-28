@@ -8,9 +8,6 @@ public class GoblinArchitect : MonsterCardInfo
         var room = self.GetCurrentRoom();
         FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
         var monsters = room.monsters;
-        foreach (var monster in monsters)
-        {
-            monster.Unlock();
-        }
+        room.UnlockMonsters(monsters);
     }
 }

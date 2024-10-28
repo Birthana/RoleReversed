@@ -16,8 +16,10 @@ MonoBehaviour:
   fieldSprite: {fileID: 21300000, guid: 57f7abc02b118c44abe98cefd630fcf6, type: 3}
   cost: 3
   effectDescription: '[Exit] Spawn 1 1/1 Slime in adjacent Rooms'
+  effect:
+    text: '[Exit] Spawn 1 1/1 Slime in adjacent Rooms'
+    fontSize: 4
   tags: 00000000
   damage: 4
   health: 4
-  attackDeck: []
   tempMonsterCardInfo: {fileID: 11400000, guid: 16c0ec62134bf2f42af7ec72e84e0131, type: 2}

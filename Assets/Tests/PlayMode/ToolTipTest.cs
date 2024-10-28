@@ -28,7 +28,7 @@ public class ToolTipTest : MonoBehaviour
     {
         // Arrange
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
-        cardInfo.effectDescription = "ANY_CARD_DESCRIPTION";
+        cardInfo.SetDescription("ANY_CARD_DESCRIPTION");
 
         // Act
         toolTip.SetText(cardInfo);
@@ -46,7 +46,7 @@ public class ToolTipTest : MonoBehaviour
         // Arrange
         var position = new Vector3(3, 5, 0);
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
-        cardInfo.effectDescription = "ANY_CARD_DESCRIPTION";
+        cardInfo.SetDescription("ANY_CARD_DESCRIPTION");
         
         // Act
         toolTip.Set(cardInfo, position);
@@ -62,7 +62,7 @@ public class ToolTipTest : MonoBehaviour
     {
         // Arrange
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
-        cardInfo.effectDescription = "ANY_CARD_DESCRIPTION";
+        cardInfo.SetDescription("ANY_CARD_DESCRIPTION");
         toolTip.SetText(cardInfo);
 
         // Act
@@ -79,7 +79,7 @@ public class ToolTipTest : MonoBehaviour
     {
         // Arrange
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
-        cardInfo.effectDescription = "ANY_CARD_DESCRIPTION";
+        cardInfo.SetDescription("ANY_CARD_DESCRIPTION");
         toolTip.SetText(cardInfo);
         toolTip.Clear();
 
@@ -97,7 +97,7 @@ public class ToolTipTest : MonoBehaviour
     {
         // Arrange
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
-        cardInfo.effectDescription = "";
+        cardInfo.SetDescription("");
 
         // Act
         toolTip.SetText(cardInfo);
@@ -113,7 +113,7 @@ public class ToolTipTest : MonoBehaviour
     {
         // Arrange
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
-        cardInfo.effectDescription = "";
+        cardInfo.SetDescription("");
 
         // Act
         toolTip.Set(cardInfo, new Vector3(3, 5));
@@ -129,7 +129,7 @@ public class ToolTipTest : MonoBehaviour
     {
         // Arrange
         var cardInfo = TestHelper.GetAnyMonsterCardInfo();
-        cardInfo.effectDescription = "";
+        cardInfo.SetDescription("");
 
         // Act
         toolTip.Set(cardInfo, new Vector3(3, 5));

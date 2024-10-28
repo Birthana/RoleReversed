@@ -9,14 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75e69bff4a800c640b4acfd96992c44c, type: 3}
+  m_Script: {fileID: 11500000, guid: 72fe234810621f646a03e5c41d0df7bc, type: 3}
   m_Name: BlueSlime
   m_EditorClassIdentifier: 
   cardName: Blue Slime
   fieldSprite: {fileID: -825728468, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
   cost: 1
-  effectDescription: 
+  effectDescription: '[Entrance] Draw 1 card. If it is a Slime, Gain 2 actions'
+  effect:
+    text: '[Entrance] Draw 1 card. If it is a Slime, Gain 2 actions'
+    fontSize: 4
   tags: 00000000
   damage: 2
   health: 2
-  attackDeck: []

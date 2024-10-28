@@ -16,7 +16,9 @@ MonoBehaviour:
   fieldSprite: {fileID: 21300000, guid: 25fd6fffcd30e2843bf44f0476db22b4, type: 3}
   cost: 2
   effectDescription: '[Entrance] Capacity +1'
+  effect:
+    text: '[Entrance] Capacity +1'
+    fontSize: 4
   tags: 01000000
   damage: 1
   health: 6
-  attackDeck: []

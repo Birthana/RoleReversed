@@ -15,6 +15,9 @@ MonoBehaviour:
   cardName: Rat
   fieldSprite: {fileID: 21300000, guid: 138ef4fe146588b4e8df55f5f7e75e07, type: 3}
   cost: 1
-  effectDescription: 
+  effect:
+    text: 
+    fontSize: 4
+  tags: 02000000
   damage: 3
   health: 1

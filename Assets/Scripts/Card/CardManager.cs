@@ -131,7 +131,7 @@ public class CardManager : MonoBehaviour
 
     private bool CardInfoIsMonster(CardInfo cardInfo, int cost) { return cardInfo is MonsterCardInfo && (cardInfo.cost == cost); }
 
-    public bool CardInfoIs(CardInfo cardInfo, Tag tag) { return cardInfo.tags.Contains(tag); }
+    public bool CardInfoIs(CardInfo cardInfo, Tag tag) { return cardInfo.Is(tag); }
 
     public bool CardInfoIsLowCostRoom(CardInfo cardInfo)
     {

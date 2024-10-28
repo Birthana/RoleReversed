@@ -8,22 +8,23 @@ public class OrangeStatue : MonsterCardInfo
     public override void Global(Monster self)
     {
         monsterSelf = self;
-        FindObjectOfType<GlobalEffects>().AddToEntrance(OnEntranceGainHealth);
+        FindObjectOfType<GlobalEffects>().AddToExit(OnExitCopy);
     }
 
-    public void OnEntranceGainHealth(Monster self)
+    public void OnExitCopy(Monster self)
     {
-        if (monsterSelf.IsDead() || (self.GetCurrentRoom() != monsterSelf.GetCurrentRoom()))
+        if (monsterSelf.IsDead() || !self.cardInfo.IsSlime() || self.isTemporary)
         {
             return;
         }
 
-        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
-        var parentRoom = monsterSelf.GetCurrentRoom();
-        var monsters = parentRoom.GetComponentsInChildren<Monster>();
-        foreach (var monster in monsters)
+        var player = FindObjectOfType<Player>();
+        if (player.IsDead())
         {
-            monster.TemporaryIncreaseStats(0, 2);
+            return;
         }
+
+        FindObjectOfType<EffectIcons>().SpawnEngageIcon(self.GetCurrentPosition());
+        self.GetCurrentRoom().SpawnRandomCopyNot(self);
     }
 }

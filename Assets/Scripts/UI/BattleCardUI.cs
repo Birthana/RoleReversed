@@ -8,7 +8,7 @@ public class BattleCardUI : CardUI
     {
         var battleCard = (BattleCardInfo)newCardInfo;
         SetCharacter(battleCard.GetCharacter());
-        SetDescription(battleCard.effectDescription);
+        SetDescription(battleCard.GetDescription(), battleCard.GetFontSize());
     }
 
     private void SetCharacter(Character character)

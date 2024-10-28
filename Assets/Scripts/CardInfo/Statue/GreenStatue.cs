@@ -6,13 +6,18 @@ public class GreenStatue : MonsterCardInfo
     public override void Engage(EffectInput input)
     {
         FindObjectOfType<EffectIcons>().SpawnEngageIcon(input.position);
-        var pushedMonster = input.room.PushRandomRoomMonster(input.monster);
-        if (pushedMonster == null)
+        var rooms = FindObjectsOfType<Room>();
+        var count = 0;
+        foreach(var room in rooms)
         {
-            return;
+            if (room.IsEmpty())
+            {
+                continue;
+            }
+
+            count++;
         }
 
-        FindObjectOfType<EffectIcons>().SpawnPushIcon(pushedMonster.GetCurrentPosition());
-        pushedMonster.TemporaryIncreaseStats(0, 2);
+        input.TemporaryIncreaseMonsterStats(count, count);
     }
 }

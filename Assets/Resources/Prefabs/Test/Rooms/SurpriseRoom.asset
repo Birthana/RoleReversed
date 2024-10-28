@@ -16,4 +16,8 @@ MonoBehaviour:
   fieldSprite: {fileID: -1534250167, guid: f6d8bd116986ee946830499f748b35d3, type: 3}
   cost: 2
   effectDescription: '[Battle Start] Make a random attack'
+  effect:
+    text: '[Battle Start] Make a random attack'
+    fontSize: 4
+  tags: 04000000
   capacity: 4

@@ -13,6 +13,11 @@ public class PurpleStatue : MonsterCardInfo
 
         FindObjectOfType<EffectIcons>().SpawnExitIcon(self.GetCurrentPosition());
         var pulledMonster = parentRoom.PullRandomAdjacentRoomMonster();
+        if (pulledMonster == null)
+        {
+            return;
+        }
+
         FindObjectOfType<EffectIcons>().SpawnPullIcon(pulledMonster.GetCurrentPosition());
     }
 }

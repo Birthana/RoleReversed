@@ -3,12 +3,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GoblinGuard", menuName = "CardInfo/Goblin/GoblinGuard")]
 public class GoblinGuard : MonsterCardInfo
 {
-    public override void Engage(EffectInput input)
+    public override void Entrance(Monster self)
     {
-        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(input.position);
-        if (input.monster != null)
+        var room = self.GetCurrentRoom();
+        if (room.HasCapacity())
         {
-            input.monster.Unlock();
+            if (room.HasNoAdjacentRoom())
+            {
+                return;
+            }
+
+            FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
+            room.ReduceMaxCapacity(1);
+            room.UnlockAdjacentRooms();
         }
     }
 }

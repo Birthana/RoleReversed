@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using TMPro;
 
 public class Player : Character
 {
@@ -16,6 +15,9 @@ public class Player : Character
             OnRespawn += respawnCounter.Increment;
         }
 
+        var healthBar = FindObjectOfType<HealthBar>();
+        GetHealthComponent().OnHealthChange += healthBar.Display;
+        GetHealthComponent().OnCountChange += healthBar.GetHealthUI().Display;
         base.Awake();
     }
 
@@ -63,7 +65,6 @@ public class Player : Character
         if (timesDied % 3 == 0)
         {
             FindObjectOfType<PlayerSkillManager>().AddRandomSkill();
-            GainRandomHealth();
             return;
         }
 
@@ -80,7 +81,6 @@ public class Player : Character
 
             if (timesDied > 9)
             {
-                GainRandomStats();
                 GainRandomHealth();
             }
         }
@@ -89,13 +89,6 @@ public class Player : Character
     private void GainRandomStats()
     {
         var rngIndex = UnityEngine.Random.Range(0, 10);
-        if (rngIndex == 0)
-        {
-            GainRandomDamage();
-            GainRandomDamage();
-            return;
-        }
-
         if (rngIndex == 1)
         {
             GainRandomDamage();
@@ -108,7 +101,7 @@ public class Player : Character
 
     private void GainRandomDamage()
     {
-        var rngIndex = UnityEngine.Random.Range(0, 4);
+        var rngIndex = UnityEngine.Random.Range(0, 5);
         if (rngIndex == 1)
         {
             return;
@@ -120,7 +113,7 @@ public class Player : Character
     private void GainRandomHealth()
     {
         var rngIndex = UnityEngine.Random.Range(0, 10);
-        if (rngIndex == 1 || rngIndex == 2)
+        if (rngIndex == 1)
         {
             health.IncreaseMaxHealth(2);
             return;

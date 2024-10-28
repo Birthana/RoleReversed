@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ResetMonster : MonoBehaviour
@@ -10,19 +11,14 @@ public class ResetMonster : MonoBehaviour
         return monsters;
     }
 
-    public void SetMonsters(List<Monster> monsters)
-    {
-        this.monsters = monsters;
-    }
+    public void Add(Monster monster) { monsters.Add(monster); }
 
-    public void SetMonstersLocked(List<Monster> monsters)
+    public void SetMonstersLocked()
     {
         foreach (var monster in monsters)
         {
             monster.Lock();
         }
-
-        this.monsters = monsters;
     }
 
     public void ResetFieldMonsters()
@@ -42,15 +38,30 @@ public class ResetMonster : MonoBehaviour
 
     public void DestroyAllTempMonsters()
     {
-        SetMonsters(new List<Monster>(FindObjectsOfType<Monster>()));
-        foreach (var monster in GetMonsters())
+        foreach (var monster in GetMonsters().ToList())
         {
             if (monster.isTemporary)
             {
                 monster.transform.parent.GetComponent<Room>().RemoveTemporary(monster);
+                monsters.Remove(monster);
             }
         }
+    }
 
-        SetMonsters(new List<Monster>(FindObjectsOfType<Monster>()));
+    public int GetNumberOfTempSlimes()
+    {
+        int count = 0;
+
+        foreach (var monster in GetMonsters().ToList())
+        {
+            if (!monster.isTemporary)
+            {
+                continue;
+            }
+
+            count++;
+        }
+
+        return count;
     }
 }

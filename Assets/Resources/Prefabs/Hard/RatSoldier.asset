@@ -15,10 +15,9 @@ MonoBehaviour:
   cardName: Rat Soldier
   fieldSprite: {fileID: 21300000, guid: 5b7c16ac566f95f4ab8901daba503096, type: 3}
   cost: 2
-  effectDescription: '[Engage] If in Room, a hand
-
-    monster attacks'
+  effect:
+    text: '[Engage] If in Room, a hand monster attacks'
+    fontSize: 4
   tags: 02000000
-  damage: 2
-  health: 3
-  attackDeck: []
+  damage: 4
+  health: 4

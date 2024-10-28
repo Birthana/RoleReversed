@@ -14,7 +14,7 @@ public class PinkySlime : MonsterCardInfo
 
     public void OnExitSpawnSlime(Monster self)
     {
-        if (!self.cardInfo.tags.Contains(Tag.Slime) || self.cardInfo is TemporaryMonster || monsterSelf.IsDead())
+        if (!self.cardInfo.IsSlime() || self.cardInfo is TemporaryMonster || monsterSelf.IsDead())
         {
             return;
         }

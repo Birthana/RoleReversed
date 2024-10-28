@@ -148,8 +148,6 @@ public class MonsterDraggerTest : MonoBehaviour
 
         // Assert
         mock.VerifyAll();
-        Assert.AreEqual(new Vector3(Room.MONSTER_OFFSET.x + newRoom.transform.position.x, 0, 0),
-                        expectedMonster.transform.position);
         Assert.AreEqual(1, expectedRoom.GetCapacity());
         Assert.AreEqual(0, newRoom.GetCapacity());
     }

@@ -16,4 +16,8 @@ MonoBehaviour:
   fieldSprite: {fileID: 21300000, guid: 84c616570d40e974f8f087d837b8d7cf, type: 3}
   cost: 2
   effectDescription: '[Build Start] Draw 1 card.'
+  effect:
+    text: '[Build Start] Draw 1 card.'
+    fontSize: 4
+  tags: 04000000
   capacity: 3

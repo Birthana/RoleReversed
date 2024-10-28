@@ -15,9 +15,10 @@ MonoBehaviour:
   cardName: Yellow Statue
   fieldSprite: {fileID: 21300000, guid: 1c350d53f9273494fa24c827e47b518c, type: 3}
   cost: 1
-  effectDescription: '[Entrance] Pull a monster.
-
-    Then, it gets temp +0/2'
+  effectDescription: '[Entrance] Pull a monster.'
+  effect:
+    text: '[Entrance] Pull a monster.'
+    fontSize: 4
   tags: 03000000
   damage: 1
   health: 3

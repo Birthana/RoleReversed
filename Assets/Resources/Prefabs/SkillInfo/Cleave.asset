@@ -15,4 +15,7 @@ MonoBehaviour:
   timer: 3
   sprite: {fileID: 21300000, guid: 8b905568eccd9e3418c7b240cd8015f1, type: 3}
   description: Deal 3 damage to a Room Monster
+  penalty:
+    damage: 0
+    health: 1
   animationPrefab: {fileID: 1961188124370027520, guid: c8f3103e54870f54fb8989f03c6ab359, type: 3}

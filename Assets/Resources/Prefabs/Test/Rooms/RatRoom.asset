@@ -16,5 +16,9 @@ MonoBehaviour:
   fieldSprite: {fileID: 21300000, guid: f7a2df474bee499468be49ed0431a865, type: 3}
   cost: 1
   effectDescription: '[Battle Start] Draw a 1A 3/1 Rat that makes an attack.'
+  effect:
+    text: '[Battle Start] Draw a 1A 3/1 Rat that makes an attack.'
+    fontSize: 4
+  tags: 04000000
   capacity: 3
   ratCardInfo: {fileID: 11400000, guid: 3c1b6872232f3564f8fef8b0cf86d48a, type: 2}

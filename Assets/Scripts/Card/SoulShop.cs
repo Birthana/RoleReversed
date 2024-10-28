@@ -71,7 +71,6 @@ public class SoulShop : MonoBehaviour
         }
 
         OpenShop();
-        SetSprite(closeShop);
     }
 
     private bool PlayerChoosesDraftCard()
@@ -111,12 +110,15 @@ public class SoulShop : MonoBehaviour
     {
         Hide();
         SetSprite(openShop);
+        FindObjectOfType<HealthBar>().Show();
     }
 
     public void OpenShop()
     {
         FindObjectOfType<ToolTipManager>().Clear();
         Show();
+        SetSprite(closeShop);
+        FindObjectOfType<HealthBar>().Hide();
 
         if (!ShopIsEmpty())
         {

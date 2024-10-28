@@ -36,4 +36,15 @@ public struct EffectInput
 
         monster.IncreaseStats(damage, health);
     }
+
+    public void TemporaryIncreaseMonsterStats(int damage, int health)
+    {
+        if (monster == null)
+        {
+            card.IncreaseStats(damage, health);
+            return;
+        }
+
+        monster.TemporaryIncreaseStats(damage, health);
+    }
 }

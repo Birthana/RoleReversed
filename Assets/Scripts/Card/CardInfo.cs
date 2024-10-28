@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -5,6 +6,14 @@ using TMPro;
 public enum Tag
 {
     Slime, Goblin, Rat, Statue, Room
+}
+
+[Serializable]
+public struct Description
+{
+    [TextArea(1, 2)]
+    public string text;
+    public int fontSize;
 }
 
 #pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
@@ -15,8 +24,7 @@ public class CardInfo : ScriptableObject
     private readonly string EFFECT_ICON_PREFAB_FILE_PATH = "Prefabs/EffectIcon";
     public Sprite fieldSprite;
     public int cost;
-    [TextArea(1, 2)]
-    public string effectDescription;
+    public Description effect;
     public List<Tag> tags;
 
     public override bool Equals(object other)
@@ -44,7 +52,12 @@ public class CardInfo : ScriptableObject
         return this is RoomCardInfo;
     }
 
-    public bool HasNoEffect() { return effectDescription.Equals(""); }
+    public string GetDescription() { return effect.text; }
+    public int GetFontSize() { return effect.fontSize; }
+
+    public void SetDescription(string description) { effect.text = description; }
+
+    public bool HasNoEffect() { return GetDescription().Equals(""); }
 
     public virtual Card GetCardPrefab() { return new Card(); }
 
@@ -63,5 +76,30 @@ public class CardInfo : ScriptableObject
         damageNumber.GetComponent<TextMeshPro>().text = $"{new EffectText().GetText($"{iconName}")}";
         damageNumber.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 2) * 100);
         Destroy(damageNumber.gameObject, 0.5f);
+    }
+
+    public bool Is(Tag tag)
+    {
+        return tags.Contains(tag);
+    }
+
+    public bool IsGoblin()
+    {
+        return tags.Contains(Tag.Goblin);
+    }
+
+    public bool IsSlime()
+    {
+        return tags.Contains(Tag.Slime);
+    }
+
+    public bool IsRat()
+    {
+        return tags.Contains(Tag.Rat);
+    }
+
+    public bool IsStatue()
+    {
+        return tags.Contains(Tag.Statue);
     }
 }

@@ -15,3 +15,6 @@ MonoBehaviour:
   timer: 5
   sprite: {fileID: 21300000, guid: ee95a4027eff6ef4d990e9d6d5659b1d, type: 3}
   description: Restore 5 Health
+  penalty:
+    damage: 1
+    health: 0

@@ -19,6 +19,11 @@ public class RedStatue : MonsterCardInfo
     private void PullRoomMonster(Room room)
     {
         var pulledMonster = room.PullRandomAdjacentRoomMonster();
+        if (pulledMonster == null)
+        {
+            return;
+        }
+
         FindObjectOfType<EffectIcons>().SpawnPullIcon(pulledMonster.GetCurrentPosition());
     }
 }

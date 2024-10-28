@@ -112,4 +112,13 @@ public class MonsterCard : Card
         yield return new WaitForSeconds(0.1f);
         currentAnim = null;
     }
+
+    public void MakeHandAttack(EffectInput input)
+    {
+        PlayChosenAnim();
+        input.player.TakeDamage(this);
+        input.monster = null;
+        input.card = this;
+        FindObjectOfType<GlobalEffects>().HandEngage(input);
+    }
 }

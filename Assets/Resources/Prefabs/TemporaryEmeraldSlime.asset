@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: TemporaryEmeraldSlime
   m_EditorClassIdentifier: 
   cardName: Temp Slime
-  cardSprite: {fileID: 0}
   fieldSprite: {fileID: -230130822, guid: 5d29a8c893b8b9944b638cd204f06a13, type: 3}
   cost: 0
-  effectDescription: 
+  effect:
+    text: 
+    fontSize: 4
+  tags: 00000000
   damage: 1
   health: 1

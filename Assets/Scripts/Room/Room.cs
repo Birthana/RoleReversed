@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class Room : MonoBehaviour
 {
-    public static readonly Vector2 MONSTER_OFFSET = new Vector2(2, 0);
+    public Vector2 MONSTER_OFFSET = new Vector2(2, 0);
     private static readonly string FIELD_MONSTER_PREFAB = "Prefabs/FieldMonster";
     private static readonly int MAX_NUMBER_OF_MONSTERS_IN_COLUMN = 3;
     private static readonly int MAX_ROOM_CAPACITY = 9;
@@ -141,7 +141,7 @@ public class Room : MonoBehaviour
 
     private bool ShouldTrackCapacity(Monster monster)
     {
-        return !monster.isTemporary || (monster.isTemporary && this is ConstructionRoom);
+        return !monster.isTemporary;
     }
 
     private bool ShouldNotTrackCapacity(Monster monster)
@@ -173,27 +173,51 @@ public class Room : MonoBehaviour
 
     public void DisplayMonsters()
     {
-        var blockCenterPosition = new BlockCenterPosition(new Vector2(MONSTER_OFFSET.x, 0), 
-                                                          monsters.Count,
+        var blockCenterPosition = new BlockCenterPosition(new Vector2(MONSTER_OFFSET.x, 0),
+                                                          GetAliveMonsterCount(),
                                                           MAX_NUMBER_OF_MONSTERS_IN_COLUMN,
                                                           MONSTER_SPACING,
                                                           COLUMN_SPACING);
+        int count = 0;
         for (int i = 0; i < monsters.Count; i++)
         {
-            monsters[i].transform.localPosition = blockCenterPosition.GetVerticalLayoutPositionAt(i);
+            if (monsters[i].IsDead())
+            {
+                continue;
+            }
+
+            monsters[i].transform.localPosition = blockCenterPosition.GetVerticalLayoutPositionAt(count);
+            count++;
         }
+    }
+
+    private int GetAliveMonsterCount()
+    {
+        int count = 0;
+        foreach(var monster in monsters)
+        {
+            if (monster.IsDead())
+            {
+                continue;
+            }
+
+            count++;
+        }
+
+        return count;
     }
 
     public void Remove(Monster monster)
     {
         monster.gameObject.SetActive(false);
         monster.Exit();
+        DisplayMonsters();
     }
 
     public void RemoveTemporary(Monster monster)
     {
         LeaveEffectCapacity(monster);
-        DestroyImmediate(monster.gameObject);
+        Destroy(monster.gameObject);
     }
 
     public Monster GetRandomMonster()
@@ -215,7 +239,7 @@ public class Room : MonoBehaviour
 
         if (monsters.Count == 1)
         {
-            return GetAliveRandomMonster();
+            return null;
         }
 
         return GetAliveRandomMonsterNot(exception);
@@ -286,6 +310,14 @@ public class Room : MonoBehaviour
         return monster;
     }
 
+    public Monster SpawnCopy(MonsterCardInfo monsterCardInfo)
+    {
+        var monster = CreateMonster(monsterCardInfo);
+        new ChangeSortingLayer(monster.gameObject).SetToCurrentRoom();
+        monster.isTemporary = true;
+        return monster;
+    }
+
     public Monster SpawnTemporaryMonsterInDifferentRoom(MonsterCardInfo monsterCardInfo)
     {
         var monster = CreateMonster(monsterCardInfo);
@@ -297,9 +329,11 @@ public class Room : MonoBehaviour
     {
         var monsterPrefab = Resources.Load<Monster>(FIELD_MONSTER_PREFAB);
         var monster = Instantiate(monsterPrefab, transform);
-        Add(monster);
         var copy = Instantiate(monsterCardInfo);
         monster.Setup(copy);
+        Add(monster);
+        monster.Entrance();
+        FindObjectOfType<GameManager>().AddToMonsters(monster);
         return monster;
     }
 
@@ -466,5 +500,40 @@ public class Room : MonoBehaviour
         }
 
         return adjacentRooms[Random.Range(0, adjacentRooms.Count)];
+    }
+
+    public void UnlockAdjacentRooms()
+    {
+        var adjacentRooms = GetAdjacentRooms();
+        if (HasNoAdjacentRoom())
+        {
+            return;
+        }
+
+        foreach(var room in adjacentRooms)
+        {
+            UnlockMonsters(room.monsters);
+        }
+    }
+
+    public void UnlockMonsters(List<Monster> monstersToUnlock)
+    {
+        foreach (var monster in monstersToUnlock)
+        {
+            monster.Unlock();
+        }
+    }
+
+    public void SpawnRandomCopyNot(Monster monster)
+    {
+        var rngMonster = GetRandomMonsterNot(monster);
+        if (rngMonster == null)
+        {
+            Debug.Log($"No Target to Copy.");
+            return;
+        }
+
+        var copy = SpawnCopy(rngMonster.cardInfo);
+        copy.SetMaxStats(1, 1);
     }
 }

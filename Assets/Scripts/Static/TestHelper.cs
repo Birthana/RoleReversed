@@ -109,7 +109,7 @@ public static class TestHelper
         var temporaryMonsterCardInfo = ScriptableObject.CreateInstance<TemporaryMonster>();
         temporaryMonsterCardInfo.cardName = ANY_CARD_NAME_2;
         temporaryMonsterCardInfo.cost = 1;
-        temporaryMonsterCardInfo.effectDescription = ANY_CARD_TEXT;
+        temporaryMonsterCardInfo.SetDescription(ANY_CARD_TEXT);
         temporaryMonsterCardInfo.damage = 1;
         temporaryMonsterCardInfo.health = 1;
         Sprite sprite = Resources.Load<Sprite>("Sprites/card");
@@ -122,7 +122,7 @@ public static class TestHelper
         var monsterCardInfo = ScriptableObject.CreateInstance<MonsterCardInfo>();
         monsterCardInfo.cardName = cardName;
         monsterCardInfo.cost = 1;
-        monsterCardInfo.effectDescription = cardEffect;
+        monsterCardInfo.SetDescription(cardEffect);
         monsterCardInfo.damage = 1;
         monsterCardInfo.health = 1;
         Sprite sprite = Resources.Load<Sprite>("Sprites/card");
@@ -135,7 +135,7 @@ public static class TestHelper
         var roomCardInfo = ScriptableObject.CreateInstance<RoomCardInfo>();
         roomCardInfo.cardName = cardName;
         roomCardInfo.cost = cost;
-        roomCardInfo.effectDescription = cardEffect;
+        roomCardInfo.SetDescription(cardEffect);
         return roomCardInfo;
     }
 
@@ -278,7 +278,7 @@ public static class TestHelper
         var constructionRoomCardInfo = ScriptableObject.CreateInstance<ConstructionRoomCardInfo>();
         constructionRoomCardInfo.cardName = "Any Name.";
         constructionRoomCardInfo.cost = 2;
-        constructionRoomCardInfo.effectDescription = "Any Effect.";
+        constructionRoomCardInfo.SetDescription("Any Effect.");
         constructionRoomCardInfo.timer = 2;
         constructionRoomCardInfo.capacity = 1;
         constructionRoomCardInfo.roomCardInfo = GetRoomCardInfo(2, "Any Name.", "Any Effect.");

@@ -54,7 +54,7 @@ public class ToolTipManager : MonoBehaviour
             return;
         }
 
-        GetText().text = cardInfo.effectDescription;
+        GetText().text = cardInfo.GetDescription();
     }
 
     private bool IsSamePosition(Vector3 positon) { return GetTextParent().position == positon; }

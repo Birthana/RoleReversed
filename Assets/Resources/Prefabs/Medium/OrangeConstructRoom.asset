@@ -16,6 +16,9 @@ MonoBehaviour:
   fieldSprite: {fileID: -322164552, guid: d9276957f44e8a14d9a191335dcdb286, type: 3}
   cost: 1
   effectDescription: '[Battle Start] Use a room monster [Entrance]'
+  effect:
+    text: '[Battle Start] Use a room monster [Entrance]'
+    fontSize: 4
   tags: 04000000
   capacity: 1
   timer: 1

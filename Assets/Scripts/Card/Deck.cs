@@ -151,15 +151,16 @@ public class Deck : DisplayObject
         return cardInfos[0];
     }
 
-    public void DrawCardToHand()
+    public Card DrawCardToHand()
     {
         if (GetHand().IsFull())
         {
-            return;
+            return null;
         }
 
         var card = Draw();
         AddCardToHand(card);
+        return card;
     }
 
     private void AddCardToHand(Card card)

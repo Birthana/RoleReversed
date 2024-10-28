@@ -3,7 +3,7 @@ using TMPro;
 
 public class BasicUI : MonoBehaviour
 {
-    public TextMeshPro ui;
+    public TMP_Text ui;
     public Color color = Color.white;
     private IconText iconText;
 

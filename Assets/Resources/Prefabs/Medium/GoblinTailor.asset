@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Goblin Tailor
   fieldSprite: {fileID: 21300000, guid: 2a16cd0384b05af4ebe7afa19034f476, type: 3}
-  cost: 2
-  effectDescription: Goblins get "[Entrance] Unlock a Room Monster"
+  cost: 3
+  effectDescription: Goblins get "[Entrance] Room Monsters get +2/2 for the battle"
+  effect:
+    text: Goblins get "[Entrance] Room Monsters get +2/2 for the battle"
+    fontSize: 4
   tags: 01000000
   damage: 3
   health: 4

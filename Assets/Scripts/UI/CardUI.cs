@@ -12,7 +12,7 @@ public class CardUI : MonoBehaviour
     public virtual void SetCardInfo(CardInfo newCardInfo)
     {
         SetCost(newCardInfo.cost);
-        SetDescription(newCardInfo.effectDescription);
+        SetDescription(newCardInfo.GetDescription(), newCardInfo.GetFontSize());
         SetCardSprite(newCardInfo.fieldSprite);
     }
 
@@ -36,7 +36,7 @@ public class CardUI : MonoBehaviour
         cardSprite.sprite = sprite;
     }
 
-    protected void SetDescription(string cardDescription)
+    protected void SetDescription(string cardDescription, int fontSize)
     {
         if (description == null)
         {
@@ -45,6 +45,7 @@ public class CardUI : MonoBehaviour
 
         var effectText = new EffectText();
         description.text = effectText.GetText(cardDescription);
+        description.fontSize = fontSize;
     }
 
 }

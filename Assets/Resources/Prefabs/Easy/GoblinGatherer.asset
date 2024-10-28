@@ -15,8 +15,10 @@ MonoBehaviour:
   cardName: Goblin Gatherer
   fieldSprite: {fileID: 21300000, guid: 5c4a88ed63f9a74439397211b546cf45, type: 3}
   cost: 1
-  effectDescription: "[Entrance] Capacity -1 \nfor +1 Action and +1/1"
+  effectDescription: '[Entrance] Capacity -1  for 2 Actions and +1/1'
+  effect:
+    text: '[Entrance] Capacity -1  for 2 Actions and +1/1'
+    fontSize: 4
   tags: 01000000
   damage: 2
   health: 1
-  attackDeck: []
