@@ -10,7 +10,6 @@ public class PlayerSkillManager : MonoBehaviour
     public SkillDisplay skillPrefab;
     public SkillDisplay skillStackPrefab;
     [SerializeField] private List<SkillDisplay> skillDisplays = new List<SkillDisplay>();
-    [SerializeField] private Vector3 uiOffset = Vector3.zero;
 
     private void Awake()
     {
@@ -97,10 +96,10 @@ public class PlayerSkillManager : MonoBehaviour
             skillDisplays.Add(skillDisplay);
         }
 
-        var centerPosition = new CenterPosition(uiOffset, skillDisplays.Count, 25);
+        var centerPosition = new CenterPosition(transform.position, skillDisplays.Count, 25);
         for (int i = 0; i < skillDisplays.Count; i++)
         {
-            skillDisplays[i].transform.localPosition = centerPosition.GetVerticalOffsetPositionAt(i);
+            skillDisplays[i].transform.localPosition = centerPosition.GetHorizontalOffsetPositionAt(i);
         }
     }
 

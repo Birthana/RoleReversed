@@ -30,11 +30,6 @@ public class ConstructionRoom : Room
 
     public void ReduceTimer()
     {
-        if (GetCapacityComponent().GetCount() > 0)
-        {
-            return;
-        }
-
         GetTimerComponent().DecreaseTimer(monsters.Count);
     }
 
@@ -59,6 +54,8 @@ public class ConstructionRoom : Room
             }
         }
 
-        DestroyImmediate(gameObject);
+        var gameManager = FindObjectOfType<GameManager>();
+        gameManager.RemoveRoom(this);
+        gameManager.AddToRooms(room);
     }
 }

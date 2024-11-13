@@ -35,7 +35,7 @@ public class Hand : MonoBehaviour
         {
             if (!(card.GetCardInfo() is MonsterCardInfo))
             {
-                return;
+                continue;
             }
 
             ((MonsterCard)card).IncreaseStats(1, 1);

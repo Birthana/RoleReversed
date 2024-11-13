@@ -63,6 +63,8 @@ public class CardInfo : ScriptableObject
 
     public virtual CardUI GetCardUI() { return new CardUI(); }
 
+    public virtual CardUI GetDropCardUI() { return new CardUI(); }
+
     public void SpawnBattleStartIcon(Vector3 position)
     {
         SpawnEffectIcon(position, "Battle Start");

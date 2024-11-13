@@ -1,12 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Drop : DisplayObject
 {
     public Sprite openBox;
     public Sprite closedBox;
-    public SpriteRenderer frontDeckBox;
+    public Image boxSprite;
+    public Image frontDeckBox;
+    public Canvas cardUIPosition;
+    public RectTransform dropCardPosition;
     private CardUI cardUI;
 
     protected override bool PlayerClicksOnObject() { return mouse.PlayerPressesLeftClick() && mouse.IsOnDrop(); }
@@ -24,8 +27,8 @@ public class Drop : DisplayObject
     private void CreateTopOfDeckCard(CardInfo cardInfo)
     {
         RemoveTopOfDropCard();
-        cardUI = Instantiate(cardInfo.GetCardUI(), transform);
-        cardUI.transform.localScale = new Vector3(0.65f, 0.65f, 1.0f);
+        cardUI = Instantiate(cardInfo.GetDropCardUI(), cardUIPosition.GetComponent<RectTransform>());
+        cardUI.GetComponent<RectTransform>().anchoredPosition = dropCardPosition.anchoredPosition;
         cardUI.SetCardInfo(cardInfo);
     }
 
@@ -33,7 +36,7 @@ public class Drop : DisplayObject
     {
         if (GetSize() == 0)
         {
-            GetComponent<SpriteRenderer>().sprite = openBox;
+            boxSprite.sprite = openBox;
             frontDeckBox.gameObject.SetActive(true);
         }
 
@@ -53,7 +56,7 @@ public class Drop : DisplayObject
         }
 
         cardInfos = new List<CardInfo>();
-        GetComponent<SpriteRenderer>().sprite = closedBox;
+        boxSprite.sprite = closedBox;
         frontDeckBox.gameObject.SetActive(false);
         RemoveTopOfDropCard();
     }

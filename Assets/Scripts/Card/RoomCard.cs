@@ -115,9 +115,6 @@ public class RoomCard : Card
         var room = Instantiate(roomPrefab);
         room.Setup(roomCardInfo, roomTransform.GetTransform().position);
         GetSpaceManager().RemoveSpace(roomTransform.GetTransform().localPosition);
-        if (GetGameManager().DoesNotHaveStartRoom())
-        {
-            GetGameManager().SetStartRoom(room);
-        }
+        GetGameManager().AddToRooms(room);
     }
 }

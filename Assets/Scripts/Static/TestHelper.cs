@@ -22,7 +22,6 @@ public static class TestHelper
     public static GameManager GetGameManager()
     {
         var gameManager = new GameObject().AddComponent<GameManager>();
-        gameManager.gameOverScreen = new GameObject();
         gameManager.shopButton = new GameObject();
         gameManager.startButton = new GameObject();
         gameManager.packPrefab = GetPack();
@@ -263,7 +262,6 @@ public static class TestHelper
     {
         var drop = new GameObject().AddComponent<Drop>();
         drop.gameObject.AddComponent<SpriteRenderer>();
-        drop.frontDeckBox = new GameObject().AddComponent<SpriteRenderer>();
         return drop;
     }
 

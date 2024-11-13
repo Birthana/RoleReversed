@@ -296,6 +296,11 @@ public class Room : MonoBehaviour
         return true;
     }
 
+    public bool IsFull()
+    {
+        return capacity.GetCount() == 0;
+    }
+
     public Monster SpawnMonster(MonsterCardInfo monsterCardInfo)
     {
         var monster = CreateMonster(monsterCardInfo);
@@ -529,7 +534,6 @@ public class Room : MonoBehaviour
         var rngMonster = GetRandomMonsterNot(monster);
         if (rngMonster == null)
         {
-            Debug.Log($"No Target to Copy.");
             return;
         }
 

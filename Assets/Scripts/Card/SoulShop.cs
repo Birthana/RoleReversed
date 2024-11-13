@@ -1,14 +1,15 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class SoulShop : MonoBehaviour
 {
     public Sprite openShop;
     public Sprite closeShop;
+    public Image buttonUI;
     [SerializeField] private GameObject background;
+    [SerializeField] private RerollButton reRollButton;
     [SerializeField] private Transform draftCardTransform;
     private DraftManager draftManager;
-    private RerollButton reRollButton;
     private PlayerSoulCounter playerSouls;
     private IMouseWrapper mouse;
 
@@ -18,7 +19,6 @@ public class SoulShop : MonoBehaviour
     {
         SetMouseWrapper(new MouseWrapper());
         draftManager = GetComponent<DraftManager>();
-        reRollButton = GetComponentInChildren<RerollButton>(true);
         playerSouls = FindObjectOfType<PlayerSoulCounter>();
         Hide();
     }
@@ -64,6 +64,11 @@ public class SoulShop : MonoBehaviour
             return;
         }
 
+        ToggleShop();
+    }
+
+    public void ToggleShop()
+    {
         if (IsOpen())
         {
             CloseShop();
@@ -95,13 +100,12 @@ public class SoulShop : MonoBehaviour
 
     private void SetSprite(Sprite sprite)
     {
-        var renderer = GetComponent<SpriteRenderer>();
-        if (renderer == null)
+        if (buttonUI == null)
         {
             return;
         }
 
-        renderer.sprite = sprite;
+        buttonUI.sprite = sprite;
     }
 
     private bool PlayerDoesNotClickOnShop() { return (!mouse.PlayerPressesLeftClick() || !mouse.IsOnOpenSoulShop()); }

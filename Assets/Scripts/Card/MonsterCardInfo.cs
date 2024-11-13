@@ -6,6 +6,7 @@ public class MonsterCardInfo : CardInfo
 {
     private static readonly string MONSTER_CARD_PREFAB = "Prefabs/MonsterCardPrefab";
     private static readonly string MONSTER_CARD_UI_PREFAB = "Prefabs/MonsterCardUI";
+    private static readonly string DROP_MONSTER_CARD_UI_PREFAB = "Prefabs/DropMonsterCard";
     private Player player;
     private Hand hand;
     public int damage;
@@ -66,6 +67,12 @@ public class MonsterCardInfo : CardInfo
     public override CardUI GetCardUI()
     {
         var cardUI = Resources.Load<MonsterCardUI>(MONSTER_CARD_UI_PREFAB);
+        return cardUI;
+    }
+
+    public override CardUI GetDropCardUI()
+    {
+        var cardUI = Resources.Load<MonsterCardUI>(DROP_MONSTER_CARD_UI_PREFAB);
         return cardUI;
     }
 

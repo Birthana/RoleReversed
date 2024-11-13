@@ -1,29 +1,36 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using TMPro;
 
 public class GameOver : MonoBehaviour
 {
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("Replay"));
-            if (hit)
-            {
-                SceneManager.LoadScene(1);
-            }
-        }
+    public GameObject panel;
+    public TextMeshProUGUI text;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            var hit = Physics2D.Raycast(ray.origin, Vector2.zero, 100, 1 << LayerMask.NameToLayer("MainMenu"));
-            if (hit)
-            {
-                SceneManager.LoadScene(0);
-            }
-        }
+    public void Reload()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void ShowWon()
+    {
+        text.text = "Game Won!";
+        panel.SetActive(true);
+    }
+
+    public void ShowLose()
+    {
+        text.text = "Game Over";
+        panel.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        panel.SetActive(false);
     }
 }

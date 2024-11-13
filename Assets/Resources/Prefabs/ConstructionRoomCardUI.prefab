@@ -491,7 +491,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 3
 --- !u!1 &3442775766331877151
 GameObject:
   m_ObjectHideFlags: 0

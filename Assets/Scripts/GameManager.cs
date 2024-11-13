@@ -25,18 +25,18 @@ public struct RoommateRoom
 public class GameManager : MonoBehaviour, IGameManager
 {
     public static readonly float ATTACK_TIMER = 0.5f;
-    public GameObject requestPrefab;
     public Player playerPrefab;
     public Pack packPrefab;
     public Vector2 PLAYER_OFFSET;
     public GameObject respawnCounter;
-    public GameObject gameOverScreen;
+    public GameOver gameOverScreen;
     public GameObject shopButton;
     public GameObject startButton;
     private Room startRoom;
     private Player player;
     private Room currentRoom;
     [SerializeField] private ResetMonster resetMonster;
+    [SerializeField] private List<Room> totalRooms = new List<Room>();
     private bool isRunning = false;
     private Coroutine coroutine;
     [SerializeField] private IFocusAnimation focusAnimation;
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void Awake()
     {
-        gameOverScreen.SetActive(false);
+        gameOverScreen.Hide();
         shopButton.SetActive(false);
         startButton.SetActive(false);
         SpawnPackInRandomSpot();
@@ -151,6 +151,31 @@ public class GameManager : MonoBehaviour, IGameManager
         BuildStart();
         FindObjectOfType<SoulShop>().OpenShop();
         FindObjectOfType<SoulShop>().FreeReroll();
+        if (CheckIfWon())
+        {
+            gameOverScreen.ShowWon();
+        }
+    }
+
+    private bool CheckIfWon()
+    {
+        int actualRoomCount = 0;
+        foreach(var room in totalRooms)
+        {
+            if (room is ConstructionRoom)
+            {
+                return false;
+            }
+
+            actualRoomCount++;
+        }
+
+        if (actualRoomCount == 15)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void BuildStart()
@@ -203,17 +228,17 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void BuildConstructionRooms()
     {
-        var constructionRooms = FindObjectsOfType<ConstructionRoom>();
-        if (constructionRooms.Length == 0)
+        foreach (var room in totalRooms.ToList())
         {
-            return;
-        }
-
-        foreach (var room in constructionRooms)
-        {
-            if (room.CanBeBuilt())
+            if (room is not ConstructionRoom)
             {
-                room.SpawnRoom();
+                continue;
+            }
+
+            var constructionRoom = (ConstructionRoom)room;
+            if (constructionRoom.CanBeBuilt())
+            {
+                constructionRoom.SpawnRoom();
             }
         }
     }
@@ -290,7 +315,7 @@ public class GameManager : MonoBehaviour, IGameManager
             if (GameOver())
             {
                 yield return UnfocusOnCurrentRoom();
-                gameOverScreen.SetActive(true);
+                gameOverScreen.ShowLose();
                 break;
             }
 
@@ -353,6 +378,22 @@ public class GameManager : MonoBehaviour, IGameManager
     public void AddToMonsters(Monster monster)
     {
         resetMonster.Add(monster);
+    }
+
+    public void AddToRooms(Room room)
+    {
+        if (DoesNotHaveStartRoom())
+        {
+            SetStartRoom(room);
+        }
+
+        totalRooms.Add(room);
+    }
+
+    public void RemoveRoom(Room room)
+    {
+        totalRooms.Remove(room);
+        DestroyImmediate(room.gameObject);
     }
 
     public int GetNumberOfTempSlimes() { return resetMonster.GetNumberOfTempSlimes(); }

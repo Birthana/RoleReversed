@@ -1,25 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Deck : DisplayObject
 {
     public Sprite openBox;
     public Sprite closedBox;
-    private SpriteRenderer spriteRenderer;
+    public Image deckSprite;
     private DeckCount deckCount;
     private Drop drop;
     private Hand hand;
-
-    private SpriteRenderer GetSpriteRenderer()
-    {
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-        }
-
-        return spriteRenderer;
-    }
 
     private DeckCount GetDeckCount()
     {
@@ -64,7 +53,7 @@ public class Deck : DisplayObject
     {
         if (IsEmpty())
         {
-            GetSpriteRenderer().sprite = sprite;
+            deckSprite.sprite = sprite;
         }
     }
 

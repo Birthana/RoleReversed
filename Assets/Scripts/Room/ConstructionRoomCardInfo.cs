@@ -8,7 +8,8 @@ public class ConstructionRoomCardInfo : RoomCardInfo
     public RoomCardInfo roomCardInfo;
     private static readonly string FIELD_CONSTRUCTION_ROOM_PREFAB = "Prefabs/FieldConstructionRoom";
     private static readonly string CONSTRUCTION_ROOM_CARD_UI_PREFAB = "Prefabs/ConstructionRoomCardUI";
-    
+    private static readonly string DROP_CONSTRUCTION_ROOM_CARD_UI_PREFAB = "Prefabs/DropConstructionRoomCard";
+
 
     public int GetTimer() { return timer; }
 
@@ -20,6 +21,12 @@ public class ConstructionRoomCardInfo : RoomCardInfo
     public override CardUI GetCardUI()
     {
         var cardUI = Resources.Load<ConstructionRoomCardUI>(CONSTRUCTION_ROOM_CARD_UI_PREFAB);
+        return cardUI;
+    }
+
+    public override CardUI GetDropCardUI()
+    {
+        var cardUI = Resources.Load<ConstructionRoomCardUI>(DROP_CONSTRUCTION_ROOM_CARD_UI_PREFAB);
         return cardUI;
     }
 }

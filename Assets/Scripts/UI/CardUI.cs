@@ -1,13 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class CardUI : MonoBehaviour
 {
     [SerializeField] private BasicUI cost;
-    [SerializeField] private TextMeshPro description;
+    [SerializeField] private TMP_Text description;
     [SerializeField] private SpriteRenderer cardSprite;
-
-    public SpriteRenderer GetCardSprite() { return cardSprite; }
+    [SerializeField] private Image image;
 
     public virtual void SetCardInfo(CardInfo newCardInfo)
     {
@@ -28,8 +28,14 @@ public class CardUI : MonoBehaviour
 
     protected void SetCardSprite(Sprite sprite)
     {
+        if (cardSprite == null && image == null)
+        {
+            return;
+        }
+
         if (cardSprite == null)
         {
+            image.sprite = sprite;
             return;
         }
 
