@@ -61,14 +61,20 @@ public class RoomTransform
             return null;
         }
 
-        return IgnoreCurrentFocusedRoom(GetHits(position));
+        return IgnoreCurrentFocusedRoom(GetHits(position), position);
     }
 
-    private Room IgnoreCurrentFocusedRoom(RaycastHit2D[] hits)
+    private Room IgnoreCurrentFocusedRoom(RaycastHit2D[] hits, Vector2 position)
     {
+        var roomPosition = new Vector3(position.x, position.y, 0.0f);
         foreach (var room in hits)
         {
             if (room.transform.GetComponent<SpriteRenderer>().sortingLayerName == "CurrentRoom")
+            {
+                continue;
+            }
+
+            if (roomPosition != room.transform.position)
             {
                 continue;
             }

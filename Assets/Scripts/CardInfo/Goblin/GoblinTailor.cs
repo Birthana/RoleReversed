@@ -8,28 +8,26 @@ public class GoblinTailor : MonsterCardInfo
     public override void Global(Monster self)
     {
         monsterSelf = self;
-        FindObjectOfType<GlobalEffects>().AddToEntrance(OnEntranceIncreaseStats);
+        FindObjectOfType<GlobalEffects>().AddToRoomEntrance(OnRoomEntranceIncreaseStats);
     }
 
-    public void OnEntranceIncreaseStats(Monster self)
+    public void OnRoomEntranceIncreaseStats(Room room)
     {
-        if (ShouldNotCast(self.cardInfo))
+        if (monsterSelf == null)
         {
             return;
         }
 
-        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
-        var monsters = self.GetCurrentRoom().monsters;
+        if (!monsterSelf.GetCurrentRoom().IsAdjacentTo(room))
+        {
+            return;
+        }
+
+        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(room.GetStartPosition());
+        var monsters = FindObjectsOfType<Monster>();
         foreach (var monster in monsters)
         {
-            monster.TemporaryIncreaseStats(2, 2);
+            monster.TemporaryIncreaseStats(5, 5);
         }
-    }
-
-    private bool ShouldNotCast(MonsterCardInfo cardInfo)
-    {
-        return !cardInfo.IsGoblin() ||
-                cardInfo is TemporaryMonster ||
-                monsterSelf.IsDead();
     }
 }

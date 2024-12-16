@@ -4,7 +4,7 @@ using UnityEngine;
 public class DisplayObject : MonoBehaviour
 {
     protected IMouseWrapper mouse;
-    [SerializeField] protected List<CardInfo> cardInfos = new List<CardInfo>();
+    protected List<CardInfo> cardInfos = new List<CardInfo>();
     private DisplayCardInfos displayCardInfos;
 
     public void SetMouse(IMouseWrapper mouse)
@@ -31,13 +31,21 @@ public class DisplayObject : MonoBehaviour
 
     public void Update()
     {
-        if (PlayerClicksOnObject() && !GetDisplayCardInfos().IsDisplay())
+        if (PlayerClicksOnObject())
+        {
+            Display();
+        }
+    }
+
+    public void Display()
+    {
+        if (!GetDisplayCardInfos().IsDisplay())
         {
             GetDisplayCardInfos().Show(cardInfos);
             return;
         }
 
-        if (PlayerClicksOnObject() && GetDisplayCardInfos().IsDisplay())
+        if (GetDisplayCardInfos().IsDisplay())
         {
             GetDisplayCardInfos().Hide();
             return;

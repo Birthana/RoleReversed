@@ -84,6 +84,14 @@ public class Hand : MonoBehaviour
         DisplayHand();
     }
 
+    public void AddAndAttack(CardInfo cardInfo, EffectInput input)
+    {
+        var deck = FindObjectOfType<Deck>();
+        var card = (MonsterCard)deck.CreateCardWith(cardInfo);
+        Add(card);
+        card.MakeHandAttack(input);
+    }
+
     public void Remove(Card card)
     {
         for (var index = 0; index < hand.Count; index++)

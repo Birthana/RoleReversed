@@ -13,7 +13,6 @@ public class BlueStatue : MonsterCardInfo
         }
 
         FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
-        new ChangeSortingLayer(pushedMonster.gameObject).SetToDefault();
         FindObjectOfType<EffectIcons>().SpawnPushIcon(pushedMonster.GetCurrentPosition());
         pushedMonster.Lock();
         pushedMonster.TemporaryIncreaseStats(0, 2);

@@ -16,7 +16,7 @@ MonoBehaviour:
   fieldSprite: {fileID: 21300000, guid: a2b9e283342a5f14fb1ee0e7ac577783, type: 3}
   cost: 1
   effect:
-    text: '[Battle Start] If Room is Full, Room Monsters get +1/1'
+    text: '[Battle Start] Room Monsters get +1/1'
     fontSize: 4
   tags: 04000000
   capacity: 3

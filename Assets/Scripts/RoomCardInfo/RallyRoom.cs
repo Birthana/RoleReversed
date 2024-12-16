@@ -6,11 +6,6 @@ public class RallyRoom : RoomCardInfo
 {
     public override IEnumerator BattleStart(Room room)
     {
-        if (!room.IsFull())
-        {
-            yield break;
-        }
-
         foreach (var monster in room.monsters)
         {
             monster.IncreaseStats(1, 1);

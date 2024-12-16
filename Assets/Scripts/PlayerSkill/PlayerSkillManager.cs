@@ -9,11 +9,14 @@ public class PlayerSkillManager : MonoBehaviour
     public List<PlayerSkill> skills = new List<PlayerSkill>();
     public SkillDisplay skillPrefab;
     public SkillDisplay skillStackPrefab;
+    public AudioClip button;
     [SerializeField] private List<SkillDisplay> skillDisplays = new List<SkillDisplay>();
+    private SoundManager soundManager;
 
     private void Awake()
     {
         LoadRoommateGifts();
+        soundManager = GetComponent<SoundManager>();
     }
 
     private void LoadRoommateGifts()
@@ -71,6 +74,7 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void ToggleDisplay()
     {
+        soundManager.Play(button);
         if (skillDisplays.Count == 0)
         {
             DisplaySkills();

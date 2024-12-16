@@ -122,8 +122,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 320
-        height: 320
+        width: 260
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: BoosterSets_1
       rect:
         serializedVersion: 2
-        x: 320
+        x: 260
         y: 0
-        width: 320
-        height: 320
+        width: 260
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: BoosterSets_2
       rect:
         serializedVersion: 2
-        x: 640
+        x: 520
         y: 0
-        width: 320
-        height: 320
+        width: 260
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +183,10 @@ TextureImporter:
       name: BoosterSets_3
       rect:
         serializedVersion: 2
-        x: 960
+        x: 780
         y: 0
-        width: 320
-        height: 320
+        width: 260
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -3,28 +3,21 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "OrangeStatue", menuName = "CardInfo/Statue/OrangeStatue")]
 public class OrangeStatue : MonsterCardInfo
 {
-    private Monster monsterSelf;
-
-    public override void Global(Monster self)
+    public override void Entrance(Monster self)
     {
-        monsterSelf = self;
-        FindObjectOfType<GlobalEffects>().AddToExit(OnExitCopy);
-    }
-
-    public void OnExitCopy(Monster self)
-    {
-        if (monsterSelf.IsDead() || !self.cardInfo.IsSlime() || self.isTemporary)
+        var parentRoom = self.GetCurrentRoom();
+        FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
+        var rngMonster = parentRoom.GetRandomMonsterNot(self);
+        if (rngMonster == null)
         {
             return;
         }
 
-        var player = FindObjectOfType<Player>();
-        if (player.IsDead())
+        var adjacentRooms = self.GetCurrentRoom().GetAdjacentRooms();
+        foreach(var adjacentRoom in adjacentRooms)
         {
-            return;
+            var monster = adjacentRoom.SpawnCopy(rngMonster.cardInfo);
+            monster.SetMaxStats(1, 1);
         }
-
-        FindObjectOfType<EffectIcons>().SpawnEngageIcon(self.GetCurrentPosition());
-        self.GetCurrentRoom().SpawnRandomCopyNot(self);
     }
 }

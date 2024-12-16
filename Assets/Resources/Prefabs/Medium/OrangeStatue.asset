@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Orange Statue
   fieldSprite: {fileID: 21300000, guid: 2e7f85b73d832db4b89ca8560be6d80c, type: 3}
-  cost: 4
-  effectDescription: Statues get "[Exit] Spawn a temp 1/1 Copy of a Room Monster."
+  cost: 3
   effect:
-    text: Statues get "[Exit] Spawn a temp 1/1 Copy of a Room Monster."
-    fontSize: 4
+    text: '[Entrance] Spawn a temp 1/1 Copy of a Room Monster in adjacent rooms'
+    fontSize: 3
   tags: 03000000
   damage: 2
   health: 6

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12e0b87038a756243b5fe84200cfe767, type: 3}
+  m_Name: IndigoStatue
+  m_EditorClassIdentifier: 
+  cardName: Indigo Statue
+  fieldSprite: {fileID: 21300000, guid: d4808737b493abd4794fa3f99c3c79bc, type: 3}
+  cost: 2
+  effect:
+    text: '[Engage] Push this Monster to spawn a temp 1/1 copy.'
+    fontSize: 4
+  tags: 03000000
+  damage: 1
+  health: 6

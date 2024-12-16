@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e978f4ab8aee234ea6b5fc81d89ab37, type: 3}
+  m_Name: GhostRoom
+  m_EditorClassIdentifier: 
+  cardName: GhostRoom
+  fieldSprite: {fileID: 21300000, guid: 2585ffc759c40684b99273e6be54448f, type: 3}
+  cost: 1
+  effect:
+    text: '[Battle Start] Room Monsters become temp. Room monsters make attacks twice'
+    fontSize: 3
+  tags: 04000000
+  capacity: 3

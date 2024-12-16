@@ -5,6 +5,9 @@ public class Character : MonoBehaviour
 {
     protected Health health;
     protected Damage damage;
+    protected SoundManager soundManager;
+    private readonly string DAMAGE_SOUND_PATH = "Music/Damage";
+    private AudioClip damageSound;
 
     public virtual void Awake() { }
 
@@ -28,6 +31,26 @@ public class Character : MonoBehaviour
         return health;
     }
 
+    public SoundManager GetSoundManager()
+    {
+        if (soundManager == null)
+        {
+            soundManager = GetComponent<SoundManager>();
+        }
+
+        return soundManager;
+    }
+
+    public AudioClip GetDamageSound()
+    {
+        if (damageSound == null)
+        {
+            damageSound = Resources.Load<AudioClip>(DAMAGE_SOUND_PATH);
+        }
+
+        return damageSound;
+    }
+
     public void ResetStats()
     {
         GetDamageComponent().ResetDamage();
@@ -36,9 +59,13 @@ public class Character : MonoBehaviour
 
     public bool IsDead() { return GetHealthComponent().GetCurrentHealth() <= 0; }
 
-    public void TakeDamage(int damage) { GetHealthComponent().TakeDamage(damage); }
+    public void TakeDamage(int damage)
+    {
+        GetSoundManager().Play(GetDamageSound());
+        GetHealthComponent().TakeDamage(damage);
+    }
 
-    public void TakeDamage(MonsterCardInfo monsterCardInfo) { GetHealthComponent().TakeDamage(monsterCardInfo.damage); }
+    public void TakeDamage(MonsterCardInfo monsterCardInfo) { TakeDamage(monsterCardInfo.damage); }
 
     public void TakeDamage(MonsterCard monsterCard) { TakeDamage((MonsterCardInfo)monsterCard.GetCardInfo()); }
 

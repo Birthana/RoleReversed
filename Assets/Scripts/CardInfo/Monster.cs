@@ -16,6 +16,17 @@ public class Monster : Character
     private bool isHighlighted = false;
     private Room origin;
     private bool isAssigned = false;
+    private MoveAnimation moveAnimation;
+
+    private MoveAnimation GetMoveAnimation()
+    {
+        if (moveAnimation == null)
+        {
+            moveAnimation = GetComponent<MoveAnimation>();
+        }
+
+        return moveAnimation;
+    }
 
     public void AddToOnLock(Action func) { OnLock += func; }
     public void AddToOnUnlock(Action func) { OnUnlock += func; }
@@ -160,6 +171,7 @@ public class Monster : Character
             FindObjectOfType<GameManager>().AddToTempMove(this);
         }
 
+        PlayMoveAnimation(newRoom);
         TemporaryLeave();
         transform.SetParent(newRoom.transform);
         newRoom.Add(this);
@@ -174,15 +186,26 @@ public class Monster : Character
             FindObjectOfType<GameManager>().AddToTempMove(this);
         }
 
+        PlayMoveAnimation(newRoom);
         Exit();
         TemporaryLeave();
         transform.SetParent(newRoom.transform);
         newRoom.Add(this);
     }
 
+    private void PlayMoveAnimation(Room newRoom)
+    {
+        if (FindObjectOfType<GameManager>().IsRunning())
+        {
+            return;
+        }
+
+        GetMoveAnimation().MoveMonster(this, newRoom);
+    }
+
     private void TemporaryLeave()
     {
-        if (MonsterHasMoved())
+        if (HasMoved())
         {
             GetCurrentRoom().Leave(this);
             return;
@@ -190,8 +213,6 @@ public class Monster : Character
 
         GetCurrentRoom().LeaveTemporary(this);
     }
-
-    private bool MonsterHasMoved() { return origin != null; }
 
     public Vector3 GetCurrentPosition() { return transform.position; }
 
@@ -219,5 +240,16 @@ public class Monster : Character
         OnUnlock?.Invoke();
     }
 
-    public bool HasOrigin() { return origin != null; }
+    public void BecomeTemp()
+    {
+        if (isTemporary)
+        {
+            return;
+        }
+
+        isTemporary = true;
+        GetCurrentRoom().IncreaseCapacity(1);
+    }
+
+    public bool HasMoved() { return origin != null; }
 }

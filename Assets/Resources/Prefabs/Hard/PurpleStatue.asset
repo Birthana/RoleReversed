@@ -15,10 +15,9 @@ MonoBehaviour:
   cardName: Purple Statue
   fieldSprite: {fileID: 21300000, guid: 41552c05232a7ad4bbef5eb2d13404bc, type: 3}
   cost: 2
-  effectDescription: '[Exit] Pull a monster'
   effect:
     text: '[Exit] Pull a monster'
     fontSize: 4
   tags: 03000000
-  damage: 1
-  health: 3
+  damage: 3
+  health: 4

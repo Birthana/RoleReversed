@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour, IGameManager
     public GameOver gameOverScreen;
     public GameObject shopButton;
     public GameObject startButton;
+    public AudioClip button;
     private Room startRoom;
     private Player player;
     private Room currentRoom;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour, IGameManager
     private bool focusOnRoom = false;
     private List<Monster> movedMonsters = new List<Monster>();
     private SoulShop soulShop;
+    private SoundManager soundManager;
 
     private IFocusAnimation GetFocusAnimation()
     {
@@ -85,6 +87,7 @@ public class GameManager : MonoBehaviour, IGameManager
         focusPosition.y = 1;
         GetFocusAnimation().SetFocusPosition(focusPosition);
         GetFocusAnimation().SetFocusScale(2.5f);
+        soundManager = GetComponent<SoundManager>();
     }
 
     public void EnableShopButton()
@@ -106,6 +109,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void StartPlayerRun()
     {
+        soundManager.Play(button);
         if (startRoom == null || isRunning || GetSoulShop().IsOpen())
         {
             return;

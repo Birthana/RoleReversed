@@ -6,12 +6,15 @@ public class SoulShop : MonoBehaviour
     public Sprite openShop;
     public Sprite closeShop;
     public Image buttonUI;
+    public AudioClip button;
     [SerializeField] private GameObject background;
     [SerializeField] private RerollButton reRollButton;
     [SerializeField] private Transform draftCardTransform;
+    [SerializeField] private Canvas boosterCanvas;
     private DraftManager draftManager;
     private PlayerSoulCounter playerSouls;
     private IMouseWrapper mouse;
+    private SoundManager soundManager;
 
     public void SetMouseWrapper(IMouseWrapper wrapper) { mouse = wrapper; }
 
@@ -20,6 +23,7 @@ public class SoulShop : MonoBehaviour
         SetMouseWrapper(new MouseWrapper());
         draftManager = GetComponent<DraftManager>();
         playerSouls = FindObjectOfType<PlayerSoulCounter>();
+        soundManager = GetComponent<SoundManager>();
         Hide();
     }
 
@@ -69,6 +73,7 @@ public class SoulShop : MonoBehaviour
 
     public void ToggleShop()
     {
+        soundManager.Play(button);
         if (IsOpen())
         {
             CloseShop();
@@ -115,6 +120,7 @@ public class SoulShop : MonoBehaviour
         Hide();
         SetSprite(openShop);
         FindObjectOfType<HealthBar>().Show();
+        boosterCanvas.gameObject.SetActive(false);
     }
 
     public void OpenShop()
@@ -123,6 +129,7 @@ public class SoulShop : MonoBehaviour
         Show();
         SetSprite(closeShop);
         FindObjectOfType<HealthBar>().Hide();
+        boosterCanvas.gameObject.SetActive(true);
 
         if (!ShopIsEmpty())
         {

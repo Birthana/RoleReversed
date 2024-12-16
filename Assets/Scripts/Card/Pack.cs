@@ -22,6 +22,18 @@ public class Pack : MonoBehaviour
     {
         SetMouseWrapper(new MouseWrapper());
     }
+    public void Update()
+    {
+        if (PlayerClicksOnAPack())
+        {
+            if (PackIsNotClicked() || openingPack)
+            {
+                return;
+            }
+
+            StartCoroutine(OpenPack());
+        }
+    }
 
     public int GetTotalCost()
     {
@@ -173,25 +185,13 @@ public class Pack : MonoBehaviour
         return totalCost;
     }
 
-    public void Update()
-    {
-        if (PlayerClicksOnAPack())
-        {
-            if (PackIsNotClicked() || openingPack)
-            {
-                return;
-            }
-
-            StartCoroutine(OpenPack());
-        }
-    }
-
     private IEnumerator OpenPack()
     {
         openingPack = true;
         CreatePackToHand();
         yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME);
         OnOpenPack?.Invoke();
+        //FindObjectOfType<SoundManager>().PlayDraw(5);
         DestroyImmediate(gameObject);
     }
 

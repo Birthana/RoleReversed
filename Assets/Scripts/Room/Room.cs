@@ -18,7 +18,9 @@ public class Room : MonoBehaviour
     private List<RoommateEffectInfo> addedBattleStartEffects = new List<RoommateEffectInfo>();
     public List<Monster> monsters = new List<Monster>();
     public List<Monster> movedMonsters = new List<Monster>();
+    public AudioClip place;
     private Capacity capacity;
+    private SoundManager soundManager;
     protected RoomCardInfo cardInfo;
     private Vector3 startPosition;
     private List<Monster> roommateMonsters = new List<Monster>();
@@ -31,6 +33,16 @@ public class Room : MonoBehaviour
         }
 
         return capacity;
+    }
+
+    protected SoundManager GetSoundManagerComponent()
+    {
+        if (soundManager == null)
+        {
+            soundManager = GetComponent<SoundManager>();
+        }
+
+        return soundManager;
     }
 
     public RoomCardInfo GetCardInfo()
@@ -303,6 +315,7 @@ public class Room : MonoBehaviour
 
     public Monster SpawnMonster(MonsterCardInfo monsterCardInfo)
     {
+        GetSoundManagerComponent().Play(place);
         var monster = CreateMonster(monsterCardInfo);
         ReduceCapacity(1);
         return monster;
@@ -310,23 +323,26 @@ public class Room : MonoBehaviour
 
     public Monster SpawnTemporaryMonster(MonsterCardInfo monsterCardInfo)
     {
+        GetSoundManagerComponent().Play(place);
         var monster = CreateMonster(monsterCardInfo);
-        new ChangeSortingLayer(monster.gameObject).SetToCurrentRoom();
+        new ChangeSortingLayer(monster.gameObject).SetTo(this);
         return monster;
     }
 
     public Monster SpawnCopy(MonsterCardInfo monsterCardInfo)
     {
+        GetSoundManagerComponent().Play(place);
         var monster = CreateMonster(monsterCardInfo);
-        new ChangeSortingLayer(monster.gameObject).SetToCurrentRoom();
+        new ChangeSortingLayer(monster.gameObject).SetTo(this);
         monster.isTemporary = true;
         return monster;
     }
 
     public Monster SpawnTemporaryMonsterInDifferentRoom(MonsterCardInfo monsterCardInfo)
     {
+        GetSoundManagerComponent().Play(place);
         var monster = CreateMonster(monsterCardInfo);
-        new ChangeSortingLayer(monster.gameObject).SetToDefault();
+        new ChangeSortingLayer(monster.gameObject).SetTo(this);
         return monster;
     }
 
@@ -451,7 +467,7 @@ public class Room : MonoBehaviour
         }
 
         roomMonster.Pull(this);
-        new ChangeSortingLayer(roomMonster.gameObject).SetToCurrentRoom();
+        new ChangeSortingLayer(roomMonster.gameObject).SetTo(roomMonster.GetCurrentRoom());
         return roomMonster;
     }
 
@@ -470,7 +486,7 @@ public class Room : MonoBehaviour
         }
 
         roomMonster.Push(GetRandomAdjacentRoom());
-        new ChangeSortingLayer(roomMonster.gameObject).SetToDefault();
+        new ChangeSortingLayer(roomMonster.gameObject).SetTo(roomMonster.GetCurrentRoom());
         return roomMonster;
     }
 
@@ -483,7 +499,7 @@ public class Room : MonoBehaviour
         }
 
         monster.Push(GetRandomAdjacentRoom());
-        new ChangeSortingLayer(monster.gameObject).SetToDefault();
+        new ChangeSortingLayer(monster.gameObject).SetTo(monster.GetCurrentRoom());
         return monster;
     }
 
@@ -539,5 +555,46 @@ public class Room : MonoBehaviour
 
         var copy = SpawnCopy(rngMonster.cardInfo);
         copy.SetMaxStats(1, 1);
+    }
+
+    public bool IsAdjacentTo(Room room)
+    {
+        var adjacentRooms = new RoomTransform(room.transform).GetAdjacentRooms();
+        foreach (var adjacentRoom in adjacentRooms)
+        {
+            if (adjacentRoom.GetStartPosition() == GetStartPosition())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public string GetSortingLayer() { return GetComponent<SpriteRenderer>().sortingLayerName; }
+
+    public bool HasMoreMonstersThanCapacity()
+    {
+        var roomMonsters = GetComponentsInChildren<Monster>();
+        if (roomMonsters.Length > capacity.maxCount)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void IncreaseAllOtherMonsters(Monster monster)
+    {
+        var monsters = FindObjectsOfType<Monster>();
+        foreach (var otherMonster in monsters)
+        {
+            if ((otherMonster == monster) || !(otherMonster.cardInfo.cardName == monster.cardInfo.cardName))
+            {
+                continue;
+            }
+
+            otherMonster.IncreaseStats(1, 1);
+        }
     }
 }

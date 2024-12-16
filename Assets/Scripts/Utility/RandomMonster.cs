@@ -4,35 +4,39 @@ using UnityEngine;
 public class RandomMonster
 {
     private List<Room> rooms;
-    private Monster roomMonster;
 
     public RandomMonster(List<Room> rooms)
     {
         this.rooms = rooms;
-        roomMonster = null;
-        FindMonster();
     }
 
-    public Monster Get() { return roomMonster; }
-
-    private void FindMonster()
+    public Monster Get()
     {
-        while (StillLooking())
+        var roomMonsters = GetRoomMonsters();
+        if (roomMonsters.Count == 0)
         {
-            roomMonster = GetRandomRoom().GetRandomMonster();
+            return null;
         }
+
+        return roomMonsters[Random.Range(0, roomMonsters.Count)];
     }
 
-    private bool StillLooking() { return HasRooms() && MonsterIsNotFound(); }
-
-    private bool HasRooms() { return rooms.Count != 0; }
-
-    private bool MonsterIsNotFound() { return roomMonster == null; }
-
-    private Room GetRandomRoom()
+    private List<Monster> GetRoomMonsters()
     {
-        var nextRoom = rooms[Random.Range(0, rooms.Count)];
-        rooms.Remove(nextRoom);
-        return nextRoom;
+        var roomMonsters = new List<Monster>();
+        foreach (var room in rooms)
+        {
+            foreach (var monster in room.monsters)
+            {
+                if (monster.IsDead() || monster.GetCurrentRoom() != room)
+                {
+                    continue;
+                }
+
+                roomMonsters.Add(monster);
+            }
+        }
+
+        return roomMonsters;
     }
 }

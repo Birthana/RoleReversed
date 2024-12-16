@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class RoomCard : Card
 {
     private RoomCardUI cardUI;
@@ -116,5 +118,6 @@ public class RoomCard : Card
         room.Setup(roomCardInfo, roomTransform.GetTransform().position);
         GetSpaceManager().RemoveSpace(roomTransform.GetTransform().localPosition);
         GetGameManager().AddToRooms(room);
+        FindObjectOfType<GlobalEffects>().RoomEntrance(room);
     }
 }

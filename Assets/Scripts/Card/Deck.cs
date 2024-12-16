@@ -1,24 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Deck : DisplayObject
 {
+    [SerializeField] private List<CardInfo> topOfDeck;
     public Sprite openBox;
     public Sprite closedBox;
     public Image deckSprite;
-    private DeckCount deckCount;
+    public AudioClip draw;
+    public AudioClip shuffle;
+    [SerializeField] private DeckCount deckCount;
     private Drop drop;
     private Hand hand;
+    private SoundManager soundManager;
 
-    private DeckCount GetDeckCount()
-    {
-        if (deckCount == null)
-        {
-            deckCount = GetComponent<DeckCount>();
-        }
-
-        return deckCount;
-    }
+    private DeckCount GetDeckCount() { return deckCount; }
 
     private Drop GetDrop()
     {
@@ -38,6 +35,16 @@ public class Deck : DisplayObject
         }
 
         return hand;
+    }
+
+    private SoundManager GetSoundManager()
+    {
+        if (soundManager == null)
+        {
+            soundManager = GetComponent<SoundManager>();
+        }
+
+        return soundManager;
     }
 
     protected override bool PlayerClicksOnObject() { return mouse.PlayerPressesLeftClick() && mouse.IsOnDeck(); }
@@ -61,12 +68,6 @@ public class Deck : DisplayObject
 
     private bool Contains(CardInfo cardInfo) { return cardInfos.Contains(cardInfo); }
 
-    private void Remove(CardInfo cardInfo)
-    {
-        cardInfos.Remove(cardInfo);
-        Shuffle();
-    }
-
     public void DrawSpecificCardToHand(CardInfo cardInfo)
     {
         if (GetHand().IsFull())
@@ -84,6 +85,14 @@ public class Deck : DisplayObject
 
     public Card Draw()
     {
+        if (topOfDeck.Count != 0)
+        {
+            var copy = Instantiate(topOfDeck[0]);
+            var topCard = CreateCardWith(copy);
+            topOfDeck.RemoveAt(0);
+            return topCard;
+        }
+
         return Draw(GetTopCard());
     }
 
@@ -94,8 +103,9 @@ public class Deck : DisplayObject
             return null;
         }
 
+        GetSoundManager().Play(draw);
         var newCard = CreateCardWith(cardInfo);
-        Remove(cardInfo);
+        cardInfos.Remove(cardInfo);
         GetDeckCount().DrawFromDeck();
         ChangeSprite(closedBox);
         return newCard;
@@ -116,6 +126,8 @@ public class Deck : DisplayObject
             cardInfos[randomIndex] = cardInfos[index];
             cardInfos[index] = randomCard;
         }
+
+        GetSoundManager().Play(shuffle);
     }
 
     public Card CreateCardWith(CardInfo cardInfo)

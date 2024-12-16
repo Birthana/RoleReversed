@@ -11,7 +11,7 @@ public class GoblinGatherer : MonsterCardInfo
         {
             FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
             room.ReduceMaxCapacity(1);
-            FindObjectOfType<ActionManager>().AddActions(2);
+            FindObjectOfType<ActionManager>().AddActions(1);
             self.IncreaseStats(1, 1);
         }
     }

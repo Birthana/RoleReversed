@@ -19,9 +19,11 @@ public class CardDragger : MonoBehaviour, ICardDragger
     private DraftManager draftManager;
     private GameManager gameManager;
     private SoulShop soulShop;
+    private EndSound handSound;
 
 
     private HoverCard hoverCard_;
+    private Coroutine coroutine;
 
     public void SetMouseWrapper(IMouseWrapper wrapper)
     {
@@ -73,6 +75,16 @@ public class CardDragger : MonoBehaviour, ICardDragger
         return soulShop;
     }
 
+    public EndSound GetHandSound()
+    {
+        if (handSound == null)
+        {
+            handSound = FindObjectOfType<Hand>().GetComponent<EndSound>();
+        }
+
+        return handSound;
+    }
+
     public void UpdateLoop()
     {
         if (GetGameManager().IsRunning() || GetSoulShop().IsOpen())
@@ -107,16 +119,39 @@ public class CardDragger : MonoBehaviour, ICardDragger
     {
         if (PlayerIsNotHoveringHand())
         {
+            if (coroutine == null)
+            {
+                coroutine = StartCoroutine(TryToStop());
+            }
+
             return;
         }
 
         if (CardIsTheSame(hoverCard_.Get()))
         {
+            if (coroutine == null)
+            {
+                coroutine = StartCoroutine(TryToStop());
+            }
+
             return;
         }
 
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
+
+        GetHandSound().Play();
         var card = mouseWrapper.GetHitComponent<Card>();
         hoverCard_.Hover(card);
+    }
+
+    private IEnumerator TryToStop()
+    {
+        yield return new WaitForSeconds(0.25f);
+        GetHandSound().Stop();
     }
 
     private bool CardIsTheSame(Card card) { return !CardIsNotTheSame(card); }

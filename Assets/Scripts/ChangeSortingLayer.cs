@@ -22,6 +22,13 @@ public class ChangeSortingLayer
         SetTextTo(SortingLayer.NameToID("Default"));
     }
 
+    public void SetTo(Room room)
+    {
+        var sortingLayer = room.GetSortingLayer();
+        SetSpriteRenderersTo(sortingLayer);
+        SetTextTo(SortingLayer.NameToID(sortingLayer));
+    }
+
     private void SetSpriteRenderersTo(string layer)
     {
         var children = gameObject.GetComponentsInChildren<SpriteRenderer>(true);

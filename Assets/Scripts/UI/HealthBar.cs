@@ -18,7 +18,7 @@ public class HealthBar : MonoBehaviour
 
     public void Display(int currentHealth, int maxHealth)
     {
-        var ratio = ((float)currentHealth) / ((float)maxHealth);
+        var ratio = Mathf.Min(((float)currentHealth) / ((float)maxHealth), 1);
         bar.localScale = new Vector3(ratio, bar.localScale.y, bar.localScale.z);
     }
 
