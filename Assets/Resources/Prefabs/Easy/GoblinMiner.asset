@@ -15,10 +15,9 @@ MonoBehaviour:
   cardName: Goblin Miner
   fieldSprite: {fileID: 21300000, guid: 3fa4f6ecd33e37b43bdcf3fe4db3a8fc, type: 3}
   cost: 2
-  effectDescription: '[Engage] Capacity -1  to draw 1 & +2/2'
   effect:
     text: '[Engage] Capacity -1  to draw 1 & +2/2'
     fontSize: 4
-  tags: 01000000
+  tags: 010000000700000011000000
   damage: 1
   health: 5

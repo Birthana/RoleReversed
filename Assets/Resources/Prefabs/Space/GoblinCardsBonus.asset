@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: GoblinCardsBonus
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: cace2c12a53fb874f91eaa7aca96c1ef, type: 3}
+  animation: {fileID: 7400000, guid: 821a0cb84a0e34449bfcb1ddc94443e2, type: 2}
   boosterInfo: {fileID: 11400000, guid: 47efadaec18b8b44fb2a191e29afb891, type: 2}

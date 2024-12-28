@@ -15,11 +15,10 @@ MonoBehaviour:
   cardName: Slimy Construct Room
   fieldSprite: {fileID: 816830599, guid: d9276957f44e8a14d9a191335dcdb286, type: 3}
   cost: 1
-  effectDescription: '[Battle Start] Spawn a 2/2 Slime'
   effect:
-    text: '[Battle Start] Spawn a 2/2 Slime'
+    text: '[Battle Start] Spawn a 2/2 Temp Slime'
     fontSize: 4
-  tags: 0400000000000000
+  tags: 04000000050000000f000000
   capacity: 1
   timer: 1
   roomCardInfo: {fileID: 11400000, guid: f3bf00bc067fbeb42860a78106a84ae1, type: 2}

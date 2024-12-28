@@ -18,7 +18,7 @@ MonoBehaviour:
   effect:
     text: '[Battle Start] Room Monsters become temp and attacks twice'
     fontSize: 3
-  tags: 04000000
+  tags: 040000000a0000000f00000005000000
   capacity: 1
   timer: 2
   roomCardInfo: {fileID: 11400000, guid: eebdcbbaba201cb4dbd9a2e4c8b23eb9, type: 2}

@@ -5,7 +5,30 @@ using TMPro;
 
 public enum Tag
 {
-    Slime, Goblin, Rat, Statue, Room
+    Slime,
+    Goblin,
+    Rat,
+    Statue,
+    Room,
+    ConstructionRoom,
+    Entrance,
+    Engage,
+    Exit,
+    BuildStart,
+    BattleStart,
+    Pull,
+    Push,
+    Lock,
+    Unlock,
+    TempMonster,
+    TempStats,
+    Capacity,
+    Copy,
+    Level,
+    Discard,
+    HandAttack,
+    PlayerSoul,
+    Space
 }
 
 [Serializable]
@@ -53,6 +76,7 @@ public class CardInfo : ScriptableObject
     }
 
     public string GetDescription() { return effect.text; }
+
     public int GetFontSize() { return effect.fontSize; }
 
     public void SetDescription(string description) { effect.text = description; }

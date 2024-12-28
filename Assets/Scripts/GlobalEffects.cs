@@ -8,6 +8,7 @@ public class GlobalEffects : MonoBehaviour
     private event Action<EffectInput> OnHandEngage;
     private event Action<Monster> OnExit;
     private event Action<Room> OnRoomEntrance;
+    private event Action<Card> OnDraftExit;
     public void AddToEntrance(Action<Monster> function) { OnEntrance += function; }
 
     public void AddToEngage(Action<EffectInput> function) { OnEngage += function; }
@@ -17,6 +18,8 @@ public class GlobalEffects : MonoBehaviour
     public void AddToExit(Action<Monster> function) { OnExit += function; }
 
     public void AddToRoomEntrance(Action<Room> function) { OnRoomEntrance += function; }
+
+    public void AddToDraftExit(Action<Card> function) { OnDraftExit += function; }
 
     public void Entrance(Monster monster)
     {
@@ -41,5 +44,10 @@ public class GlobalEffects : MonoBehaviour
     public void RoomEntrance(Room room)
     {
         OnRoomEntrance?.Invoke(room);
+    }
+
+    public void DraftExit(Card card)
+    {
+        OnDraftExit?.Invoke(card);
     }
 }

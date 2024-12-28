@@ -15,10 +15,9 @@ MonoBehaviour:
   cardName: Orange Slime
   fieldSprite: {fileID: 21300000, guid: 5f737b984595d2e438c5fa099d92b0ce, type: 3}
   cost: 2
-  effectDescription: '[Entrance] +1/1 to a Monster in adjacent Rooms'
   effect:
     text: '[Entrance] +1/1 to a Monster in adjacent Rooms'
     fontSize: 4
-  tags: 00000000
+  tags: 0000000006000000
   damage: 2
   health: 4

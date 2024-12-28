@@ -18,6 +18,6 @@ MonoBehaviour:
   effect:
     text: '[Exit] Pull a monster'
     fontSize: 4
-  tags: 03000000
-  damage: 3
-  health: 4
+  tags: 03000000080000000b000000
+  damage: 2
+  health: 5

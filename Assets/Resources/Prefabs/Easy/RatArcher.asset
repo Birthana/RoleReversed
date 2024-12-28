@@ -15,10 +15,9 @@ MonoBehaviour:
   cardName: Rat Archer
   fieldSprite: {fileID: 21300000, guid: 87256874020e9d54bba47861729826a9, type: 3}
   cost: 1
-  effectDescription: '[Entrance] A Hand Monster attacks. Then, drop it and draw 1'
   effect:
-    text: '[Entrance] A Hand Monster attacks. Then, drop it and draw 1'
-    fontSize: 4
-  tags: 02000000
+    text: '[Entrance] A Hand Monster attacks. Then, discard it and draw 1'
+    fontSize: 3
+  tags: 02000000060000001500000014000000
   damage: 2
   health: 1

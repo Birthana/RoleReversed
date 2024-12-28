@@ -15,10 +15,9 @@ MonoBehaviour:
   cardName: Rat Dancer
   fieldSprite: {fileID: 21300000, guid: 13985374b32e4814ca63c4813337a289, type: 3}
   cost: 2
-  effectDescription: '[Engage] +1/1 for each hand card for the battle.'
   effect:
-    text: '[Engage] +1/1 for each hand card for the battle.'
+    text: '[Engage] Temp +1/1 for each Hand card'
     fontSize: 4
-  tags: 02000000
+  tags: 020000000700000010000000
   damage: 4
   health: 4

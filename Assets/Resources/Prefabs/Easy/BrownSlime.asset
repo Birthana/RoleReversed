@@ -18,7 +18,7 @@ MonoBehaviour:
   effect:
     text: '[Engage] Spawn 1 2/2 Temp Slime'
     fontSize: 4
-  tags: 00000000
+  tags: 00000000070000000f000000
   damage: 3
   health: 3
   tempMonsterCardInfo: {fileID: 11400000, guid: df214423dbd494645bdc26fa0fcdb924, type: 2}

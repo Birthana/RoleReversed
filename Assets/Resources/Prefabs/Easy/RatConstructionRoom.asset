@@ -15,11 +15,10 @@ MonoBehaviour:
   cardName: RatConstructionRoom
   fieldSprite: {fileID: 21300000, guid: bb2965092dba79d4fa20a7ebccb8d4ce, type: 3}
   cost: 1
-  effectDescription: '[Battle Start] Draw a 1A 3/1 Rat. Then, it attacks.'
   effect:
     text: '[Battle Start] Draw a 1A 3/1 Rat. Then, it attacks.'
     fontSize: 4
-  tags: 0400000002000000
+  tags: 04000000050000000a00000015000000
   capacity: 1
   timer: 1
   roomCardInfo: {fileID: 11400000, guid: 700489b6017009c449954c5c3ccebff4, type: 2}

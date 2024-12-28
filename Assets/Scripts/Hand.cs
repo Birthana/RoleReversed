@@ -7,8 +7,41 @@ public class Hand : MonoBehaviour
     public float SPACING;
     public int HANDSIZE;
     private ICardDragger cardDragger;
+    private HandAnimation handAnimation;
+    private GameManager gameManager;
+    private Deck deck;
 
     public bool IsFull() { return hand.Count == HANDSIZE; }
+
+    private HandAnimation GetHandAnimation()
+    {
+        if (handAnimation == null)
+        {
+            handAnimation = FindObjectOfType<HandAnimation>();
+        }
+
+        return handAnimation;
+    }
+
+    private Deck GetDeck()
+    {
+        if (deck == null)
+        {
+            deck = FindObjectOfType<Deck>();
+        }
+
+        return deck;
+    }
+
+    private GameManager GetGameManager()
+    {
+        if (gameManager == null)
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+
+        return gameManager;
+    }
 
     public void SetCardDragger(ICardDragger newCardDragger)
     {
@@ -79,9 +112,31 @@ public class Hand : MonoBehaviour
             return;
         }
 
+        FindObjectOfType<CardDragger>().ResetHover();
+        AnimateCards();
         card.gameObject.transform.SetParent(transform);
         hand.Add(card);
-        DisplayHand();
+
+        if (GetGameManager().IsRunning())
+        {
+            DisplayHand();
+            return;
+        }
+
+        GetHandAnimation().MoveCard(card, 
+                                    GetDeck().transform.position,
+                                    transform.TransformPoint(GetHandPositionAt(hand.Count - 1)));
+    }
+
+    private void AnimateCards()
+    {
+        for (int i = 0; i < hand.Count; i++)
+        {
+            var card = hand[i];
+            GetHandAnimation().MoveCard(card,
+                                        transform.TransformPoint(GetHandPositionAt(i)),
+                                        transform.TransformPoint(GetHandPositionAt(hand.Count + 1, i)));
+        }
     }
 
     public void AddAndAttack(CardInfo cardInfo, EffectInput input)
@@ -108,10 +163,9 @@ public class Hand : MonoBehaviour
 
     public void DisplayHand()
     {
-        var centerPosition = new CenterPosition(Vector3.zero, hand.Count, SPACING);
         for (int i = 0; i < hand.Count; i++)
         {
-            hand[i].transform.localPosition = centerPosition.GetHorizontalOffsetPositionAt(i);
+            hand[i].transform.localPosition = GetHandPositionAt(i);
         }
 
         if (cardDragger == null)
@@ -120,5 +174,14 @@ public class Hand : MonoBehaviour
         }
 
         cardDragger.ResetHover();
+    }
+
+    public Vector3 GetHandPositionAt(int index) { return GetHandPositionAt(hand.Count, index); }
+
+    public Vector3 GetHandPositionAt(int size, int index)
+    {
+        
+        var centerPosition = new CenterPosition(Vector3.zero, size, SPACING);
+        return centerPosition.GetHorizontalOffsetPositionAt(index);
     }
 }

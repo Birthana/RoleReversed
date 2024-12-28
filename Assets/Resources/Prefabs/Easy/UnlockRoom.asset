@@ -18,7 +18,7 @@ MonoBehaviour:
   effect:
     text: '[Build Start] Unlock all Room Monsters'
     fontSize: 4
-  tags: 04000000
+  tags: 0400000005000000090000000e000000
   capacity: 1
   timer: 2
   roomCardInfo: {fileID: 11400000, guid: ea2b65c0aa88a1f488abeb99a0beae0d, type: 2}

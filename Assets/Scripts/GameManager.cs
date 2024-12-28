@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour, IGameManager
         startButton.SetActive(false);
         SpawnPackInRandomSpot();
         GetResetMonster();
-        var focusPosition = Vector3.left * 3;
+        var focusPosition = Vector3.zero;
         focusPosition.y = 1;
         GetFocusAnimation().SetFocusPosition(focusPosition);
         GetFocusAnimation().SetFocusScale(2.5f);
@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour, IGameManager
             return;
         }
 
+        FindObjectOfType<BackgroundMusic>().SwitchToBattle();
         FindObjectOfType<ToolTipManager>().Clear();
         isRunning = true;
         resetMonster.SetMonstersLocked();
@@ -152,6 +153,7 @@ public class GameManager : MonoBehaviour, IGameManager
         FindObjectOfType<PlayerSoulCounter>().IncreaseSouls();
         FindObjectOfType<Deck>().DrawCardToHand();
         BuildConstructionRooms();
+        FindObjectOfType<BackgroundMusic>().SwitchToBuild();
         BuildStart();
         FindObjectOfType<SoulShop>().OpenShop();
         FindObjectOfType<SoulShop>().FreeReroll();

@@ -112,6 +112,15 @@ public class RoomCard : Card
         base.Cast();
     }
 
+    public void CastForFreeAt(SpaceToBuild space)
+    {
+        roomTransform = new RoomTransform(space.gameObject.transform);
+        GetHand().Remove(this);
+        FindObjectOfType<Drop>().Add(GetCardInfo());
+        SpawnRoom();
+        DestroyImmediate(gameObject);
+    }
+
     private void SpawnRoom()
     {
         var room = Instantiate(roomPrefab);

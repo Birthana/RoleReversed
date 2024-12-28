@@ -15,11 +15,10 @@ MonoBehaviour:
   cardName: GreenPurpleSlime
   fieldSprite: {fileID: 21300000, guid: 5418de3577c71194d9ad9120ac1b9e81, type: 3}
   cost: 1
-  effectDescription: '[Entrance] Spawn 1 2/2 temp Slime'
   effect:
     text: '[Entrance] Spawn 1 2/2 temp Slime'
     fontSize: 4
-  tags: 00000000
+  tags: 00000000060000000f000000
   damage: 1
   health: 2
   tempMonsterCardInfo: {fileID: 11400000, guid: df214423dbd494645bdc26fa0fcdb924, type: 2}

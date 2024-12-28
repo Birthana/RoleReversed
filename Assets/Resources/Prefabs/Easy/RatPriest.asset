@@ -18,6 +18,6 @@ MonoBehaviour:
   effect:
     text: '[Engage] Room Monsters get temp +0/1'
     fontSize: 4
-  tags: 02000000
+  tags: 020000000700000010000000
   damage: 1
   health: 3

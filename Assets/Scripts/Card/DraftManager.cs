@@ -76,7 +76,9 @@ public class DraftManager : MonoBehaviour
 
         draftCards.Remove(draftCard);
         var deck = FindObjectOfType<Deck>();
-        hand.Add(deck.CreateCardWith(draftCard.GetCardInfo()));
+        var newCard = deck.CreateCardWith(draftCard.GetCardInfo());
+        hand.Add(newCard);
+        FindObjectOfType<GlobalEffects>().DraftExit(newCard);
         StartCoroutine(AnimateChosenCard(draftCard));
     }
 

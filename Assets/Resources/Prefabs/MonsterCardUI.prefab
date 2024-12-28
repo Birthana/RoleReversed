@@ -478,6 +478,7 @@ MonoBehaviour:
   cost: {fileID: 5504998979885721291}
   description: {fileID: 5430804817238451421}
   cardSprite: {fileID: 5227417338984079950}
+  image: {fileID: 0}
   damage: {fileID: 5174910777478706610}
   health: {fileID: 4965129187624474263}
 --- !u!210 &865133203066660069
@@ -490,7 +491,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
 --- !u!1 &3442775766331877151
 GameObject:
   m_ObjectHideFlags: 0

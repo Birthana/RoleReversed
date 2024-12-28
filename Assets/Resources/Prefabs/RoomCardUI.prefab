@@ -206,6 +206,7 @@ MonoBehaviour:
   cost: {fileID: 5504998979885721291}
   description: {fileID: 5430804817238451421}
   cardSprite: {fileID: 5227417338984079950}
+  image: {fileID: 0}
   capacity: {fileID: 8815043653860613951}
 --- !u!210 &5215962291108035616
 SortingGroup:
@@ -217,7 +218,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
 --- !u!1 &3442775766331877151
 GameObject:
   m_ObjectHideFlags: 0

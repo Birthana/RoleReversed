@@ -18,6 +18,6 @@ MonoBehaviour:
   effect:
     text: '[Engage] Push this Monster to spawn a temp 1/1 copy.'
     fontSize: 4
-  tags: 03000000
+  tags: 03000000070000000c0000000f00000012000000
   damage: 1
   health: 6

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea498e6039765be48b24fbe835452e66, type: 3}
+  m_Name: ConstructionRoom
+  m_EditorClassIdentifier: 
+  tag: 5
+  description: '[Construction Room]
+
+    When built, it has a Timer and 1 Capacity
+    with no effects.
+
+    For each Monster in the Room, reduce the Timer at the Start
+    of Battle Phase.
+
+    When the Timer is 0, at the Start of Build Phase, this
+    becomes a
+
+    normal room with an effect.'
+  fontSize: 3

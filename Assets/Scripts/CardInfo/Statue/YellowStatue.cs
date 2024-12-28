@@ -20,6 +20,5 @@ public class YellowStatue : MonsterCardInfo
         FindObjectOfType<EffectIcons>().SpawnEntranceIcon(self.GetCurrentPosition());
         pulledMonster.Lock();
         FindObjectOfType<EffectIcons>().SpawnPullIcon(pulledMonster.GetCurrentPosition());
-        pulledMonster.TemporaryIncreaseStats(0, 2);
     }
 }

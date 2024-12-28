@@ -18,7 +18,7 @@ MonoBehaviour:
   effect:
     text: '[Battle Start] Room Monsters get +1/1'
     fontSize: 4
-  tags: 04000000
+  tags: 04000000050000000a000000
   capacity: 1
   timer: 1
   roomCardInfo: {fileID: 11400000, guid: 4b719fcafafe8974c8140c4a91f03f81, type: 2}

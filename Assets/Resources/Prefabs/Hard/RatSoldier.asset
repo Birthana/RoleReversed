@@ -18,6 +18,6 @@ MonoBehaviour:
   effect:
     text: '[Engage] If in Room, a hand monster attacks'
     fontSize: 4
-  tags: 02000000
+  tags: 020000000700000015000000
   damage: 4
   health: 4

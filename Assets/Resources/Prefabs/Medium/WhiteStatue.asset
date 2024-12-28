@@ -18,6 +18,6 @@ MonoBehaviour:
   effect:
     text: Monsters get "[Entrance] Push this monster"
     fontSize: 4
-  tags: 03000000
+  tags: 03000000060000000c000000
   damage: 3
   health: 7

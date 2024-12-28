@@ -84,7 +84,7 @@ public class MonsterDragger : MonoBehaviour
         if (mouse.IsOnMonster())
         {
             var monster = mouse.GetHitComponent<Monster>();
-            var position = monster.gameObject.transform.position + (Vector3.up * 3);
+            var position = monster.gameObject.transform.position + (Vector3.up * 3.5f);
             FindObjectOfType<ToolTipManager>().Set(monster.cardInfo, position);
         }
 
@@ -92,7 +92,7 @@ public class MonsterDragger : MonoBehaviour
         {
             var room = mouse.GetHitComponent<Room>();
             var position = room.gameObject.transform.position + (Vector3.up * 4f);
-            FindObjectOfType<ToolTipManager>().SetText(room.GetCardInfo(), position, room);
+            FindObjectOfType<ToolTipManager>().Set(room.GetCardInfo(), position);
         }
 
         if (mouse.PlayerPressesLeftClick())

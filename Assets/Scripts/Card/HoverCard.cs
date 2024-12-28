@@ -3,7 +3,7 @@ using UnityEngine;
 public class HoverCard
 {
     private static readonly Vector2 HOVER_AMOUNT = new Vector2(0, 3.0f);
-    private static readonly Vector3 TOOLTIP_AMOUNT = Vector3.up * 5.0f;
+    private static readonly Vector3 TOOLTIP_AMOUNT = Vector3.up * 5.5f;
     private static readonly float HOVER_SPEED = 0.1f;
     private Card currentCard;
     private ToolTipManager toolTipManager;

@@ -1,9 +1,6 @@
 using UnityEngine;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-
 
 public class Monster : Character
 {
@@ -22,7 +19,7 @@ public class Monster : Character
     {
         if (moveAnimation == null)
         {
-            moveAnimation = GetComponent<MoveAnimation>();
+            moveAnimation = FindObjectOfType<MoveAnimation>();
         }
 
         return moveAnimation;
@@ -171,7 +168,12 @@ public class Monster : Character
             FindObjectOfType<GameManager>().AddToTempMove(this);
         }
 
-        PlayMoveAnimation(newRoom);
+        PlayMoveAnimation(newRoom, PullDelayed);
+    }
+
+    private void PullDelayed(Room newRoom)
+    {
+        newRoom.DisplayMonsters();
         TemporaryLeave();
         transform.SetParent(newRoom.transform);
         newRoom.Add(this);
@@ -186,21 +188,27 @@ public class Monster : Character
             FindObjectOfType<GameManager>().AddToTempMove(this);
         }
 
-        PlayMoveAnimation(newRoom);
+        PlayMoveAnimation(newRoom, PushDelayed);
+    }
+
+    private void PushDelayed(Room newRoom)
+    {
+        newRoom.DisplayMonsters();
         Exit();
         TemporaryLeave();
         transform.SetParent(newRoom.transform);
         newRoom.Add(this);
     }
 
-    private void PlayMoveAnimation(Room newRoom)
+    private void PlayMoveAnimation(Room newRoom, Action<Room> func)
     {
         if (FindObjectOfType<GameManager>().IsRunning())
         {
+            func(newRoom);
             return;
         }
 
-        GetMoveAnimation().MoveMonster(this, newRoom);
+        GetMoveAnimation().MoveMonster(this, newRoom, func);
     }
 
     private void TemporaryLeave()

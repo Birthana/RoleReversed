@@ -27,6 +27,11 @@ public class RatArcher : MonsterCardInfo
         }
 
         TriggerHandMonsterEngage(randomHandMonster, input);
+        if (randomHandMonster == null)
+        {
+            return;
+        }
+
         Discard(randomHandMonster);
         FindObjectOfType<Deck>().DrawCardToHand();
     }

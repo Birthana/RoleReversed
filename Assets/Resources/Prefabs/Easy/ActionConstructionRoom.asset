@@ -14,12 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: ActionConstructionRoom
   fieldSprite: {fileID: 21300000, guid: a3d2a92a3af268c4bb4cf792594d223e, type: 3}
-  cost: 2
-  effectDescription: '[Build Start] Gain 1 Action.'
+  cost: 1
   effect:
     text: '[Build Start] Gain 1 Action.'
     fontSize: 4
-  tags: 04000000
+  tags: 040000000900000005000000
   capacity: 1
   timer: 3
   roomCardInfo: {fileID: 11400000, guid: d9706dd3a19f7454cba292909d992e8b, type: 2}

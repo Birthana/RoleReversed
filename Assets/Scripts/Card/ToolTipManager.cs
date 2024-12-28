@@ -4,13 +4,58 @@ using TMPro;
 
 public class ToolTipManager : MonoBehaviour
 {
+    private static readonly string TOOL_TIP_INFO_FILE_PATH = "Prefabs/Tooltips";
     private static readonly Vector3 EFFECT_TEXT_POSITION_OFFSET = Vector3.right * 5;
+    private static readonly Vector3 EFFECT_TEXT_POSITION_OFFSET_MULTIPLE = Vector3.up * 5;
+    private static readonly int NUMBER_OF_EXTRA_TOOL_TIPS_IN_COLUMN = 3;
+    private static readonly float EXTRA_TOOL_TIP_SPACING = 27;
     public GameObject toolTipPrefab;
+    public GameObject effectToolTipPrefab;
+    private List<TooltipInfo> tooltips = new List<TooltipInfo>();
     private TextMeshPro toolTip;
-    private TextMeshPro effectTip;
-    private Room currentRoom;
+    private List<TextMeshPro> effectTips = new List<TextMeshPro>();
     private bool isDisabled = false;
     [SerializeField] private CardInfo currentlyDisplay;
+
+    private void Awake()
+    {
+        LoadToolTipInfos();
+    }
+
+    public void LoadToolTipInfos()
+    {
+        var toolTipInfos = Resources.LoadAll<TooltipInfo>(TOOL_TIP_INFO_FILE_PATH);
+        foreach (var toolTipInfo in toolTipInfos)
+        {
+            tooltips.Add(toolTipInfo);
+        }
+    }
+
+    public string GetDescriptionFrom(Tag tag)
+    {
+        foreach (var toolTip in tooltips)
+        {
+            if (toolTip.tag.Equals(tag))
+            {
+                return toolTip.description;
+            }
+        }
+
+        return "";
+    }
+
+    public int GetFontSizeFrom(Tag tag)
+    {
+        foreach (var toolTip in tooltips)
+        {
+            if (toolTip.tag.Equals(tag))
+            {
+                return toolTip.fontSize;
+            }
+        }
+
+        return 6;
+    }
 
     public void Toggle()
     {
@@ -31,19 +76,19 @@ public class ToolTipManager : MonoBehaviour
 
     private TextMeshPro GetEffectText()
     {
-        if (effectTip == null)
-        {
-            var effectTipObject = Instantiate(toolTipPrefab, transform);
-            effectTipObject.GetComponent<SpriteRenderer>().color = Color.green;
-            effectTip = effectTipObject.GetComponentInChildren<TextMeshPro>();
-        }
+        var effectToolTip = CreateToolTip();
+        effectTips.Add(effectToolTip);
+        return effectToolTip;
+    }
 
-        return effectTip;
+    private TextMeshPro CreateToolTip()
+    {
+        var effectTipObject = Instantiate(effectToolTipPrefab, transform);
+        effectTipObject.GetComponent<SpriteRenderer>().color = Color.green;
+        return effectTipObject.GetComponentInChildren<TextMeshPro>();
     }
 
     private Transform GetTextParent() { return GetText().transform.parent; }
-
-    private Transform GetEffectTextParent() { return GetEffectText().transform.parent; }
 
     public string GetToolTip() { return GetText().text; }
 
@@ -73,18 +118,19 @@ public class ToolTipManager : MonoBehaviour
 
     private void SetPosition(Vector3 position) { GetTextParent().position = position; }
 
-    private void SetEffectTextPosition(Vector3 position)
-    {
-        GetEffectTextParent().position = position + EFFECT_TEXT_POSITION_OFFSET;
-    }
-
     private void Show() { GetTextParent().gameObject.SetActive(true); }
 
     private void Hide() { GetTextParent().gameObject.SetActive(false); }
 
-    private void ShowEffect() { GetEffectTextParent().gameObject.SetActive(true); }
+    private void HideEffect()
+    {
+        foreach (var effects in effectTips)
+        {
+            Destroy(effects.transform.parent.gameObject);
+        }
 
-    private void HideEffect() { GetEffectTextParent().gameObject.SetActive(false); }
+        effectTips = new List<TextMeshPro>();
+    }
 
     public void Set(CardInfo cardInfo, Vector3 position)
     {
@@ -94,7 +140,6 @@ public class ToolTipManager : MonoBehaviour
         }
 
         HideEffect();
-        UnHighlightCurrentRoom();
         SetCurrentlyDisplayed(cardInfo);
         SetPosition(position);
 
@@ -106,23 +151,44 @@ public class ToolTipManager : MonoBehaviour
 
         Show();
         SetText(currentlyDisplay);
+        SetExtraText(cardInfo, position);
     }
 
-    private void SetEffectText(List<RoommateEffectInfo> effects) { GetEffectText().text = effects[0].cardDescription; }
-
-    public void SetText(CardInfo cardInfo, Vector3 position, Room room)
+    private bool ShouldNotDisplayExtra(CardInfo cardInfo)
     {
-        Set(cardInfo, position);
-        if (room.GetRoommateEffects().Count == 0)
+        return cardInfo.tags.Count <= 1;
+    }
+
+    public void SetExtraText(CardInfo cardInfo, Vector3 position)
+    {
+        if (ShouldNotDisplayExtra(cardInfo))
         {
             return;
         }
 
-        ShowEffect();
-        SetEffectText(room.GetRoommateEffects());
-        SetEffectTextPosition(position);
-        currentRoom = room;
-        room.HighlightMonsters();
+        for (int i = 1; i < cardInfo.tags.Count; i++)
+        {
+            var extraTextOffset = GetOffset(position, i - 1, cardInfo.tags.Count - 1);
+            CreateExtraText(cardInfo.tags[i], extraTextOffset);
+        }
+    }
+
+    private Vector3 GetOffset(Vector3 position, int i, int size)
+    {
+        var positionMaker = new BlockCenterPosition(position + EFFECT_TEXT_POSITION_OFFSET,
+                                                    size,
+                                                    NUMBER_OF_EXTRA_TOOL_TIPS_IN_COLUMN,
+                                                    EXTRA_TOOL_TIP_SPACING,
+                                                    EFFECT_TEXT_POSITION_OFFSET_MULTIPLE.y);
+        return positionMaker.GetVerticalLayoutPositionAt(size - 1 - i);
+    }
+
+    private void CreateExtraText(Tag tag, Vector3 position)
+    {
+        var effectText = GetEffectText();
+        effectText.text = GetDescriptionFrom(tag);
+        effectText.fontSize = GetFontSizeFrom(tag);
+        effectText.transform.parent.position = position;
     }
 
     private bool NothingIsDisplayed() { return currentlyDisplay == null; }
@@ -137,17 +203,5 @@ public class ToolTipManager : MonoBehaviour
         currentlyDisplay = null;
         Hide();
         HideEffect();
-        UnHighlightCurrentRoom();
-    }
-
-    private void UnHighlightCurrentRoom()
-    {
-        if (currentRoom == null)
-        {
-            return;
-        }
-
-        currentRoom.ClearMonsterHighlight();
-        currentRoom = null;
     }
 }

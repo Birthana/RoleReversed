@@ -29,6 +29,54 @@ public class SpaceManager : MonoBehaviour
 
     public int GetCount() { return spaces.Count; }
 
+    public SpaceToBuild GetRandomAdjacentSpace(Vector3 position)
+    {
+        foreach (var space in spaces)
+        {
+            if (!space.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            if (!IsAdjacent(position, space.gameObject.transform.position))
+            {
+                continue;
+            }
+
+            return space;
+        }
+
+        foreach (var space in bonusSpaces)
+        {
+            if (!space.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            if (!IsAdjacent(position, space.gameObject.transform.position))
+            {
+                continue;
+            }
+
+            return space;
+        }
+
+        return null;
+    }
+
+    private bool IsAdjacent(Vector3 currentRoom, Vector3 space)
+    {
+        if ((currentRoom.x + HORIZONTAL_SPACING == space.x && currentRoom.y == space.y) ||
+            (currentRoom.x - HORIZONTAL_SPACING == space.x && currentRoom.y == space.y) ||
+            (currentRoom.x == space.x && currentRoom.y + VERTICAL_SPACING == space.y) ||
+            (currentRoom.x == space.x && currentRoom.y - VERTICAL_SPACING == space.y))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public void SetupSpaces()
     {
         for (int i = 0; i < numberOfSpaces.x; i++)

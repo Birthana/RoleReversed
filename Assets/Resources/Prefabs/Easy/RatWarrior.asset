@@ -15,10 +15,9 @@ MonoBehaviour:
   cardName: Rat Warrior
   fieldSprite: {fileID: 21300000, guid: 3d2cc5e10a487be448db6343577e9a3e, type: 3}
   cost: 2
-  effectDescription: '[Entrance] Draw 1. If it is a Monster, it attacks'
   effect:
     text: '[Entrance] Draw 1. If it is a Monster, it attacks'
     fontSize: 4
-  tags: 02000000
+  tags: 020000000600000015000000
   damage: 4
   health: 2

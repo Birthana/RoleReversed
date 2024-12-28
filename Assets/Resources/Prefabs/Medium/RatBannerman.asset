@@ -15,10 +15,9 @@ MonoBehaviour:
   cardName: Rat Bannerman
   fieldSprite: {fileID: 21300000, guid: c3d3c90e48b281c4c9687ad9de2fb4d5, type: 3}
   cost: 2
-  effectDescription: '[Entrance] A Hand Monster attacks. It costs 1 less'
   effect:
-    text: '[Entrance] A Hand Monster attacks. It costs 1 less'
+    text: '[Entrance] A Hand Monster attacks. It gets Action -1'
     fontSize: 4
-  tags: 02000000
+  tags: 020000000600000015000000
   damage: 4
   health: 2

@@ -15,10 +15,9 @@ MonoBehaviour:
   cardName: Gobllin Builder
   fieldSprite: {fileID: 21300000, guid: cea29e59546a0de4b843d68fe48d3921, type: 3}
   cost: 4
-  effectDescription: '[Entrance] Capacity +2'
   effect:
     text: '[Entrance] Capacity +2'
     fontSize: 4
-  tags: 01000000
+  tags: 010000000600000011000000
   damage: 4
   health: 3

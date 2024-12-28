@@ -16,8 +16,8 @@ MonoBehaviour:
   fieldSprite: {fileID: 21300000, guid: 4e14357d0f672c24b9a236675ba1761b, type: 3}
   cost: 3
   effect:
-    text: Temp Slimes get "[Engage] Room Monster get +2/2 until end of battle"
+    text: Temp Slimes get "[Engage] Room Monster get Temp +2/2"
     fontSize: 3
-  tags: 00000000
+  tags: 000000000f00000007000000
   damage: 2
   health: 4

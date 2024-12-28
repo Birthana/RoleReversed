@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f963297ed02f534d8e5f4a4ab72d787, type: 3}
+  m_Name: RatSquire
+  m_EditorClassIdentifier: 
+  cardName: Rat Squire
+  fieldSprite: {fileID: 21300000, guid: 4fa3e892d10fb6d41b4e0867c89f9303, type: 3}
+  cost: 2
+  effect:
+    text: '[Engage] If in Hand, discard it. Then, gain 2 Player Souls.'
+    fontSize: 3
+  tags: 02000000070000001400000016000000
+  damage: 7
+  health: 3

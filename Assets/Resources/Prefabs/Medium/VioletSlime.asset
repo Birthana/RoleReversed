@@ -18,6 +18,6 @@ MonoBehaviour:
   effect:
     text: '[Entrance] Become temp. Lock it. Gain 2 Actions.'
     fontSize: 4
-  tags: 00000000
+  tags: 00000000060000000f0000000d000000
   damage: 2
   health: 2

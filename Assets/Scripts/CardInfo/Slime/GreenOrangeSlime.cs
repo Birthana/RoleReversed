@@ -8,10 +8,8 @@ public class GreenOrangeSlime : MonsterCardInfo
     public override void Exit(Monster self)
     {
         FindObjectOfType<EffectIcons>().SpawnExitIcon(self.GetCurrentPosition());
-        var adjacentRooms = self.GetCurrentRoom().GetAdjacentRooms();
-        foreach (var room in adjacentRooms)
-        {
-            room.SpawnTemporaryMonsterInDifferentRoom(tempMonsterCardInfo);
-        }
+        var monster = self.GetCurrentRoom().SpawnTemporaryMonster(tempMonsterCardInfo);
+        var numberOfDeckCards = FindObjectOfType<Deck>().GetSize();
+        monster.IncreaseStats(numberOfDeckCards, numberOfDeckCards);
     }
 }

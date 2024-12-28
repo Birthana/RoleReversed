@@ -18,6 +18,6 @@ MonoBehaviour:
   effect:
     text: '[Exit] Capacity -1 to gain Player Soul +1'
     fontSize: 4
-  tags: 01000000
+  tags: 01000000080000001100000016000000
   damage: 3
   health: 3
