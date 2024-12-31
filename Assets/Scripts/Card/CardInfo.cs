@@ -128,4 +128,36 @@ public class CardInfo : ScriptableObject
     {
         return tags.Contains(Tag.Statue);
     }
+
+    public AudioClip GetSound()
+    {
+        var audioClips = GetAudioClips();
+        return audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
+    }
+
+    public AudioClip GetSound(int index)
+    {
+        var audioClips = GetAudioClips();
+        return audioClips[index];
+    }
+
+    private AudioClip[] GetAudioClips()
+    {
+        if (IsSlime())
+        {
+            return Resources.LoadAll<AudioClip>("Music/Slime");
+        }
+
+        if (IsRat())
+        {
+            return Resources.LoadAll<AudioClip>("Music/Rat");
+        }
+
+        if (IsStatue())
+        {
+            return Resources.LoadAll<AudioClip>("Music/Statue");
+        }
+
+        return Resources.LoadAll<AudioClip>("Music/Goblin");
+    }
 }

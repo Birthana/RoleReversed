@@ -84,14 +84,14 @@ public class MonsterDragger : MonoBehaviour
         if (mouse.IsOnMonster())
         {
             var monster = mouse.GetHitComponent<Monster>();
-            var position = monster.gameObject.transform.position + (Vector3.up * 3.5f);
+            var position = monster.gameObject.transform.position + GetToolTipOffset(monster.gameObject.transform.position);
             FindObjectOfType<ToolTipManager>().Set(monster.cardInfo, position);
         }
 
         if (!mouse.IsOnMonster() && !mouse.IsOnHand() && mouse.IsOnRoom())
         {
             var room = mouse.GetHitComponent<Room>();
-            var position = room.gameObject.transform.position + (Vector3.up * 4f);
+            var position = room.gameObject.transform.position + GetToolTipOffset(room.gameObject.transform.position);
             FindObjectOfType<ToolTipManager>().Set(room.GetCardInfo(), position);
         }
 
@@ -99,6 +99,28 @@ public class MonsterDragger : MonoBehaviour
         {
             PickUp();
         }
+    }
+
+    private Vector3 GetToolTipOffset(Vector3 position)
+    {
+        if (PositionIsTopSideOfScreen(position))
+        {
+            return Vector3.up * -4f;
+        }
+
+        return Vector3.up * 4f;
+    }
+
+    private bool PositionIsTopSideOfScreen(Vector3 position)
+    {
+        var camera = Camera.main;
+        var screenPosition = camera.WorldToScreenPoint(position);
+        if (screenPosition.y > (Screen.height * 2 / 3))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void TryToDropMonster()

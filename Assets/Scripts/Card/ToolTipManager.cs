@@ -116,7 +116,10 @@ public class ToolTipManager : MonoBehaviour
 
     private void SetCurrentlyDisplayed(CardInfo cardInfo) { currentlyDisplay = cardInfo; }
 
-    private void SetPosition(Vector3 position) { GetTextParent().position = position; }
+    private void SetPosition(Vector3 position)
+    {
+        GetTextParent().position = position;
+    }
 
     private void Show() { GetTextParent().gameObject.SetActive(true); }
 
@@ -175,12 +178,34 @@ public class ToolTipManager : MonoBehaviour
 
     private Vector3 GetOffset(Vector3 position, int i, int size)
     {
-        var positionMaker = new BlockCenterPosition(position + EFFECT_TEXT_POSITION_OFFSET,
+        var positionMaker = new BlockCenterPosition(position + GetExtraEffectOffset(position),
                                                     size,
                                                     NUMBER_OF_EXTRA_TOOL_TIPS_IN_COLUMN,
                                                     EXTRA_TOOL_TIP_SPACING,
                                                     EFFECT_TEXT_POSITION_OFFSET_MULTIPLE.y);
         return positionMaker.GetVerticalLayoutPositionAt(size - 1 - i);
+    }
+
+    private Vector3 GetExtraEffectOffset(Vector3 position)
+    {
+        if (PositionIsOnRightSideOfScreen(position))
+        {
+            return -1 * EFFECT_TEXT_POSITION_OFFSET;
+        }
+
+        return EFFECT_TEXT_POSITION_OFFSET;
+    }
+
+    private bool PositionIsOnRightSideOfScreen(Vector3 position)
+    {
+        var camera = Camera.main;
+        var screenPosition = camera.WorldToScreenPoint(position);
+        if (screenPosition.x > (Screen.width * 2 / 3))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void CreateExtraText(Tag tag, Vector3 position)

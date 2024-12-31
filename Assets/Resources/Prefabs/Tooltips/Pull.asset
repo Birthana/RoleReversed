@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Pull
   m_EditorClassIdentifier: 
   tag: 11
-  description: '[Push]
+  description: '[Pull]
 
     Move a Monster in an adjacent Room to this Room.
 
     Then,
     trigger it''s [Entrance].'
-  fontSize: 6
+  fontSize: 5

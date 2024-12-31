@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 1423370855
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 227127e81289d9b42b63eccec018545c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bab1b1973c132a24cb9d48ece2806378, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -121,7 +121,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.0125, y: 0.2967}
-  m_SizeDelta: {x: 4.7584, y: 4.1074}
+  m_SizeDelta: {x: 4.6568, y: 4.1074}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &2403519383540717514
 MeshRenderer:
@@ -143,7 +143,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -3276936943248510978, guid: 82ace29390cc02a44ac15f5bafaec4d0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -187,8 +187,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '[Engage] +1/1 to a Monster in all adjacent Rooms'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 82ace29390cc02a44ac15f5bafaec4d0, type: 2}
+  m_sharedMaterial: {fileID: -3276936943248510978, guid: 82ace29390cc02a44ac15f5bafaec4d0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

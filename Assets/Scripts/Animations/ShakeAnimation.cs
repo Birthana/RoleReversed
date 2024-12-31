@@ -53,6 +53,11 @@ public class ShakeAnimation
         {
             currentTime += Time.deltaTime;
             currentPosition = lerp.GetCurrentPosition(currentTime / animationTime);
+            if (transform == null)
+            {
+                yield break;
+            }
+
             transform.position = currentPosition;
             SetDifference(lerp);
             yield return null;

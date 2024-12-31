@@ -51,6 +51,7 @@ public class ConstructionRoom : Room
             {
                 monster.transform.SetParent(room.transform);
                 room.Enter(monster);
+                monster.Unlock();
             }
         }
 

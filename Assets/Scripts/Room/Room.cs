@@ -148,6 +148,7 @@ public class Room : MonoBehaviour
         monster.transform.parent = transform;
         monster.transform.localScale = Vector3.one;
         monsters.Add(monster);
+        monster.PlaySound();
         DisplayMonsters();
     }
 
@@ -221,6 +222,7 @@ public class Room : MonoBehaviour
 
     public void Remove(Monster monster)
     {
+        monster.PlaySound();
         monster.gameObject.SetActive(false);
         monster.Exit();
         DisplayMonsters();

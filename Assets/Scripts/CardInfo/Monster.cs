@@ -104,6 +104,7 @@ public class Monster : Character
     public override IEnumerator MakeAttack(Character character)
     {
         yield return PlayAttackAnimation();
+        PlaySound();
         character.TakeDamage(GetDamage());
         var spriteRender = character.GetComponent<SpriteRenderer>();
         if(spriteRender != null)
@@ -260,4 +261,9 @@ public class Monster : Character
     }
 
     public bool HasMoved() { return origin != null; }
+
+    public void PlaySound()
+    {
+        GetComponent<SoundManager>().Play(cardInfo.GetSound());
+    }
 }
