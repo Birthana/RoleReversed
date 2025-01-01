@@ -137,7 +137,7 @@ public class MonsterDragger : MonoBehaviour
         }
 
         var newRoom = mouse.GetHitComponent<Room>();
-        if (newRoom.GetCapacity() == 0)
+        if (newRoom.GetCapacity() == 0 && !monster.isTemporary)
         {
             ReturnToRoom();
             return;

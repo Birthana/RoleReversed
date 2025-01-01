@@ -57,6 +57,13 @@ public class Room : MonoBehaviour
         SetCardInfo(roomCardInfo);
         startPosition = position;
         transform.position = startPosition;
+        PlayConstructionSound();
+    }
+
+    private void PlayConstructionSound()
+    {
+        var audioClip = Resources.Load<AudioClip>("Music/Construction_Sound");
+        GetSoundManagerComponent().Play(audioClip);
     }
 
     public Vector3 GetStartPosition() { return startPosition; }
@@ -336,7 +343,7 @@ public class Room : MonoBehaviour
         GetSoundManagerComponent().Play(place);
         var monster = CreateMonster(monsterCardInfo);
         new ChangeSortingLayer(monster.gameObject).SetTo(this);
-        monster.isTemporary = true;
+        monster.SetTemp();
         return monster;
     }
 

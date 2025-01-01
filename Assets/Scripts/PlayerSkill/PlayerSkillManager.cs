@@ -74,6 +74,11 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void ToggleDisplay()
     {
+        if (FindObjectOfType<SoulShop>().IsOpen())
+        {
+            return;
+        }
+
         soundManager.Play(button);
         if (skillDisplays.Count == 0)
         {

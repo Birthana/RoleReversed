@@ -6,6 +6,8 @@ public class Monster : Character
 {
     private event Action OnLock;
     private event Action OnUnlock;
+    private event Action OnTemp;
+    private event Action OnUnTemp;
 
     public bool isTemporary = false;
     public MonsterCardInfo cardInfo;
@@ -27,6 +29,8 @@ public class Monster : Character
 
     public void AddToOnLock(Action func) { OnLock += func; }
     public void AddToOnUnlock(Action func) { OnUnlock += func; }
+    public void AddToOnTemp(Action func) { OnTemp += func; }
+    public void AddToOnUntemp(Action func) { OnUnTemp += func; }
 
     public void Setup(MonsterCardInfo monsterCardInfo)
     {
@@ -42,10 +46,16 @@ public class Monster : Character
     {
         if (cardInfo is TemporaryMonster)
         {
-            isTemporary = true;
+            SetTemp();
         }
 
         SetMaxStats(damage, health);
+    }
+
+    public void SetTemp()
+    {
+        isTemporary = true;
+        OnTemp?.Invoke();
     }
 
     public void SetMaxStats(int damage, int health)
@@ -256,7 +266,7 @@ public class Monster : Character
             return;
         }
 
-        isTemporary = true;
+        SetTemp();
         GetCurrentRoom().IncreaseCapacity(1);
     }
 

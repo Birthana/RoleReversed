@@ -37,6 +37,11 @@ public class HandAnimation : MonoBehaviour
 
     public void MoveCard(Card card, Vector3 startPosition, Vector3 endPosition)
     {
+        if (card == null)
+        {
+            return;
+        }
+
         if (IsActive())
         {
             queue.Add(new HandMoveInfo(card, startPosition, endPosition));

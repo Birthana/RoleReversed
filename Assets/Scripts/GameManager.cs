@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour, IGameManager
         SpawnPackInRandomSpot();
         GetResetMonster();
         var focusPosition = Vector3.zero;
-        focusPosition.y = 1;
         GetFocusAnimation().SetFocusPosition(focusPosition);
         GetFocusAnimation().SetFocusScale(2.5f);
         soundManager = GetComponent<SoundManager>();

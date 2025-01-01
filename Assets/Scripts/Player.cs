@@ -27,6 +27,7 @@ public class Player : Character
         hoverAnimation.ResetHoverAnimation();
         hoverAnimation.Hover(transform, new Vector2(0.5f, 0), 0.1f);
         yield return new WaitForSeconds(0.1f);
+        PlayAttackSound();
         hoverAnimation.PerformReturn();
         yield return new WaitForSeconds(0.1f);
         yield return TakeDamage(character);
@@ -41,6 +42,12 @@ public class Player : Character
         {
             yield return playerSkills.ShowSkills(1);
         }
+    }
+
+    private void PlayAttackSound()
+    {
+        var audioClip = Resources.Load<AudioClip>("Music/Player_Attack");
+        GetSoundManager().Play(audioClip);
     }
 
     private IEnumerator TakeDamage(Character character)
