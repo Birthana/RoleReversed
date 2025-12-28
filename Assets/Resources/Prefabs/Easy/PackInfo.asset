@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fa52e9fc515454b8999438cce75ae6, type: 3}
+  m_Name: PackInfo
+  m_EditorClassIdentifier: 
+  cardName: PackInfo
+  fieldSprite: {fileID: 0}
+  cost: 1
+  effect:
+    text: 
+    fontSize: 0
+  tags: 
+  cardInfos:
+  - {fileID: 11400000, guid: d02b383cf2b002349b29ec553e790131, type: 2}
+  - {fileID: 11400000, guid: 83656fe9fcea3bd40b37b4a6483bcc0b, type: 2}
+  - {fileID: 11400000, guid: 3c1b6872232f3564f8fef8b0cf86d48a, type: 2}

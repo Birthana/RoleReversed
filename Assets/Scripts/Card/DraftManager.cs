@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DraftManager : MonoBehaviour
 {
@@ -10,22 +11,36 @@ public class DraftManager : MonoBehaviour
     private static readonly string DRAFT_CARD_FILE_PATH = "Prefabs/DraftCard";
     private DraftCard draftCardPrefab;
     [SerializeField] private List<DraftCard> draftCards = new List<DraftCard>();
+    [SerializeField] private DescriptionUI description;
     private IMouseWrapper mouse;
     private SoulShop soulShop;
     private bool isDrafting = false;
+    private PackInfo packInfo;
 
     public void SetMouseWrapper(IMouseWrapper wrapper) { mouse = wrapper; }
-
 
     public void Awake()
     {
         SetMouseWrapper(new MouseWrapper());
         draftCardPrefab = Resources.Load<DraftCard>(DRAFT_CARD_FILE_PATH);
         soulShop = FindObjectOfType<SoulShop>(true);
+
+        if (description == null)
+        {
+            return;
+        }
+
+        description.SetText();
+        description.SetActive(false);
     }
 
     private void Update()
     {
+        if (mouse.PlayerPressesLeftClick() && !mouse.IsOnDraft() && isDrafting && !soulShop.IsOpen())
+        {
+            ReturnPackToHand();
+        }
+
         if (mouse.PlayerPressesLeftClick() && mouse.IsOnDraft() && isDrafting && !soulShop.IsOpen())
         {
             FindObjectOfType<ToolTipManager>().Clear();
@@ -36,14 +51,8 @@ public class DraftManager : MonoBehaviour
             }
 
             AddDraftCardToHand(card);
-            foreach (var draftCard in draftCards)
-            {
-                AddDraftCardToDeck(draftCard);
-                Destroy(draftCard.gameObject);
-            }
-
-            draftCards = new List<DraftCard>();
-            isDrafting = false;
+            packInfo.RemoveChoice(card.GetCardInfo());
+            Clear();
         }
 
         if (!mouse.PlayerPressesLeftClick() && mouse.IsOnDraft() && isDrafting && !soulShop.IsOpen())
@@ -52,6 +61,19 @@ public class DraftManager : MonoBehaviour
             var position = draftCard.gameObject.transform.position + (Vector3.up * 5.0f);
             FindObjectOfType<ToolTipManager>().Set(draftCard.GetCardInfo(), position);
         }
+    }
+
+    private void Clear()
+    {
+        foreach (var draftCard in draftCards)
+        {
+            Destroy(draftCard.gameObject);
+        }
+
+        draftCards = new List<DraftCard>();
+        packInfo = null;
+        isDrafting = false;
+        description.SetActive(false);
     }
 
     public bool IsEmpty() { return draftCards.Count == 0; }
@@ -121,6 +143,19 @@ public class DraftManager : MonoBehaviour
     public void Draft(int numberOfCards, Tag tag)
     {
         var cardInfos = FindObjectOfType<CardManager>().GetUniqueCardInfos(numberOfCards, tag);
+        Draft(cardInfos);
+    }
+
+    public void Draft(PackInfo newPackInfo)
+    {
+        var cardInfos = newPackInfo.GetChoices();
+        packInfo = newPackInfo;
+        Draft(cardInfos);
+        description.SetActive(true);
+    }
+
+    public void Draft(List<CardInfo> cardInfos)
+    {
         for (int i = 0; i < cardInfos.Count; i++)
         {
             CreateDraftCard(cardInfos[i], transform);
@@ -151,5 +186,19 @@ public class DraftManager : MonoBehaviour
         {
             draftCards[i].transform.position = centerPosition.GetHorizontalOffsetPositionAt(i);
         }
+    }
+
+    public void ReturnPackToHand()
+    {
+        if (packInfo == null)
+        {
+            return;
+        }
+
+        var hand = FindObjectOfType<Hand>();
+        var deck = FindObjectOfType<Deck>();
+        hand.Add(deck.CreateCardWith(packInfo));
+        FindObjectOfType<Drop>().Remove(packInfo);
+        Clear();
     }
 }

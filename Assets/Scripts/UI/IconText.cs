@@ -22,7 +22,14 @@ public class IconText
         for(int i = 0; i < charArray.Length; i++)
         {
             var replace = "" + charArray[i];
-            result += $"<sprite name=\"{replace}\" color=#{ColorUtility.ToHtmlStringRGBA(color)}>";
+            if (replace.Equals(" "))
+            {
+                result += " ";
+            }
+            else
+            {
+                result += $"<sprite name=\"{replace}\" color=#{ColorUtility.ToHtmlStringRGBA(color)}>";
+            }
         }
 
         return result;

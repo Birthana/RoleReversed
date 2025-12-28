@@ -106,6 +106,7 @@ public class CardDragger : MonoBehaviour, ICardDragger
             return;
         }
 
+        CheckToReposition();
         CheckToReturnSelectCard();
     }
 
@@ -226,7 +227,6 @@ public class CardDragger : MonoBehaviour, ICardDragger
     private void CastSelectedCard()
     {
         selectedCard.Cast();
-        drop.Add(selectedCard.GetCardInfo());
         selectedCard = null;
     }
 
@@ -243,5 +243,10 @@ public class CardDragger : MonoBehaviour, ICardDragger
     {
         hand.DisplayHand();
         selectedCard = null;
+    }
+
+    private void CheckToReposition()
+    {
+
     }
 }

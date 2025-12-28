@@ -48,7 +48,7 @@ public class Pack : MonoBehaviour
 
     public void LoadStarterPack()
     {
-        LoadCardsInPack(GetStarterPack());
+        LoadCardsInPack(GetPackBundle());
         SetDrawOnOpen();
         SetDrawOnOpen();
         SetDrawOnOpen();
@@ -68,6 +68,12 @@ public class Pack : MonoBehaviour
     {
         var rngCards = FindObjectOfType<CardManager>();
         return rngCards.GetValidStarterCardInfos(TotalCostIsGreaterThanEight);
+    }
+
+    private List<CardInfo> GetPackBundle()
+    {
+        var rngCards = FindObjectOfType<CardManager>();
+        return rngCards.GetPacksInfos();
     }
 
     public void LoadBasicPack()

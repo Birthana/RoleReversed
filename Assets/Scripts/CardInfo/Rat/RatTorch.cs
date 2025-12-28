@@ -19,7 +19,7 @@ public class RatTorch : MonsterCardInfo
         hand.Add(deck.CreateCardWith(ratCardInfo));
         hand.Add(deck.CreateCardWith(ratCardInfo));
 
-        foreach(var card in hand.hand)
+        foreach(var card in hand.GetCardsInHand())
         {
             if (card is not MonsterCard)
             {

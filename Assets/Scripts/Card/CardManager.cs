@@ -11,6 +11,9 @@ public class CardManager : MonoBehaviour
     private List<CardInfo> medium = new List<CardInfo>();
     private List<CardInfo> hard = new List<CardInfo>();
     private List<CardInfo> cardPool = new List<CardInfo>();
+    public List<PackInfo> packInfos = new List<PackInfo>();
+    public Sprite roomPackSprite;
+    public Sprite monsterPackSprite;
 
     public void Awake()
     {
@@ -218,6 +221,17 @@ public class CardManager : MonoBehaviour
         return cardInfos;
     }
 
+    public List<CardInfo> GetUniqueCardInfos(int numberOfDraftCards, Func<CardInfo, bool> requirementFunction)
+    {
+        var cardInfos = new List<CardInfo>();
+        for (int i = 0; i < numberOfDraftCards; i++)
+        {
+            cardInfos.Add(GetUniqueRandomCardInfo(requirementFunction, cardInfos));
+        }
+
+        return cardInfos;
+    }
+
     private CardInfo GetUniqueRandomCardInfo(List<CardInfo> cardInfos)
     {
         CardInfo cardInfo;
@@ -308,5 +322,32 @@ public class CardManager : MonoBehaviour
     {
         int rngIndex = UnityEngine.Random.Range(0, cardPool.Count);
         return Instantiate(cardPool[rngIndex]);
+    }
+
+    public List<CardInfo> GetPacksInfos()
+    {
+        var cardInfos = new List<CardInfo>();
+        cardInfos.Add(GetRoomPackInfo());
+        cardInfos.Add(GetRoomPackInfo());
+        cardInfos.Add(GetMonsterPackInfo());
+        cardInfos.Add(GetMonsterPackInfo());
+        cardInfos.Add(GetMonsterPackInfo());
+        return cardInfos;
+    }
+
+    private PackInfo GetRoomPackInfo()
+    {
+        var newPack = Instantiate(packInfos[UnityEngine.Random.Range(0, packInfos.Count)]);
+        newPack.SetChoices(GetUniqueCardInfos(3, CardInfoIsRoom));
+        newPack.SetPackSprite(roomPackSprite);
+        return newPack;
+    }
+
+    private PackInfo GetMonsterPackInfo()
+    {
+        var newPack = Instantiate(packInfos[UnityEngine.Random.Range(0, packInfos.Count)]);
+        newPack.SetChoices(GetUniqueCardInfos(3, CardInfoIsLowCostMonster));
+        newPack.SetPackSprite(monsterPackSprite);
+        return newPack;
     }
 }

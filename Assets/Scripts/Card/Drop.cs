@@ -45,6 +45,27 @@ public class Drop : DisplayObject
         FindObjectOfType<DropCount>().AddToDrop();
     }
 
+    public void Remove(PackInfo packInfo)
+    {
+        for (var index = 0; index < GetSize(); index++)
+        {
+            if (packInfo.cardName.Equals(cardInfos[index].cardName))
+            {
+                cardInfos.RemoveAt(index);
+                RemoveTopOfDropCard();
+
+                if (GetSize() != 0)
+                {
+                    CreateTopOfDeckCard(cardInfos[0]);
+                }
+
+                FindObjectOfType<DropCount>().RemoveFromDrop();
+
+                break;
+            }
+        }
+    }
+
     public void ReturnCardsToDeck()
     {
         var deck = FindObjectOfType<Deck>();

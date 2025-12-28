@@ -5,6 +5,7 @@ using TMPro;
 public class Card : MonoBehaviour
 {
     private ActionManager actionManager;
+    private Drop drop;
     private Hand hand;
 
     public ActionManager GetActionManager()
@@ -27,6 +28,16 @@ public class Card : MonoBehaviour
         return hand;
     }
 
+    public Drop GetDrop()
+    {
+        if (drop == null)
+        {
+            drop = FindObjectOfType<Drop>();
+        }
+
+        return drop;
+    }
+
     public virtual void SetCardInfo(CardInfo newCardInfo) { }
 
     public virtual CardInfo GetCardInfo() { return null; }
@@ -47,5 +58,7 @@ public class Card : MonoBehaviour
         {
             DestroyImmediate(gameObject);
         }
+
+        GetDrop().Add(GetCardInfo());
     }
 }

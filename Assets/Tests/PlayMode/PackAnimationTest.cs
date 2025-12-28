@@ -51,7 +51,7 @@ public class PackAnimationTest : MonoBehaviour
         yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME);
 
         // Assert
-        Assert.AreEqual(2, hand.hand.Count);
+        Assert.AreEqual(2, hand.GetCardsInHand().Count);
     }
 
     [UnityTest]
@@ -74,6 +74,6 @@ public class PackAnimationTest : MonoBehaviour
         yield return new WaitForSeconds(LootAnimation.ANIMATION_TIME);
 
         // Assert
-        Assert.AreEqual(2, hand.hand.Count);
+        Assert.AreEqual(2, hand.GetCardsInHand().Count);
     }
 }

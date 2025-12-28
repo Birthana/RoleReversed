@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    public List<Card> hand = new List<Card>();
     public float SPACING;
     public int HANDSIZE;
     private ICardDragger cardDragger;
     private HandAnimation handAnimation;
     private GameManager gameManager;
     private Deck deck;
+    [SerializeField]private List<Card> hand = new List<Card>();
 
     public bool IsFull() { return hand.Count == HANDSIZE; }
 
@@ -42,6 +42,8 @@ public class Hand : MonoBehaviour
 
         return gameManager;
     }
+
+    public List<Card> GetCardsInHand() { return hand; }
 
     public void SetCardDragger(ICardDragger newCardDragger)
     {
@@ -163,9 +165,11 @@ public class Hand : MonoBehaviour
 
     public void DisplayHand()
     {
+
         for (int i = 0; i < hand.Count; i++)
         {
-            hand[i].transform.localPosition = GetHandPositionAt(i);
+            var position = GetHandPositionAt(i);
+            hand[i].transform.localPosition = position;
         }
 
         if (cardDragger == null)

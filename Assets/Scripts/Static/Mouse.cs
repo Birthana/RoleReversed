@@ -49,4 +49,5 @@ public static class Mouse
     public static RaycastHit2D IsOnSelection() { return IsOnLayer("Selection"); }
     public static RaycastHit2D IsOnSelect() { return IsOnLayer("Select"); }
     public static RaycastHit2D IsOnCancel() { return IsOnLayer("Cancel"); }
+    public static RaycastHit2D IsOnField() { return IsOnLayer("Field"); }
 }

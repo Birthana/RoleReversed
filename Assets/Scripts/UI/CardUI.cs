@@ -54,4 +54,14 @@ public class CardUI : MonoBehaviour
         description.fontSize = fontSize;
     }
 
+    public void SetColor(Color color)
+    {
+        if (cardSprite == null)
+        {
+            image.color = color;
+            return;
+        }
+
+        cardSprite.color = color;
+    }
 }

@@ -55,6 +55,6 @@ public class HandTest : MonoBehaviour
         List<Card> expectedCard = new List<Card>();
         expectedCard.Add(firstCard);
         expectedCard.Add(secondCard);
-        Assert.AreEqual(true, CheckCardListsAreSame(expectedCard, hand.hand));
+        Assert.AreEqual(true, CheckCardListsAreSame(expectedCard, hand.GetCardsInHand()));
     }
 }

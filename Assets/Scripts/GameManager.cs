@@ -10,25 +10,12 @@ public interface IGameManager
     public bool IsRunning();
 }
 
-public struct RoommateRoom
-{
-    public Room room;
-    public List<Monster> monsters;
-
-    public RoommateRoom(Room room, List<Monster> monsters)
-    {
-        this.room = room;
-        this.monsters = monsters;
-    }
-}
-
 public class GameManager : MonoBehaviour, IGameManager
 {
     public static readonly float ATTACK_TIMER = 0.5f;
     public Player playerPrefab;
     public Pack packPrefab;
     public Vector2 PLAYER_OFFSET;
-    public GameObject respawnCounter;
     public GameOver gameOverScreen;
     public GameObject shopButton;
     public GameObject startButton;
